@@ -78,6 +78,7 @@ PlayField::PlayField (QWidget *parent, const char *name, WFlags f)
   mapDelta_ = new MapDelta (levelMap_);
   mapDelta_->end ();
   moveInProgress_ = false;
+  moveStep_ = 0;
 
   levelChange ();
 }
