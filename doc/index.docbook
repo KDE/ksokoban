@@ -58,7 +58,7 @@ Also note that it isn't possible to push more than one gem at a time.</para>
 level is impossible to solve, then you can always use the undo feature
 to go back to a position where the mistake has not yet been made. You
 can of course also restart the level from the very beginning.</para>
-<sect1>
+<sect1 id="controls">
 <title>Controls</title>
 <para><informaltable>
 <tgroup cols="2" align="left">
@@ -84,7 +84,7 @@ can of course also restart the level from the very beginning.</para>
 <title>Epilogue</title>
 <para>For the latest info on ksokoban, see the ksokoban homepage at
 <ulink url="http://hem.passagen.se/awl/ksokoban/">http://hem.passagen.se/awl/ksokoban/</ulink></para>
-<sect1>
+<sect1 id="author">
 <title>Author</title>
 <para>ksokoban is copyright &copy; 1998 by
 Anders Widell
@@ -97,13 +97,13 @@ Anders Widell
 using the
 <ulink url="http://www.povray.org/">Povray</ulink> raytracer.</para>
 </sect1>
-<sect1>
+<sect1 id="license">
 <title>License</title>
 <para>ksokoban is distributed under the GNU general public license. See
 <ulink url="http://www.gnu.org/copyleft/gpl.html">http://www.gnu.org/copyleft/gpl.html</ulink>
 for details.</para>
 </sect1>
-<sect1>
+<sect1 id="levels">
 <title>Levels</title>
 <para>The levels were taken (with permission) from:</para>
 <para><variablelist>
@@ -142,7 +142,7 @@ for details.</para>
 </variablelist>
 </para>
 </sect1>
-<sect1>
+<sect1 id="level-authors">
 <title>Level authors</title>
 <para>The levels are copyrighted by their authors:</para>
 <para><variablelist>
