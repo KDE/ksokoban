@@ -1,24 +1,7 @@
 # KDE Config File 
 [KDE Desktop Entry]
 Name=Sokoban
-Name[ru]=óÏËÏÂÁÎ
 Comment=The japanese warehouse keeper game
-Comment[ca]=El joc japonès del vigilant del magatzem
-Comment[cs]=Japonská hra Strá¾ce skladi¹tì
-Comment[da]=Et japansk spil der styrer et lagerlokale
-Comment[de]=Das Japanische-Kistenschieber-Spiel
-Comment[es]=El juego del guardián del depósito japonés
-Comment[fi]=Japanilaisen varastonpitäjän peli
-Comment[is]=ksokoban: Japanski lagerstjóraleikurinn
-Comment[no]=Det japanske spillet der du styrer et lagerlokal
-Comment[pl]=Gra japoñskiego magazyniera
-Comment[pt]=O jogo japonês de arrumar caixotes
-Comment[pt_BR]=O jogo do almoxarife japonês
-Comment[ro]=Sokoban, un joc de strategie
-Comment[ru]=ñĞÏÎÓËÁÑ ÉÇÒÁ ÄÏÍÏÈÏÚÑÅË
-Comment[sk]=Japonská hra správca skladi¹»a
-Comment[sl]=Japonska igra o skladi¹èniku
-Comment[sv]=Det japanska spelet där du sköter en lagerlokal
 DocPath=ksokoban/index.html
 Exec=ksokoban -caption "%c"
 Icon=ksokoban.xpm
