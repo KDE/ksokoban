@@ -20,7 +20,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <ktmainwindow.h>
+#include <kmainwindow.h>
 #include <kurl.h>
 #include "Bookmark.H"
 #include "InternalCollections.H"
@@ -31,7 +31,7 @@ class QPopupMenu;
 class QFocusEvent;
 class LevelCollection;
 
-class MainWindow : public KTMainWindow {
+class MainWindow : public KMainWindow {
   Q_OBJECT
 public:
   MainWindow();

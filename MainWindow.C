@@ -66,7 +66,7 @@ MainWindow::createCollectionMenu() {
 }
 
 
-MainWindow::MainWindow() : KTMainWindow(), externalCollection_(0) {
+MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
   int i;
   QPixmap pixmap;
 
@@ -77,7 +77,7 @@ MainWindow::MainWindow() : KTMainWindow(), externalCollection_(0) {
   resize(width, height);
 
   playField_ = new PlayField(this, "playfield");
-  setView(playField_, FALSE);
+  setCentralWidget(playField_);
   playField_->show();
 
   menu_ = new KMenuBar(this, "menubar" );
@@ -189,14 +189,11 @@ Mas Sasquatch - David W. Skinner <sasquatch@bentonrea.com>\n\
 Sasquatch III - David W. Skinner <sasquatch@bentonrea.com>\n\
 Microban - David W. Skinner <sasquatch@bentonrea.com>\n\
 ");
-  help_ = helpMenu(aboutMsg.data(), false);
+  help_ = helpMenu(aboutMsg.latin1(), false);
   menu_->insertSeparator();
   menu_->insertItem(i18n("&Help"), help_);
 
-  setMenu(menu_);
   menu_->show();
-
-  updateRects();
 }
 
 MainWindow::~MainWindow()

@@ -59,7 +59,7 @@ Bookmark::Bookmark(int _num) :
   QString p;
   fileName(p);
 
-  FILE *file = fopen(p.data(), "r");
+  FILE *file = fopen(p.latin1(), "r");
   if (file == NULL) return;
 
   char buf[4096];
@@ -101,16 +101,16 @@ Bookmark::set(int _collection, int _level, int _moves, History *_h) {
   
   QString p;
   fileName(p);
-  FILE *file = fopen(p.data(), "w");
+  FILE *file = fopen(p.latin1(), "w");
   if (file == NULL) return;
   fprintf(file, "%d %d %d\n", collection_, level_, moves_);
-  fprintf(file, "%s\n", data_.data());
+  fprintf(file, "%s\n", data_.latin1());
   fclose(file);
 }
 
 bool
 Bookmark::goTo(LevelMap *_map, History *_h) {
-  return _h->load(_map, data_.data()) != 0;
+  return _h->load(_map, data_.latin1()) != 0;
 }
 
 
