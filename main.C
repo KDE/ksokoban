@@ -31,6 +31,13 @@ static const char *description = I18N_NOOP("The japanese warehouse keeper game")
 static const char *version = "v0.3.0";
 
 
+static KCmdLineOptions options[] = 
+{
+     { "+[file]", I18N_NOOP("Level collection file to load"), 0 },
+     { 0, 0, 0 } // End of options.
+};
+
+
 int
 main (int argc, char **argv)
 {
@@ -40,6 +47,7 @@ main (int argc, char **argv)
   aboutData.addAuthor("Anders Widell",0, "awl@hem.passagen.se",
 		      "http://hem.passagen.se/awl/");
   KCmdLineArgs::init( argc, argv, &aboutData );
+//   KCmdLineArgs::addCmdLineOptions(options);
 
   QApplication::setColorSpec(QApplication::ManyColor);
 
