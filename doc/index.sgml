@@ -133,7 +133,7 @@ The levels were taken (with permission) from:
 <descrip>
 <tag/xsokoban 3.3c for X-windows/
 	www: <url url="http://xsokoban.lcs.mit.edu/xsokoban.html">
-	<newline>
+	<p>
 	author: Andrew Myers
 	&lt;<htmlurl url="mailto:andru@lcs.mit.edu"
 	name="andru@lcs.mit.edu">&gt;
@@ -141,21 +141,21 @@ The levels were taken (with permission) from:
 
 <tag/MacSokoban 3.0.3 for Macintosh/
 	www: <url url="http://www.lysator.liu.se/&tilde;ingemar/games.html">
-	<newline>
+	<p>
 	author: Ingemar Ragnemalm
 	&lt;<htmlurl url="mailto:ingemar@lysator.liu.se"
 	name="ingemar@lysator.liu.se">&gt;
 
 <tag/Sokoban 2.4 for Macintosh/
 	www: <url url="http://members.aol.com/SokobanMac/">
-	<newline>
+	<p>
 	author: Scott Lindhurst
 	&lt;<htmlurl url="scottl@alumni.Princeton.EDU"
 	name="scottl@alumni.Princeton.EDU">&gt;
 
 <tag/Yoshio's sokoban page/
 	www: <url url="http://www.ne.jp/asahi/ai/yoshio/sokoban/main.htm">
-	<newline>
+	<p>
 	author: Yoshio Murase
 	&lt;<htmlurl url="mailto:yoshio@asahi.email.ne.jp"
 	name="yoshio@asahi.email.ne.jp">&gt;
@@ -189,7 +189,7 @@ The levels are copyrighted by their authors:
 	by Yoshio Murase
 	&lt;<htmlurl url="mailto:yoshio@asahi.email.ne.jp"
 	name="yoshio@asahi.email.ne.jp">&gt;
-	<newline>
+	<p>
 	See also
 	<url url="http://www.ne.jp/asahi/ai/yoshio/sokoban/main.htm">
 	where he puts a new sokoban level every week.

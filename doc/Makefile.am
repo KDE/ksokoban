@@ -1,5 +1,6 @@
 
-docs_DATA = index.html index-1.html index-2.html logotp3.gif index-3.html
+docs_DATA = index.html index-1.html index-2.html index-3.html \
+	logotp3.png
 
 docsdir = $(kde_htmldir)/en/ksokoban
 
