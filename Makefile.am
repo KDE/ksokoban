@@ -25,4 +25,4 @@ messages:
 	$(XGETTEXT) *.C -o $(podir)/ksokoban.pot
 
 install-data-local:
-	rm -rf $(kde_appsdir)/Games/ksokoban.desktop
+	rm -rf $(DESTDIR)$(kde_appsdir)/Games/ksokoban.desktop
