@@ -23,10 +23,11 @@
 #include <qimage.h>
 #include <qpixmap.h>
 
+#include <krandomsequence.h>
+
 #include "Array.H"
 
 class QPainter;
-class RandomGenerator;
 
 #define SMALL_STONES 4
 #define LARGE_STONES 6
@@ -75,8 +76,7 @@ protected:
   Array<char> rightSmallIndex_;
 
   int size_, halfSize_;
-  RandomGenerator *rng_;
-
+  KRandomSequence random;
 };
 
 #endif  /* IMAGEDATA_H */

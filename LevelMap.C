@@ -164,10 +164,12 @@ LevelMap::random (void) {
   xpos_ = 13;
   ypos_ = 9;
 
+  KRandomSequence random(0);
+
   for (int i=0; i<200; i++) {
     map (xpos_, ypos_, FLOOR);
 
-    switch (::random () & 3) {
+    switch (random.getLong(4)) {
     case 0:
       if (ypos_ > 1) ypos_--; else i--;
       break;

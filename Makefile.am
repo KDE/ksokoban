@@ -3,9 +3,9 @@ APPSDIR = $(kde_appsdir)/Games
 SUBDIRS=data images levels
 
 bin_PROGRAMS = ksokoban
-ksokoban_SOURCES = Array.C Bookmark.C History.C HtmlPrinter.C ImageData.C InternalCollections.C LevelCollection.C LevelMap.C MainWindow.C Map.C MapDelta.C ModalLabel.C Move.C MoveSequence.C PathFinder.C PlayField.C RandomGenerator.C StaticImage.C main.C
+ksokoban_SOURCES = Array.C Bookmark.C History.C HtmlPrinter.C ImageData.C InternalCollections.C LevelCollection.C LevelMap.C MainWindow.C Map.C MapDelta.C ModalLabel.C Move.C MoveSequence.C PathFinder.C PlayField.C StaticImage.C main.C
 
-noinst_HEADERS  = Array.H Bookmark.H History.H HtmlPrinter.H ImageData.H InternalCollections.H LevelCollection.H LevelMap.H MainWindow.H Map.H MapDelta.H ModalLabel.H Move.H MoveSequence.H PathFinder.H PlayField.H Queue.H RandomGenerator.H StaticImage.H
+noinst_HEADERS  = Array.H Bookmark.H History.H HtmlPrinter.H ImageData.H InternalCollections.H LevelCollection.H LevelMap.H MainWindow.H Map.H MapDelta.H ModalLabel.H Move.H MoveSequence.H PathFinder.H PlayField.H Queue.H StaticImage.H
 
 METASOURCES= MainWindow.moc ModalLabel.moc PlayField.moc
 

@@ -26,9 +26,9 @@ int
 main (int argc, char **argv)
 {
   QApplication::setColorSpec (QApplication::ManyColor);
-  kimgioRegister();
 
   KApplication *app = new KApplication (argc, argv, "ksokoban");
+  kimgioRegister();
 
   MainWindow *widget = new MainWindow ();
   app->setMainWidget (widget);

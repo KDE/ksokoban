@@ -18,18 +18,16 @@
  */
 
 #include "ImageData.H"
-#include "RandomGenerator.H"
 
 #include <assert.h>
 #include <qpainter.h>
 #include <qpixmap.h>
 
 ImageData::ImageData() : indexSize_(0), size_(0), halfSize_(0) {
-  rng_ = new RandomGenerator();
+  random.setSeed(0);
 }
 
 ImageData::~ImageData() {
-  delete rng_;
 }
 
 void
@@ -43,10 +41,10 @@ ImageData::expandIndex(int size) {
   rightSmallIndex_.resize(size);
 
   for (int i=indexSize_; i<size; i++) {
-    upperLargeIndex_[i] = rng_->next(LARGE_STONES);
-    lowerLargeIndex_[i] = rng_->next(LARGE_STONES);
-    leftSmallIndex_[i] = rng_->next(SMALL_STONES);
-    rightSmallIndex_[i] = rng_->next(SMALL_STONES);
+    upperLargeIndex_[i] = random.getLong(LARGE_STONES);
+    lowerLargeIndex_[i] = random.getLong(LARGE_STONES);
+    leftSmallIndex_[i] = random.getLong(SMALL_STONES);
+    rightSmallIndex_[i] = random.getLong(SMALL_STONES);
   }
 
   indexSize_ = size;
