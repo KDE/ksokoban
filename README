@@ -11,26 +11,6 @@ See the file AUTHORS for details about where the levels come from.
 
 ------------------------------------------------------------------------
 
-REQUIREMENTS
-============
-
-* KDE         (tested with version 1.0    )
-* Qt          (tested with version 1.41   )
-
-* zlib is used if found, but no longer required
-
-------------------------------------------------------------------------
-
-BUILDING
-========
-
-ksokoban uses standard automake/autoconf installation procedure. See
-the file INSTALL for details. You may need to specify
---with-extra-includes and/or --with-extra-libs to configure if zlib is
-not installed in a standard location.
-
-------------------------------------------------------------------------
-
 PLAYING
 =======
 
@@ -51,4 +31,3 @@ pushing any gems. The middle mouse moves in a straight line, possibly
 pushing a gem if it is in the way.
 
 The U key or the right mouse button undoes the last move.
-
