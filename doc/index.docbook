@@ -221,5 +221,5 @@ http://bentonrea.com/~sasquatch/sokoban/</ulink>
 &underGPL;
 </chapter>
 
-<![ %addindex; [ &kdedocindex; ]]>
+<![ %addindex; [ &documentation.index; ]]>
 </book>
