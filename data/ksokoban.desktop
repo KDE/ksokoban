@@ -1,6 +1,5 @@
 [Desktop Entry]
 Name=Sokoban
-Name[af]=SOKOBAN
 Name[bg]=Сокобан
 Name[eo]=Sokobano
 Name[he]=ןאבוקוס
@@ -12,7 +11,6 @@ Name[ta]=§º¡§¸¡À¡ý
 Name[uk]=Сокобан
 Name[zh_CN.GB2312]=仓库番
 Comment=The japanese warehouse keeper game
-Comment[af]=DIE JAPANESE PAKKAMER BEAMPTE SPELETJIE
 Comment[az]=Yapon ambarcı oyunu
 Comment[bg]=Японска игра за пазач на склад
 Comment[br]=C'hoari paotr ar sanailh japanat
@@ -56,8 +54,8 @@ Comment[ta]=ºôÀ¡É¢Â Àñ¼º¡¨Ä ¸¡ÅÄ÷ Å¢¨ÇÂ¡ðÎ
 Comment[tr]=Japon ambarcı oyunu
 Comment[uk]=Японська гра службовця сховища
 Comment[vi]=Trò chơi giữ kho hàng của Nhật 
+Comment[xh]=Umdlalo wogcino lwesakhiwo sokugcina izinto ezizakuthengiswa wamaJaphani
 Comment[zh_CN.GB2312]=日本的仓库保管员游戏
-Comment[zh_TW.Big5]=日本倉庫番遊戲
 DocPath=ksokoban/index.html
 Exec=ksokoban %i %m -caption "%c"
 Icon=ksokoban
