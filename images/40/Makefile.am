@@ -16,7 +16,7 @@ POVRAY=povray +L/usr/local/lib/povray3/include +L.. $(ANTIALIAS)
 
 all-local: ../bin2c data.c
 
-../bin2c: ../bin2c.c
+../bin2c: $(srcdir)/../bin2c.c
 	(cd .. && $(MAKE) bin2c)
 
 #eastwall.ppm: ../eastwall.pov ../wall_common.inc
@@ -71,7 +71,8 @@ all-local: ../bin2c data.c
 #	rm -f image.tga
 
 data.c: $(IMAGES) ../bin2c
-	../bin2c $(IMAGES)
+	list=""; for i in $(IMAGES); do list="$$list $(srcdir)/$$i"; done; \
+	../bin2c $$list
 
 DISTCLEANFILES=data.c
 EXTRA_DIST=$(IMAGES)

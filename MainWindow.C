@@ -29,7 +29,7 @@
 #include "MainWindow.H"
 #include "PlayField.H"
 
-#include "MainWindow.moc.C"
+#include "MainWindow.moc"
 
 MainWindow::MainWindow() : KTopLevelWidget() {
   int i;

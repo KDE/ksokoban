@@ -41,7 +41,9 @@ typedef unsigned long uLongf;
 static Bytef *source=NULL;       /* Buffer containing uncompressed data */
 static Bytef *dest=NULL;         /* Buffer containing compressed data */
 static uLongf sourceBufSize=0;   /* Buffer size */
+#ifdef USE_LIBZ
 static uLongf destBufSize=0;     /* Buffer size */
+#endif
 
 static uLongf sourceLen;         /* Length of uncompressed data */
 static uLongf destLen;           /* Length of compressed data */
@@ -158,9 +160,12 @@ main (argc, argv)
      char **argv;
 {
   int i;
+#ifdef USE_LIBZ
   int result;
+#endif
   unsigned j;
   char *ptr;
+  int index;
 
   programName = argv[0];
 
@@ -213,7 +218,12 @@ main (argc, argv)
     /* Output dest buffer as C source code to outfile */
     ptr = my_strrchr (argv[i], '.');
     if (ptr != NULL) *ptr = '\0';
-    fprintf (outfile, "static const unsigned char %s_data[] = {\n", argv[i]);
+    // use only the file 2name and throw away the path name
+    index = strlen(argv[i]) - 1;
+    while (index && argv[i][index] != '/') index--;
+    if (argv[i][index] == '/') index++;
+    
+    fprintf (outfile, "static const unsigned char %s_data[] = {\n", argv[i] + index);
 
     for (j=0; j<destLen-1; j++) {
       switch (j%8) {

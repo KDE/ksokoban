@@ -42,7 +42,7 @@
 #include "HtmlPrinter.H"
 #include "Bookmark.H"
 
-#include "PlayField.moc.C"
+#include "PlayField.moc"
 
 PlayField::PlayField (QWidget *parent, const char *name, WFlags f)
   : QWidget (parent, name, f) {

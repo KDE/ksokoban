@@ -8,7 +8,7 @@
 #include <qwidcoll.h>
 #include <string.h>
 
-#include "ModalLabel.moc.C"
+#include "ModalLabel.moc"
 
 static char *
 my_strchr (char *s, int c) {
