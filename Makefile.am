@@ -18,7 +18,7 @@ DISTCLEANFILES = $(BUILTSOURCES)
 EXTRA_DIST=TODO ksokoban.kdelnk NEWS
 
 %.moc.C: %.H
-	moc $*.H -o $*.moc.C
+	$(MOC) $*.H -o $*.moc.C
 
 
 AUTOMAKE_OPTIONS = foreign
