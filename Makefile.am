@@ -23,6 +23,3 @@ InternalCollections.o: levels/data.c
 
 messages:
 	$(XGETTEXT) *.C -o $(podir)/ksokoban.pot
-
-install-data-local:
-	rm -rf $(DESTDIR)$(kde_appsdir)/Games/ksokoban.desktop

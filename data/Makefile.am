@@ -1,8 +1,7 @@
 
 KDE_ICON = ksokoban
 
-apps_DATA = ksokoban.desktop
-appsdir = $(kde_appsdir)/Games/TacticStrategy
+xdg_apps_DATA = ksokoban.desktop
 
-EXTRA_DIST = $(apps_DATA) 
+EXTRA_DIST = $(xdg_apps_DATA) 
 
