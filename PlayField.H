@@ -93,12 +93,14 @@ protected:
   void focusInEvent (QFocusEvent *);
   void focusOutEvent (QFocusEvent *);
   void mousePressEvent (QMouseEvent *);
+  void wheelEvent (QWheelEvent *);
   void step (int _x, int _y);
   void push (int _x, int _y);
   virtual void timerEvent (QTimerEvent *);
 
 private:
   int width_, height_, xOffs_, yOffs_;
+  int wheelDelta_;
 
   int x2pixel (int x) { return width_*x+xOffs_; }
   int y2pixel (int y) { return height_*y+yOffs_; }

@@ -47,6 +47,7 @@
 PlayField::PlayField(QWidget *parent, const char *name, WFlags f)
   : QWidget(parent, name, f|WResizeNoErase), imageData_(0), lastLevel_(-1),
     moveSequence_(0), moveInProgress_(false), xOffs_(0), yOffs_(0),
+    wheelDelta_(0),
     levelText_(i18n("Level")), stepsText_(i18n("Steps")),
     pushesText_(i18n("Pushes")),
     statusFont_("helvetica", 18, QFont::Bold), statusMetrics_(statusFont_) {
@@ -482,15 +483,28 @@ PlayField::mousePressEvent(QMouseEvent *e) {
     }
     break;
   case MidButton:
-    push(x, y);
-    break;
-  case RightButton:
     undo();
     return;
+    break;
+  case RightButton:
+    push(x, y);
     break;
 
   default:
     return;
+  }
+}
+
+void
+PlayField::wheelEvent(QWheelEvent *e) {
+  wheelDelta_ += e->delta();
+
+  if (wheelDelta_ >= 120) {
+    wheelDelta_ %= 120;
+    redo();
+  } else if (wheelDelta_ <= -120) {
+    wheelDelta_ = -(-wheelDelta_ % 120);
+    undo();
   }
 }
 
