@@ -14,6 +14,7 @@ Comment[pt_BR]=O jogo do fiscal de estoques japonês
 Comment[ro]=Sokoban, un joc de strategie
 Comment[ru]=ñĞÏÎÓËÁÑ ÉÇÒÁ ÄÏÍÏÈÏÚÑÅË
 Comment[sk]=Japonská hra správca skladi¹»a
+Comment[sl]=Japonska igra o skladi¹èniku
 Comment[sv]=Det japanska spelet där du sköter en lagerlokal
 DocPath=ksokoban/index.html
 Exec=ksokoban -caption "%c"
