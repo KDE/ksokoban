@@ -19,6 +19,7 @@
 
 #include <assert.h>
 #include <string.h>
+#include <ctype.h>
 
 #include "Move.H"
 #include "LevelMap.H"
@@ -54,46 +55,58 @@ Move::finish () {
   finished_ = true;
 }
 
-char *
-Move::save (char *s) {
+void
+Move::save (QString &s) {
+  static const char move1[] = "lrud";
+  static const char push1[] = "LRUD";
+  static const char move2[] = "wens";
+  static const char push2[] = "WENS";
+
   assert (finished_);
   int x=startX ();
   int y=startY ();
   int pos=1;
 
-  int x2, y2, dist;
-  char dir;
-  bool push;
+  int x2, y2, dist=0;
+  int dir=-1;
+  bool push=false;
   while (pos<moveIndex_) {
+    if (dir >= 0) s += push ? push1[dir] : move1[dir];
+
     x2 = moves_[pos]&0x7f;
     y2 = (moves_[pos]>>8)&0x7f;
     push = (moves_[pos++]&0x80)==0x80;
 
     if (x2<x) {
-      dir = push ? 'L' : 'l';
+      dir = 0;
       dist = x-x2;
     } else if (x2>x) {
-      dir = push ? 'R' : 'r';
+      dir = 1;
       dist = x2-x;
     } else if (y2<y) {
-      dir = push ? 'U' : 'u';
+      dir = 2;
       dist = y-y2;
     } else if (y2>y) {
-      dir = push ? 'D' : 'd';
+      dir = 3;
       dist = y2-y;
+    } else {
+      assert (0);
+    }
+    assert (dist > 0);
+
+    if (dist > 1) {
+      if (dist>=10) {
+	s += '0' + (dist/10);
+	dist %= 10;
+      }
+      s += '0' + dist;
     }
 
-    *s++ = dir;
-    if (dist>=10) {
-      *s++ = '0' + (dist/10);
-      dist %= 10;
-    }
-    *s++ = '0' + dist;
+    x = x2;
+    y = y2;
   }
 
-  *s++ = '*';
-
-  return s;
+  if (dir >= 0) s += push ? push2[dir] : move2[dir];
 }
 
 const char *
@@ -103,44 +116,60 @@ Move::load (const char *s) {
   int y=finalY ();
 
   int dist;
-  bool p;
+  bool last=false;
   char c;
-  while ((c = *s++) != '*') {
-    if (*s < '0' || *s > '9') return 0;
-    dist = (*s++) - '0';
-    if (*s >= '0' && *s <= '9') dist = 10*dist + (*s++) - '0';
-    p = false;
-    switch (c) {
-    case 'L':
-      p = true;
+  while ((c = *s++) != '\0') {
+    dist = 1;
+    if (c >= '0' && c <= '9') {
+      dist = c - '0';
+      c = *s++;
+      if (c >= '0' && c <= '9') {
+	dist = 10*dist + c - '0';
+	c = *s++;
+      }
+    }
+
+    switch (tolower (c)) {
+    case 'w':
+      last = true;
     case 'l':
       x -= dist;
       break;
-    case 'R':
-      p = true;
+    case 'e':
+      last = true;
     case 'r':
       x += dist;
       break;
-    case 'U':
-      p = true;
+    case 'n':
+      last = true;
     case 'u':
       y -= dist;
       break;
-    case 'D':
-      p = true;
+    case 's':
+      last = true;
     case 'd':
       y += dist;
       break;
 
     default:
+      //printf ("2><>%s\n", s);
+      //abort ();
       return 0;
     }
 
-    if (x>=0 && x<=19 && y>=0 && y<=19) return 0;
+    if (x<=0 || x>=MAX_X || y<=0 && y>=MAX_Y) {
+      //printf ("x: %d, y:%d ><>%s\n", x, y, s);
+      //abort ();
 
-    if (p) push (x, y);
+      return 0;
+    }
+
+    if (isupper (c)) push (x, y);
     else move (x, y);
+
+    if (last) break;
   }
+  finish ();
 
   return s;
 }

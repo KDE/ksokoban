@@ -17,7 +17,7 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-//#include <stdio.h>
+#include <stdio.h>
 #include <unistd.h>
 
 #include <qwidget.h>
@@ -40,6 +40,7 @@
 #include "MoveSequence.H"
 
 #include "HtmlPrinter.H"
+#include "Bookmark.H"
 
 #include "PlayField.moc.C"
 
@@ -69,14 +70,11 @@ PlayField::PlayField (QWidget *parent, const char *name, WFlags f)
   width_  = imageData_->width ();
   height_ = imageData_->height ();
 
-  //pf.search (levelMap_, 10, 11);
-
   history_   = new History;
 
   setFocus ();
 
   setBackgroundPixmap (*(imageData_->background ()));
-  //setFixedSize (width_*(MAX_Y+1), height_*(MAX_Y+1));
 
   levelMap_  = new LevelMap;
   mapDelta_ = new MapDelta (levelMap_);
@@ -85,6 +83,7 @@ PlayField::PlayField (QWidget *parent, const char *name, WFlags f)
   moveSequence_ = 0;
 
   levelChange ();
+  repaint (false);
 }
 
 PlayField::~PlayField () {
@@ -101,8 +100,9 @@ void
 PlayField::emitAll () {
   static char levelText[20];
 
-  emit collectionChanged (levelMap_->setName (set ()));
-  sprintf (levelText, "Level: %d", levelMap_->level ()+1);
+  emit collectionChanged (levelMap_->collectionName (collection ()));
+  QString str = i18n("Level:");
+  sprintf (levelText, (const char *) (str + " %d"), levelMap_->level ()+1);
   emit levelChanged (levelText);
   emitMoves (true);
 }
@@ -115,14 +115,16 @@ PlayField::emitMoves (bool force) {
 
   if (lastMoves != moves || force) {
     static char moveBuf[20];
-    sprintf (moveBuf, "Moves: %d", moves);
+    QString str = i18n("Moves:");
+    sprintf (moveBuf, (const char *) (str +" %d"), moves);
     emit movesChanged (moveBuf);
     lastMoves = moves;
   }
 
   if (lastPushes != pushes || force) {
     static char pushBuf[20];
-    sprintf (pushBuf, "Pushes: %d", pushes);
+    QString str = i18n("Pushes:");
+    sprintf (pushBuf, (const char *) (str + " %d"), pushes);
     emit pushesChanged (pushBuf);
     lastPushes = pushes;
   }
@@ -150,9 +152,6 @@ PlayField::levelChange () {
     erase (0, y2pixel (maxY_+1), (MAX_X+1)*width_, (MAX_Y+1)*height_ - y2pixel (maxY_+1));
 
   emitAll ();
-  //printf ("width: %d, height: %d\n", width_, height_);
-  //printf ("xoffs: %d, yoffs: %d\n", xOffs_, yOffs_);
-  repaint (false);
 }
 
 void
@@ -203,9 +202,6 @@ PlayField::paintDelta () {
 
 void
 PlayField::paintEvent (QPaintEvent *) {
-  //printf ("PlayField::paintEvent\n");
-  // resize (width_*(MAX_Y+1), height_*(MAX_Y+1));
-
   for (int y=levelMap_->minY(); y<=levelMap_->maxY(); y++) {
     for (int x=levelMap_->minX(); x<=levelMap_->maxX(); x++) {
       paintSquare (x, y);
@@ -255,16 +251,15 @@ PlayField::timerEvent (QTimerEvent *) {
   else while (moveSequence_->next ()) if (levelMap_->completed ()) break;
   mapDelta_->end ();
 
-  paintDelta ();
-
-  if (levelMap_->completed ()) {
-    stopMoving ();
-    ModalLabel::message ("Level completed", this);
-    nextLevel ();
-    return;
-  }
-
-  if (!more) stopMoving ();
+  if (more) {
+    paintDelta ();
+    if (levelMap_->completed ()) {
+      stopMoving ();
+      ModalLabel::message (i18n("Level completed"), this);
+      nextLevel ();
+      return;
+    }
+  } else stopMoving ();
 }
 
 void
@@ -300,16 +295,6 @@ PlayField::move (int _x, int _y) {
 
     startMoving (m);
     
-#if 0
-    drawImage (oldX, oldY,
-	       levelMap_->goal (oldX, oldY) ?
-	       imageData_->goal () :
-	       imageData_->floor ());
-    drawImage (x, y,
-	       levelMap_->goal (x, y) ?
-	       imageData_->saveman () :
-	       imageData_->man ());
-#endif
   }
 }
 
@@ -339,36 +324,13 @@ PlayField::push (int _x, int _y) {
   if (x!=oldX || y!=oldY) {
     Move *m = new Move (oldX, oldY);
 
-#if 0
-    drawImage (oldX, oldY,
-	       levelMap_->goal (oldX, oldY) ?
-	       imageData_->goal () :
-	       imageData_->floor ());
-    drawImage (x, y,
-	       levelMap_->goal (x, y) ?
-	       imageData_->saveman () :
-	       imageData_->man ());
-#endif
     if (objX!=oldX || objY!=oldY) m->move (objX, objY);
 
     if (objX!=x || objY!=y) {
       m->push (x, y);
-#if 0
-      drawImage (x+dx, y+dy, levelMap_->goal (x+dx, y+dy) ?
-		 imageData_->treasure () :
-		 imageData_->object ());
-#endif
       
       objX += dx;
       objY += dy;
-#if 0
-      if (objX!=x || objY!=y) {
-	drawImage (objX, objY,
-		   levelMap_->goal (objX, objY) ?
-		   imageData_->goal () :
-		   imageData_->floor ());
-      }
-#endif
     }
     m->finish ();
     history_->add (m);
@@ -405,7 +367,18 @@ PlayField::keyPressEvent (QKeyEvent * e) {
     else if (e->state () & ShiftButton) push (MAX_X, y);
     else push (x+1, y);
     break;
-    /*
+
+  case Key_Q:
+    KApplication::getKApplication ()->quit ();
+    break;
+
+#if 0
+  case Key_X:
+    levelMap_->random ();
+    levelChange ();
+    repaint (false);
+    break;
+
   case Key_R:
     level (levelMap_->level ());
     return;
@@ -427,17 +400,31 @@ PlayField::keyPressEvent (QKeyEvent * e) {
     repaint (false);
     return;
     break;
-    */
-#if 0
+
   case Key_S:
     {
-      char buf[1024];
-      if (!(history_->save (buf))) abort ();
-      printf ("%s\n", buf);
+      QString buf;
+      history_->save (buf);
+      printf ("%s\n", (char *) buf);
     }
     return;
     break;
+
+  case Key_L:
+    stopMoving ();
+    history_->clear ();
+    level (levelMap_->level ());
+    {
+      char buf[4096]="r1*D1*D1*r1*@r1*D1*";
+      //scanf ("%s", buf);
+      history_->load (levelMap_, buf);
+    }
+    emitMoves (true);
+    repaint (false);
+    return;
+    break;
 #endif
+
 
   case Key_Print:
     HtmlPrinter::printHtml (levelMap_);
@@ -497,32 +484,34 @@ PlayField::setSize () {
 void
 PlayField::nextLevel () {
   if (levelMap_->level ()+1 >= levelMap_->noOfLevels ()) {
-    ModalLabel::message ("\
-This is the last level in
-the current collection.", this);
+    ModalLabel::message (i18n("\
+This is the last level in\n\
+the current collection."), this);
     return;
   }
   if (levelMap_->level () >= levelMap_->completedLevels ()) {
-    ModalLabel::message ("\
-You have not completed
-this level yet.", this);
+    ModalLabel::message (i18n("\
+You have not completed\n\
+this level yet."), this);
     return;
   }
 
   level (levelMap_->level ()+1);
   levelChange ();
+  repaint (false);
 }
 
 void
 PlayField::previousLevel () {
   if (levelMap_->level () <= 0) {
-    ModalLabel::message ("\
-This is the first level in
-the current collection.", this);
+    ModalLabel::message (i18n("\
+This is the first level in\n\
+the current collection."), this);
     return;
   }
   level (levelMap_->level ()-1);
   levelChange ();
+  repaint (false);
 }
 
 void
@@ -540,6 +529,7 @@ PlayField::redo () {
 void
 PlayField::restartLevel () {
   stopMoving ();
+  history_->clear ();
   level (levelMap_->level ());
   emitMoves (true);
   repaint (false);
@@ -571,12 +561,12 @@ PlayField::resolution (int res) {
 }
 
 void
-PlayField::changeSet (int set)
+PlayField::changeCollection (int collection)
 {
-  if (levelMap_->set () == set) return;
-  levelMap_->changeSet (set);
-  emitAll ();
+  if (levelMap_->collection () == collection) return;
+  levelMap_->changeCollection (collection);
   levelChange ();
+  repaint (false);
 }
 
 void
@@ -586,3 +576,19 @@ PlayField::changeAnim (int num)
 
   animDelay_ = num;
 }
+
+void
+PlayField::setBookmark (Bookmark *bm) {
+  bm->set (collection (), levelMap_->level (), levelMap_->totalMoves (), history_);
+}
+
+void
+PlayField::goToBookmark (Bookmark *bm) {
+  levelMap_->changeCollection (bm->collection ());
+  level (bm->level ());
+  levelChange ();
+  if (!bm->goTo (levelMap_, history_)) fprintf (stderr, "Warning: bad bookmark\n");
+  emitAll ();
+  repaint (false);
+}
+

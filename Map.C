@@ -67,3 +67,94 @@ Map::fillFloor (int x, int y) {
   fillFloor (x-1, y);
   fillFloor (x+1, y);
 }
+
+bool
+Map::move (int _x, int _y) {
+  assert (!badCoords (xpos_, ypos_));
+  assert (empty (xpos_, ypos_));
+
+  int xd=0, yd=0;
+  if (_x < xpos_) xd = -1;
+  if (_x > xpos_) xd =  1;
+  if (_y < ypos_) yd = -1;
+  if (_y > ypos_) yd =  1;
+  if (badDelta (xd, yd) || badCoords (_x, _y)) return false;
+
+  int x=xpos_, y=ypos_;
+  do {
+    x += xd;
+    y += yd;
+    if (!empty (x, y)) return false;
+  } while (!(x==_x && y==_y));
+
+  xpos_ = _x;
+  ypos_ = _y;
+
+  return true;
+}
+
+bool
+Map::push (int _x, int _y) {
+  assert (!badCoords (xpos_, ypos_));
+  assert (empty (xpos_, ypos_));
+
+  int xd=0, yd=0;
+  if (_x < xpos_) xd = -1;
+  if (_x > xpos_) xd =  1;
+  if (_y < ypos_) yd = -1;
+  if (_y > ypos_) yd =  1;
+  if (badDelta (xd, yd) || badCoords (_x+xd, _y+yd)) return false;
+
+  int x=xpos_+xd, y=ypos_+yd;
+  if (!object (x, y)) return false;
+  if (!empty (_x+xd, _y+yd)) return false;
+
+  while (!(x==_x && y==_y)) {
+    x += xd;
+    y += yd;
+    if (!empty (x, y)) return false;
+  }
+
+  clearMap (xpos_+xd, ypos_+yd, OBJECT);
+  setMap (_x+xd, _y+yd, OBJECT);
+
+  xpos_ = _x;
+  ypos_ = _y;
+
+  return true;
+}
+
+bool
+Map::unmove (int _x, int _y) {
+  return Map::move (_x, _y);
+}
+
+bool
+Map::unpush (int _x, int _y) {
+  assert (!badCoords (xpos_, ypos_));
+  assert (empty (xpos_, ypos_));
+
+  int xd=0, yd=0;
+  if (_x < xpos_) xd = -1;
+  if (_x > xpos_) xd =  1;
+  if (_y < ypos_) yd = -1;
+  if (_y > ypos_) yd =  1;
+  if (badDelta (xd, yd) || badCoords (_x+xd, _y+yd)) return false;
+
+  int x=xpos_, y=ypos_;
+  if (!object (x-xd, y-yd)) return false;
+
+  do {
+    x += xd;
+    y += yd;
+    if (!empty (x, y)) return false;
+  } while (!(x==_x && y==_y));
+
+  clearMap (xpos_-xd, ypos_-yd, OBJECT);
+  setMap (_x-xd, _y-yd, OBJECT);
+
+  xpos_ = _x;
+  ypos_ = _y;
+
+  return true;
+}

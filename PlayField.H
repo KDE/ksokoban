@@ -30,6 +30,7 @@ class Move;
 #include "PathFinder.H"
 
 class History;
+class Bookmark;
 
 class PlayField : public QWidget {
   Q_OBJECT
@@ -42,14 +43,15 @@ public:
   int resolution () { return resolution_; }
   void resolution (int res);
   int animDelay () { return animDelay_; }
-  int noOfSets () { return levelMap_->noOfSets (); }
-  const char *setName (int i) { return levelMap_->setName (i); }
+  int noOfCollections () { return levelMap_->noOfCollections (); }
+  const char *collectionName (int i) { return levelMap_->collectionName (i); }
 
   void setSize ();
   void level (int _l) { levelMap_->level (_l); }
-  int set () { return levelMap_->set (); }
-  void levelChange ();
+  int  collection () { return levelMap_->collection (); }
   void emitAll ();
+  void setBookmark (Bookmark *bm);
+  void goToBookmark (Bookmark *bm);
 
 public slots:
   void nextLevel ();
@@ -57,7 +59,7 @@ public slots:
   void undo ();
   void redo ();
   void restartLevel ();
-  void changeSet (int set);
+  void changeCollection (int collection);
   void changeAnim (int num);
 
 signals:
@@ -77,6 +79,7 @@ protected:
   PathFinder pathFinder_;
   int        animDelay_;
 
+  void levelChange ();
   void paintSquare (int x, int y);
   void paintDelta ();
   void paintEvent (QPaintEvent *);

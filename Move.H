@@ -21,6 +21,7 @@
 #define MOVE_H
 
 #include <assert.h>
+#include <qstring.h>
 
 #include "Map.H"
 class LevelMap;
@@ -105,7 +106,7 @@ public:
   int finalY () { return (moves_[moveIndex_-1]>>8)&0x7f; }
 
 
-  char *save (char *_str);
+  void save (QString &_str);
   const char *load (const char *_str);
   bool redo (LevelMap *map);
   bool undo (LevelMap *map);

@@ -21,12 +21,14 @@
 #define MAINWINDOW_H
 
 #include <ktopwidget.h>
+#include "Bookmark.H"
 
 class KMenuBar;
 class PlayField;
 class QPopupMenu;
 class QFocusEvent;
 class KStatusBar;
+
 
 class MainWindow : public KTopLevelWidget
 {
@@ -37,8 +39,10 @@ public:
 
 public slots:
   void changeGfx (int id);
-  void updateSetMenu (int id);
+  void updateCollectionMenu (int id);
   void updateAnimMenu (int id);
+  void setBookmark (int id);
+  void goToBookmark (int id);
 
   void changeCollection (const char *text);
   void changeLevel (const char *text);
@@ -51,18 +55,23 @@ protected:
 private:
   KMenuBar        *menu_;
   PlayField       *playField_;
+  Bookmark        *bookmarks_[10];
   
   QPopupMenu      *game_;
-  QPopupMenu      *set_;
+  QPopupMenu      *collection_;
   QPopupMenu      *graphics_;
   QPopupMenu      *animation_;
+  QPopupMenu      *bookmarkMenu_;
+  QPopupMenu      *setBM_;
+  QPopupMenu      *goToBM_;
   QPopupMenu      *help_;
-  int              checkedSet_;
+  int              checkedCollection_;
   int              checkedGfx_;
   int              checkedAnim_;
   KStatusBar      *statusBar_;
 
   void updateGfxMenu (int id);
+  void updateBookmark (int num);
 
 };
 

@@ -21,6 +21,7 @@
 #define HISTORY_H
 
 #include <qlist.h>
+#include <qstring.h>
 
 #include "Move.H"
 class MoveSequence;
@@ -52,8 +53,8 @@ public:
    */
   void clear ();
 
-  char *save (char *_str);
-  const char *load (const char *_str, int _x, int _y);
+  void save (QString &_str);
+  const char *load (LevelMap *map, const char *_str);
   bool redo (LevelMap *map);
   MoveSequence *deferRedo (LevelMap *map);
   bool undo (LevelMap *map);

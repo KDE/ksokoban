@@ -17,6 +17,8 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+//#include <stdlib.h>
+
 #include <kconfig.h>
 #include <kapp.h>
 
@@ -52,17 +54,17 @@ static const int collection_save_id[] = {
 };
 
 int
-LevelMap::configSet2Real (int set) {
+LevelMap::configCollection2Real (int collection) {
   for (int i=0; i < (int) (sizeof (collection_save_id) / sizeof (int)); i++) {
-    if (collection_save_id[i] == set) return i;
+    if (collection_save_id[i] == collection) return i;
   }
   return 0;
 }
 
 int
-LevelMap::realSet2Config (int set) {
-  assert (set < (int) (sizeof (collection_save_id) / sizeof (int)));
-  return collection_save_id[set];
+LevelMap::realCollection2Config (int collection) {
+  assert (collection < (int) (sizeof (collection_save_id) / sizeof (int)));
+  return collection_save_id[collection];
 }
 
 LevelMap::LevelMap () {
@@ -76,12 +78,12 @@ LevelMap::LevelMap () {
   data = (char *) realloc (data, datasize);
   if (data == NULL) abort ();
 
-  totalLevels_ = noOfSets_ = 0;
+  totalLevels_ = noOfCollections_ = 0;
   bool newLevel=true;
   for (int pos=0; pos<datasize; pos++) {
     while (newLevel && pos < datasize-1 && data[pos] == '\n') pos++;
     if (newLevel && isalpha (data[pos])) {
-      noOfSets_++;
+      noOfCollections_++;
     }
     //if (data[pos] == '\n' && data[pos-1] == '\n') data[pos] = '\0';
     if (data[pos] == '\0') {
@@ -91,50 +93,50 @@ LevelMap::LevelMap () {
       newLevel = false;
     }
   }
-  //printf ("totalLevels_ = %d noOfSets_ = %d\n", totalLevels_, noOfSets_);
+  //printf ("totalLevels_ = %d noOfCollections_ = %d\n", totalLevels_, noOfCollections_);
 
   levelIndex_ = new char *[totalLevels_];
-  setNames_   = new char *[noOfSets_];
-  setIndex_   = new int[noOfSets_];
-  setSize_    = new int[noOfSets_];
-  setCurrentLevel_    = new int[noOfSets_];
-  setMaxLevel_    = new int[noOfSets_];
+  collectionNames_   = new char *[noOfCollections_];
+  collectionIndex_   = new int[noOfCollections_];
+  collectionSize_    = new int[noOfCollections_];
+  collectionCurrentLevel_    = new int[noOfCollections_];
+  collectionMaxLevel_    = new int[noOfCollections_];
 
   char *pos=data;
-  int set=0, setSize=0;
+  int collection=0, collectionSize=0;
   for (int lev=0; lev<totalLevels_; lev++) {
     while (*pos == '\n') pos++;
     if (isalpha (*pos)) {
-      setNames_[set] = pos;
-      setIndex_[set] = lev;
-      if (set) {
-	setSize_[set-1] = setSize;
-	//printf ("setSize[%d]=%d\n", set-1, setSize);
+      collectionNames_[collection] = pos;
+      collectionIndex_[collection] = lev;
+      if (collection) {
+	collectionSize_[collection-1] = collectionSize;
+	//printf ("collectionSize[%d]=%d\n", collection-1, collectionSize);
       }
-      setSize = 0;
-      set++;
+      collectionSize = 0;
+      collection++;
       while (*pos != '\n') pos++;
       *pos++ = '\0';
     }
     levelIndex_[lev] = pos;
     while (*pos != '\0') pos++;
     pos++;
-    setSize++;
+    collectionSize++;
   }
-  if (set) {
-    setSize_[set-1] = setSize;
-    //printf ("setSize[%d]=%d\n", set-1, setSize);
+  if (collection) {
+    collectionSize_[collection-1] = collectionSize;
+    //printf ("collectionSize[%d]=%d\n", collection-1, collectionSize);
   }
   
-  for (int i=0; i<noOfSets_; i++) {
+  for (int i=0; i<noOfCollections_; i++) {
     char buf[256];
     unsigned long x;
 
     assert (i < (int) (sizeof (collection_save_id) / sizeof (int)));
-    sprintf (buf, "level%d", realSet2Config (i));
-    setCurrentLevel_[i] = cfg->readNumEntry (buf, 0);
+    sprintf (buf, "level%d", realCollection2Config (i));
+    collectionCurrentLevel_[i] = cfg->readNumEntry (buf, 0);
 
-    sprintf (buf, "status%d", realSet2Config (i));
+    sprintf (buf, "status%d", realCollection2Config (i));
 
     x = cfg->readUnsignedLongNumEntry (buf, 0);
 
@@ -149,34 +151,34 @@ LevelMap::LevelMap () {
 
     //printf ("%d: %d %d %d\n", i, (x>>26) & 0x3ful, x>>16 & 0x3ff, x & 0xfffful);
 
-    setMaxLevel_[i] = x>>16 & 0x3ff;
-    //printf (":::%d\n", setMaxLevel_[3]);
-    if (((x>>26) & 0x3ful) != (unsigned long) realSet2Config (i)) setMaxLevel_[i] = 0;
-    if ((x & 0xfffful) != (unsigned long) getuid ()) setMaxLevel_[i] = 0;
-    if (setMaxLevel_[i] >= setSize_[i]) setMaxLevel_[i] = 0;
-    if (setCurrentLevel_[i] > setMaxLevel_[i]) setCurrentLevel_[i] = setMaxLevel_[i];
-    if (!cfg->hasKey (buf)) setMaxLevel_[i] = 0;
+    collectionMaxLevel_[i] = x>>16 & 0x3ff;
+    //printf (":::%d\n", collectionMaxLevel_[3]);
+    if (((x>>26) & 0x3ful) != (unsigned long) realCollection2Config (i)) collectionMaxLevel_[i] = 0;
+    if ((x & 0xfffful) != (unsigned long) getuid ()) collectionMaxLevel_[i] = 0;
+    if (collectionMaxLevel_[i] >= collectionSize_[i]) collectionMaxLevel_[i] = 0;
+    if (collectionCurrentLevel_[i] > collectionMaxLevel_[i]) collectionCurrentLevel_[i] = collectionMaxLevel_[i];
+    if (!cfg->hasKey (buf)) collectionMaxLevel_[i] = 0;
   }
 
-  changeSet (configSet2Real (cfg->readNumEntry ("collection", 0)));
+  changeCollection (configCollection2Real (cfg->readNumEntry ("collection", 0)));
 }
 
 LevelMap::~LevelMap () {
   KConfig *cfg=(KApplication::getKApplication ())->getConfig ();
   char buf[256];
 
-  for (int i=0; i<noOfSets_; i++) {
-    sprintf (buf, "level%d", realSet2Config (i));
-    cfg->writeEntry (buf, setCurrentLevel_[i], true, false, false);
+  for (int i=0; i<noOfCollections_; i++) {
+    sprintf (buf, "level%d", realCollection2Config (i));
+    cfg->writeEntry (buf, collectionCurrentLevel_[i], true, false, false);
   }
-  cfg->writeEntry ("collection", realSet2Config (set ()));
+  cfg->writeEntry ("collection", realCollection2Config (collection ()));
   
 
-  delete [] setCurrentLevel_;
-  delete [] setMaxLevel_;
-  delete [] setSize_;
-  delete [] setIndex_;
-  delete [] setNames_;
+  delete [] collectionCurrentLevel_;
+  delete [] collectionMaxLevel_;
+  delete [] collectionSize_;
+  delete [] collectionIndex_;
+  delete [] collectionNames_;
   delete [] levelIndex_;
   free (data);
 }
@@ -214,10 +216,11 @@ LevelMap::printMap (void) {
 
 
 void
-LevelMap::changeSet (int _set)
+LevelMap::changeCollection (int _collection)
 {
-  if (_set < 0 || _set >= noOfSets_) _set = 0;
-  set_ = _set;
+  if (_collection < 0 || _collection >= noOfCollections_) _collection = 0;
+  if (collection_ == _collection) return;
+  collection_ = _collection;
   level (level ());
 }
 
@@ -229,20 +232,20 @@ LevelMap::level (int _level) {
   maxX_ = maxY_ = 0;
   totalMoves_ = totalPushes_ = 0;
 
-  //printf ("set_: %d, setMaxLevel_: %d\n", set_, setMaxLevel_[set_]);
+  //printf ("collection_: %d, collectionMaxLevel_: %d\n", collection_, collectionMaxLevel_[collection_]);
   //printf ("level(%d): completedLevels=%d, noOfLevels=%d\n", _level, completedLevels (), noOfLevels ());
 
   if (_level >= completedLevels ()) _level = completedLevels ();
   if (_level >= noOfLevels ()) _level = noOfLevels ()-1;
   if (_level < 0) _level = 0;
-  setCurrentLevel_[set ()] = _level;
+  collectionCurrentLevel_[collection ()] = _level;
 
   //printf ("level: %d\n", _level);
 
   clearMap ();
 
   int x=0, y=0;
-  for (char *pos=levelIndex_[_level+setIndex_[set ()]]; *pos; pos++) {
+  for (char *pos=levelIndex_[_level+collectionIndex_[collection ()]]; *pos; pos++) {
     switch (*pos) {
     case '\n':
     case '\t':
@@ -321,26 +324,10 @@ LevelMap::level (int _level) {
 
   assert (empty (xpos_, ypos_));
   assert (!completed ());
-  //printf ("objects: %d\n", objectsLeft_);
 
   fillFloor (xpos_, ypos_);
 
-  //printf ("maxX: %d, minX: %d\n", maxX_, minX_);
-  //printf ("maxY: %d, minY: %d\n", maxY_, minY_);
-
   //emit levelChange ();
-
-#if 0
-  printMap ();
-  move (11, 11);
-  printMap ();
-  move (6, 11);
-  printMap ();
-  push (4, 11);
-  printMap ();
-  unpush (17, 11);
-  printMap ();
-#endif
 }
 
 
@@ -359,70 +346,32 @@ LevelMap::distance (int x1, int y1, int x2, int y2) {
 
 bool
 LevelMap::move (int _x, int _y) {
-  assert (!badCoords (xpos_, ypos_));
-  assert (empty (xpos_, ypos_));
+  int oldX=xpos_, oldY=ypos_;
 
-  int xd=0, yd=0;
-  if (_x < xpos_) xd = -1;
-  if (_x > xpos_) xd =  1;
-  if (_y < ypos_) yd = -1;
-  if (_y > ypos_) yd =  1;
-  if (badDelta (xd, yd) || badCoords (_x, _y)) return false;
+  bool success = Map::move (_x, _y);
 
-  int x=xpos_, y=ypos_;
-  do {
-    x += xd;
-    y += yd;
-    if (!empty (x, y)) return false;
-  } while (!(x==_x && y==_y));
+  totalMoves_ += distance (oldX, oldY, xpos_, ypos_);
 
-  totalMoves_ += distance (xpos_, ypos_, _x, _y);
-
-  xpos_ = _x;
-  ypos_ = _y;
-
-  return true;
+  return success;
 }
 
 bool
 LevelMap::push (int _x, int _y) {
-  assert (!badCoords (xpos_, ypos_));
-  assert (empty (xpos_, ypos_));
+  int oldX=xpos_, oldY=ypos_;
 
-  int xd=0, yd=0;
-  if (_x < xpos_) xd = -1;
-  if (_x > xpos_) xd =  1;
-  if (_y < ypos_) yd = -1;
-  if (_y > ypos_) yd =  1;
-  if (badDelta (xd, yd) || badCoords (_x+xd, _y+yd)) return false;
+  bool success = Map::push (_x, _y);
 
-  int x=xpos_+xd, y=ypos_+yd;
-  if (!object (x, y)) return false;
-  if (!empty (_x+xd, _y+yd)) return false;
-
-  while (!(x==_x && y==_y)) {
-    x += xd;
-    y += yd;
-    if (!empty (x, y)) return false;
-  }
-
-  clearMap (xpos_+xd, ypos_+yd, OBJECT);
-  setMap (_x+xd, _y+yd, OBJECT);
-
-  int d = distance (xpos_, ypos_, _x, _y);
+  int d = distance (oldX, oldY, xpos_, ypos_);
   totalMoves_ += d;
   totalPushes_ += d;
 
-  xpos_ = _x;
-  ypos_ = _y;
-
-  if (completed () && setMaxLevel_[set ()] <= level () && setSize_[set ()] > level ()+1) {
+  if (completed () && collectionMaxLevel_[collection ()] <= level () && collectionSize_[collection ()] > level ()+1) {
     char buf[256];
     unsigned long x=(((unsigned long) getuid ()) & 0xfffful);
-    x |= ((unsigned long) realSet2Config (set ()))<<26;
+    x |= ((unsigned long) realCollection2Config (collection ()))<<26;
     x |= ((unsigned long) (level ()+1))<<16;
 
-    setMaxLevel_[set ()] = level ()+1;
+    collectionMaxLevel_[collection ()] = level ()+1;
 
     x = forward (x, 0x608aef3ful, 0x0dul, 0xfb00ef3bul);
     x = forward (x, 0x8bb02c07ul, 0x12ul, 0x2a37dd29ul);
@@ -433,59 +382,89 @@ LevelMap::push (int _x, int _y) {
     x = forward (x, 0xd4d657b4ul, 0x1ful, 0x7e129575ul);
     x = forward (x, 0x80ff0b94ul, 0x0eul, 0x92fc153dul);
 
-    sprintf (buf, "status%d", realSet2Config (set ()));
+    sprintf (buf, "status%d", realCollection2Config (collection ()));
 
-    (KApplication::getKApplication ())->getConfig ()->writeEntry (buf, x, true, false, false);
-    (KApplication::getKApplication ())->getConfig ()->sync ();
+    KConfig *cfg=(KApplication::getKApplication ())->getConfig ();
+    cfg->writeEntry (buf, x, true, false, false);
+    cfg->sync ();
   }
 
-  return true;
+  return success;
 }
 
 bool
 LevelMap::unmove (int _x, int _y) {
-  int moves=totalMoves_;
   int oldX=xpos_, oldY=ypos_;
-  bool success = move (_x, _y);
 
-  if (!success) return false;
+  bool success = Map::unmove (_x, _y);
 
-  totalMoves_ = moves - distance (xpos_, ypos_, oldX, oldY);
+  totalMoves_ -= distance (oldX, oldY, xpos_, ypos_);
 
-  return true;
+  return success;
 }
 
 bool
 LevelMap::unpush (int _x, int _y) {
-  assert (!badCoords (xpos_, ypos_));
-  assert (empty (xpos_, ypos_));
+  int oldX=xpos_, oldY=ypos_;
 
-  int xd=0, yd=0;
-  if (_x < xpos_) xd = -1;
-  if (_x > xpos_) xd =  1;
-  if (_y < ypos_) yd = -1;
-  if (_y > ypos_) yd =  1;
-  if (badDelta (xd, yd) || badCoords (_x+xd, _y+yd)) return false;
+  bool success = Map::unpush (_x, _y);
 
-  int x=xpos_, y=ypos_;
-  if (!object (x-xd, y-yd)) return false;
-
-  do {
-    x += xd;
-    y += yd;
-    if (!empty (x, y)) return false;
-  } while (!(x==_x && y==_y));
-
-  clearMap (xpos_-xd, ypos_-yd, OBJECT);
-  setMap (_x-xd, _y-yd, OBJECT);
-
-  int d = distance (_x, _y, xpos_, ypos_);
+  int d = distance (oldX, oldY, xpos_, ypos_);
   totalMoves_ -= d;
   totalPushes_ -= d;
 
-  xpos_ = _x;
-  ypos_ = _y;
-
-  return true;
+  return success;
 }
 
+#if 0
+void
+LevelMap::random (void) {
+  printf ("start!\n");
+
+  minX_ = 0;
+  minY_ = 0;
+  maxX_ = MAX_X;
+  maxY_ = MAX_Y;
+  totalMoves_ = totalPushes_ = 0;
+  clearMap ();
+  
+  xpos_ = 13;
+  ypos_ = 9;
+
+  for (int i=0; i<200; i++) {
+    map (xpos_, ypos_, FLOOR);
+
+    switch (rand () & 3) {
+    case 0:
+      if (ypos_ > 1) ypos_--; else i--;
+      break;
+
+    case 1:
+      if (ypos_ < MAX_Y-1) ypos_++; else i--;
+      break;
+
+    case 2:
+      if (xpos_ > 1) xpos_--; else i--;
+      break;
+
+    case 3:
+      if (xpos_ < MAX_X-1) xpos_++; else i--;
+      break;
+    }
+  }
+
+  for (int y=1; y<MAX_Y; y++) {
+    for (int x=1; x<MAX_X; x++) {
+      if (map (x, y) & FLOOR) {
+	if (!(map (x, y-1) & FLOOR)) map (x, y-1, WALL);
+	if (!(map (x, y+1) & FLOOR)) map (x, y+1, WALL);
+	if (!(map (x-1, y) & FLOOR)) map (x-1, y, WALL);
+	if (!(map (x+1, y) & FLOOR)) map (x+1, y, WALL);
+      }
+    }
+  }
+
+  printf ("klar!\n");
+  printMap ();
+}
+#endif

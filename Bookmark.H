@@ -17,29 +17,35 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef MOVESEQUENCE_H
-#define MOVESEQUENCE_H
+#ifndef BOOKMARK_H
+#define BOOKMARK_H
 
-#include <assert.h>
-
-class Move;
+class History;
 class LevelMap;
 
-class MoveSequence {
-public:
-  MoveSequence (Move *_move, LevelMap *_map, bool _undo=false);
+#include <qstring.h>
 
-  bool newStep ();
-  bool next ();
+class Bookmark {
+public:
+  Bookmark (int _num);
+
+  int collection () { return collection_; }
+  int level () { return level_; }
+  int moves () { return moves_; }
+  int pushes () { return pushes_; }
+
+  void set (int _collection, int _level, int _moves, History *_h);
+  bool goTo (LevelMap *_map, History *_h);
 
 private:
-  LevelMap *map_;
-  Move     *move_;
-  int       pos_;
-  int       x_, xDest_, y_, yDest_, xd_, yd_;
-  bool      push_;
-  bool      undo_;
+  void fileName (QString &p);
 
+  int     number_;
+  int     collection_;
+  int     level_;
+  int     moves_;
+  int     pushes_;
+  QString data_;
 };
 
-#endif  /* MOVESEQUENCE_H */
+#endif  /* BOOKMARK_H */

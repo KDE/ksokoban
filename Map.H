@@ -38,6 +38,11 @@ public:
 
   bool completed () { return objectsLeft_ <= 0; }
 
+  bool move   (int _x, int _y);
+  bool push   (int _x, int _y);
+  bool unmove (int _x, int _y);
+  bool unpush (int _x, int _y);
+
 
   static bool badCoords (int _x, int _y) {
     return _x<0 || _y<0 || _x>MAX_X || _y>MAX_Y;

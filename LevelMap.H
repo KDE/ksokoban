@@ -34,14 +34,14 @@ public:
   int minX () { return minX_; }
   int minY () { return minY_; }
 
-  int level () { return setCurrentLevel_[set_]; }
+  int level () { return collectionCurrentLevel_[collection ()]; }
   void level (int _level);
-  int set () { return set_; }
-  int completedLevels () { return setMaxLevel_[set_]; }
-  int noOfLevels () { return setSize_[set_]; }
-  int noOfSets () { return noOfSets_; }
-  const char *setName (int i) { assert (i>=0 && i <noOfSets_); return setNames_[i]; }
-  void changeSet (int _set);
+  int collection () { return collection_; }
+  int completedLevels () { return collectionMaxLevel_[collection ()]; }
+  int noOfLevels () { return collectionSize_[collection ()]; }
+  int noOfCollections () { return noOfCollections_; }
+  const char *collectionName (int i) { assert (i>=0 && i <noOfCollections_); return collectionNames_[i]; }
+  void changeCollection (int _collection);
   int totalMoves () { return totalMoves_; }
   int totalPushes () { return totalPushes_; }
 
@@ -51,9 +51,10 @@ public:
   bool unpush (int _x, int _y);
 
   void   printMap ();
+  //void random ();
 
 protected:
-  int set_;
+  int collection_;
 
 
 private:
@@ -62,19 +63,19 @@ private:
   int    datasize;
   char  *data;
   char **levelIndex_;
-  char **setNames_;
-  int   *setIndex_;
-  int   *setSize_;
-  int   *setCurrentLevel_;
-  int   *setMaxLevel_;
+  char **collectionNames_;
+  int   *collectionIndex_;
+  int   *collectionSize_;
+  int   *collectionCurrentLevel_;
+  int   *collectionMaxLevel_;
   int    totalLevels_;
-  int    noOfSets_;
+  int    noOfCollections_;
 
   int    totalMoves_;
   int    totalPushes_;
 
-  static int configSet2Real (int set);
-  static int realSet2Config (int set);
+  static int configCollection2Real (int collection);
+  static int realCollection2Config (int collection);
   static int distance (int x1, int y1, int x2, int y2);
 };
 

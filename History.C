@@ -22,6 +22,7 @@
 #include "History.H"
 #include "Move.H"
 #include "MoveSequence.H"
+#include "LevelMap.H"
 
 History::History () {
   past_.setAutoDelete (true);
@@ -41,51 +42,53 @@ History::clear () {
   future_.clear ();
 }
 
-char *
-History::save (char *_str) {
+void
+History::save (QString &_str) {
   Move *m = past_.first ();
 
   while (m != 0) {
-    _str = m->save (_str);
-    if (_str == 0) return 0;
+    m->save (_str);
     m = past_.next ();
   }
-  *_str++ = '@';
+  _str += '-';
 
   m = future_.first ();
   while (m != 0) {
-    _str = m->save (_str);
-    if (_str == 0) return 0;
+    m->save (_str);
     m = future_.next ();
   }
-  *_str++ = '\0';
-
-  return _str;
 }
 
 const char *
-History::load (const char *_str, int _x, int _y) {
+History::load (LevelMap *map, const char *_str) {
   Move *m;
+  int x = map->xpos ();
+  int y = map->ypos ();
 
   clear ();
-  while (*_str != '\0' && *_str != '@') {
-    m = new Move (_x, _y);
+  while (*_str != '\0' && *_str != '-') {
+    m = new Move (x, y);
     _str = m->load (_str);
-    _x = m->finalX ();
-    _y = m->finalY ();
-    past_.append (m);
     if (_str == 0) return 0;
+    x = m->finalX ();
+    y = m->finalY ();
+    past_.append (m);
+    if (!m->redo (map)) {
+      //printf ("redo failed: %s\n", _str);
+      //abort ();
+      return 0;
+    }
   }
-  if (*_str != '@') return _str;
+  if (*_str != '-') return 0;
 
   _str++;
   while (*_str != '\0') {
-    m = new Move (_x, _y);
+    m = new Move (x, y);
     _str = m->load (_str);
-    _x = m->finalX ();
-    _y = m->finalY ();
-    future_.append (m);
     if (_str == 0) return 0;
+    x = m->finalX ();
+    y = m->finalY ();
+    future_.append (m);
   }
 
   return _str;

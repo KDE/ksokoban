@@ -78,11 +78,11 @@ HtmlPrinter::printSquare (LevelMap *lm, int x, int y) {
 void
 HtmlPrinter::printHtml (LevelMap *lm) {
   printf ("\
-<html>
-<head>
-<title>ksokoban level</title>
-</head>
-<body background=background.gif>
+<html>\n\
+<head>\n\
+<title>ksokoban level</title>\n\
+</head>\n\
+<body background=background.gif>\n\
 ");
   printf ("<table border=0 cellspacing=0 cellpadding=0>\n");
   for (int y=lm->minY(); y<=lm->maxY(); y++) {
@@ -92,8 +92,8 @@ HtmlPrinter::printHtml (LevelMap *lm) {
     }
   }
   printf ("\
-</table>
-</body>
-</html>
+</table>\n\
+</body>\n\
+</html>\n\
 ");
 }

@@ -33,10 +33,10 @@ ModalLabel::ModalLabel (const char *text, QWidget *parent, const char * name, WF
   QFont font ("helvetica", 24, QFont::Bold);
   QFontMetrics fontMet (font);
 
-  char str[strlen(text)+1];
+  char *str = new char[strlen(text)+1];
   strcpy (str, text);
   char *str_pos=str;
-  int width = 0, height = 0;
+  width_ = height_ = 0;
   for (;;) {
     char *next_line = my_strchr (str_pos, '\n');
     if (next_line) *next_line = '\0';
@@ -45,18 +45,20 @@ ModalLabel::ModalLabel (const char *text, QWidget *parent, const char * name, WF
     if (next_line) str_pos = next_line+1;
     else break;
   }
-  width += 32;
-  height += 32;
+  delete [] str;
 
-  if (width < 300) width = 300;
-  if (height < 75) height = 75;
+  width_ += 32;
+  height_ += 32;
+
+  if (width_ < 300) width_ = 300;
+  if (height_ < 75) height_ = 75;
 
   setAlignment (AlignCenter);
   setFrameStyle (QFrame::Panel | QFrame::Raised);
   setLineWidth (4);
   setFont (font);
-  move (parent->width ()/2 - width/2, parent->height ()/2 - height/2);
-  resize (width, height);
+  move (parent->width ()/2 - width_/2, parent->height ()/2 - height_/2);
+  resize (width_, height_);
   show ();
 
   QWidgetList  *list = QApplication::allWidgets();
