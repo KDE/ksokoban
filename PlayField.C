@@ -48,8 +48,8 @@ PlayField::PlayField(QWidget *parent, const char *name, WFlags f)
   : QWidget(parent, name, f|WResizeNoErase), imageData_(0), lastLevel_(-1),
     moveSequence_(0), moveInProgress_(false), xOffs_(0), yOffs_(0),
     wheelDelta_(0),
-    levelText_(i18n("Level")), stepsText_(i18n("Steps")),
-    pushesText_(i18n("Pushes")),
+    levelText_(i18n("Level:")), stepsText_(i18n("Steps:")),
+    pushesText_(i18n("Pushes:")),
     statusFont_("helvetica", 18, QFont::Bold), statusMetrics_(statusFont_) {
 
   setFocusPolicy(QWidget::StrongFocus);
