@@ -28,6 +28,7 @@
 #include <klocale.h>
 #include <qpainter.h>
 #include <kmessagebox.h>
+#include <kglobalsettings.h>
 
 #include "PlayField.H"
 #include "ModalLabel.H"
@@ -50,7 +51,7 @@ PlayField::PlayField(QWidget *parent, const char *name, WFlags f)
     wheelDelta_(0),
     levelText_(i18n("Level:")), stepsText_(i18n("Steps:")),
     pushesText_(i18n("Pushes:")),
-    statusFont_("helvetica", 18, QFont::Bold), statusMetrics_(statusFont_) {
+    statusFont_(KGlobalSettings::generalFont().family(), 18, QFont::Bold), statusMetrics_(statusFont_) {
 
   setFocusPolicy(QWidget::StrongFocus);
   setFocus();

@@ -22,6 +22,7 @@
 #include <qlabel.h>
 #include <qfont.h>
 #include <kapplication.h>
+#include <kglobalsettings.h>
 #include <qwidgetlist.h>
 #include <qstring.h>
 
@@ -30,7 +31,7 @@
 ModalLabel::ModalLabel(const QString &text, QWidget *parent,
 		       const char *name, WFlags f)
   : QLabel(text, parent, name, f) {
-  QFont font("helvetica", 24, QFont::Bold);
+  QFont font(KGlobalSettings::generalFont().family(), 24, QFont::Bold);
   QFontMetrics fontMet(font);
 
   QString currentLine;
