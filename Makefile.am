@@ -18,8 +18,8 @@ LDADD = $(LIB_KFILE) $(LIB_KSYCOCA)
 EXTRA_DIST=AUTHORS NEWS README TODO
 
 # we need theese deps for the automatic generation of other deps
-StaticImage.C: images/data.c
-LevelMap.C: levels/data.c
+StaticImage.o: images/data.c
+LevelMap.o: levels/data.c
 
 # these are for automatic generation of deps, too
 levels/data.c:
