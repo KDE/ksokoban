@@ -32,18 +32,18 @@ static const char *description = I18N_NOOP("The japanese warehouse keeper game")
 static const char *version = "0.4.2";
 
 
-static KCmdLineOptions options[] = 
+static KCmdLineOptions options[] =
 {
      { "+[file]", I18N_NOOP("Level collection file to load"), 0 },
-     { 0, 0, 0 } // End of options.
+     KCmdLineLastOption  // End of options.
 };
 
 
 int
 main (int argc, char **argv)
 {
-  KAboutData aboutData("ksokoban", I18N_NOOP("KSokoban"), 
-		       version, description, KAboutData::License_GPL, 
+  KAboutData aboutData("ksokoban", I18N_NOOP("KSokoban"),
+		       version, description, KAboutData::License_GPL,
 		       "(c) 1998-2001  Anders Widell", 0,
 		       "http://hem.passagen.se/awl/ksokoban/");
   aboutData.addAuthor("Anders Widell", 0,
