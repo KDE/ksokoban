@@ -1,0 +1,214 @@
+<!doctype linuxdoc system>
+
+<article>
+<title>The KSokoban Handbook
+<author>Anders Widell
+<date>Version 0.1.2, 10 September 1998
+<abstract>This documentation was last updated for ksokoban version 0.1.2. 
+Please make any comments and additions to the author.
+</abstract>
+
+<toc>
+
+<sect>Introduction
+<p>
+This game was originally invented in Japan in the early 80's and won a
+computer game contest there. &dquot;Sokoban&dquot; is japanese for
+&dquot;warehouse keeper&dquot;. The idea is that you are a warehouse
+keeper trying to push crates to their proper locations in a warehouse.
+
+<p>
+The problem is that you cannot pull the crates or step over them. If
+you are not careful, some of the crates can get stuck in wrong places
+and/or block your way.
+
+<p>
+It can be rather difficult just to solve a level. But if you want to make
+it even harder, you can try to minimise the number of moves and/or pushes
+you use to solve the level.
+
+<p>
+To make the game more fun for small kids (below 10 years or so), some
+collections with easier levels are also included in ksokoban. These
+are marked <bf>(easy)</bf> in the level colletion menu. Of course,
+these levels can be fun for adults too, for example if you don't want
+to expose yourself to too much mental strain.
+
+<sect>How to play
+<p>
+The objective of the game is to push all the red gems to the goal
+squares, which are marked with green glassy round things on the floor.
+
+<p>
+Use the cursor keys or the mouse to move about. If you move onto a gem
+using the cursor keys or the middle mouse button, and there is noting
+blocking it on the opposite side, then you will push the gem.  It
+isn't possible to pull the gems, so if you push a gem into a corner it
+will be stuck there. You can't step over the gems either, so you can
+also get trapped in a part of the maze by blocking the way with gems.
+Also note that it isn't possible to push more than one gem at a time.
+
+<p>
+If you notice that you have moved the gems in such a way that the
+level is impossible to solve, then you can always use the undo feature
+to go back to a position where the mistake has not yet been made. You
+can of course also restart the level from the very beginning.
+
+<sect1>Controls
+<p>
+
+<#if output=html><table></#if>
+<tabular ca="l l">
+Cursor keys | 
+Move one square in a direction @
+
+<bf>CONTROL</bf> + Cursor keys | 
+Move as far as possible in a direction without pushing any gems @
+
+<bf>SHIFT</bf> + Cursor keys | 
+Move as far as possible in a direction, pushing any gem in the way @
+
+Left mouse button | 
+Move to any place in the maze that can be reached without pushing any gems @
+
+Middle mouse button | 
+Move up/down/left/right in a straight line, pushing any gem in the way @
+
+Right mouse button or <bf>U</bf> | 
+Undo the last move @
+
+<bf>R</bf> | 
+Redo the last undone move @
+
+<bf>N</bf> | 
+Go to the next level in the current level collection @
+
+<bf>P</bf> | 
+Go to the previous level in the current level collection @
+
+<bf>Escape</bf> | 
+Restart the current level @
+
+<bf>Q</bf> | 
+Quit the game @
+</tabular>
+<#if output=html></table></#if>
+
+<sect>Epilogue
+<p>
+
+For the latest info on ksokoban, see the ksokoban homepage at
+<url url="http://hem.passagen.se/awl/ksokoban/">
+<p>
+
+<sect1>Author
+<p>
+
+ksokoban is copyright &copy; 1998 by
+Anders Widell
+&lt;<htmlurl url="mailto:d95-awi@nada.kth.se"
+name="d95-awi@nada.kth.se">&gt;
+
+<p>
+The background graphics &dquot;starfield&dquot; was taken from the
+<htmlurl url="http://www.gimp.org/" name="Gimp">.
+All other graphics were created by 
+Anders Widell
+&lt;<htmlurl url="mailto:d95-awi@nada.kth.se"
+name="d95-awi@nada.kth.se">&gt;
+using the
+<htmlurl url="http://www.povray.org/" name="Povray"> raytracer.
+
+<sect1>License
+<p>
+ksokoban is distributed under the GNU general public license. See
+<url url="http://www.gnu.org/copyleft/gpl.html">
+for details.
+
+<sect1>Levels
+<p>
+
+The levels were taken (with permission) from:
+
+<descrip>
+<tag/xsokoban 3.3c for X-windows/
+	www: <url url="http://xsokoban.lcs.mit.edu/xsokoban.html">
+	<newline>
+	author: Andrew Myers
+	&lt;<htmlurl url="mailto:andru@lcs.mit.edu"
+	name="andru@lcs.mit.edu">&gt;
+
+
+<tag/MacSokoban 3.0.3 for Macintosh/
+	www: <url url="http://www.lysator.liu.se/&tilde;ingemar/games.html">
+	<newline>
+	author: Ingemar Ragnemalm
+	&lt;<htmlurl url="mailto:ingemar@lysator.liu.se"
+	name="ingemar@lysator.liu.se">&gt;
+
+<tag/Sokoban 2.4 for Macintosh/
+	www: <url url="http://members.aol.com/SokobanMac/">
+	<newline>
+	author: Scott Lindhurst
+	&lt;<htmlurl url="scottl@alumni.Princeton.EDU"
+	name="scottl@alumni.Princeton.EDU">&gt;
+
+<tag/Yoshio's sokoban page/
+	www: <url url="http://www.ne.jp/asahi/ai/yoshio/sokoban/main.htm">
+	<newline>
+	author: Yoshio Murase
+	&lt;<htmlurl url="mailto:yoshio@asahi.email.ne.jp"
+	name="yoshio@asahi.email.ne.jp">&gt;
+</descrip>
+
+<p>
+
+<sect1>Level authors
+<p>
+
+The levels are copyrighted by their authors:
+
+<p>
+<descrip>
+<tag/Original/
+	the first 50 original levels from xsokoban, by various
+	authors. These levels are public domain
+
+<tag/Extra/
+	some more levels from xsokoban. Also public domain
+
+<tag/Still more/
+	by J. Franklin Mentzer
+	&lt;<htmlurl url="mailto:wryter@aol.com"
+	name="wryter@aol.com">&gt;
+
+<tag/MacTommy inventions/
+	by Tommy in Pennsylvania
+
+<tag/Yoshio's autogenerated/
+	by Yoshio Murase
+	&lt;<htmlurl url="mailto:yoshio@asahi.email.ne.jp"
+	name="yoshio@asahi.email.ne.jp">&gt;
+	<newline>
+	See also
+	<url url="http://www.ne.jp/asahi/ai/yoshio/sokoban/main.htm">
+	where he puts a new sokoban level every week.
+
+<tag/For the kids/
+	by Ross (W.R.) Brown
+	&lt;<htmlurl url="mailto:ross@bnr.ca"
+	name="ross@bnr.ca">&gt;
+
+<tag/Dimitri &amp; Yorick/
+	by Jacques Duthen
+	&lt;<htmlurl url="mailto:duthen@club-internet.fr"
+	name="duthen@club-internet.fr">&gt;
+
+<tag/Simple Sokoban/
+	simplified original levels
+	by Phil Shapiro
+	&lt;<htmlurl url="mailto:pshapiro@his.com"
+	name="pshapiro@his.com">&gt;
+</descrip>
+
+</article>
