@@ -218,7 +218,7 @@ main (argc, argv)
     /* Output dest buffer as C source code to outfile */
     ptr = my_strrchr (argv[i], '.');
     if (ptr != NULL) *ptr = '\0';
-    // use only the file 2name and throw away the path name
+    /* use only the file 2name and throw away the path name */
     index = strlen(argv[i]) - 1;
     while (index && argv[i][index] != '/') index--;
     if (argv[i][index] == '/') index++;
