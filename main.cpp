@@ -27,9 +27,9 @@
 #include "MainWindow.h"
 
 
-static const char *description = I18N_NOOP("The japanese warehouse keeper game");
+static const char description[] = I18N_NOOP("The japanese warehouse keeper game");
 
-static const char *version = "0.4.2";
+static const char version[] = "0.4.2";
 
 
 static KCmdLineOptions options[] =
