@@ -51,6 +51,20 @@ static const int collection_save_id[] = {
   0, 1, 3, 5, 9, 6, 7, 8, 2, 4
 };
 
+int
+LevelMap::configSet2Real (int set) {
+  for (int i=0; i < sizeof (collection_save_id) / sizeof (int); i++) {
+    if (collection_save_id[i] == set) return i;
+  }
+  return 0;
+}
+
+int
+LevelMap::realSet2Config (int set) {
+  assert (set < sizeof (collection_save_id) / sizeof (int));
+  return collection_save_id[set];
+}
+
 LevelMap::LevelMap () {
   KConfig *cfg=(KApplication::getKApplication ())->getConfig ();
 
@@ -116,10 +130,11 @@ LevelMap::LevelMap () {
     char buf[256];
     unsigned long x;
 
-    sprintf (buf, "level%d", collection_save_id[i]);
+    assert (i < sizeof (collection_save_id) / sizeof (int));
+    sprintf (buf, "level%d", realSet2Config (i));
     setCurrentLevel_[i] = cfg->readNumEntry (buf, 0);
 
-    sprintf (buf, "status%d", collection_save_id[i]);
+    sprintf (buf, "status%d", realSet2Config (i));
 
     x = cfg->readUnsignedLongNumEntry (buf, 0);
 
@@ -136,14 +151,14 @@ LevelMap::LevelMap () {
 
     setMaxLevel_[i] = x>>16 & 0x3ff;
     //printf (":::%d\n", setMaxLevel_[3]);
-    if (((x>>26) & 0x3ful) != (unsigned long) i) setMaxLevel_[i] = 0;
+    if (((x>>26) & 0x3ful) != (unsigned long) realSet2Config (i)) setMaxLevel_[i] = 0;
     if ((x & 0xfffful) != (unsigned long) getuid ()) setMaxLevel_[i] = 0;
     if (setMaxLevel_[i] >= setSize_[i]) setMaxLevel_[i] = 0;
     if (setCurrentLevel_[i] > setMaxLevel_[i]) setCurrentLevel_[i] = setMaxLevel_[i];
     if (!cfg->hasKey (buf)) setMaxLevel_[i] = 0;
   }
 
-  changeSet (cfg->readNumEntry ("collection", 0));
+  changeSet (configSet2Real (cfg->readNumEntry ("collection", 0)));
 }
 
 LevelMap::~LevelMap () {
@@ -151,10 +166,10 @@ LevelMap::~LevelMap () {
   char buf[256];
 
   for (int i=0; i<noOfSets_; i++) {
-    sprintf (buf, "level%d", collection_save_id[i]);
+    sprintf (buf, "level%d", realSet2Config (i));
     cfg->writeEntry (buf, setCurrentLevel_[i], true, false, false);
   }
-  cfg->writeEntry ("collection", set ());
+  cfg->writeEntry ("collection", realSet2Config (set ()));
   
 
   delete [] setCurrentLevel_;
@@ -382,7 +397,7 @@ LevelMap::push (int _x, int _y) {
   if (completed () && setMaxLevel_[set ()] <= level () && setSize_[set ()] > level ()+1) {
     char buf[256];
     unsigned long x=(((unsigned long) getuid ()) & 0xfffful);
-    x |= ((unsigned long) set ())<<26;
+    x |= ((unsigned long) realSet2Config (set ()))<<26;
     x |= ((unsigned long) (level ()+1))<<16;
 
     setMaxLevel_[set ()] = level ()+1;
@@ -396,7 +411,7 @@ LevelMap::push (int _x, int _y) {
     x = forward (x, 0xd4d657b4ul, 0x1ful, 0x7e129575ul);
     x = forward (x, 0x80ff0b94ul, 0x0eul, 0x92fc153dul);
 
-    sprintf (buf, "status%d", collection_save_id[set ()]);
+    sprintf (buf, "status%d", realSet2Config (set ()));
 
     (KApplication::getKApplication ())->getConfig ()->writeEntry (buf, x, true, false, false);
     (KApplication::getKApplication ())->getConfig ()->sync ();

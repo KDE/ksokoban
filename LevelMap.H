@@ -67,6 +67,9 @@ private:
   int   *setMaxLevel_;
   int    totalLevels_;
   int    noOfSets_;
+
+  static int configSet2Real (int set);
+  static int realSet2Config (int set);
 };
 
 #endif  /* LEVELMAP_H */

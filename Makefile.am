@@ -18,8 +18,6 @@ LDADD = -lkdeui -lkdecore -lqt -lXext -lX11 -lz $(LIBSOCKET)
 DISTCLEANFILES = $(BUILTSOURCES)
 EXTRA_DIST=TODO ksokoban.kdelnk NEWS
 
-export ksokoban_orig_CXXFLAGS = @ksokoban_orig_CXXFLAGS@
-
 %.moc.C: %.H
 	$(MOC) $^ -o $@
 
