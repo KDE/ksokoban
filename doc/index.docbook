@@ -406,26 +406,24 @@ information.</action></para></listitem>
 <title>Credits and License</title>
 
 <para>
-&ksokoban; is copyright &copy; 1998-2000 by Anders Widell &lt;<ulink
-url="mailto:awl@passagen.se">awl@passagen.se</ulink>&gt;.  For
+&ksokoban; is copyright &copy; 1998-2000 by Anders Widell
+<email>awl@passagen.se</email>.  For
 the latest info on &ksokoban;, see the &ksokoban; home page at
 <ulink url="http://hem.passagen.se/awl/ksokoban/">
 http://hem.passagen.se/awl/ksokoban/</ulink>
 </para>
 
 <para>
-The background graphics &quot;starfield&quot; was taken from the
+The background graphics <quote>starfield</quote> was taken from the
 <ulink url="http://www.gimp.org/">Gimp</ulink>. All other graphics
-were created by Anders Widell &lt;<ulink
-url="mailto:awl@passagen.se">awl@passagen.se</ulink>&gt; using
+were created by Anders Widell <email>awl@passagen.se</email> using
 the <ulink url="http://www.povray.org/">Povray</ulink> ray tracer.
 </para>
 
 <para>
-All the currently included sokoban levels were created by David
-W. Skinner &lt;<ulink url="mailto:sasquatch@bentonrea.com">
-sasquatch@bentonrea.com</ulink>&gt;. See his sokoban page at
-<ulink url="http://bentonrea.com/~sasquatch/sokoban/">
+All the currently included sokoban levels were created by David W.
+Skinner <email>sasquatch@bentonrea.com</email>. See his sokoban page
+at <ulink url="http://bentonrea.com/~sasquatch/sokoban/">
 http://bentonrea.com/~sasquatch/sokoban/</ulink>
 </para>
 
