@@ -88,16 +88,16 @@ MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
 
   game_ = new QPopupMenu(0,"game menu");
   pixmap = SmallIcon("fileopen");
-  game_->insertItem(QIconSet(pixmap), i18n("&Load levels..."), this, SLOT(loadLevels()));
+  game_->insertItem(QIconSet(pixmap), i18n("&Load Levels..."), this, SLOT(loadLevels()));
   pixmap = SmallIcon("forward");
-  game_->insertItem(QIconSet(pixmap), i18n("&Next level"), playField_, SLOT(nextLevel()), Key_N);
+  game_->insertItem(QIconSet(pixmap), i18n("&Next Level"), playField_, SLOT(nextLevel()), Key_N);
   pixmap = SmallIcon("back");
-  game_->insertItem(QIconSet(pixmap), i18n("&Previous level"), playField_, SLOT(previousLevel()), Key_P);
+  game_->insertItem(QIconSet(pixmap), i18n("&Previous Level"), playField_, SLOT(previousLevel()), Key_P);
   pixmap = SmallIcon("reload");
-  game_->insertItem(QIconSet(pixmap), i18n("Re&start level"), playField_, SLOT(restartLevel()), Key_Escape);
+  game_->insertItem(QIconSet(pixmap), i18n("Re&start Level"), playField_, SLOT(restartLevel()), Key_Escape);
 
   createCollectionMenu();
-  game_->insertItem(i18n("&Level collection"), collection_);
+  game_->insertItem(i18n("&Level Collection"), collection_);
 
   pixmap = SmallIcon("undo");
   game_->insertItem(QIconSet(pixmap), i18n("&Undo"), playField_, SLOT(undo()), Key_U);
@@ -144,7 +144,7 @@ MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
   setBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 10);
   setBM_->setAccel(CTRL+Key_0, 10);
   connect(setBM_, SIGNAL(activated(int)), this, SLOT(setBookmark(int)));
-  bookmarkMenu_->insertItem(i18n("&Set bookmark"), setBM_);
+  bookmarkMenu_->insertItem(i18n("&Set Bookmark"), setBM_);
 
   pixmap = SmallIcon("bookmark");
   goToBM_ = new QPopupMenu(0, "go to bookmark menu");
@@ -169,7 +169,7 @@ MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
   goToBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 10);
   goToBM_->setAccel(Key_0, 10);
   connect(goToBM_, SIGNAL(activated(int)), this, SLOT(goToBookmark(int)));
-  bookmarkMenu_->insertItem(i18n("&Go to bookmark"), goToBM_);
+  bookmarkMenu_->insertItem(i18n("&Go to Bookmark"), goToBM_);
   menu_->insertItem(i18n("&Bookmarks"), bookmarkMenu_);
 
   for (i=1; i<=10; i++) {
@@ -299,7 +299,7 @@ MainWindow::loadLevels() {
   cfg->setGroup("settings");
   QString lastFile = cfg->readEntry("lastLevelFile");
 
-  KURL result = KFileDialog::getOpenURL(lastFile, "*", this, i18n("Load levels from file"));
+  KURL result = KFileDialog::getOpenURL(lastFile, "*", this, i18n("Load Levels From File"));
   if (result.isEmpty()) return;
 
   openURL(result);
