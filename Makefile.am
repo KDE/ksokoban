@@ -33,4 +33,4 @@ images/40/data.c:
 	(cd images/40 && $(MAKE) data.c)
 
 messages:
-	$(XGETTEXT) -C -ki18n -x $(includedir)/kde.pot *.C && mv messages.po ../po/ksokoban.pot
+	$(XGETTEXT) -C -ki18n -x $(includedir)/kde.pot *.C && mv messages.po $(podir)/ksokoban.pot
