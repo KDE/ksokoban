@@ -19,25 +19,34 @@
 
 #include <kapp.h>
 #include <kimgio.h>
+#include <klocale.h>
+#include <kcmdlineargs.h>
 
 #include "MainWindow.H"
+
+
+static const char *description = I18N_NOOP("KDE Game");
+
+static const char *version = "v0.0.1";
+
 
 int
 main (int argc, char **argv)
 {
-  QApplication::setColorSpec (QApplication::ManyColor);
+  KCmdLineArgs::init(argc, argv, "ksokoban", description, version);
 
-  KApplication *app = new KApplication (argc, argv, "ksokoban");
+  QApplication::setColorSpec(QApplication::ManyColor);
+
+  KApplication app;
   kimgioRegister();
 
-  MainWindow *widget = new MainWindow ();
-  app->setMainWidget (widget);
-  widget->show ();
+  MainWindow *widget = new MainWindow();
+  app.setMainWidget(widget);
+  widget->show();
 
-  int rc = app->exec ();
+  int rc = app.exec();
 
   delete widget;
-  delete app;
 
   return rc;
 }
