@@ -258,7 +258,8 @@ LevelMap::level (int _level) {
   clearMap ();
 
   int x=0, y=0;
-  for (char *pos=levelIndex_[_level+collectionIndex_[collection ()]]; *pos; pos++) {
+  char *pos;
+  for (pos = levelIndex_[_level+collectionIndex_[collection ()]]; *pos; pos++) {
     switch (*pos) {
     case '\n':
     case '\t':
