@@ -103,8 +103,8 @@ Array<T>::operator =(const Array &init) {
 }
 
 
-template Array<char>;
-template Array<char *>;
+template class Array<char>;
+template class Array<char *>;
 
 #include "LevelCollection.H"
-template Array<LevelCollection *>;
+template class Array<LevelCollection *>;
