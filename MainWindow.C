@@ -298,7 +298,7 @@ void
 MainWindow::loadLevels() {
   KConfig *cfg=(KApplication::kApplication())->config();
   cfg->setGroup("settings");
-  QString lastFile = cfg->readEntry("lastLevelFile");
+  QString lastFile = cfg->readPathEntry("lastLevelFile");
 
   KURL result = KFileDialog::getOpenURL(lastFile, "*", this, i18n("Load Levels From File"));
   if (result.isEmpty()) return;
@@ -333,7 +333,7 @@ MainWindow::openURL(KURL _url) {
   }
   if (_url.isLocalFile()) {
     cfg->setGroup("settings");
-    cfg->writeEntry("lastLevelFile", _url.path());
+    cfg->writePathEntry("lastLevelFile", _url.path());
   }
 
   delete externalCollection_;
