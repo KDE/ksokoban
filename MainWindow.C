@@ -299,25 +299,34 @@ MainWindow::loadLevels() {
   cfg->setGroup("settings");
   QString lastFile = cfg->readEntry("lastLevelFile");
 
-  QString result = KFileDialog::getOpenFileName(lastFile, "*", this, i18n("Load levels from file"));
-  if (result.isNull()) return;
+  KURL result = KFileDialog::getOpenURL(lastFile, "*", this, i18n("Load levels from file"));
+  if (result.isEmpty()) return;
 
-  cfg->setGroup("settings");
-  cfg->writeEntry("lastLevelFile", result);
+  int namepos = result.path().findRev('/') + 1; // NOTE: findRev can return -1
+  QString levelName = result.path().mid(namepos);
 
-  int namepos = result.findRev('/') + 1; // NOTE: findRev can return -1
+  QString levelFile;
+  if (result.isLocalFile()) {
+      levelFile = result.path();
+  } else {
+      levelFile = locateLocal("appdata", "levels/" + levelName);
+      if( !KIO::NetAccess::download( result, levelFile ) )
+	  return;
+  }
 
-  LevelCollection *tmpCollection = new LevelCollection(result, result.mid(namepos, result.length()));
+  LevelCollection *tmpCollection = new LevelCollection(levelFile, levelName));
   if (tmpCollection->noOfLevels() < 1) {
-    QMessageBox::warning(this, "Ksokoban", i18n("No levels found in file"), i18n("OK"));
-
+    KMessageBox::sorry(this, i18n("No levels found in file"));
     delete tmpCollection;
-
     return;
   }
+  cfg->setGroup("settings");
+  cfg->writeEntry("lastLevelFile", levelFile);
+
   delete externalCollection_;
   externalCollection_ = tmpCollection;
 
   collection_->setItemChecked(checkedCollection_, false);
   playField_->changeCollection(externalCollection_);
+
 }
