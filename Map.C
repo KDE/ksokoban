@@ -20,11 +20,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#ifndef NDEBUG
 #include <stdio.h>
-#endif
 
 #include "Map.H"
+
+Map::Map() : xpos_(-1), ypos_(-1), width_(0), height_(0), objectsLeft_(-1) {
+}
 
 
 void
@@ -33,6 +34,11 @@ Map::map (int x, int y, int val) {
   if ((map (x, y) & (OBJECT | GOAL)) == OBJECT) objectsLeft_--;
   if ((val & (OBJECT | GOAL)) == OBJECT) objectsLeft_++;
   currentMap_[y+1][x+1] = val;
+
+  if (val != 0) {
+    if (width_ <= x) width_ = x+1;
+    if (height_ <= y) height_ = y+1;
+  }
 }
 
 void
@@ -41,6 +47,11 @@ Map::setMap (int x, int y, int bits) {
   if (goal (x, y) && ((bits & OBJECT) == OBJECT)) objectsLeft_--;
   assert (objectsLeft_ >= 0);
   currentMap_[y+1][x+1] |= bits;
+
+  if (bits != 0) {
+    if (width_ <= x) width_ = x+1;
+    if (height_ <= y) height_ = y+1;
+  }
 }
 
 void
@@ -52,20 +63,23 @@ Map::clearMap (int x, int y, int bits) {
 
 void
 Map::clearMap () {
-  memset (currentMap_, 0, (MAX_Y+3)*(MAX_X+3)*sizeof (int));
+  memset (currentMap_, 0, (MAX_Y+3)*(MAX_X+3)*sizeof (char));
   objectsLeft_ = 0;
+  width_ = height_ = 0;
 }
 
-void
+bool
 Map::fillFloor (int x, int y) {
-  if (badCoords (x, y)) return;
-  if ((currentMap_[y+1][x+1] & (WALL|FLOOR)) != 0) return;
+  if (badCoords (x, y)) return false;
+  if ((currentMap_[y+1][x+1] & (WALL|FLOOR)) != 0) return true;
 
   currentMap_[y+1][x+1] |= FLOOR;
-  fillFloor (x, y-1);
-  fillFloor (x, y+1);
-  fillFloor (x-1, y);
-  fillFloor (x+1, y);
+  bool a = fillFloor (x, y-1);
+  bool b = fillFloor (x, y+1);
+  bool c = fillFloor (x-1, y);
+  bool d = fillFloor (x+1, y);
+
+  return a && b && c && d;
 }
 
 bool
@@ -158,3 +172,33 @@ Map::unpush (int _x, int _y) {
 
   return true;
 }
+
+void
+Map::printMap(void) {
+  for (int y=0; y<height_; y++) {
+    for (int x=0; x<width_; x++) {
+      switch (map (x, y) & ~FLOOR) {
+      case WALL:
+	printf("#");
+	break;
+      case GOAL:
+	printf("%c", x==xpos_ && y==ypos_ ? '+' : '.');
+	break;
+      case OBJECT:
+	printf("$");
+	break;
+      case OBJECT|GOAL:
+	printf("*");
+	break;
+      case 0:
+	printf("%c", x==xpos_ && y==ypos_ ? '@' : ' ');
+	break;
+      default:
+	printf("<%X>", map(x,y)&FLOOR);
+	break;
+      }
+    }
+    printf ("\n");
+  }
+}
+

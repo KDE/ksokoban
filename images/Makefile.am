@@ -1,36 +1,87 @@
-SUBDIRS=20 32 40
-
 all-local: bin2c data.c
 
 EXTRA_PROGRAMS = bin2c
 
 bin2c: $(srcdir)/bin2c.c
-	@echo "#############################################################"
-	@echo "If the file 'bin2c.c' fails to compile then you probably"
-	@echo "don't have zlib version 1.0.3 or later properly installed"
-	@echo "on your system. You can get zlib from it's homepage at:"
-	@echo "http://www.cdrom.com/pub/infozip/zlib/zlib.html"
-	@echo
-	@echo "If you your zlib is installed at a nonstandard place then"
-	@echo "use the --with-extra-includes and --with-extra-libs configure"
-	@echo "options to tell it's location."
-	@echo "#############################################################"
 	$(CC) $(CFLAGS) $(DEFS) $(all_includes) $(srcdir)/bin2c.c -o bin2c $(all_libraries) $(LIBZ)
 
-data.c: bin2c background.bmp
-	./bin2c "" $(srcdir)/background.bmp
+test:
+	x-povray +W200 +H200 +I$@.pov +O$@.png +p +d
+	rm -f $@.png
 
-vertiwall horizwall eastwall westwall object:
-	x-povray +L/usr/local/lib/povray3/include +W200 +H200 +I$@.pov +Oimage.tga +p +d
-	rm -f image.tga
+POVFILES=floor_common.inc goal.pov halfstone_1.pov halfstone_2.pov halfstone_3.pov halfstone_4.pov man.pov man_common.inc object.pov saveman.pov stone_1.pov stone_2.pov stone_3.pov stone_4.pov stone_5.pov stone_6.pov stone_common.inc treasure.pov
 
-treasure:
-	x-povray +L/usr/local/lib/povray3/include +W100 +H100 +I$@.pov +Oimage.tga +p +d
-	rm -f image.tga
+IMAGES=goal.png halfstone_1.png halfstone_2.png halfstone_3.png halfstone_4.png man.png object.png saveman.png stone_1.png stone_2.png stone_3.png stone_4.png stone_5.png stone_6.png treasure.png starfield.jpg
 
-POVFILES=eastwall.pov   goal.pov       man.pov        saveman.pov    \
-	 vertiwall.pov  floor.pov      horizwall.pov  object.pov     \
-	 treasure.pov   westwall.pov   man_common.inc wall_common.inc
-
-EXTRA_DIST=background.bmp bin2c.c $(POVFILES)
+EXTRA_DIST=bin2c.c $(POVFILES) $(IMAGES)
 DISTCLEANFILES=data.c bin2c
+
+RESOLUTION=+W96 +H96
+STONE_RESOLUTION=+W96 +H48
+HALFSTONE_RESOLUTION=+W48 +H48
+
+# no antialias
+#ANTIALIAS=
+
+# normal antialias
+#ANTIALIAS=+A
+
+# slow antialias
+ANTIALIAS=+A0 +R9
+
+POVRAY=povray $(ANTIALIAS)
+
+data.c: $(IMAGES) bin2c
+	list=""; for i in $(IMAGES); do list="$$list $(srcdir)/$$i"; done; \
+	$(srcdir)/bin2c "" $$list
+
+############################################################################
+# Povray rules to generate images
+#
+#halfstone_1.png: halfstone_1.pov stone_common.inc
+#	$(POVRAY) $(HALFSTONE_RESOLUTION) +I$< +O$@
+#
+#halfstone_2.png: halfstone_2.pov stone_common.inc
+#	$(POVRAY) $(HALFSTONE_RESOLUTION) +I$< +O$@
+#
+#halfstone_3.png: halfstone_3.pov stone_common.inc
+#	$(POVRAY) $(HALFSTONE_RESOLUTION) +I$< +O$@
+#
+#halfstone_4.png: halfstone_4.pov stone_common.inc
+#	$(POVRAY) $(HALFSTONE_RESOLUTION) +I$< +O$@
+#
+#
+#stone_1.png: stone_1.pov stone_common.inc
+#	$(POVRAY) $(STONE_RESOLUTION) +I$< +O$@
+#
+#stone_2.png: stone_2.pov stone_common.inc
+#	$(POVRAY) $(STONE_RESOLUTION) +I$< +O$@
+#
+#stone_3.png: stone_3.pov stone_common.inc
+#	$(POVRAY) $(STONE_RESOLUTION) +I$< +O$@
+#
+#stone_4.png: stone_4.pov stone_common.inc
+#	$(POVRAY) $(STONE_RESOLUTION) +I$< +O$@
+#
+#stone_5.png: stone_5.pov stone_common.inc
+#	$(POVRAY) $(STONE_RESOLUTION) +I$< +O$@
+#
+#stone_6.png: stone_6.pov stone_common.inc
+#	$(POVRAY) $(STONE_RESOLUTION) +I$< +O$@
+#
+#
+#treasure.png: treasure.pov goal.pov floor_common.inc
+#	$(POVRAY) $(RESOLUTION) +I$< +O$@
+#
+#object.png: object.pov floor_common.inc
+#	$(POVRAY) $(RESOLUTION) +I$< +O$@
+#
+#man.png: man.pov man_common.inc floor_common.inc
+#	$(POVRAY) $(RESOLUTION) +I$< +O$@
+#
+#saveman.png: saveman.pov man_common.inc goal.pov floor_common.inc
+#	$(POVRAY) $(RESOLUTION) +I$< +O$@
+#
+#goal.png: goal.pov floor_common.inc
+#	$(POVRAY) $(RESOLUTION) +I$< +O$@
+

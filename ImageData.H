@@ -20,45 +20,63 @@
 #ifndef IMAGEDATA_H
 #define IMAGEDATA_H
 
+#include <qimage.h>
 #include <qpixmap.h>
 
-#define NO_OF_IMAGES 22
-#define EXTRA_IMAGES 1
+#include "Array.H"
+
+class QPainter;
+class RandomGenerator;
+
+#define SMALL_STONES 4
+#define LARGE_STONES 6
+#define OTHER_IMAGES 5
+#define NO_OF_IMAGES (SMALL_STONES + LARGE_STONES + OTHER_IMAGES)
 
 class
 ImageData {
-protected:
-  //  static const unsigned NO_OF_IMAGES=22;
-  QPixmap *images_[NO_OF_IMAGES+EXTRA_IMAGES];
-  int width_;
-  int height_;
-
 public:
-  int width () { return width_; }
-  int height () { return height_; }
+  virtual ~ImageData();
 
-  /*     0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15 
-   *         x       x       x       x       x       x       x       x 
-   *     *   *   *   *  x*  x*  x*  x*   *x  *x  *x  *x x*x x*x x*x x*x  
-   *             x   x           x   x           x   x           x   x 
-   */
+  int resize(int size);
+  int size() { return size_; }
 
-  const QPixmap *wall (bool up, bool down, bool left, bool right) {
-    return images_[ (up!=0)          |
-		    ((down!=0)  << 1) |
-		    ((left!=0)  << 2) |
-		    ((right!=0) << 3)];
-  }
+  void wall(QPainter &p, int x, int y, int index, bool left, bool right);
+  void floor(QPainter &p, int x, int y);
+  void goal(QPainter &p, int x, int y);
+  void man(QPainter &p, int x, int y);
+  void object(QPainter &p, int x, int y);
+  void saveman(QPainter &p, int x, int y);
+  void treasure(QPainter &p, int x, int y);
 
-  const QPixmap *floor    () { return images_[16]; }
-  const QPixmap *goal     () { return images_[17]; }
-  const QPixmap *man      () { return images_[18]; }
-  const QPixmap *object   () { return images_[19]; }
-  const QPixmap *saveman  () { return images_[20]; }
-  const QPixmap *treasure () { return images_[21]; }
+  const QPixmap &background() { return background_; }
 
-  const QPixmap *background () { return images_[22]; }
-		   
+protected:
+  ImageData();
+
+  void expandIndex(int size);
+
+  const QPixmap &upperLarge(int index);
+  const QPixmap &lowerLarge(int index);
+  const QPixmap &leftSmall(int index);
+  const QPixmap &rightSmall(int index);
+
+  QImage images_[NO_OF_IMAGES];
+
+  QPixmap smallStone_xpm_[SMALL_STONES];
+  QPixmap largeStone_xpm_[LARGE_STONES];
+  QPixmap otherPixmaps_[OTHER_IMAGES];
+  QPixmap background_;
+  
+  int indexSize_;
+  Array<char> upperLargeIndex_;
+  Array<char> lowerLargeIndex_;
+  Array<char> leftSmallIndex_;
+  Array<char> rightSmallIndex_;
+
+  int size_, halfSize_;
+  RandomGenerator *rng_;
+
 };
 
 #endif  /* IMAGEDATA_H */

@@ -1,6 +1,6 @@
 /*
  *  ksokoban - a Sokoban game for KDE
- *  Copyright (C) 1998  Anders Widell  <d95-awi@nada.kth.se>
+ *  Copyright (C) 1998  Anders Widell  <awl@hem.passagen.se>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -23,80 +23,94 @@
 
 #include <kapp.h>
 
+#if (KDE_VERSION_MAJOR > 1) || (KDE_VERSION_MINOR >= 9)
+#include <kglobal.h>
+#include <kstddirs.h>
+#endif
+
 #include <stdio.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <fcntl.h>
 #include <unistd.h>
 
+#include <assert.h>
+
 void
-Bookmark::fileName (QString &p) {
-  p = (KApplication::getKApplication ())->localkdedir ().data ();
+Bookmark::fileName(QString &p) {
+#if (KDE_VERSION_MAJOR > 1) || (KDE_VERSION_MINOR >= 9)
+  p = KGlobal::dirs()->getSaveLocation("appdata");
+#else
+  p = (KApplication::getKApplication())->localkdedir().data();
   p += "/share/apps";
-  if (access (p, F_OK)) mkdir (p.data (), 0740);
+  if (access(p, F_OK)) mkdir(p.data(), 0740);
   p += "/ksokoban";
-  if (access (p, F_OK)) mkdir (p.data (), 0740);
+  if (access(p, F_OK)) mkdir(p.data(), 0740);
+#endif
 
   QString n;
-  n.setNum (number_);
+  n.setNum(number_);
   p += "/bookmark" + n;
 }
 
-Bookmark::Bookmark (int _num) :
-  number_ (_num), collection_ (-1), level_ (-1), moves_ (0), data_ ("") {
+Bookmark::Bookmark(int _num) :
+  number_(_num), collection_(-1), level_(-1), moves_(0), data_("") {
 
   QString p;
-  fileName (p);
+  fileName(p);
 
-  FILE *file = fopen (p.data (), "r");
+  FILE *file = fopen(p.data(), "r");
   if (file == NULL) return;
 
   char buf[4096];
   buf[0] = '\0';
   fgets (buf, 4096, file);
-  if (sscanf (buf, "%d %d %d", &collection_, &level_, &moves_) != 3) {
+  if (sscanf(buf, "%d %d %d", &collection_, &level_, &moves_) != 3) {
     collection_ = level_ = -1;
     data_ = "";
-    fclose (file);
+    fclose(file);
     return;
   }
 
   data_ = "";
   int len;
-  while (!feof (file)) {
-    len = fread (buf, 1, 4095, file);
-    if (ferror (file)) break;
+  while (!feof(file)) {
+    len = fread(buf, 1, 4095, file);
+    if (ferror(file)) break;
     buf[len] = '\0';
     data_ += buf;
   }
-  fclose (file);        
+  fclose(file);        
 
-  data_ = data_.stripWhiteSpace ();
+  data_ = data_.stripWhiteSpace();
 }
 
 
 
 void
-Bookmark::set (int _collection, int _level, int _moves, History *_h) {
+Bookmark::set(int _collection, int _level, int _moves, History *_h) {
+  assert(_collection >= 0);
+  if (_collection < 0) return;
+
   collection_ = _collection;
   level_ = _level;
   moves_ = _moves;
 
   data_ = "";
-  _h->save (data_);
+  _h->save(data_);
   
   QString p;
-  fileName (p);
-  FILE *file = fopen (p.data (), "w");
+  fileName(p);
+  FILE *file = fopen(p.data(), "w");
   if (file == NULL) return;
-  fprintf (file, "%d %d %d\n", collection_, level_, moves_);
-  fprintf (file, "%s\n", data_.data ());
-  fclose (file);
+  fprintf(file, "%d %d %d\n", collection_, level_, moves_);
+  fprintf(file, "%s\n", data_.data());
+  fclose(file);
 }
 
 bool
-Bookmark::goTo (LevelMap *_map, History *_h) {
-  return _h->load (_map, data_.data ()) != 0;
+Bookmark::goTo(LevelMap *_map, History *_h) {
+  return _h->load(_map, data_.data()) != 0;
 }
 
 

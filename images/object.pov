@@ -1,13 +1,7 @@
 // Pov-ray image source for ksokoban
-// created 1998-08-20 by Anders Widell  <d95-awi@nada.kth.se>
+// copyright (c) 1998-1999  Anders Widell  <awl@hem.passagen.se>
 
-#include "shapes.inc"
-#include "shapes2.inc"
-#include "colors.inc"
-#include "finish.inc"
-#include "glass.inc"
-
-#include "floor.pov"
+#include "floor_common.inc"
 
 object {
   intersection {
@@ -26,16 +20,15 @@ object {
     plane {-z, 0.3 rotate <-50,  300, 0>}
   }
 
-  texture {
-    finish {
-      ambient 0.1
-      diffuse 0.3
-      reflection .25
-      refraction 1
-      ior 2.4
-      specular 1
-      roughness 0.02
-    }
+  finish {
+    ambient 0.1
+    diffuse 0.3
+    reflection .25
+    specular 1
+    roughness 0.02
+  }
+  interior {
+    ior 2.4
   }
   pigment { color rgbf <1, 0.1, 0.2, 0.8>}
 

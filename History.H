@@ -1,6 +1,6 @@
 /*
  *  ksokoban - a Sokoban game for KDE
- *  Copyright (C) 1998  Anders Widell  <d95-awi@nada.kth.se>
+ *  Copyright (C) 1998  Anders Widell  <awl@hem.passagen.se>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -43,22 +43,22 @@ private:
 protected:
 
 public:
-  History ();
+  History();
   /**
    * Add a move to the history. Deletes all currently undone moves.
    */
-  void add (Move *_m);
+  void add(Move *_m);
   /**
    * Clear the history and delete all Move objects stored in it.
    */
-  void clear ();
+  void clear();
 
-  void save (QString &_str);
-  const char *load (LevelMap *map, const char *_str);
-  bool redo (LevelMap *map);
-  MoveSequence *deferRedo (LevelMap *map);
-  bool undo (LevelMap *map);
-  MoveSequence *deferUndo (LevelMap *map);
+  void save(QString &_str);
+  const char *load(LevelMap *map, const char *_str);
+  bool redo(LevelMap *map);
+  MoveSequence *deferRedo(LevelMap *map);
+  bool undo(LevelMap *map);
+  MoveSequence *deferUndo(LevelMap *map);
 };
 
 #endif  /* HISTORY_H */

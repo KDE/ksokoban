@@ -22,8 +22,8 @@
 
 #include <assert.h>
 
-#define MAX_X 26
-#define MAX_Y 19
+#define MAX_X 49
+#define MAX_Y 49
 
 #define WALL   1
 #define GOAL   2
@@ -32,9 +32,9 @@
 
 class Map {
   friend class MapDelta;
+  friend class LevelCollection;
 public:
-  //static const int MAX_X=26;
-  //static const int MAX_Y=19;
+  Map();
 
   bool completed () { return objectsLeft_ <= 0; }
 
@@ -93,12 +93,12 @@ public:
     return (currentMap_[y+1][x+2] & WALL) != 0;
   }
 
-protected:
-  //static const int wall_  =1;
-  //static const int goal_  =2;
-  //static const int object_=4;
-  //static const int floor_ =8;
+  void   printMap ();
 
+  int width() { return width_; }
+  int height() { return height_; }
+
+protected:
   int map (int x, int y) {
     assert (x>=0 && x<=MAX_X && y>=0 && y<=MAX_Y);
     return currentMap_[y+1][x+1];
@@ -108,15 +108,15 @@ protected:
   void setMap (int x, int y, int bits);
   void clearMap (int x, int y, int bits);
   void clearMap ();
-  void fillFloor (int x, int y);
+  bool fillFloor (int x, int y);
   int objectsLeft () { return objectsLeft_; }
 
-  int xpos_;
-  int ypos_;
+  int xpos_, ypos_;
 
 private:
-  int    currentMap_[MAX_Y+3][MAX_X+3];
-  int    objectsLeft_;
+  char currentMap_[MAX_Y+3][MAX_X+3];
+  int width_, height_;
+  int objectsLeft_;
 };
 
 #endif  /* MAP_H */

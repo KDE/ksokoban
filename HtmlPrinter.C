@@ -85,9 +85,9 @@ HtmlPrinter::printHtml (LevelMap *lm) {
 <body background=background.gif>\n\
 ");
   printf ("<table border=0 cellspacing=0 cellpadding=0>\n");
-  for (int y=lm->minY(); y<=lm->maxY(); y++) {
+  for (int y=0; y<lm->height(); y++) {
     printf ("<tr>\n");
-    for (int x=lm->minX(); x<=lm->maxX(); x++) {
+    for (int x=0; x<lm->width(); x++) {
       printSquare (lm, x, y);
     }
   }

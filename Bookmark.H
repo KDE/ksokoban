@@ -1,6 +1,6 @@
 /*
  *  ksokoban - a Sokoban game for KDE
- *  Copyright (C) 1998  Anders Widell  <d95-awi@nada.kth.se>
+ *  Copyright (C) 1998  Anders Widell  <awl@hem.passagen.se>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -27,18 +27,18 @@ class LevelMap;
 
 class Bookmark {
 public:
-  Bookmark (int _num);
+  Bookmark(int _num);
 
-  int collection () { return collection_; }
-  int level () { return level_; }
-  int moves () { return moves_; }
-  int pushes () { return pushes_; }
+  int collection() { return collection_; }
+  int level() { return level_; }
+  int moves() { return moves_; }
+  int pushes() { return pushes_; }
 
-  void set (int _collection, int _level, int _moves, History *_h);
-  bool goTo (LevelMap *_map, History *_h);
+  void set(int _collection, int _level, int _moves, History *_h);
+  bool goTo(LevelMap *_map, History *_h);
 
 private:
-  void fileName (QString &p);
+  void fileName(QString &p);
 
   int     number_;
   int     collection_;

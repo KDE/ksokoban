@@ -19,76 +19,63 @@
 
 #include "config.h"
 
-#ifdef USE_LIBZ
-#include <zlib.h>
-#endif
-
+#include <assert.h>
 #include "StaticImage.H"
 
 #include "images/data.c"
 
-#define BUFSIZE (128*1024)
+const unsigned char *const
+imageData[NO_OF_IMAGES] = {
+  halfstone_1_data_,
+  halfstone_2_data_,
+  halfstone_3_data_,
+  halfstone_4_data_,
 
-void
-StaticImage::loadImage (int num, const unsigned char *data, int size) {
-#ifdef USE_LIBZ
-  uLongf bufLen;
-  unsigned char *buf = new unsigned char[BUFSIZE];
+  stone_1_data_,
+  stone_2_data_,
+  stone_3_data_,
+  stone_4_data_,
+  stone_5_data_,
+  stone_6_data_,
 
-  bufLen = BUFSIZE;
-  uncompress (buf, &bufLen, data, size);
+  goal_data_,
+  man_data_,
+  object_data_,
+  saveman_data_,
+  treasure_data_
+};
 
-  images_[num] = new QPixmap;
-  images_[num]->loadFromData (buf, bufLen);
+const unsigned
+imageSize[NO_OF_IMAGES] = {
+  sizeof halfstone_1_data_,
+  sizeof halfstone_2_data_,
+  sizeof halfstone_3_data_,
+  sizeof halfstone_4_data_,
 
-  delete [] buf;
-#else
-  images_[num] = new QPixmap;
-  images_[num]->loadFromData (data, size);
-#endif
-}
+  sizeof stone_1_data_,
+  sizeof stone_2_data_,
+  sizeof stone_3_data_,
+  sizeof stone_4_data_,
+  sizeof stone_5_data_,
+  sizeof stone_6_data_,
+
+  sizeof goal_data_,
+  sizeof man_data_,
+  sizeof object_data_,
+  sizeof saveman_data_,
+  sizeof treasure_data_
+};
 
 StaticImage::StaticImage () {
+  background_.loadFromData((const uchar *) starfield_data_,
+			   (uint) sizeof (starfield_data_));
+
   for (int i=0; i<NO_OF_IMAGES; i++) {
-    images_[i] = 0;
+    images_[i].loadFromData((const uchar *) imageData[i], (uint) imageSize[i]);
   }
-  loadImage (NO_OF_IMAGES, (const uchar *) background_data_,
-	     (uint) sizeof (background_data_));
+
+  //resize(32,32);
 }
 
 StaticImage::~StaticImage () {
-  for (int i=0; i<NO_OF_IMAGES+EXTRA_IMAGES; i++) {
-    if (images_[i] == 0) continue;
-    delete images_[i];
-    for (int j=i+1; j<NO_OF_IMAGES+EXTRA_IMAGES; j++) {
-      if (images_[i] == images_[j]) {
-	images_[j] = 0;
-      }
-    }
-  }
-}
-
-
-
-void
-StaticImage::loadImages (const unsigned char *const data[NO_OF_IMAGES], 
-			 const unsigned size_[NO_OF_IMAGES]) {
-  width_ = height_ = 1;
-
-  for (int i=0; i<NO_OF_IMAGES; i++) {
-    if (images_[i] != 0) continue;
-    loadImage (i, (const uchar *) data[i], (uint) size_[i]);
-    if (images_[i]->width () > width_) width_ = images_[i]->width ();
-    if (images_[i]->height () > height_) height_ = images_[i]->height ();
-
-    for (int j=i+1; j<NO_OF_IMAGES; j++) {
-      if (data[i] == data[j]) {
-	images_[j] = images_[i];
-      }
-    }
-  }
-
-  for (unsigned i=0; i<NO_OF_IMAGES; i++)
-    if (images_[i]->width () != width_ || images_[i]->height () != height_)
-      images_[i]->resize (width_, height_);
 }

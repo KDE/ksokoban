@@ -1,6 +1,6 @@
 /*
  *  ksokoban - a Sokoban game for KDE
- *  Copyright (C) 1998  Anders Widell  <d95-awi@nada.kth.se>
+ *  Copyright (C) 1998  Anders Widell  <awl@hem.passagen.se>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -24,58 +24,58 @@
 #include "MoveSequence.H"
 #include "LevelMap.H"
 
-History::History () {
-  past_.setAutoDelete (true);
-  future_.setAutoDelete (true);
+History::History() {
+  past_.setAutoDelete(true);
+  future_.setAutoDelete(true);
 }
 
 
 void
-History::add (Move *_m) {
-  future_.clear ();
-  past_.append (_m);
+History::add(Move *_m) {
+  future_.clear();
+  past_.append(_m);
 }
 
 void
-History::clear () {
-  past_.clear ();
-  future_.clear ();
+History::clear() {
+  past_.clear();
+  future_.clear();
 }
 
 void
-History::save (QString &_str) {
-  Move *m = past_.first ();
+History::save(QString &_str) {
+  Move *m = past_.first();
 
   while (m != 0) {
-    m->save (_str);
-    m = past_.next ();
+    m->save(_str);
+    m = past_.next();
   }
   _str += '-';
 
-  m = future_.first ();
+  m = future_.first();
   while (m != 0) {
-    m->save (_str);
-    m = future_.next ();
+    m->save(_str);
+    m = future_.next();
   }
 }
 
 const char *
-History::load (LevelMap *map, const char *_str) {
+History::load(LevelMap *map, const char *_str) {
   Move *m;
-  int x = map->xpos ();
-  int y = map->ypos ();
+  int x = map->xpos();
+  int y = map->ypos();
 
-  clear ();
+  clear();
   while (*_str != '\0' && *_str != '-') {
-    m = new Move (x, y);
-    _str = m->load (_str);
+    m = new Move(x, y);
+    _str = m->load(_str);
     if (_str == 0) return 0;
-    x = m->finalX ();
-    y = m->finalY ();
-    past_.append (m);
-    if (!m->redo (map)) {
-      //printf ("redo failed: %s\n", _str);
-      //abort ();
+    x = m->finalX();
+    y = m->finalY();
+    past_.append(m);
+    if (!m->redo(map)) {
+      //printf("redo failed: %s\n", _str);
+      //abort();
       return 0;
     }
   }
@@ -83,49 +83,49 @@ History::load (LevelMap *map, const char *_str) {
 
   _str++;
   while (*_str != '\0') {
-    m = new Move (x, y);
-    _str = m->load (_str);
+    m = new Move(x, y);
+    _str = m->load(_str);
     if (_str == 0) return 0;
-    x = m->finalX ();
-    y = m->finalY ();
-    future_.append (m);
+    x = m->finalX();
+    y = m->finalY();
+    future_.append(m);
   }
 
   return _str;
 }
 
 bool
-History::redo (LevelMap *map) {
-  if (future_.isEmpty ()) return false;
+History::redo(LevelMap *map) {
+  if (future_.isEmpty()) return false;
 
-  Move *m=future_.take (0);
-  past_.append (m);
-  return m->redo (map);
+  Move *m=future_.take(0);
+  past_.append(m);
+  return m->redo(map);
 }
 
 MoveSequence *
-History::deferRedo (LevelMap *map) {
-  if (future_.isEmpty ()) return 0;
+History::deferRedo(LevelMap *map) {
+  if (future_.isEmpty()) return 0;
 
-  Move *m=future_.take (0);
-  past_.append (m);
-  return new MoveSequence (m, map);
+  Move *m=future_.take(0);
+  past_.append(m);
+  return new MoveSequence(m, map);
 }
 
 bool
-History::undo (LevelMap *map) {
-  if (past_.isEmpty ()) return false;
+History::undo(LevelMap *map) {
+  if (past_.isEmpty()) return false;
 
-  Move *m = past_.take (past_.count ()-1);
-  future_.insert (0, m);
-  return m->undo (map);
+  Move *m = past_.take(past_.count ()-1);
+  future_.insert(0, m);
+  return m->undo(map);
 }
 
 MoveSequence *
-History::deferUndo (LevelMap *map) {
-  if (past_.isEmpty ()) return 0;
+History::deferUndo(LevelMap *map) {
+  if (past_.isEmpty()) return 0;
 
-  Move *m = past_.take (past_.count ()-1);
-  future_.insert (0, m);
-  return new MoveSequence (m, map, true);
+  Move *m = past_.take(past_.count()-1);
+  future_.insert(0, m);
+  return new MoveSequence(m, map, true);
 }

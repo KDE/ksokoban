@@ -21,6 +21,7 @@
 #define PLAYFIELD_H
 
 #include <qwidget.h>
+#include <qstring.h>
 
 #include "ImageData.H"
 #include "LevelMap.H"
@@ -31,42 +32,46 @@ class Move;
 
 class History;
 class Bookmark;
+class LevelCollection;
+class QPainter;
 
 class PlayField : public QWidget {
   Q_OBJECT
 public:
-  PlayField (QWidget *parent=0, const char *name=0, WFlags f=0);
-  // PlayField (QWidget *parent, const char *name, WFlags f);
+  PlayField(QWidget *parent, const char *name=0, WFlags f=0);
   ~PlayField ();
 
+  bool canMoveNow();
+  int animDelay() { return animDelay_; }
 
-  int resolution () { return resolution_; }
-  void resolution (int res);
-  int animDelay () { return animDelay_; }
-  int noOfCollections () { return levelMap_->noOfCollections (); }
-  const char *collectionName (int i) { return levelMap_->collectionName (i); }
+  void setSize(int w, int h);
+  void level(int _l) { levelMap_->level(_l); }
+  LevelCollection  *collection() { return levelMap_->collection(); }
+  void setBookmark(Bookmark *bm);
+  void goToBookmark(Bookmark *bm);
 
-  void setSize ();
-  void level (int _l) { levelMap_->level (_l); }
-  int  collection () { return levelMap_->collection (); }
-  void emitAll ();
-  void setBookmark (Bookmark *bm);
-  void goToBookmark (Bookmark *bm);
+  int level();
+  const QString &collectionName();
+  int totalMoves();
+  int totalPushes();
+
+  void changeLevelStatus();
+  void changeStepsStatus();
+  void changePushesStatus();
 
 public slots:
-  void nextLevel ();
-  void previousLevel ();
-  void undo ();
-  void redo ();
-  void restartLevel ();
-  void changeCollection (int collection);
-  void changeAnim (int num);
+  void nextLevel();
+  void previousLevel();
+  void undo();
+  void redo();
+  void restartLevel();
+  void changeCollection(LevelCollection *collection);
+  void changeAnim(int num);
 
 signals:
-  void levelChanged (const char *text);
-  void collectionChanged (const char *text);
-  void movesChanged (const char *text);
-  void pushesChanged (const char *text);
+  void levelChanged();
+  void movesChanged();
+  void pushesChanged();
 
 protected:
   ImageData *imageData_;
@@ -80,9 +85,10 @@ protected:
   int        animDelay_;
 
   void levelChange ();
-  void paintSquare (int x, int y);
+  void paintSquare (int x, int y, QPainter &paint, bool erased);
   void paintDelta ();
-  void paintEvent (QPaintEvent *);
+  void paintEvent (QPaintEvent *e);
+  void resizeEvent (QResizeEvent *e);
   void keyPressEvent (QKeyEvent *);
   void focusInEvent (QFocusEvent *);
   void focusOutEvent (QFocusEvent *);
@@ -92,8 +98,7 @@ protected:
   virtual void timerEvent (QTimerEvent *);
 
 private:
-  int width_, height_, xOffs_, yOffs_, maxX_, maxY_, minX_, minY_;
-  int resolution_;
+  int width_, height_, xOffs_, yOffs_;
 
   x2pixel (int x) { return width_*x+xOffs_; }
   y2pixel (int y) { return height_*y+yOffs_; }
@@ -101,17 +106,14 @@ private:
   pixel2x (int x) { return (x-xOffs_)/width_; }
   pixel2y (int y) { return (y-yOffs_)/height_; }
 
-  void drawImage (int x, int y, const QPixmap *image) {
-    bitBlt (this, x2pixel (x), y2pixel (y),
-	    image, 0, 0, imageData_->width (), imageData_->height (),
-	    CopyROP, false);
-  }
-  void setOffset ();
   void startMoving (Move *m);
   void startMoving (MoveSequence *ms);
   void stopMoving ();
 
-  void emitMoves (bool force);
+  QRect pnumRect_, ptxtRect_, snumRect_, stxtRect_, lnumRect_, ltxtRect_;
+  QRect collRect_;
+
+  const QString levelText_, stepsText_, pushesText_;
 
 };
 

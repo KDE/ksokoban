@@ -21,62 +21,46 @@
 #define LEVELMAP_H
 
 #include <assert.h>
+#include <qstring.h>
 
 #include "Map.H"
+class LevelCollection;
+
+//#define EXTERNAL_LEVEL 100
 
 class LevelMap : public Map {
 public:
-  LevelMap ();
-  ~LevelMap ();
+  LevelMap();
+  ~LevelMap();
 
-  int maxX () { return maxX_; }
-  int maxY () { return maxY_; }
-  int minX () { return minX_; }
-  int minY () { return minY_; }
+  LevelCollection *collection() { return collection_; }
+  const QString &collectionName();
+  void changeCollection(LevelCollection *_collection);
+  int totalMoves() { return totalMoves_; }
+  int totalPushes() { return totalPushes_; }
+  void level(int _level);
+  int level();
+  int noOfLevels();
+  int completedLevels();
+  bool goodLevel() { return goodLevel_; }
 
-  int level () { return collectionCurrentLevel_[collection ()]; }
-  void level (int _level);
-  int collection () { return collection_; }
-  int completedLevels () { return collectionMaxLevel_[collection ()]; }
-  int noOfLevels () { return collectionSize_[collection ()]; }
-  int noOfCollections () { return noOfCollections_; }
-  const char *collectionName (int i) { assert (i>=0 && i <noOfCollections_); return collectionNames_[i]; }
-  void changeCollection (int _collection);
-  int totalMoves () { return totalMoves_; }
-  int totalPushes () { return totalPushes_; }
+  bool step(int _x, int _y);
+  bool push(int _x, int _y);
+  bool unstep(int _x, int _y);
+  bool unpush(int _x, int _y);
 
-  bool step   (int _x, int _y);
-  bool push   (int _x, int _y);
-  bool unstep (int _x, int _y);
-  bool unpush (int _x, int _y);
-
-  void   printMap ();
-  //void random ();
+  //void random();
 
 protected:
-  int collection_;
+  LevelCollection *collection_;
 
 
 private:
-  int maxX_, maxY_, minX_, minY_;
-
-  int    datasize;
-  char  *data;
-  char **levelIndex_;
-  char **collectionNames_;
-  int   *collectionIndex_;
-  int   *collectionSize_;
-  int   *collectionCurrentLevel_;
-  int   *collectionMaxLevel_;
-  int    totalLevels_;
-  int    noOfCollections_;
-
   int    totalMoves_;
   int    totalPushes_;
+  bool   goodLevel_;
 
-  static int configCollection2Real (int collection);
-  static int realCollection2Config (int collection);
-  static int distance (int x1, int y1, int x2, int y2);
+  static int distance(int x1, int y1, int x2, int y2);
 };
 
 #endif  /* LEVELMAP_H */

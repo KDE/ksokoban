@@ -24,14 +24,9 @@
 
 class
 StaticImage : public ImageData {
-private:
-  void loadImage (int num, const unsigned char *data, int size);
-protected:
-  void loadImages (const unsigned char *const data[NO_OF_IMAGES], const unsigned size[NO_OF_IMAGES]);
-
 public:
   StaticImage ();
-  ~StaticImage ();
+  virtual ~StaticImage ();
 
 };
 

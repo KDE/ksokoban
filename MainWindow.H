@@ -22,56 +22,51 @@
 
 #include <ktopwidget.h>
 #include "Bookmark.H"
+#include "InternalCollections.H"
 
 class KMenuBar;
 class PlayField;
 class QPopupMenu;
 class QFocusEvent;
-class KStatusBar;
+class LevelCollection;
 
-
-class MainWindow : public KTopLevelWidget
-{
-  Q_OBJECT;
+class MainWindow : public KTopLevelWidget {
+  Q_OBJECT
 public:
   MainWindow();
   ~MainWindow();
 
 public slots:
-  void changeGfx (int id);
-  void updateCollectionMenu (int id);
-  void updateAnimMenu (int id);
-  void setBookmark (int id);
-  void goToBookmark (int id);
+  void changeCollection(int id);
+  void updateAnimMenu(int id);
+  void setBookmark(int id);
+  void goToBookmark(int id);
 
-  void changeCollection (const char *text);
-  void changeLevel (const char *text);
-  void changeMoves (const char *text);
-  void changePushes (const char *text);
+  void loadLevels();
 
 protected:
-  void focusInEvent (QFocusEvent *);
+  void focusInEvent(QFocusEvent *);
+  void createCollectionMenu();
 
 private:
+  InternalCollections internalCollections_;
+  LevelCollection *externalCollection_;
   KMenuBar        *menu_;
   PlayField       *playField_;
   Bookmark        *bookmarks_[10];
-  
+  int              currentCollection_;
+
   QPopupMenu      *game_;
   QPopupMenu      *collection_;
-  QPopupMenu      *graphics_;
   QPopupMenu      *animation_;
   QPopupMenu      *bookmarkMenu_;
   QPopupMenu      *setBM_;
   QPopupMenu      *goToBM_;
   QPopupMenu      *help_;
   int              checkedCollection_;
-  int              checkedGfx_;
   int              checkedAnim_;
-  KStatusBar      *statusBar_;
 
-  void updateGfxMenu (int id);
-  void updateBookmark (int num);
+  void updateBookmark(int num);
 
 };
 

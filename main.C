@@ -18,6 +18,7 @@
  */
 
 #include <kapp.h>
+#include <kimgio.h>
 
 #include "MainWindow.H"
 
@@ -25,15 +26,13 @@ int
 main (int argc, char **argv)
 {
   QApplication::setColorSpec (QApplication::ManyColor);
+  kimgioRegister();
+
   KApplication *app = new KApplication (argc, argv, "ksokoban");
-  app->getConfig ()->setGroup ("settings");
 
   MainWindow *widget = new MainWindow ();
-
   app->setMainWidget (widget);
   widget->show ();
-
-
 
   int rc = app->exec ();
 

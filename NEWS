@@ -1,4 +1,24 @@
 -------------------------------------------------------------------------------
+version 0.3.0: Date 1999-06-09
+
+* Graphics:
+  - Switched to one single image resolution
+  - Converted images to PNG and JPEG formats
+  - The window can now be resized freely - graphics is scaled to fit window
+  - Graphics now looks MUCH better on 256 colour displays
+  - Improved wall graphics (several stones with different textures)
+  - Removed status bar - now draws info directly in widget (not perfect yet)
+
+* New experimental feature:
+  - It is now possible to load external level collections from text files
+
+* Some changes related to KDE 2.0 / Qt 2.0
+  - replaced many char * with QString
+  - uses KStandardDirs instead of localkdedir
+
+* Some minor bugfixes/cleanups
+
+-------------------------------------------------------------------------------
 version 0.2.2: Date 1998-11-06
 
 * Bugfix: "Animation off" now works again
