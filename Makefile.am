@@ -19,7 +19,7 @@ EXTRA_DIST=AUTHORS NEWS README TODO
 
 # we need theese deps for the automatic generation of other deps
 StaticImage.o: images/data.c
-LevelMap.o: levels/data.c
+InternalCollections.o: levels/data.c
 
 # these are for automatic generation of deps, too
 levels/data.c:
