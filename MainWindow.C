@@ -21,7 +21,7 @@
 
 #include <kapp.h>
 #include <kconfig.h>
-#include <ktopwidget.h>
+#include <ktmainwindow.h>
 #include <kmenubar.h>
 #include <qpopupmenu.h>
 #include <qkeycode.h>

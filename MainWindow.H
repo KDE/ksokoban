@@ -20,7 +20,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <ktopwidget.h>
+#include <ktmainwindow.h>
 #include "Bookmark.H"
 #include "InternalCollections.H"
 
