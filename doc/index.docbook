@@ -1,10 +1,9 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.1-Based Variant V1.0//EN" "dtd/kdex.dtd" [
   <!ENTITY kappname "&ksokoban;">
+  <!ENTITY package "kdegames">
   <!ENTITY % English "INCLUDE" > <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  
-  
 ]>
 
 <book lang="&language;">
@@ -118,16 +117,16 @@ can of course also restart the level from the very beginning.
 
 <tbody>
 <row><entry>Cursor keys </entry><entry>Move one square in a direction </entry></row>
-<row><entry><emphasis>CONTROL</emphasis> + Cursor keys </entry><entry>Move as far as possible in a direction without pushing any gems </entry></row>
-<row><entry><emphasis>SHIFT</emphasis> + Cursor keys </entry><entry>Move as far as possible in a direction, pushing any gem in the way </entry></row>
-<row><entry>Left mouse button </entry><entry>Move to any place in the maze that can be reached without pushing any gems </entry></row>
-<row><entry>Middle mouse button </entry><entry>Move up/down/left/right in a straight line, pushing any gem in the way </entry></row>
+<row><entry><keycombo action="simul">&Ctrl;<keycap>Cursor</keycap></keycombo> keys </entry><entry>Move as far as possible in a direction without pushing any gems </entry></row>
+<row><entry><keycombo action="simul">&Shift;<keycap>Cursor</keycap></keycombo> keys </entry><entry>Move as far as possible in a direction, pushing any gem in the way </entry></row>
+<row><entry><mousebutton>Left</mousebutton> mouse button </entry><entry>Move to any place in the maze that can be reached without pushing any gems </entry></row>
+<row><entry><mousebutton>Middle</mousebutton> mouse button </entry><entry>Move up/down/left/right in a straight line, pushing any gem in the way </entry></row>
 <row><entry>Right mouse button or <emphasis>U</emphasis> </entry><entry>Undo the last move </entry></row>
-<row><entry><emphasis>R</emphasis> </entry><entry>Redo the last undone move </entry></row>
-<row><entry><emphasis>N</emphasis> </entry><entry>Go to the next level in the current level collection </entry></row>
-<row><entry><emphasis>P</emphasis> </entry><entry>Go to the previous level in the current level collection </entry></row>
-<row><entry><emphasis>Escape</emphasis> </entry><entry>Restart the current level </entry></row>
-<row><entry><emphasis>Q</emphasis> </entry><entry>Quit the game </entry></row>
+<row><entry><keycap>R</keycap> </entry><entry>Redo the last undone move </entry></row>
+<row><entry><keycap>N</keycap> </entry><entry>Go to the next level in the current level collection </entry></row>
+<row><entry><keycap>P</keycap> </entry><entry>Go to the previous level in the current level collection </entry></row>
+<row><entry>&Esc; </entry><entry>Restart the current level </entry></row>
+<row><entry><keycap>Q</keycap> </entry><entry>Quit the game </entry></row>
 </tbody>
 </tgroup>
 </informaltable>
@@ -144,7 +143,7 @@ You can load levels using the menu
 <guimenu>Game</guimenu>
 <guimenuitem>Load levels...</guimenuitem>
 </menuchoice>,
-or by specifying the level file URL as a command line argument
+or by specifying the level file &URL; as a command line argument
 when starting &ksokoban; from a shell.
 </para>
 
@@ -155,7 +154,6 @@ levels should be separated by blank lines. The file may also contain text
 between the levels.
 </para>
 
-<para>
 <informaltable>
 <tgroup cols="2">
 <thead>
@@ -163,17 +161,16 @@ between the levels.
 </thead>
 
 <tbody>
-<row><entry>#</entry><entry>Wall</entry></row>
+<row><entry><literal>#</literal></entry><entry>Wall</entry></row>
 <row><entry><emphasis>(space)</emphasis></entry><entry>Empty square</entry></row>
-<row><entry>.</entry><entry>Goal square</entry></row>
-<row><entry>$</entry><entry>Object on an empty square</entry></row>
-<row><entry>*</entry><entry>Object on a goal square</entry></row>
-<row><entry>@</entry><entry>Start position on an empty square</entry></row>
-<row><entry>+</entry><entry>Start position on a goal square</entry></row>
+<row><entry><literal>.</literal></entry><entry>Goal square</entry></row>
+<row><entry><literal>$</literal></entry><entry>Object on an empty square</entry></row>
+<row><entry><literal>*</literal></entry><entry>Object on a goal square</entry></row>
+<row><entry><literal>@</literal></entry><entry>Start position on an empty square</entry></row>
+<row><entry><literal>+</literal></entry><entry>Start position on a goal square</entry></row>
 </tbody>
 </tgroup>
 </informaltable>
-</para>
 
 <para>
 As an example, below is a text representation of the first level in the
