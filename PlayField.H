@@ -22,6 +22,9 @@
 
 #include <qwidget.h>
 #include <qstring.h>
+#include <qfont.h>
+#include <qfontmetrics.h>
+#include <qpixmap.h>
 
 #include "ImageData.H"
 #include "LevelMap.H"
@@ -55,9 +58,11 @@ public:
   int totalMoves();
   int totalPushes();
 
-  void changeLevelStatus();
-  void changeStepsStatus();
-  void changePushesStatus();
+  void updateCollectionXpm();
+  void updateTextXpm();
+  void updateLevelXpm();
+  void updateStepsXpm();
+  void updatePushesXpm();
 
 public slots:
   void nextLevel();
@@ -67,11 +72,6 @@ public slots:
   void restartLevel();
   void changeCollection(LevelCollection *collection);
   void changeAnim(int num);
-
-signals:
-  void levelChanged();
-  void movesChanged();
-  void pushesChanged();
 
 protected:
   ImageData *imageData_;
@@ -114,6 +114,10 @@ private:
   QRect collRect_;
 
   const QString levelText_, stepsText_, pushesText_;
+  QPixmap pnumXpm_, ptxtXpm_, snumXpm_, stxtXpm_, lnumXpm_, ltxtXpm_;
+  QPixmap collXpm_;
+  QFont         statusFont_;
+  QFontMetrics  statusMetrics_;
 
 };
 

@@ -1,7 +1,7 @@
 ------------------------------------------------------------------------
 ksokoban is written by:
 
-Anders Widell <d95-awi@nada.kth.se>
+Anders Widell <awl@hem.passagen.se>
 
 ------------------------------------------------------------------------
 The levels were taken from:
@@ -21,7 +21,8 @@ Sokoban 2.4 for Macintosh
 ------------------------------------------------------------------------
 The levels originally come from:
 
-Original               the first 50 original levels from xsokoban
+Original               the 50 original sokoban levels
+                       made by Thinking rabbit Inc. in Japan
 Extra                  some more levels from xsokoban
 Still more             by J. Franklin Mentzer <wryter@aol.com>
 MacTommy inventions    by a guy called Tommy in Pennsylvania

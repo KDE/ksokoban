@@ -27,6 +27,7 @@
 #include <kapp.h>
 #include <klocale.h>
 #include <qpainter.h>
+#include <qmessagebox.h>
 
 #include "PlayField.H"
 #include "ModalLabel.H"
@@ -47,11 +48,11 @@ PlayField::PlayField(QWidget *parent, const char *name, WFlags f)
   : QWidget(parent, name, f|WResizeNoErase), imageData_(0), lastLevel_(-1),
     moveSequence_(0), moveInProgress_(false), xOffs_(0), yOffs_(0),
     levelText_(i18n("Level")), stepsText_(i18n("Steps")),
-    pushesText_(i18n("Pushes")) {
+    pushesText_(i18n("Pushes")),
+    statusFont_("helvetica", 18, QFont::Bold), statusMetrics_(statusFont_) {
 
   setFocusPolicy(QWidget::StrongFocus);
   setFocus();
-  setFont(QFont("helvetica", 18, QFont::Bold));
   setBackgroundColor(QColor(0x66,0x66,0x66));
 
   KConfig *cfg = (KApplication::getKApplication())->getConfig();
@@ -71,7 +72,6 @@ PlayField::PlayField(QWidget *parent, const char *name, WFlags f)
   mapDelta_->end();
 
   levelChange();
-  repaint(false);
 }
 
 PlayField::~PlayField() {
@@ -115,9 +115,9 @@ PlayField::levelChange() {
   history_->clear();
   setSize(width(), height());
 
-  //changeLevelStatus();
-  //changeStepsStatus();
-  //changePushesStatus();
+  updateLevelXpm();
+  updateStepsXpm();
+  updatePushesXpm();
 }
 
 void
@@ -192,9 +192,12 @@ PlayField::paintEvent(QPaintEvent *e) {
     int x1, x2, y1, y2;
     y1 = y2pixel(miny);
     if (y1 > e->rect().y()) erase(e->rect().x(), e->rect().y(), e->rect().width(), y1-e->rect().y());
-    
+
+    int bot=e->rect().y()+e->rect().height();
+    if (bot > height()-collRect_.height()) bot = height()-collRect_.height();
+
     y2 = y2pixel(maxy+1);
-    if (y2 < e->rect().y()+e->rect().height()) erase(e->rect().x(), y2, e->rect().width(), e->rect().y()+e->rect().height()-y2);
+    if (y2 < bot) erase(e->rect().x(), y2, e->rect().width(), bot-y2);
     
     x1 = x2pixel(minx);
     if (x1 > e->rect().x()) erase(e->rect().x(), y1, x1-e->rect().x(), y2-y1);
@@ -205,27 +208,19 @@ PlayField::paintEvent(QPaintEvent *e) {
     // paint.eraseRect
   }
 
-
-
   for (int y=miny; y<=maxy; y++) {
     for (int x=minx; x<=maxx; x++) {
       paintSquare(x, y, paint, erased);
     }
   }
 
-  paint.setPen(QColor(0,255,0));
-  paint.drawText(collRect_, AlignLeft, collectionName());
-
-  paint.setPen(QColor(128,128,128));
-  paint.drawText(ltxtRect_, AlignLeft, levelText_);
-  paint.drawText(stxtRect_, AlignLeft, stepsText_);
-  paint.drawText(ptxtRect_, AlignLeft, pushesText_);
-
-  QString str;
-  paint.setPen(QColor(255,0,0));
-  paint.drawText(lnumRect_, AlignLeft, str.sprintf("%05d", level()+1));
-  paint.drawText(snumRect_, AlignLeft, str.sprintf("%05d", totalMoves()));
-  paint.drawText(pnumRect_, AlignLeft, str.sprintf("%05d", totalPushes()));
+  if (collRect_.intersects(e->rect())) paint.drawPixmap(collRect_.x(), collRect_.y(), collXpm_);
+  if (ltxtRect_.intersects(e->rect())) paint.drawPixmap(ltxtRect_.x(), ltxtRect_.y(), ltxtXpm_);
+  if (lnumRect_.intersects(e->rect())) paint.drawPixmap(lnumRect_.x(), lnumRect_.y(), lnumXpm_);
+  if (stxtRect_.intersects(e->rect())) paint.drawPixmap(stxtRect_.x(), stxtRect_.y(), stxtXpm_);
+  if (snumRect_.intersects(e->rect())) paint.drawPixmap(snumRect_.x(), snumRect_.y(), snumXpm_);
+  if (ptxtRect_.intersects(e->rect())) paint.drawPixmap(ptxtRect_.x(), ptxtRect_.y(), ptxtXpm_);
+  if (pnumRect_.intersects(e->rect())) paint.drawPixmap(pnumRect_.x(), pnumRect_.y(), pnumXpm_);
 }
 
 void
@@ -239,8 +234,12 @@ PlayField::stopMoving() {
   delete moveSequence_;
   moveSequence_ = 0;
   moveInProgress_ = false;
-  changeStepsStatus();
-  changePushesStatus();
+  updateStepsXpm();
+  updatePushesXpm();
+
+  QPainter paint(this);
+  paint.drawPixmap(snumRect_.x(), snumRect_.y(), snumXpm_);
+  paint.drawPixmap(pnumRect_.x(), pnumRect_.y(), pnumXpm_);
 }
 
 
@@ -449,8 +448,8 @@ PlayField::keyPressEvent(QKeyEvent * e) {
       //scanf("%s", buf);
       history_->load(levelMap_, buf);
     }
-    changeStepsStatus();
-    changePushesStatus();
+    updateStepsXpm();
+    updatePushesXpm();
     repaint(false);
     return;
     break;
@@ -510,11 +509,11 @@ PlayField::focusOutEvent(QFocusEvent *) {
 
 void
 PlayField::setSize(int w, int h) {
-  int sbarHeight = fontMetrics().height();
-  int sbarNumWidth = fontMetrics().boundingRect("88888").width()+8;
-  int sbarLevelWidth = fontMetrics().boundingRect(levelText_).width()+8;
-  int sbarStepsWidth = fontMetrics().boundingRect(stepsText_).width()+8;
-  int sbarPushesWidth = fontMetrics().boundingRect(pushesText_).width()+8;
+  int sbarHeight = statusMetrics_.height();
+  int sbarNumWidth = statusMetrics_.boundingRect("88888").width()+8;
+  int sbarLevelWidth = statusMetrics_.boundingRect(levelText_).width()+8;
+  int sbarStepsWidth = statusMetrics_.boundingRect(stepsText_).width()+8;
+  int sbarPushesWidth = statusMetrics_.boundingRect(pushesText_).width()+8;
 
   pnumRect_.setRect(w-sbarNumWidth, h-sbarHeight, sbarNumWidth, sbarHeight);
   ptxtRect_.setRect(pnumRect_.x()-sbarPushesWidth, h-sbarHeight, sbarPushesWidth, sbarHeight);
@@ -523,6 +522,14 @@ PlayField::setSize(int w, int h) {
   lnumRect_.setRect(stxtRect_.x()-sbarNumWidth, h-sbarHeight, sbarNumWidth, sbarHeight);
   ltxtRect_.setRect(lnumRect_.x()-sbarLevelWidth, h-sbarHeight, sbarLevelWidth, sbarHeight);
   collRect_.setRect(0, h-sbarHeight, ltxtRect_.x(), sbarHeight);
+
+  collXpm_.resize(collRect_.size());
+  ltxtXpm_.resize(ltxtRect_.size());
+  lnumXpm_.resize(lnumRect_.size());
+  stxtXpm_.resize(stxtRect_.size());
+  snumXpm_.resize(snumRect_.size());
+  ptxtXpm_.resize(ptxtRect_.size());
+  pnumXpm_.resize(pnumRect_.size());
 
   h -= sbarHeight;
 
@@ -545,6 +552,13 @@ PlayField::setSize(int w, int h) {
 
   xOffs_ = (w - cols*width_) / 2;
   yOffs_ = (h - rows*height_) / 2;
+
+
+  updateCollectionXpm();
+  updateTextXpm();
+  updateLevelXpm();
+  updateStepsXpm();
+  updatePushesXpm();
 }
 
 void
@@ -599,8 +613,8 @@ PlayField::restartLevel() {
   stopMoving();
   history_->clear();
   level(levelMap_->level());
-  changeStepsStatus();
-  changePushesStatus();
+  updateStepsXpm();
+  updatePushesXpm();
   repaint(false);
 }
 
@@ -614,36 +628,81 @@ PlayField::changeCollection(LevelCollection *collection) {
 }
 
 void
-PlayField::changeLevelStatus() {
-  erase(lnumRect_);
+PlayField::updateCollectionXpm() {
+  if (collXpm_.isNull()) return;
+  collXpm_.fill(this, collRect_.x(), collRect_.y());
 
-  QPainter paint(this);
+  QPainter paint(&collXpm_);
   
-  QString str;
-  paint.setPen(QColor(255,0,0));
-  paint.drawText(lnumRect_, AlignLeft, str.sprintf("%05d", level()+1));
+  paint.setFont(statusFont_);
+  paint.setPen(QColor(0,255,0));
+  paint.drawText(0, 0, collRect_.width(), collRect_.height(),
+		 AlignLeft, collectionName());
 }
 
 void
-PlayField::changeStepsStatus() {
-  erase(snumRect_);
+PlayField::updateTextXpm() {
+  if (ltxtXpm_.isNull()) return;
+  ltxtXpm_.fill(this, ltxtRect_.x(), ltxtRect_.y());
+  stxtXpm_.fill(this, stxtRect_.x(), stxtRect_.y());
+  ptxtXpm_.fill(this, ptxtRect_.x(), ptxtRect_.y());
 
-  QPainter paint(this);
-  
-  QString str;
-  paint.setPen(QColor(255,0,0));
-  paint.drawText(snumRect_, AlignLeft, str.sprintf("%05d", totalMoves()));
+  QPainter p1(&ltxtXpm_);
+  p1.setFont(statusFont_);
+  p1.setPen(QColor(128,128,128));
+  p1.drawText(0, 0, ltxtRect_.width(), ltxtRect_.height(), AlignLeft, levelText_);
+
+  QPainter p2(&stxtXpm_);
+  p2.setFont(statusFont_);
+  p2.setPen(QColor(128,128,128));
+  p2.drawText(0, 0, stxtRect_.width(), stxtRect_.height(), AlignLeft, stepsText_);
+
+  QPainter p3(&ptxtXpm_);
+  p3.setFont(statusFont_);
+  p3.setPen(QColor(128,128,128));
+  p3.drawText(0, 0, ptxtRect_.width(), ptxtRect_.height(), AlignLeft, pushesText_);
 }
 
 void
-PlayField::changePushesStatus() {
-  erase(pnumRect_);
+PlayField::updateLevelXpm() {
+  if (lnumXpm_.isNull()) return;
+  lnumXpm_.fill(this, lnumRect_.x(), lnumRect_.y());
 
-  QPainter paint(this);
+  QPainter paint(&lnumXpm_);
   
   QString str;
+  paint.setFont(statusFont_);
   paint.setPen(QColor(255,0,0));
-  paint.drawText(pnumRect_, AlignLeft, str.sprintf("%05d", totalPushes()));
+  paint.drawText(0, 0, lnumRect_.width(), lnumRect_.height(),
+		 AlignLeft, str.sprintf("%05d", level()+1));
+}
+
+void
+PlayField::updateStepsXpm() {
+  if (snumXpm_.isNull()) return;
+  snumXpm_.fill(this, snumRect_.x(), snumRect_.y());
+
+  QPainter paint(&snumXpm_);
+  
+  QString str;
+  paint.setFont(statusFont_);
+  paint.setPen(QColor(255,0,0));
+  paint.drawText(0, 0, snumRect_.width(), snumRect_.height(),
+		 AlignLeft, str.sprintf("%05d", totalMoves()));
+}
+
+void
+PlayField::updatePushesXpm() {
+  if (pnumXpm_.isNull()) return;
+  pnumXpm_.fill(this, pnumRect_.x(), pnumRect_.y());
+
+  QPainter paint(&pnumXpm_);
+  
+  QString str;
+  paint.setFont(statusFont_);
+  paint.setPen(QColor(255,0,0));
+  paint.drawText(0, 0, pnumRect_.width(), pnumRect_.height(),
+		 AlignLeft, str.sprintf("%05d", totalPushes()));
 }
 
 
@@ -666,9 +725,9 @@ PlayField::setBookmark(Bookmark *bm) {
   if (!levelMap_->goodLevel()) return;
 
   if (collection()->id() < 0) {
-    ModalLabel::message(i18n("\
+    QMessageBox::warning(this, "Ksokoban", i18n("\
 Sorry. Bookmarks for external levels\n\
-is not implemented yet"), this);
+is not implemented yet"), i18n("OK"));
     return;
   }
 
@@ -680,9 +739,9 @@ PlayField::goToBookmark(Bookmark *bm) {
   level(bm->level());
   levelChange();
   if (!bm->goTo(levelMap_, history_)) fprintf(stderr, "Warning: bad bookmark\n");
-  //changeLevelStatus();
-  //changeStepsStatus();
-  //changePushesStatus();
+  //updateLevelXpm();
+  updateStepsXpm();
+  updatePushesXpm();
   repaint(false);
 }
 
