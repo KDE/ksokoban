@@ -449,7 +449,7 @@ LevelMap::random (void) {
   for (int i=0; i<200; i++) {
     map (xpos_, ypos_, FLOOR);
 
-    switch (rand () & 3) {
+    switch (::random () & 3) {
     case 0:
       if (ypos_ > 1) ypos_--; else i--;
       break;
