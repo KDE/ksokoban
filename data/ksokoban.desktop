@@ -61,4 +61,4 @@ Exec=ksokoban %i %m -caption "%c"
 Icon=ksokoban
 Terminal=0
 Type=Application
-KDE-X-StartupNotify=true
+X-KDE-StartupNotify=true
