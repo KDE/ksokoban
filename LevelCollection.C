@@ -34,7 +34,7 @@ LevelCollection::indexTextCollection() {
   } state = BEFORE_NONE;
 
   int levelstart=0, levelend=0;
-  for (int pos=0; pos<(data_.size()-1); pos++) {
+  for (unsigned pos=0; pos<(data_.size()-1); pos++) {
     switch (state) {
     case BEFORE_NONE:
       switch (data_[pos]) {
@@ -62,7 +62,7 @@ LevelCollection::indexTextCollection() {
 	break;
 
       case '\n':
-	index_.add(&data_[levelstart]);
+	addLevel(&data_[levelstart]);
 	state = DURING_NONE;
 	break;
 
@@ -176,13 +176,34 @@ LevelCollection::loadPrefs() {
   }
 }
 
+void
+LevelCollection::addLevel(const char* _level) {
+  unsigned s = index_.size();
+  index_.resize(s + 1);
+  index_.insert(s, _level);
+}
+
+void
+LevelCollection::addData(const char* _data, unsigned _len) {
+  unsigned pos = data_.size();
+  data_.resize(pos + _len);
+  memcpy(data_.data() + pos, _data, _len);
+}
+
+void
+LevelCollection::addSeparator() {
+  unsigned pos = data_.size();
+  data_.resize(pos + 1);
+  data_[pos] = '\0';
+}
+
 LevelCollection::LevelCollection(const char *_def, int _len,
 				 const QString &_name, int _id) :
   level_(0), completedLevels_(0), noOfLevels_(0),
   name_(_name), id_(_id) {
 
-  data_.add(_def, _len);
-  data_.add('\0');
+  addData(_def, _len);
+  addSeparator();
 
   indexTextCollection();
 
@@ -202,10 +223,10 @@ LevelCollection::LevelCollection(const QString &_path, const QString &_name,
   QFile file(path_);
   if (file.open(IO_Raw | IO_ReadOnly)) {
     while ((len = file.readBlock(buf, 1024)) > 0) {
-      data_.add((char *) buf, len);
+      addData((const char *) buf, len);
     }
     file.close();
-    data_.add('\0');
+    addSeparator();
   }
 
   indexTextCollection();
@@ -267,8 +288,8 @@ LevelCollection::level(int _level) {
   if (level_ < 0) level_ = 0;
 }
 
-int
-minX(char *def) {
+static int
+minX(const char *def) {
   int min_x = 10000;
 
   int x=0;
@@ -303,7 +324,7 @@ bool
 LevelCollection::loadLevel(Map *_map) {
   _map->clearMap();
 
-  char *def = index_[level_];
+  const char *def = index_[level_];
   bool goodMap = true;
   int x=0, y=0, goalsLeft=0;
 

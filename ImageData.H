@@ -22,10 +22,9 @@
 
 #include <qimage.h>
 #include <qpixmap.h>
+#include <qcstring.h>
 
 #include <krandomsequence.h>
-
-#include "Array.H"
 
 class QPainter;
 
@@ -70,10 +69,10 @@ protected:
   QPixmap background_;
   
   int indexSize_;
-  Array<char> upperLargeIndex_;
-  Array<char> lowerLargeIndex_;
-  Array<char> leftSmallIndex_;
-  Array<char> rightSmallIndex_;
+  QByteArray upperLargeIndex_;
+  QByteArray lowerLargeIndex_;
+  QByteArray leftSmallIndex_;
+  QByteArray rightSmallIndex_;
 
   int size_, halfSize_;
   KRandomSequence random;

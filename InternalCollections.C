@@ -97,7 +97,7 @@ InternalCollections::InternalCollections() {
     case DATA:
       if (isalpha(data_[end])) {
 // 	collections_.add(new LevelCollection(data_+start, end-start, data_+name, collection_save_id[levelnum]));
-	collections_.add(new LevelCollection(data_+start, end-start, collectionName(levelnum), collection_save_id[levelnum]));
+	add(new LevelCollection(data_+start, end-start, collectionName(levelnum), collection_save_id[levelnum]));
 	//printf("Level found: '%s'\n", data_+name);
 	levelnum++;
 	name = end;
@@ -112,14 +112,14 @@ InternalCollections::InternalCollections() {
   }
   if (state == DATA) {
 //     collections_.add(new LevelCollection(data_+start, end-start, data_+name, collection_save_id[levelnum]));
-    collections_.add(new LevelCollection(data_+start, end-start, collectionName(levelnum), collection_save_id[levelnum]));
+    add(new LevelCollection(data_+start, end-start, collectionName(levelnum), collection_save_id[levelnum]));
     //printf("***Level found: '%s'\n", data_+name);
   }
   //printf("numlevels: %d/%d\n", levelnum+1, collections_.size());
 }
 
 InternalCollections::~InternalCollections() {
-  for (int i=0; i<collections_.size(); i++) {
+  for (unsigned i=0; i<collections_.size(); i++) {
     delete collections_[i];
   }
 
@@ -136,4 +136,9 @@ InternalCollections::operator[](int n) {
   return collections_[n];
 }
 
-
+void
+InternalCollections::add(LevelCollection* c) {
+  unsigned s = collections_.size();
+  collections_.resize(s + 1);
+  collections_.insert(s, c);
+}

@@ -22,33 +22,33 @@
 
 #include <assert.h>
 
-template <class Type>
+template <class Type, int SizePow2>
 class Queue {
 private:
   Type *queue_;
-  int   size_, head_, tail_;
+  long   head_, tail_;
 
 public:
-  void clear () { head_ = tail_ = 0; }
-  bool empty () { return head_ == tail_; }
-  bool full () { return (head_-tail_+size_)%size_ == 1; }
+  void clear() { head_ = tail_ = 0; }
+  bool empty() { return head_ == tail_; }
+  bool full() { return ((tail_ + 1) & ((1l<<SizePow2)-1)) == head_; }
 
-  Queue (int _capacity) {
-    queue_ = new Type[size_ = _capacity+1];
-    clear ();
+  Queue() {
+    queue_ = new Type[1l << SizePow2];
+    clear();
   }
-  ~Queue () { delete [] queue_; }
+  ~Queue() { delete [] queue_; }
 
-  void enqueue (Type _x) {
-    assert (!full ());
-    queue_[tail_++] = _x;
-    if (tail_ >= size_) tail_ = 0;
+  void enqueue(Type _x) {
+    assert(!full());
+    queue_[tail_] = _x;
+    tail_ = (tail_ + 1) & ((1l<<SizePow2)-1);
   }
 
-  Type dequeue () {
-    assert (!empty ());
-    Type x = queue_[head_++];
-    if (head_ >= size_) head_ = 0;
+  Type dequeue() {
+    assert(!empty());
+    Type x = queue_[head_];
+    head_ = (head_ + 1) & ((1l<<SizePow2)-1);
     return x;
   }
 };

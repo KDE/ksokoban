@@ -22,8 +22,8 @@
 
 #include <assert.h>
 #include <qstring.h>
+#include <qvector.h>
 
-#include "Array.H"
 #include "LevelCollection.H"
 
 class InternalCollections {
@@ -40,11 +40,13 @@ public:
   LevelCollection *operator[](int n);
 
 private:
+  void add(LevelCollection* c);
+
   static int configCollection2Real(int collection);
   static int realCollection2Config(int collection);
   static QString collectionName(int _level);
 
-  Array<LevelCollection *> collections_;
+  QVector<LevelCollection> collections_;
   char *data_;
 
 };

@@ -25,9 +25,9 @@
 
 void
 PathFinder::BFS (int _x, int _y) {
-  Queue<int> xq (600);
-  Queue<int> yq (600);
-  Queue<int> dq (600);
+  Queue<int, 10> xq;
+  Queue<int, 10> yq;
+  Queue<int, 10> dq;
   int x, y, d;
 
   xq.enqueue (_x);

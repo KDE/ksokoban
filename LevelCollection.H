@@ -20,8 +20,9 @@
 #ifndef LEVELCOLLECTION_H
 #define LEVELCOLLECTION_H
 
-#include "Array.H"
 #include <qstring.h>
+#include <qcstring.h>
+#include <qvector.h>
 
 class Map;
 
@@ -46,8 +47,12 @@ protected:
 
 
 private:
-  Array<char *> index_;
-  Array<char>   data_;
+  void addLevel(const char* _level);
+  void addData(const char* _data, unsigned _len);
+  void addSeparator();
+
+  QVector<const char> index_;
+  QByteArray    data_;
   //int    dataLen_;
 
   int      level_;
