@@ -19,7 +19,13 @@ DISTCLEANFILES = $(BUILTSOURCES)
 EXTRA_DIST=TODO ksokoban.kdelnk NEWS
 
 %.moc.C: %.H
-	$(MOC) $^ -o $@
+	$(MOC) $< -o $@
+
+MainWindow.C: MainWindow.moc.C
+
+PlayField.C: PlayField.moc.C
+
+ModalLabel.C: ModalLabel.moc.C
 
 AUTOMAKE_OPTIONS = foreign
 
