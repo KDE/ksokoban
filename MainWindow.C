@@ -37,6 +37,7 @@
 #include <qdragobject.h>
 #include <kpopupmenu.h>
 #include <kurldrag.h>
+#include <kstdaccel.h>
 
 #include "MainWindow.H"
 #include "PlayField.H"
@@ -101,12 +102,12 @@ MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
   game_->insertItem(i18n("&Level Collection"), collection_);
 
   pixmap = SmallIcon("undo");
-  game_->insertItem(QIconSet(pixmap), i18n("&Undo"), playField_, SLOT(undo()), Key_U);
+  game_->insertItem(QIconSet(pixmap), i18n("&Undo"), playField_, SLOT(undo()),QKeySequence( (KStdAccel::undo()).toString()));
   pixmap = SmallIcon("redo");
-  game_->insertItem(QIconSet(pixmap), i18n("&Redo"), playField_, SLOT(redo()), Key_R);
+  game_->insertItem(QIconSet(pixmap), i18n("&Redo"), playField_, SLOT(redo()), QKeySequence( (KStdAccel::redo()).toString()));
   game_->insertSeparator();
   pixmap = SmallIcon("exit");
-  game_->insertItem(QIconSet(pixmap), i18n("&Quit"), KApplication::kApplication(), SLOT(closeAllWindows()), Key_Q);
+  game_->insertItem(QIconSet(pixmap), i18n("&Quit"), KApplication::kApplication(), SLOT(closeAllWindows()), QKeySequence( (KStdAccel::quit()).toString()));
   menu_->insertItem(i18n("&Game"), game_);
 
   animation_ = new QPopupMenu(0,"animation menu");
