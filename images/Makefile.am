@@ -2,8 +2,8 @@ all-local: bin2c data.c
 
 EXTRA_PROGRAMS = bin2c
 
-bin2c: $(srcdir)/bin2c.c
-	$(CC) $(CFLAGS) $(DEFS) $(all_includes) $(srcdir)/bin2c.c -o bin2c $(all_libraries) $(LIBZ)
+#bin2c: $(srcdir)/bin2c.c
+#	$(CC) $(CFLAGS) $(DEFS) $(all_includes) $(srcdir)/bin2c.c -o bin2c $(all_libraries) $(LIBZ)
 
 test:
 	x-povray +W200 +H200 +I$@.pov +O$@.png +p +d

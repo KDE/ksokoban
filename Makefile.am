@@ -12,7 +12,8 @@ METASOURCES= MainWindow.moc ModalLabel.moc PlayField.moc
 INCLUDES = $(all_includes)
 
 LDFLAGS = $(all_libraries) $(KDE_RPATH)
-LDADD = $(LIB_KDEUI) $(LIB_KFILE) $(LIB_KSYCOCA) $(LIBZ)
+LDADD = $(LIB_KDEUI) $(LIB_KFILE) $(LIB_KSYCOCA)
+# $(LIBZ)
 
 EXTRA_DIST=AUTHORS NEWS README TODO
 

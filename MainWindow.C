@@ -1,6 +1,6 @@
 /*
  *  ksokoban - a Sokoban game for KDE
- *  Copyright (C) 1998  Anders Widell  <d95-awi@nada.kth.se>
+ *  Copyright (C) 1998  Anders Widell  <awl@hem.passagen.se>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -71,8 +71,8 @@ MainWindow::MainWindow() : KTMainWindow(), externalCollection_(0) {
 
   KConfig *cfg=(KApplication::kApplication())->config();
   cfg->setGroup("Geometry");
-  int width = cfg->readNumEntry("width", 600);
-  int height = cfg->readNumEntry("height", 450);
+  int width = cfg->readNumEntry("width", 750);
+  int height = cfg->readNumEntry("height", 562);
   resize(width, height);
 
   playField_ = new PlayField(this, "playfield");

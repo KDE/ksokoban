@@ -1,6 +1,6 @@
 /*
  *  bin2c - compresses data files & converts the result to C source code
- *  Copyright (C) 1998  Anders Widell  <d95-awi@nada.kth.se>
+ *  Copyright (C) 1998-2000  Anders Widell  <awl@hem.passagen.se>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -28,6 +28,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #ifdef USE_LIBZ
 #include <zlib.h>
@@ -51,7 +52,7 @@ static uLongf destLen;           /* Length of compressed data */
 static FILE *infile=NULL;        /* The input file containing binary data */
 static FILE *outfile=NULL;       /* The output file 'data.c' */
 
-static char *programName="";
+static const char *programName="";
 
 /*
  * Print error message and free allocated resources
@@ -166,7 +167,7 @@ main (argc, argv)
 #endif
   unsigned j;
   char *ptr;
-  int index;
+  int position;
 
   programName = argv[0];
 
@@ -221,11 +222,11 @@ main (argc, argv)
     ptr = my_strrchr (argv[i], '.');
     if (ptr != NULL) *ptr = '\0';
     /* use only the file 2name and throw away the path name */
-    index = strlen(argv[i]) - 1;
-    while (index && argv[i][index] != '/') index--;
-    if (argv[i][index] == '/') index++;
+    position = strlen(argv[i]) - 1;
+    while (position && argv[i][position] != '/') position--;
+    if (argv[i][position] == '/') position++;
     
-    fprintf (outfile, "static const unsigned char %s_data_%s[] = {\n", argv[i] + index, suffix);
+    fprintf (outfile, "static const unsigned char %s_data_%s[] = {\n", argv[i] + position, suffix);
 
     for (j=0; j<destLen-1; j++) {
       switch (j%8) {

@@ -1,6 +1,6 @@
 /*
  *  ksokoban - a Sokoban game for KDE
- *  Copyright (C) 1998  Anders Widell  <d95-awi@nada.kth.se>
+ *  Copyright (C) 1998-2000  Anders Widell  <awl@hem.passagen.se>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,9 +26,9 @@
 #include "MainWindow.H"
 
 
-static const char *description = I18N_NOOP("KDE Game");
+static const char *description = I18N_NOOP("The japanese warehouse keeper game");
 
-static const char *version = "v0.0.1";
+static const char *version = "v0.3.0";
 
 
 int
@@ -36,22 +36,25 @@ main (int argc, char **argv)
 {
   KAboutData aboutData( "ksokoban", I18N_NOOP("KSokoban"), 
     version, description, KAboutData::License_GPL, 
-    "(c) 1998, Anders Widell");
-  aboutData.addAuthor("Anders Widell",0, "d95-awi@nada.kth.se");
+    "(c) 1998-2000 Anders Widell", 0, "http://hem.passagen.se/awl/ksokoban/");
+  aboutData.addAuthor("Anders Widell",0, "awl@hem.passagen.se",
+		      "http://hem.passagen.se/awl/");
   KCmdLineArgs::init( argc, argv, &aboutData );
 
   QApplication::setColorSpec(QApplication::ManyColor);
 
   KApplication app;
-  KImageIO::registerFormats();
+//   KImageIO::registerFormats();
 
   MainWindow *widget = new MainWindow();
   app.setMainWidget(widget);
   widget->show();
 
+  QObject::connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
+
   int rc = app.exec();
 
-  delete widget;
+//   delete widget;
 
   return rc;
 }
