@@ -21,7 +21,6 @@
 
 #include <kapp.h>
 #include <kconfig.h>
-#include <ktmainwindow.h>
 #include <kmenubar.h>
 #include <qpopupmenu.h>
 #include <qkeycode.h>
@@ -33,6 +32,8 @@
 #include <kmessagebox.h>
 #include <kstddirs.h>
 #include <kio/netaccess.h>
+#include <kiconloader.h>
+#include <qiconset.h>
 
 #include "MainWindow.H"
 #include "PlayField.H"
@@ -67,6 +68,7 @@ MainWindow::createCollectionMenu() {
 
 MainWindow::MainWindow() : KTMainWindow(), externalCollection_(0) {
   int i;
+  QPixmap pixmap;
 
   KConfig *cfg=(KApplication::kApplication())->config();
   cfg->setGroup("Geometry");
@@ -81,18 +83,25 @@ MainWindow::MainWindow() : KTMainWindow(), externalCollection_(0) {
   menu_ = new KMenuBar(this, "menubar" );
 
   game_ = new QPopupMenu(0,"game menu");
-  game_->insertItem(i18n("&Load levels..."), this, SLOT(loadLevels()));
-  game_->insertItem(i18n("&Next level"), playField_, SLOT(nextLevel()), Key_N);
-  game_->insertItem(i18n("&Previous level"), playField_, SLOT(previousLevel()), Key_P);
-  game_->insertItem(i18n("Re&start level"), playField_, SLOT(restartLevel()), Key_Escape);
+  pixmap = BarIcon("fileopen");
+  game_->insertItem(QIconSet(pixmap), i18n("&Load levels..."), this, SLOT(loadLevels()));
+  pixmap = BarIcon("forward");
+  game_->insertItem(QIconSet(pixmap), i18n("&Next level"), playField_, SLOT(nextLevel()), Key_N);
+  pixmap = BarIcon("back");
+  game_->insertItem(QIconSet(pixmap), i18n("&Previous level"), playField_, SLOT(previousLevel()), Key_P);
+  pixmap = BarIcon("reload");
+  game_->insertItem(QIconSet(pixmap), i18n("Re&start level"), playField_, SLOT(restartLevel()), Key_Escape);
 
   createCollectionMenu();
   game_->insertItem(i18n("&Level collection"), collection_);
 
-  game_->insertItem(i18n("&Undo"), playField_, SLOT(undo()), Key_U);
-  game_->insertItem(i18n("&Redo"), playField_, SLOT(redo()), Key_R);
+  pixmap = BarIcon("undo");
+  game_->insertItem(QIconSet(pixmap), i18n("&Undo"), playField_, SLOT(undo()), Key_U);
+  pixmap = BarIcon("redo");
+  game_->insertItem(QIconSet(pixmap), i18n("&Redo"), playField_, SLOT(redo()), Key_R);
   game_->insertSeparator();
-  game_->insertItem(i18n("&Quit"), KApplication::kApplication(), SLOT(quit()), Key_Q);
+  pixmap = BarIcon("exit");
+  game_->insertItem(QIconSet(pixmap), i18n("&Quit"), KApplication::kApplication(), SLOT(quit()), Key_Q);
   menu_->insertItem(i18n("&Game"), game_);
 
   animation_ = new QPopupMenu(0,"animation menu");
@@ -107,51 +116,53 @@ MainWindow::MainWindow() : KTMainWindow(), externalCollection_(0) {
   updateAnimMenu(checkedAnim_);
   menu_->insertItem(i18n("&Animation"), animation_);
 
+  pixmap = BarIcon("bookmark_add");
   bookmarkMenu_ = new QPopupMenu(0,"bookmarks menu");
   setBM_ = new QPopupMenu(0, "set bookmark menu");
-  setBM_->insertItem(i18n("(unused)"), 1);
+  setBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 1);
   setBM_->setAccel(CTRL+Key_1, 1);
-  setBM_->insertItem(i18n("(unused)"), 2);
+  setBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 2);
   setBM_->setAccel(CTRL+Key_2, 2);
-  setBM_->insertItem(i18n("(unused)"), 3);
+  setBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 3);
   setBM_->setAccel(CTRL+Key_3, 3);
-  setBM_->insertItem(i18n("(unused)"), 4);
+  setBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 4);
   setBM_->setAccel(CTRL+Key_4, 4);
-  setBM_->insertItem(i18n("(unused)"), 5);
+  setBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 5);
   setBM_->setAccel(CTRL+Key_5, 5);
-  setBM_->insertItem(i18n("(unused)"), 6);
+  setBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 6);
   setBM_->setAccel(CTRL+Key_6, 6);
-  setBM_->insertItem(i18n("(unused)"), 7);
+  setBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 7);
   setBM_->setAccel(CTRL+Key_7, 7);
-  setBM_->insertItem(i18n("(unused)"), 8);
+  setBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 8);
   setBM_->setAccel(CTRL+Key_8, 8);
-  setBM_->insertItem(i18n("(unused)"), 9);
+  setBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 9);
   setBM_->setAccel(CTRL+Key_9, 9);
-  setBM_->insertItem(i18n("(unused)"), 10);
+  setBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 10);
   setBM_->setAccel(CTRL+Key_0, 10);
   connect(setBM_, SIGNAL(activated(int)), this, SLOT(setBookmark(int)));
   bookmarkMenu_->insertItem(i18n("&Set bookmark"), setBM_);
 
+  pixmap = BarIcon("bookmark");
   goToBM_ = new QPopupMenu(0, "go to bookmark menu");
-  goToBM_->insertItem(i18n("(unused)"), 1);
+  goToBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 1);
   goToBM_->setAccel(Key_1, 1);
-  goToBM_->insertItem(i18n("(unused)"), 2);
+  goToBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 2);
   goToBM_->setAccel(Key_2, 2);
-  goToBM_->insertItem(i18n("(unused)"), 3);
+  goToBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 3);
   goToBM_->setAccel(Key_3, 3);
-  goToBM_->insertItem(i18n("(unused)"), 4);
+  goToBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 4);
   goToBM_->setAccel(Key_4, 4);
-  goToBM_->insertItem(i18n("(unused)"), 5);
+  goToBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 5);
   goToBM_->setAccel(Key_5, 5);
-  goToBM_->insertItem(i18n("(unused)"), 6);
+  goToBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 6);
   goToBM_->setAccel(Key_6, 6);
-  goToBM_->insertItem(i18n("(unused)"), 7);
+  goToBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 7);
   goToBM_->setAccel(Key_7, 7);
-  goToBM_->insertItem(i18n("(unused)"), 8);
+  goToBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 8);
   goToBM_->setAccel(Key_8, 8);
-  goToBM_->insertItem(i18n("(unused)"), 9);
+  goToBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 9);
   goToBM_->setAccel(Key_9, 9);
-  goToBM_->insertItem(i18n("(unused)"), 10);
+  goToBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 10);
   goToBM_->setAccel(Key_0, 10);
   connect(goToBM_, SIGNAL(activated(int)), this, SLOT(goToBookmark(int)));
   bookmarkMenu_->insertItem(i18n("&Go to bookmark"), goToBM_);
@@ -162,7 +173,7 @@ MainWindow::MainWindow() : KTMainWindow(), externalCollection_(0) {
     updateBookmark(i);
   }
 
-  QString aboutMsg = "ksokoban 0.3.0 - ";
+  QString aboutMsg = "ksokoban 0.3.1 - ";
   aboutMsg += i18n("\
 a Sokoban game for KDE\n\
 \n\
@@ -295,7 +306,8 @@ MainWindow::changeCollection(int id)
   playField_->changeCollection(internalCollections_[id]);
 }
 
-void MainWindow::loadLevels() {
+void
+MainWindow::loadLevels() {
   KConfig *cfg=(KApplication::kApplication())->config();
   cfg->setGroup("settings");
   QString lastFile = cfg->readEntry("lastLevelFile");
@@ -303,19 +315,29 @@ void MainWindow::loadLevels() {
   KURL result = KFileDialog::getOpenURL(lastFile, "*", this, i18n("Load levels from file"));
   if (result.isEmpty()) return;
 
-  int namepos = result.path().findRev('/') + 1; // NOTE: findRev can return -1
-  QString levelName = result.path().mid(namepos);
+  openURL(result);
+}
+
+void
+MainWindow::openURL(KURL _url) {
+  KConfig *cfg=(KApplication::kApplication())->config();
+
+//   int namepos = _url.path().findRev('/') + 1; // NOTE: findRev can return -1
+//   QString levelName = _url.path().mid(namepos);
+  QString levelName = _url.fileName();
 
   QString levelFile;
-  if (result.isLocalFile()) {
-      levelFile = result.path();
+  if (_url.isLocalFile()) {
+    levelFile = _url.path();
   } else {
-      levelFile = locateLocal("appdata", "levels/" + levelName);
-      if( !KIO::NetAccess::download( result, levelFile ) )
+//     levelFile = locateLocal("appdata", "levels/" + levelName);
+    if(!KIO::NetAccess::download( _url, levelFile ) )
 	  return;
   }
 
   LevelCollection *tmpCollection = new LevelCollection(levelFile, levelName);
+  KIO::NetAccess::removeTempFile(levelFile );
+
   if (tmpCollection->noOfLevels() < 1) {
     KMessageBox::sorry(this, i18n("No levels found in file"));
     delete tmpCollection;
@@ -330,4 +352,6 @@ void MainWindow::loadLevels() {
   collection_->setItemChecked(checkedCollection_, false);
   playField_->changeCollection(externalCollection_);
 
+
 }
+

@@ -17,6 +17,7 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+// #include <kuniqueapp.h>
 #include <kapp.h>
 #include <kimageio.h>
 #include <klocale.h>
@@ -41,22 +42,34 @@ static KCmdLineOptions options[] =
 int
 main (int argc, char **argv)
 {
-  KAboutData aboutData( "ksokoban", I18N_NOOP("KSokoban"), 
-    version, description, KAboutData::License_GPL, 
-    "(c) 1998-2000 Anders Widell", 0, "http://hem.passagen.se/awl/ksokoban/");
+  KAboutData aboutData("ksokoban", I18N_NOOP("KSokoban"), 
+		       version, description, KAboutData::License_GPL, 
+		       "(c) 1998-2000 Anders Widell", 0,
+		       "http://hem.passagen.se/awl/ksokoban/");
   aboutData.addAuthor("Anders Widell",0, "awl@hem.passagen.se",
 		      "http://hem.passagen.se/awl/");
-  KCmdLineArgs::init( argc, argv, &aboutData );
-//   KCmdLineArgs::addCmdLineOptions(options);
+  KCmdLineArgs::init(argc, argv, &aboutData);
+  KCmdLineArgs::addCmdLineOptions(options);
+//   KUniqueApplication::addCmdLineOptions();
+
+//   if (!KUniqueApplication::start())
+//     return 0;
 
   QApplication::setColorSpec(QApplication::ManyColor);
 
+//   KUniqueApplication app;
   KApplication app;
 //   KImageIO::registerFormats();
 
   MainWindow *widget = new MainWindow();
   app.setMainWidget(widget);
   widget->show();
+
+  KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+  if (args->count() > 0) {
+    widget->openURL(args->url(0));
+  }
+  args->clear();
 
   QObject::connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
 

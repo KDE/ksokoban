@@ -21,6 +21,7 @@
 #define MAINWINDOW_H
 
 #include <ktmainwindow.h>
+#include <kurl.h>
 #include "Bookmark.H"
 #include "InternalCollections.H"
 
@@ -35,6 +36,8 @@ class MainWindow : public KTMainWindow {
 public:
   MainWindow();
   ~MainWindow();
+
+  void openURL(KURL _url);
 
 public slots:
   void changeCollection(int id);
