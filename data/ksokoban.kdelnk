@@ -1,8 +1,10 @@
 # KDE Config File 
 [KDE Desktop Entry]
 Name=Sokoban
+Name[es]=Sokoban
 Name[pt_BR]=Sokoban
 Comment=The japanese warehouse keeper game
+Comment[es]=El juego del guardián del depósito japonés
 Comment[sv]=Det japanska spelet där du sköter en lagerlokal
 Comment[pt_BR]=O jogo do fiscal de estoques japonês
 DocPath=ksokoban/index.html
