@@ -724,9 +724,9 @@ PlayField::changeAnim(int num)
 
 // FIXME: clean up bookmark stuff
 
-static const int bookmark_id[] = {
-  0, 1, 8, 2, 9, 3, 5, 6, 7, 4
-};
+// static const int bookmark_id[] = {
+//   0, 1, 8, 2, 9, 3, 5, 6, 7, 4
+// };
 
 void
 PlayField::setBookmark(Bookmark *bm) {
@@ -738,7 +738,7 @@ PlayField::setBookmark(Bookmark *bm) {
     return;
   }
 
-  bm->set(bookmark_id[collection()->id()], levelMap_->level(), levelMap_->totalMoves(), history_);
+  bm->set(collection()->id(), levelMap_->level(), levelMap_->totalMoves(), history_);
 }
 
 void

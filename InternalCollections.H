@@ -30,6 +30,11 @@ public:
   InternalCollections();
   ~InternalCollections();
 
+  static int toInternalId(int _id) {
+    if (_id < 10 || _id > 13) return 1000;
+    return _id - 10;
+  }
+
   int collections();
   LevelCollection *operator[](int n);
 

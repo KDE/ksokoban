@@ -15,8 +15,12 @@
 
 #define BUFSIZE (128*1024)
 
+// static const int collection_save_id[] = {
+//   0, 1, 3, 5, 9, 6, 7, 8, 2, 4
+// };
+
 static const int collection_save_id[] = {
-  0, 1, 3, 5, 9, 6, 7, 8, 2, 4
+  10, 11, 12, 13
 };
 
 int
