@@ -36,6 +36,7 @@
 #include <qiconset.h>
 #include <qdragobject.h>
 #include <kpopupmenu.h>
+#include <kurldrag.h>
 
 #include "MainWindow.H"
 #include "PlayField.H"
@@ -346,16 +347,17 @@ MainWindow::openURL(KURL _url) {
 
 void
 MainWindow::dragEnterEvent(QDragEnterEvent* event) {
-  event->accept(QUriDrag::canDecode(event));
+  event->accept(KURLDrag::canDecode(event));
 }
 
 void
 MainWindow::dropEvent(QDropEvent* event) {
-  QStrList  urls;
-
-  if (QUriDrag::decode(event, urls)) {
+  KURL::List urls;
+  if (KURLDrag::decode(event, urls)) {
 //     kdDebug() << "MainWindow:Handling QUriDrag..." << endl;
-    char *s = urls.first();
-    if (s != 0) openURL(KURL(s));
+     if (urls.count() > 0) {
+         const KURL &url = urls.first();
+         openURL(url);
+     }
   }
 }
