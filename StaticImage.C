@@ -67,8 +67,13 @@ imageSize[NO_OF_IMAGES] = {
 };
 
 StaticImage::StaticImage () {
-  background_.loadFromData((const uchar *) starfield_data_,
-			   (uint) sizeof (starfield_data_));
+  bool valid = background_.loadFromData((const uchar *) starfield_data_,
+					(uint) sizeof (starfield_data_));
+
+  if (!valid) {
+    background_.resize(128, 128);
+    background_.fill(Qt::black);
+  }
 
   for (int i=0; i<NO_OF_IMAGES; i++) {
     images_[i].loadFromData((const uchar *) imageData[i], (uint) imageSize[i]);
