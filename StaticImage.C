@@ -19,7 +19,7 @@
 
 #include "config.h"
 
-#ifdef HAVE_LIBZ
+#ifdef USE_LIBZ
 #include <zlib.h>
 #endif
 
@@ -31,7 +31,7 @@
 
 void
 StaticImage::loadImage (int num, const unsigned char *data, int size) {
-#ifdef HAVE_LIBZ
+#ifdef USE_LIBZ
   uLongf bufLen;
   unsigned char *buf = new unsigned char[BUFSIZE];
 

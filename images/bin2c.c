@@ -29,7 +29,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#ifdef HAVE_LIBZ
+#ifdef USE_LIBZ
 #include <zlib.h>
 #else
 typedef unsigned char Bytef;
@@ -93,7 +93,7 @@ my_strrchr (s, c)
   return ptr;
 }
 
-#ifdef HAVE_LIBZ
+#ifdef USE_LIBZ
 /*
  * NOTE: my_compress2 is taken directly from zlib 1.1.3
  *
@@ -188,7 +188,7 @@ main (argc, argv)
     }
     fclose (infile);
 
-#ifdef HAVE_LIBZ
+#ifdef USE_LIBZ
 
     /* (Re)allocate dest buffer */
     destLen = sourceBufSize + (sourceBufSize+9)/10 + 12;
@@ -234,7 +234,7 @@ main (argc, argv)
   }
 
   fclose (outfile);
-#ifdef HAVE_LIBZ
+#ifdef USE_LIBZ
   free (dest);
 #endif
   free (source);

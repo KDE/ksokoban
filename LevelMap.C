@@ -29,7 +29,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#ifdef HAVE_LIBZ
+#ifdef USE_LIBZ
 #include <zlib.h>
 #endif
 
@@ -75,7 +75,7 @@ LevelMap::LevelMap () {
   KConfig *cfg=(KApplication::getKApplication ())->getConfig ();
   cfg->setGroup ("settings");
 
-#ifdef HAVE_LIBZ
+#ifdef USE_LIBZ
   data = (char *) malloc (BUFSIZE);
   if (data == NULL) abort ();
 
