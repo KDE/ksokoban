@@ -1,14 +1,14 @@
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook V3.1-Based Variant V1.0//EN" [
- <!ENTITY ksokoban "<application>KSokoban</application>">
+ <!ENTITY kappname "&ksokoban;">
+ <!ENTITY % English "INCLUDE">
  <!ENTITY % addindex "IGNORE">
- <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V1.0//EN">
- %ents; 
- <![ %addindex; [ <!ENTITY kdedocindex SYSTEM "docindex.docbook"> ]]>
+ <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Documentation V1.0//EN">
+ %ents;
 ]>
 
-<book lang="en">
+<book lang="&language;">
 <bookinfo>
-<title>The KSokoban Handbook</title>
+<title>The &ksokoban; Handbook</title>
 
 <authorgroup>
 <author>
@@ -25,21 +25,10 @@
 <holder>Anders Widell</holder>
 </copyright>
 
-<date>08/08/2000</date>
-<releaseinfo>1.00.00</releaseinfo>
+<legalnotice>&FDLNotice;</legalnotice>
 
-<revhistory>
-<revision>
-<revnumber>1.00.0</revnumber>
-<date>08.08.2000</date>
-<authorinitials>A.W.</authorinitials>
-<revremark>
-Cleaned up the converted document. Added info about loading external levels.
-Replaced the Epilogue with Credits and License chapter, giving credits to
-David W. Skinner for creating the levels included in this version of ksokoban.
-</revremark>
-</revision>
-</revhistory>
+<date>16/12/2000</date>
+<releaseinfo>1.00.00</releaseinfo>
 
 <abstract>
 <para>
@@ -57,7 +46,7 @@ David W. Skinner for creating the levels included in this version of ksokoban.
 </keywordset>
 </bookinfo>
 
-<chapter id="Introduction">
+<chapter id="introduction">
 <title>Introduction</title>
 
 <para>
@@ -89,7 +78,7 @@ want to expose yourself to too much mental strain.
 </para>
 </chapter>
 
-<chapter id="Howtoplay">
+<chapter id="how-to-play">
 <title>The Game</title>
 
 <para>
@@ -119,7 +108,7 @@ can of course also restart the level from the very beginning.
 
 <para>
 <informaltable>
-<tgroup cols="2" align="left">
+<tgroup cols="2">
 <thead>
 <row><entry>Key</entry><entry>Action</entry></row>
 </thead>
@@ -142,7 +131,7 @@ can of course also restart the level from the very beginning.
 </para>
 </sect1>
 
-<sect1 id="LoadingExternalLevels">
+<sect1 id="loading-external-levels">
 <title>Loading external levels</title>
 
 <para>
@@ -165,7 +154,7 @@ between the levels.
 
 <para>
 <informaltable>
-<tgroup cols="2" align="left">
+<tgroup cols="2">
 <thead>
 <row><entry>Character</entry><entry>Meaning</entry></row>
 </thead>
@@ -202,7 +191,7 @@ As an example, below is a text representation of the first level in the
 </sect1>
 </chapter>
 
-<chapter id="Credits">
+<chapter id="credits">
 <title>Credits and License</title>
 
 <para>
@@ -228,9 +217,8 @@ sasquatch@bentonrea.com</ulink>&gt;. See his sokoban page at
 <ulink url="http://bentonrea.com/~sasquatch/sokoban/">
 http://bentonrea.com/~sasquatch/sokoban/</ulink>
 </para>
-
-&license-links;
-
+&underFDL;
+&underGPL;
 </chapter>
 
 <![ %addindex; [ &kdedocindex; ]]>
