@@ -21,12 +21,6 @@ EXTRA_DIST=AUTHORS NEWS README TODO
 StaticImage.o: images/data.c
 InternalCollections.o: levels/data.c
 
-# these are for automatic generation of deps, too
-levels/data.c:
-	(cd levels && $(MAKE) data.c)
-images/data.c:
-	(cd images && $(MAKE) data.c)
-
 messages:
 	$(XGETTEXT) *.C -o $(podir)/ksokoban.pot
 
