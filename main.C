@@ -1,6 +1,6 @@
 /*
  *  ksokoban - a Sokoban game for KDE
- *  Copyright (C) 1998-2000  Anders Widell  <awl@hem.passagen.se>
+ *  Copyright (C) 1998-2000  Anders Widell  <awl@passagen.se>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@
 
 static const char *description = I18N_NOOP("The japanese warehouse keeper game");
 
-static const char *version = "0.4.1";
+static const char *version = "0.4.2";
 
 
 static KCmdLineOptions options[] = 
@@ -47,12 +47,12 @@ main (int argc, char **argv)
 		       "(c) 1998-2001  Anders Widell", 0,
 		       "http://hem.passagen.se/awl/ksokoban/");
   aboutData.addAuthor("Anders Widell", 0,
-		      "awl@hem.passagen.se",
+		      "awl@passagen.se",
 		      "http://hem.passagen.se/awl/");
   aboutData.addCredit("David W. Skinner",
 		      I18N_NOOP("For contributing the Sokoban levels included in this game"),
 		      "sasquatch@bentonrea.com",
-		      "http://bentonrea.com/~sasquatch/");
+		      "http://users.bentonrea.com/~sasquatch/");
   KCmdLineArgs::init(argc, argv, &aboutData);
   KCmdLineArgs::addCmdLineOptions(options);
 //   KUniqueApplication::addCmdLineOptions();
