@@ -11,7 +11,7 @@ test:
 
 POVFILES=floor_common.inc goal.pov halfstone_1.pov halfstone_2.pov halfstone_3.pov halfstone_4.pov man.pov man_common.inc object.pov saveman.pov stone_1.pov stone_2.pov stone_3.pov stone_4.pov stone_5.pov stone_6.pov stone_common.inc treasure.pov
 
-IMAGES=goal.png halfstone_1.png halfstone_2.png halfstone_3.png halfstone_4.png man.png object.png saveman.png stone_1.png stone_2.png stone_3.png stone_4.png stone_5.png stone_6.png treasure.png starfield.jpg
+IMAGES=goal.png halfstone_1.png halfstone_2.png halfstone_3.png halfstone_4.png man.png object.png saveman.png stone_1.png stone_2.png stone_3.png stone_4.png stone_5.png stone_6.png treasure.png starfield.png
 
 EXTRA_DIST=bin2c.c $(POVFILES) $(IMAGES)
 DISTCLEANFILES=data.c bin2c
