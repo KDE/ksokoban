@@ -65,4 +65,4 @@ Terminal=0
 Type=Application
 X-KDE-StartupNotify=true
 X-DCOP-ServiceType=Multi
-Categories=QT;KDE;Game;StrategyGame
+Categories=Qt;KDE;Game;StrategyGame
