@@ -2,6 +2,8 @@ APPSDIR = $(kde_appsdir)/Games
 
 SUBDIRS=data images levels
 
+SUFFIXES=.moc.C .H
+
 bin_PROGRAMS = ksokoban
 ksokoban_SOURCES = HiRes.C History.C LevelMap.C LowRes.C MainWindow.C MedRes.C Move.C PathFinder.C PlayField.C StaticImage.C main.C HiRes.H History.H ImageData.H LevelMap.H LowRes.H MainWindow.H MedRes.H Move.H PathFinder.H PlayField.H Queue.H StaticImage.H MapDelta.C MapDelta.H Map.C Map.H MoveSequence.C MoveSequence.H ModalLabel.C ModalLabel.H HtmlPrinter.C HtmlPrinter.H
 
@@ -15,10 +17,8 @@ LDADD = -lkdeui -lkdecore -lqt -lXext -lX11 -lz $(LIBSOCKET)
 DISTCLEANFILES = $(BUILTSOURCES)
 EXTRA_DIST=TODO ksokoban.kdelnk NEWS
 
-MainWindow.C: MainWindow.moc.C
+%.moc.C: %.H
+	moc $*.H -o $*.moc.C
 
-PlayField.C: PlayField.moc.C
-
-ModalLabel.C: ModalLabel.moc.C
 
 AUTOMAKE_OPTIONS = foreign
