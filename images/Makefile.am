@@ -1,6 +1,6 @@
 
 noinst_DATA = data.c
-bin2c_SOURCES = bin2c
+bin2c_SOURCES = bin2c.c
 bin2c_LDFLAGS = $(all_libraries)
 bin2c_LDADD   = $(LIBZ)
 
