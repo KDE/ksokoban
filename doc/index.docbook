@@ -15,7 +15,7 @@
 <firstname>Anders</firstname>
 <surname>Widell</surname>
 <affiliation>
-<address><email>awl@hem.passagen.se</email></address>
+<address><email>awl@passagen.se</email></address>
 </affiliation>
 </author>
 </authorgroup>
@@ -407,7 +407,7 @@ information.</action></para></listitem>
 
 <para>
 &ksokoban; is copyright &copy; 1998-2000 by Anders Widell &lt;<ulink
-url="mailto:awl@hem.passagen.se">awl@hem.passagen.se</ulink>&gt;.  For
+url="mailto:awl@passagen.se">awl@passagen.se</ulink>&gt;.  For
 the latest info on &ksokoban;, see the &ksokoban; home page at
 <ulink url="http://hem.passagen.se/awl/ksokoban/">
 http://hem.passagen.se/awl/ksokoban/</ulink>
@@ -417,7 +417,7 @@ http://hem.passagen.se/awl/ksokoban/</ulink>
 The background graphics &quot;starfield&quot; was taken from the
 <ulink url="http://www.gimp.org/">Gimp</ulink>. All other graphics
 were created by Anders Widell &lt;<ulink
-url="mailto:awl@hem.passagen.se">awl@hem.passagen.se</ulink>&gt; using
+url="mailto:awl@passagen.se">awl@passagen.se</ulink>&gt; using
 the <ulink url="http://www.povray.org/">Povray</ulink> ray tracer.
 </para>
 
