@@ -73,6 +73,5 @@ all-local: ../bin2c data.c
 data.c: $(IMAGES) ../bin2c
 	../bin2c $(IMAGES)
 
-MAINTAINERCLEANFILES=$(IMAGES)
 DISTCLEANFILES=data.c
 EXTRA_DIST=$(IMAGES)

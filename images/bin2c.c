@@ -17,13 +17,58 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+/*
+ * This command uses the zlib library to compress each file given on
+ * the command line, and outputs the compressed data as C source code
+ * to the file 'data.c' in the current directory
+ *
+ */
+
 #include <stdio.h>
+#include <stdlib.h>
 #include <zlib.h>
 
-#define BUFSIZE (128*1024)
+#define BUFSIZE 16384            /* Increase buffer size by this amount */
 
-static Bytef source[BUFSIZE], dest[BUFSIZE];
-static uLongf sourceLen, destLen;
+static Bytef *source=NULL;       /* Buffer containing uncompressed data */
+static Bytef *dest=NULL;         /* Buffer containing compressed data */
+static uLongf sourceBufSize=0;   /* Buffer size */
+static uLongf destBufSize=0;     /* Buffer size */
+
+static uLongf sourceLen;         /* Length of uncompressed data */
+static uLongf destLen;           /* Length of compressed data */
+
+static FILE *infile=NULL;        /* The input file containing binary data */
+static FILE *outfile=NULL;       /* The output file 'data.c' */
+
+static char *programName="";
+
+/*
+ * Print error message and free allocated resources
+ *
+ */
+
+static int
+error (msg1, msg2, msg3)
+     char *msg1;
+     char *msg2;
+     char *msg3;
+{
+  fprintf (stderr, "%s: %s%s%s\n", programName, msg1, msg2, msg3);
+
+  if (infile != NULL) fclose (infile);
+  if (outfile != NULL) fclose (outfile);
+  remove ("data.c");
+  free (dest);
+  free (source);
+
+  return 1;
+}
+
+/*
+ * Replacement for strrchr in case it isn't present in libc
+ *
+ */
 
 static char *
 my_strrchr (s, c)
@@ -97,68 +142,81 @@ int my_compress2 (dest, destLen, source, sourceLen, level)
     return err;
 }
 
-
 int
 main (argc, argv)
      int argc;
      char **argv;
 {
-  int i, result;
-  FILE *infile, *outfile;
+  int i;
+  int result;
   unsigned j;
   char *ptr;
 
+  programName = argv[0];
+
   outfile = fopen ("data.c", "w");
   if (outfile == NULL) {
-      fprintf (stderr, "can't open 'data.c' for writing\n");
+      fprintf (stderr, "%s: can't open 'data.c' for writing\n", argv[0]);
       return 1;
   }
 
+  /* Process each file given on command line */
   for (i=1; i<argc; i++) {
     infile = fopen (argv[i], "rb");
-    if (infile == NULL) {
-      fprintf (stderr, "can't open '%s' for reading\n", argv[i]);
-      return 1;
-    }
+    if (infile == NULL) return error ("can't open '", argv[i], "' for reading");
 
+    /* Read infile to source buffer */
     sourceLen = 0;
     while (!feof (infile)) {
-      sourceLen += fread (source, 1, BUFSIZE-sourceLen, infile);
-      if (ferror (infile)) {
-	fprintf (stderr, "error reading '%s'\n", argv[i]);
-	fclose (infile);
-	return 1;
+      if (sourceLen + BUFSIZE > sourceBufSize) {
+	sourceBufSize += BUFSIZE;
+	source = realloc (source, sourceBufSize);
+	if (source == NULL) return error ("memory exhausted", "", "");
       }
+      sourceLen += fread (source+sourceLen, 1, BUFSIZE, infile);
+      if (ferror (infile)) return error ("error reading '", argv[i], "'");
     }
     fclose (infile);
 
-    destLen = BUFSIZE;
-    result = my_compress2 (dest, &destLen, source, sourceLen, 9);
-    if (result != Z_OK) {
-      fprintf (stderr, "error compressing '%s'\n", argv[i]);
-      return 1;
+    /* (Re)allocate dest buffer */
+    destLen = sourceBufSize + (sourceBufSize+9)/10 + 12;
+    if (destBufSize < destLen) {
+      destBufSize = destLen;
+      dest = realloc (dest, destBufSize);
+      if (dest == NULL) return error ("memory exhausted", "", "");
     }
 
+    /* Compress dest buffer */
+    destLen = destBufSize;
+    result = my_compress2 (dest, &destLen, source, sourceLen, 9);
+    if (result != Z_OK) return error ("error compressing '", argv[i], "'");
+
+    /* Output dest buffer as C source code to outfile */
     ptr = my_strrchr (argv[i], '.');
     if (ptr != NULL) *ptr = '\0';
     fprintf (outfile, "static const unsigned char %s_data[] = {\n", argv[i]);
+
     for (j=0; j<destLen-1; j++) {
       switch (j%8) {
       case 0:
-	fprintf (outfile, "  0x%02x, ", ((unsigned int) dest[j]) & 0xffu);
+	fprintf (outfile, "  0x%02x, ", ((unsigned) dest[j]) & 0xffu);
 	break;
       case 7:
-	fprintf (outfile, "0x%02x,\n", ((unsigned int) dest[j]) & 0xffu);
+	fprintf (outfile, "0x%02x,\n", ((unsigned) dest[j]) & 0xffu);
 	break;
       default:
-	fprintf (outfile, "0x%02x, ", ((unsigned int) dest[j]) & 0xffu);
+	fprintf (outfile, "0x%02x, ", ((unsigned) dest[j]) & 0xffu);
 	break;
       }
     }
-    if ((destLen-1)%8 == 0) fprintf (outfile, "  0x%02x\n};\n\n", ((unsigned int) dest[destLen-1]) & 0xffu);
-    else fprintf (outfile, "0x%02x\n};\n\n", ((unsigned int) dest[destLen-1]) & 0xffu);
+
+    if ((destLen-1)%8 == 0) fprintf (outfile, "  0x%02x\n};\n\n", ((unsigned) dest[destLen-1]) & 0xffu);
+    else fprintf (outfile, "0x%02x\n};\n\n", ((unsigned) dest[destLen-1]) & 0xffu);
   }
+
   fclose (outfile);
+  free (dest);
+  free (source);
 
   return 0;
 }
