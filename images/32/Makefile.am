@@ -72,7 +72,7 @@ all-local: ../bin2c data.c
 
 data.c: $(IMAGES) ../bin2c
 	list=""; for i in $(IMAGES); do list="$$list $(srcdir)/$$i"; done; \
-	../bin2c $$list
+	../bin2c 32 $$list
 
 DISTCLEANFILES=data.c
 EXTRA_DIST=$(IMAGES)

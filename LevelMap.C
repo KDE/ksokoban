@@ -80,14 +80,14 @@ LevelMap::LevelMap () {
   if (data == NULL) abort ();
 
   datasize = BUFSIZE;
-  uncompress ((unsigned char *) data, (long unsigned int *) &datasize, level_data, sizeof (level_data));
+  uncompress ((unsigned char *) data, (long unsigned int *) &datasize, level_data_, sizeof (level_data_));
   data = (char *) realloc (data, datasize);
   if (data == NULL) abort ();
 #else
-  datasize = sizeof (level_data);
+  datasize = sizeof (level_data_);
   data = (char *) malloc (datasize);
   if (data == NULL) abort ();
-  memcpy (data, level_data, datasize);
+  memcpy (data, level_data_, datasize);
 #endif
 
   totalLevels_ = noOfCollections_ = 0;

@@ -28,57 +28,57 @@
  */
 
 const unsigned char *const
-imageData[NO_OF_IMAGES] = {
-  vertiwall_data, /*  wall_data, */
-  vertiwall_data, /*  southwall_data, */
-  vertiwall_data, /*  northwall_data, */
-  vertiwall_data, /*  vertiwall_data, */
-  eastwall_data,  /*  eastwall_data, */
-  eastwall_data,  /*  lrcornerwall_data, */
-  eastwall_data,  /*  urcornerwall_data, */
-  eastwall_data,  /*  east_twall_data, */
-  westwall_data,  /*  westwall_data, */
-  westwall_data,  /*  llcornerwall_data, */
-  westwall_data,  /*  ulcornerwall_data, */
-  westwall_data,  /*  west_twall_data, */
-  horizwall_data, /*  horizwall_data, */
-  horizwall_data, /*  south_twall_data, */
-  horizwall_data, /*  north_twall_data, */
-  horizwall_data, /*  centerwall_data, */
-  floor_data,
-  goal_data,
-  man_data,
-  object_data,
-  saveman_data,
-  treasure_data
+imageData_40[NO_OF_IMAGES] = {
+  vertiwall_data_40, /*  wall_data, */
+  vertiwall_data_40, /*  southwall_data, */
+  vertiwall_data_40, /*  northwall_data, */
+  vertiwall_data_40, /*  vertiwall_data, */
+  eastwall_data_40,  /*  eastwall_data, */
+  eastwall_data_40,  /*  lrcornerwall_data, */
+  eastwall_data_40,  /*  urcornerwall_data, */
+  eastwall_data_40,  /*  east_twall_data, */
+  westwall_data_40,  /*  westwall_data, */
+  westwall_data_40,  /*  llcornerwall_data, */
+  westwall_data_40,  /*  ulcornerwall_data, */
+  westwall_data_40,  /*  west_twall_data, */
+  horizwall_data_40, /*  horizwall_data, */
+  horizwall_data_40, /*  south_twall_data, */
+  horizwall_data_40, /*  north_twall_data, */
+  horizwall_data_40, /*  centerwall_data, */
+  floor_data_40,
+  goal_data_40,
+  man_data_40,
+  object_data_40,
+  saveman_data_40,
+  treasure_data_40
 };
 
 const unsigned
-imageSize[NO_OF_IMAGES] = {
-  sizeof vertiwall_data, /*  wall_data, */
-  sizeof vertiwall_data, /*  southwall_data, */
-  sizeof vertiwall_data, /*  northwall_data, */
-  sizeof vertiwall_data, /*  vertiwall_data, */
-  sizeof eastwall_data,  /*  eastwall_data, */
-  sizeof eastwall_data,  /*  lrcornerwall_data, */
-  sizeof eastwall_data,  /*  urcornerwall_data, */
-  sizeof eastwall_data,  /*  east_twall_data, */
-  sizeof westwall_data,  /*  westwall_data, */
-  sizeof westwall_data,  /*  llcornerwall_data, */
-  sizeof westwall_data,  /*  ulcornerwall_data, */
-  sizeof westwall_data,  /*  west_twall_data, */
-  sizeof horizwall_data, /*  horizwall_data, */
-  sizeof horizwall_data, /*  south_twall_data, */
-  sizeof horizwall_data, /*  north_twall_data, */
-  sizeof horizwall_data, /*  centerwall_data, */
-  sizeof floor_data,
-  sizeof goal_data,
-  sizeof man_data,
-  sizeof object_data,
-  sizeof saveman_data,
-  sizeof treasure_data
+imageSize_40[NO_OF_IMAGES] = {
+  sizeof vertiwall_data_40, /*  wall_data */
+  sizeof vertiwall_data_40, /*  southwall_data */
+  sizeof vertiwall_data_40, /*  northwall_data */
+  sizeof vertiwall_data_40, /*  vertiwall_data */
+  sizeof eastwall_data_40,  /*  eastwall_data */
+  sizeof eastwall_data_40,  /*  lrcornerwall_data */
+  sizeof eastwall_data_40,  /*  urcornerwall_data */
+  sizeof eastwall_data_40,  /*  east_twall_data */
+  sizeof westwall_data_40,  /*  westwall_data */
+  sizeof westwall_data_40,  /*  llcornerwall_data */
+  sizeof westwall_data_40,  /*  ulcornerwall_data */
+  sizeof westwall_data_40,  /*  west_twall_data */
+  sizeof horizwall_data_40, /*  horizwall_data */
+  sizeof horizwall_data_40, /*  south_twall_data */
+  sizeof horizwall_data_40, /*  north_twall_data */
+  sizeof horizwall_data_40, /*  centerwall_data */
+  sizeof floor_data_40,
+  sizeof goal_data_40,
+  sizeof man_data_40,
+  sizeof object_data_40,
+  sizeof saveman_data_40,
+  sizeof treasure_data_40
 };
 
 HiRes::HiRes () {
-  loadImages (imageData, imageSize);
+  loadImages (imageData_40, imageSize_40);
 }

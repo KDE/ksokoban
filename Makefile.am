@@ -3,7 +3,9 @@ APPSDIR = $(kde_appsdir)/Games
 SUBDIRS=data images levels
 
 bin_PROGRAMS = ksokoban
-ksokoban_SOURCES = HiRes.C History.C LevelMap.C LowRes.C MainWindow.C MedRes.C Move.C PathFinder.C PlayField.C StaticImage.C main.C HiRes.H History.H ImageData.H LevelMap.H LowRes.H MainWindow.H MedRes.H Move.H PathFinder.H PlayField.H Queue.H StaticImage.H MapDelta.C MapDelta.H Map.C Map.H MoveSequence.C MoveSequence.H ModalLabel.C ModalLabel.H HtmlPrinter.C HtmlPrinter.H Bookmark.C Bookmark.H
+ksokoban_SOURCES = HiRes.C History.C LevelMap.C LowRes.C MainWindow.C MedRes.C Move.C PathFinder.C PlayField.C StaticImage.C main.C MapDelta.C Map.C MoveSequence.C ModalLabel.C HtmlPrinter.C Bookmark.C 
+
+noinst_HEADERS  = HtmlPrinter.H Bookmark.H HiRes.H History.H ImageData.H LevelMap.H LowRes.H MainWindow.H MedRes.H Move.H PathFinder.H PlayField.H Queue.H StaticImage.H MapDelta.H ModalLabel.H MapDelta.H Map.H MoveSequence.H
 
 METASOURCES= MainWindow.moc ModalLabel.moc PlayField.moc
 
@@ -12,7 +14,6 @@ INCLUDES = $(all_includes)
 LDFLAGS = $(all_libraries) $(KDE_RPATH)
 LDADD = $(LIB_KDEUI) $(LIBZ)
 
-DISTCLEANFILES = $(BUILT_SOURCES)
 EXTRA_DIST=AUTHORS NEWS README TODO
 
 # we need theese deps for the automatic generation of other deps

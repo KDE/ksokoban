@@ -52,8 +52,8 @@ StaticImage::StaticImage () {
   for (int i=0; i<NO_OF_IMAGES; i++) {
     images_[i] = 0;
   }
-  loadImage (NO_OF_IMAGES, (const uchar *) background_data,
-	     (uint) sizeof (background_data));
+  loadImage (NO_OF_IMAGES, (const uchar *) background_data_,
+	     (uint) sizeof (background_data_));
 }
 
 StaticImage::~StaticImage () {

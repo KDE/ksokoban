@@ -160,6 +160,7 @@ main (argc, argv)
      char **argv;
 {
   int i;
+  const char *suffix;
 #ifdef USE_LIBZ
   int result;
 #endif
@@ -175,8 +176,9 @@ main (argc, argv)
       return 1;
   }
 
+  suffix = argv[1];
   /* Process each file given on command line */
-  for (i=1; i<argc; i++) {
+  for (i=2; i<argc; i++) {
     infile = fopen (argv[i], "rb");
     if (infile == NULL) return error ("can't open '", argv[i], "' for reading");
 
@@ -223,7 +225,7 @@ main (argc, argv)
     while (index && argv[i][index] != '/') index--;
     if (argv[i][index] == '/') index++;
     
-    fprintf (outfile, "static const unsigned char %s_data[] = {\n", argv[i] + index);
+    fprintf (outfile, "static const unsigned char %s_data_%s[] = {\n", argv[i] + index, suffix);
 
     for (j=0; j<destLen-1; j++) {
       switch (j%8) {

@@ -18,7 +18,7 @@ bin2c: $(srcdir)/bin2c.c
 	$(CC) $(CFLAGS) $(DEFS) $(all_includes) $(srcdir)/bin2c.c -o bin2c $(all_libraries) $(LIBZ)
 
 data.c: bin2c background.bmp
-	./bin2c $(srcdir)/background.bmp
+	./bin2c "" $(srcdir)/background.bmp
 
 vertiwall horizwall eastwall westwall object:
 	x-povray +L/usr/local/lib/povray3/include +W200 +H200 +I$@.pov +Oimage.tga +p +d
