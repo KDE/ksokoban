@@ -53,7 +53,7 @@ Bookmark::Bookmark (int _num) :
 
   char buf[4096];
   buf[0] = '\0';
-  fgets (buf, 1024, file);
+  fgets (buf, 4096, file);
   if (sscanf (buf, "%d %d %d", &collection_, &level_, &moves_) != 3) {
     collection_ = level_ = -1;
     data_ = "";

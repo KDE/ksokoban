@@ -241,7 +241,11 @@ MainWindow::updateBookmark (int num) {
 
   if (col < 0 || lev < 0) return;
 
-  QString name = playField_->collectionName (col);
+  QString name;
+  if (col >= 0 && col < playField_->noOfCollections ())
+    name = playField_->collectionName (col);
+  else
+    name = i18n("(invalid)");
   QString l;
   l.setNum (lev+1);
   name += " #" + l;

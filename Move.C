@@ -157,7 +157,7 @@ Move::load (const char *s) {
       return 0;
     }
 
-    if (x<=0 || x>=MAX_X || y<=0 && y>=MAX_Y) {
+    if (x<=0 || x>=MAX_X || y<=0 || y>=MAX_Y) {
       //printf ("x: %d, y:%d ><>%s\n", x, y, s);
       //abort ();
 
