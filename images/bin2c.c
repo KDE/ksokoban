@@ -100,7 +100,7 @@ my_strrchr (s, c)
 /*
  * NOTE: my_compress2 is taken directly from zlib 1.1.3
  *
- * This is for compability with early versions of zlib that
+ * This is for compatibility with early versions of zlib that
  * don't have the compress2 function.
  *
  */
