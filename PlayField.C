@@ -24,7 +24,7 @@
 #include <qpixmap.h>
 #include <qkeycode.h>
 #include <kconfig.h>
-#include <kapp.h>
+#include <kapplication.h>
 #include <klocale.h>
 #include <qpainter.h>
 #include <kmessagebox.h>

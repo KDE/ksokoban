@@ -9,7 +9,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <kconfig.h>
-#include <kapp.h>
+#include <kapplication.h>
 
 static inline unsigned long
 forward(unsigned long a, unsigned long b, unsigned long c, unsigned long d)

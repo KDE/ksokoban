@@ -18,7 +18,7 @@
  */
 
 // #include <kuniqueapp.h>
-#include <kapp.h>
+#include <kapplication.h>
 #include <kimageio.h>
 #include <klocale.h>
 #include <kcmdlineargs.h>

@@ -21,7 +21,7 @@
 
 #include <qlabel.h>
 #include <qfont.h>
-#include <kapp.h>
+#include <kapplication.h>
 #include <qwidgetlist.h>
 #include <qstring.h>
 

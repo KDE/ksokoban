@@ -19,7 +19,7 @@
 
 #include <stdio.h>
 
-#include <kapp.h>
+#include <kapplication.h>
 #include <kconfig.h>
 #include <kmenubar.h>
 #include <qpopupmenu.h>
@@ -30,7 +30,7 @@
 #include <kfiledialog.h>
 #include <qframe.h>
 #include <kmessagebox.h>
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 #include <kio/netaccess.h>
 #include <kiconloader.h>
 #include <qiconset.h>

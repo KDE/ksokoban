@@ -17,7 +17,7 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include <qlist.h>
+#include <qptrlist.h>
 
 #include "History.H"
 #include "Move.H"

@@ -23,10 +23,10 @@
 
 #include <qfile.h>
 
-#include <kapp.h>
+#include <kapplication.h>
 
 #include <kglobal.h>
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 
 #include <stdio.h>
 #include <sys/stat.h>
