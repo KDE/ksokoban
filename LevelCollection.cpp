@@ -1,6 +1,6 @@
-#include "LevelCollection.H"
+#include "LevelCollection.h"
 
-#include "Map.H"
+#include "Map.h"
 
 #include <qfile.h>
 #include <stdio.h>
