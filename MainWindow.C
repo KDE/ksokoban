@@ -31,6 +31,9 @@
 #include <kfiledialog.h>
 #include <qframe.h>
 #include <qmessagebox.h>
+#include <kmessagebox.h>
+#include <kstddirs.h>
+#include <kio/netaccess.h>
 
 #include "MainWindow.H"
 #include "PlayField.H"
@@ -292,9 +295,7 @@ MainWindow::changeCollection(int id)
   playField_->changeCollection(internalCollections_[id]);
 }
 
-
-void
-MainWindow::loadLevels() {
+void MainWindow::loadLevels() {
   KConfig *cfg=(KApplication::kApplication())->config();
   cfg->setGroup("settings");
   QString lastFile = cfg->readEntry("lastLevelFile");
@@ -314,7 +315,7 @@ MainWindow::loadLevels() {
 	  return;
   }
 
-  LevelCollection *tmpCollection = new LevelCollection(levelFile, levelName));
+  LevelCollection *tmpCollection = new LevelCollection(levelFile, levelName);
   if (tmpCollection->noOfLevels() < 1) {
     KMessageBox::sorry(this, i18n("No levels found in file"));
     delete tmpCollection;
