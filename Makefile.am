@@ -35,3 +35,6 @@ images/40/data.c:
 
 messages:
 	$(XGETTEXT) *.C -o $(podir)/ksokoban.pot
+
+install-data-local:
+	rm -rf $(kde_appsdir)/Games/ksokoban.desktop
