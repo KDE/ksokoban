@@ -12,7 +12,7 @@ METASOURCES= MainWindow.moc ModalLabel.moc PlayField.moc
 INCLUDES = $(all_includes)
 
 LDFLAGS = $(all_libraries) $(KDE_RPATH)
-LDADD = $(LIB_KDEUI) $(LIB_KFILE) $(LIB_KSYCOCA)
+LDADD = $(LIB_KFILE) $(LIB_KSYCOCA)
 # $(LIBZ)
 
 EXTRA_DIST=AUTHORS NEWS README TODO
@@ -26,12 +26,6 @@ levels/data.c:
 	(cd levels && $(MAKE) data.c)
 images/data.c:
 	(cd images && $(MAKE) data.c)
-images/20/data.c:
-	(cd images/20 && $(MAKE) data.c)
-images/32/data.c:
-	(cd images/32 && $(MAKE) data.c)
-images/40/data.c:
-	(cd images/40 && $(MAKE) data.c)
 
 messages:
 	$(XGETTEXT) *.C -o $(podir)/ksokoban.pot

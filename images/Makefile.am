@@ -1,9 +1,10 @@
-all-local: bin2c data.c
 
-EXTRA_PROGRAMS = bin2c
+noinst_DATA = data.c
+bin2c_SOURCES = bin2c
+bin2c_LDFLAGS = $(all_libraries)
+bin2c_LDADD   = $(LIBZ)
 
-#bin2c: $(srcdir)/bin2c.c
-#	$(CC) $(CFLAGS) $(DEFS) $(all_includes) $(srcdir)/bin2c.c -o bin2c $(all_libraries) $(LIBZ)
+noinst_PROGRAMS = bin2c
 
 test:
 	x-povray +W200 +H200 +I$@.pov +O$@.png +p +d
@@ -13,8 +14,8 @@ POVFILES=floor_common.inc goal.pov halfstone_1.pov halfstone_2.pov halfstone_3.p
 
 IMAGES=goal.png halfstone_1.png halfstone_2.png halfstone_3.png halfstone_4.png man.png object.png saveman.png stone_1.png stone_2.png stone_3.png stone_4.png stone_5.png stone_6.png treasure.png starfield.png
 
-EXTRA_DIST=bin2c.c $(POVFILES) $(IMAGES)
-DISTCLEANFILES=data.c bin2c
+EXTRA_DIST = $(POVFILES) $(IMAGES)
+CLEANFILES = data.c
 
 RESOLUTION=+W96 +H96
 STONE_RESOLUTION=+W96 +H48
