@@ -26,6 +26,7 @@
 #include <assert.h>
 #include <kconfig.h>
 #include <kapp.h>
+#include <klocale.h>
 
 #include "PlayField.H"
 #include "ModalLabel.H"

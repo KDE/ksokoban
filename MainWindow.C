@@ -25,6 +25,7 @@
 #include <kstatusbar.h>
 #include <qlabel.h>
 #include <assert.h>
+#include <klocale.h>
 
 #include "MainWindow.H"
 #include "PlayField.H"
