@@ -22,7 +22,7 @@
 #include <qlabel.h>
 #include <qfont.h>
 #include <kapp.h>
-#include <qwidcoll.h>
+#include <qwidgetlist.h>
 #include <qstring.h>
 
 #include "ModalLabel.moc"
