@@ -50,6 +50,7 @@ PlayField::PlayField (QWidget *parent, const char *name, WFlags f)
   lastLevel_ = -1;
 
   KConfig *cfg = (KApplication::getKApplication ())->getConfig ();
+  cfg->setGroup ("settings");
   resolution_ = cfg->readNumEntry ("resolution", 1);
   switch (resolution_) {
   case 0:
@@ -88,6 +89,7 @@ PlayField::PlayField (QWidget *parent, const char *name, WFlags f)
 
 PlayField::~PlayField () {
   KConfig *cfg = (KApplication::getKApplication ())->getConfig ();
+  cfg->setGroup ("settings");
   cfg->writeEntry ("animDelay", animDelay_, true, false, false);
   cfg->writeEntry ("resolution", resolution_, true, false, false);
 

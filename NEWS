@@ -1,4 +1,17 @@
 -------------------------------------------------------------------------------
+version 0.2.2: Date 1998-11-06
+
+* Bugfix: "Animation off" now works again
+
+* Possibly fixed bug: Settings should now always be saved properly
+	I haven't been able to reproduce this bug, but it has been reported
+	that the settings would sometimes not be saved to the right section
+	in the config file. Thanks to Tore Skaug <toresk@pvv.ntnu.no> for
+	reporting this.
+
+* Now uses the zlib check in acinclude
+                   
+-------------------------------------------------------------------------------
 version 0.2.1: Date 1998-10-25
 
 * Bugfix: Fixed failed assertion that showed up if you changed to small

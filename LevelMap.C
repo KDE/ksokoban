@@ -73,6 +73,7 @@ LevelMap::realCollection2Config (int collection) {
 
 LevelMap::LevelMap () {
   KConfig *cfg=(KApplication::getKApplication ())->getConfig ();
+  cfg->setGroup ("settings");
 
 #ifdef HAVE_LIBZ
   data = (char *) malloc (BUFSIZE);
@@ -176,6 +177,7 @@ LevelMap::LevelMap () {
 
 LevelMap::~LevelMap () {
   KConfig *cfg=(KApplication::getKApplication ())->getConfig ();
+  cfg->setGroup ("settings");
   char buf[256];
 
   for (int i=0; i<noOfCollections_; i++) {
@@ -396,6 +398,7 @@ LevelMap::push (int _x, int _y) {
     sprintf (buf, "status%d", realCollection2Config (collection ()));
 
     KConfig *cfg=(KApplication::getKApplication ())->getConfig ();
+    cfg->setGroup ("settings");
     cfg->writeEntry (buf, x, true, false, false);
     cfg->sync ();
   }

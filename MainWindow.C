@@ -138,7 +138,7 @@ MainWindow::MainWindow() : KTopLevelWidget() {
   }
 
   KApplication *app = KApplication::getKApplication ();
-  QString aboutMsg = "ksokoban 0.2.1 - ";
+  QString aboutMsg = "ksokoban 0.2.2 - ";
   aboutMsg += i18n("\
 a Sokoban game for KDE\n\
 \n\
