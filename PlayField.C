@@ -57,6 +57,8 @@ PlayField::PlayField(QWidget *parent, const char *name, WFlags f)
   setBackgroundMode(Qt::NoBackground);
   setMouseTracking(true);
 
+  highlightX_ = highlightY_ = 0;
+
   KConfig *cfg = (KApplication::kApplication())->config();
   cfg->setGroup("settings");
 
@@ -670,7 +672,6 @@ PlayField::stopDrag() {
   paint.setBrushOrigin(0, 0);
 
   int x = highlightX_, y = highlightY_;
-  highlightX_ = -1;
   paintSquare(x, y, paint);
 
   paintPainterClip(paint, dragX_, dragY_, size_, size_);
