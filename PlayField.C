@@ -248,7 +248,11 @@ PlayField::timerEvent (QTimerEvent *) {
 
   mapDelta_->start ();
   if (animDelay_) more = moveSequence_->next ();
-  else while (moveSequence_->next ()) if (levelMap_->completed ()) break;
+  else {
+    while (moveSequence_->next ()) if (levelMap_->completed ()) break;
+    more = true;   // FIXME: clean this up
+    stopMoving ();
+  }
   mapDelta_->end ();
 
   if (more) {
