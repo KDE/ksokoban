@@ -1,4 +1,5 @@
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook V3.1-Based Variant V1.0//EN">
+
 <book lang="en">
 <bookinfo>
 <title>The KSokoban Handbook</title>
@@ -8,23 +9,19 @@
 <surname>Widell</surname>
 </author>
 </authorgroup>
-<date>Version 0.1.2, 10 September 1998</date>
-<releaseinfo><!-- information about this particular version --></releaseinfo>
-<revhistory>
-<revision>
-<revnumber></revnumber>
-<date></date>
-</revision>
-</revhistory>
+<date>10/09/1998</date>
+<releaseinfo>0.01.02</releaseinfo>
 <abstract>
-<para>This documentation was last updated for ksokoban version 0.1.2. Please make any comments and additions to the author.</para>
-<para>a Sokoban game</para><!-- Merge this with the previous paragraph; it comes from <META NAME="description" CONTENT="..."> --></abstract>
+<para>This documentation was last updated for ksokoban version 0.1.2.
+Please make any comments and additions to the author.</para>
+</abstract>
 <keywordset>
 <keyword>KDE</keyword>
 <keyword>game</keyword>
 <keyword>sokoban</keyword>
 </keywordset>
 </bookinfo>
+
 <chapter id="Introduction">
 <title>Introduction</title>
 <para>This game was originally invented in Japan in the early 80's and won a
