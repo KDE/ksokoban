@@ -13,7 +13,7 @@ bin2c: bin2c.c
 	@echo "use the --with-extra-includes and --with-extra-libs configure"
 	@echo "options to tell it's location."
 	@echo "#############################################################"
-	$(CC) $(CFLAGS) @all_includes@ bin2c.c -o bin2c @all_libraries@ $(LIBZ)
+	$(CC) $(CFLAGS) $(all_includes) bin2c.c -o bin2c $(all_libraries) $(LIBZ)
 
 data.c: bin2c background.bmp
 	./bin2c background.bmp
