@@ -27,7 +27,7 @@
 #include <kapp.h>
 #include <klocale.h>
 #include <qpainter.h>
-#include <qmessagebox.h>
+#include <kmessagebox.h>
 
 #include "PlayField.H"
 #include "ModalLabel.H"
@@ -733,9 +733,8 @@ PlayField::setBookmark(Bookmark *bm) {
   if (!levelMap_->goodLevel()) return;
 
   if (collection()->id() < 0) {
-    QMessageBox::warning(this, "Ksokoban", i18n("\
-Sorry. Bookmarks for external levels\n\
-is not implemented yet"), i18n("OK"));
+    KMessageBox::sorry(this, i18n("Sorry, bookmarks for external levels\n"
+				  "is not implemented yet."));
     return;
   }
 

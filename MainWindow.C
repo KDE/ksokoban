@@ -30,7 +30,6 @@
 #include <qstring.h>
 #include <kfiledialog.h>
 #include <qframe.h>
-#include <qmessagebox.h>
 #include <kmessagebox.h>
 #include <kstddirs.h>
 #include <kio/netaccess.h>
