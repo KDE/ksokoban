@@ -33,7 +33,7 @@ POVRAY=povray $(ANTIALIAS)
 
 data.c: $(IMAGES) bin2c
 	list=""; for i in $(IMAGES); do list="$$list $(srcdir)/$$i"; done; \
-	$(srcdir)/bin2c "" $$list
+	./bin2c "" $$list
 
 ############################################################################
 # Povray rules to generate images
