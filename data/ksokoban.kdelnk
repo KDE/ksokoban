@@ -1,6 +1,7 @@
 # KDE Config File 
 [KDE Desktop Entry]
 Name=Sokoban
+Name[no]=Sokoban
 name[cs]=Sokoban
 Name[es]=Sokoban
 Name[pt_BR]=Sokoban
