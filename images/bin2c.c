@@ -115,7 +115,7 @@ main (argc, argv)
   }
 
   for (i=1; i<argc; i++) {
-    infile = fopen (argv[i], "r+b");
+    infile = fopen (argv[i], "rb");
     if (infile == NULL) {
       fprintf (stderr, "can't open '%s' for reading\n", argv[i]);
       return 1;
