@@ -36,6 +36,8 @@ public:
 
 protected:
   ModalLabel (const char *text, QWidget *parent, const char * name=0, WFlags f=0);
+  int width_, height_;
+  void checkBounds (QFontMetrics &met, char *str);
 
 };
 

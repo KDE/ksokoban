@@ -53,7 +53,7 @@ static const int collection_save_id[] = {
 
 int
 LevelMap::configSet2Real (int set) {
-  for (int i=0; i < sizeof (collection_save_id) / sizeof (int); i++) {
+  for (int i=0; i < (int) (sizeof (collection_save_id) / sizeof (int)); i++) {
     if (collection_save_id[i] == set) return i;
   }
   return 0;
@@ -61,7 +61,7 @@ LevelMap::configSet2Real (int set) {
 
 int
 LevelMap::realSet2Config (int set) {
-  assert (set < sizeof (collection_save_id) / sizeof (int));
+  assert (set < (int) (sizeof (collection_save_id) / sizeof (int)));
   return collection_save_id[set];
 }
 
@@ -130,7 +130,7 @@ LevelMap::LevelMap () {
     char buf[256];
     unsigned long x;
 
-    assert (i < sizeof (collection_save_id) / sizeof (int));
+    assert (i < (int) (sizeof (collection_save_id) / sizeof (int)));
     sprintf (buf, "level%d", realSet2Config (i));
     setCurrentLevel_[i] = cfg->readNumEntry (buf, 0);
 

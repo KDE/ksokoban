@@ -41,6 +41,7 @@ public:
 
   int resolution () { return resolution_; }
   void resolution (int res);
+  int animDelay () { return animDelay_; }
   int noOfSets () { return levelMap_->noOfSets (); }
   const char *setName (int i) { return levelMap_->setName (i); }
 
@@ -57,6 +58,7 @@ public slots:
   void redo ();
   void restartLevel ();
   void changeSet (int set);
+  void changeAnim (int num);
 
 signals:
   void levelChanged (const char *text);
@@ -69,10 +71,11 @@ protected:
   LevelMap  *levelMap_;
   History   *history_;
   int        lastLevel_;
-  MoveSequence  *moveStep_;
+  MoveSequence  *moveSequence_;
   MapDelta  *mapDelta_;
   bool       moveInProgress_;
   PathFinder pathFinder_;
+  int        animDelay_;
 
   void paintSquare (int x, int y);
   void paintDelta ();

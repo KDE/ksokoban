@@ -48,7 +48,8 @@ PlayField::PlayField (QWidget *parent, const char *name, WFlags f)
   xOffs_ = yOffs_ = 0;
   lastLevel_ = -1;
 
-  resolution_=(KApplication::getKApplication ())->getConfig ()->readNumEntry ("resolution", 1);
+  KConfig *cfg = (KApplication::getKApplication ())->getConfig ();
+  resolution_ = cfg->readNumEntry ("resolution", 1);
   switch (resolution_) {
   case 0:
     imageData_ = new LowRes;
@@ -61,6 +62,9 @@ PlayField::PlayField (QWidget *parent, const char *name, WFlags f)
     imageData_ = new MedRes;
     break;
   }
+
+  animDelay_ = cfg->readNumEntry ("animDelay", 2);
+  if (animDelay_ < 0 || animDelay_ > 3) animDelay_ = 2;
 
   width_  = imageData_->width ();
   height_ = imageData_->height ();
@@ -78,13 +82,15 @@ PlayField::PlayField (QWidget *parent, const char *name, WFlags f)
   mapDelta_ = new MapDelta (levelMap_);
   mapDelta_->end ();
   moveInProgress_ = false;
-  moveStep_ = 0;
+  moveSequence_ = 0;
 
   levelChange ();
 }
 
 PlayField::~PlayField () {
-  (KApplication::getKApplication ())->getConfig ()->writeEntry ("resolution", resolution_, true, false, false);
+  KConfig *cfg = (KApplication::getKApplication ())->getConfig ();
+  cfg->writeEntry ("animDelay", animDelay_, true, false, false);
+  cfg->writeEntry ("resolution", resolution_, true, false, false);
 
   delete history_;
   delete levelMap_;
@@ -124,6 +130,7 @@ PlayField::emitMoves (bool force) {
 
 void
 PlayField::levelChange () {
+  stopMoving ();
   history_->clear ();
   maxX_ = levelMap_->maxX ();
   maxY_ = levelMap_->maxY ();
@@ -209,8 +216,8 @@ PlayField::paintEvent (QPaintEvent *) {
 void
 PlayField::stopMoving () {
   killTimers ();
-  delete moveStep_;
-  moveStep_ = 0;
+  delete moveSequence_;
+  moveSequence_ = 0;
   moveInProgress_ = false;
   emitMoves (false);
 }
@@ -223,24 +230,29 @@ PlayField::startMoving (Move *m) {
 
 void
 PlayField::startMoving (MoveSequence *ms) {
-  assert (moveStep_ == 0);
-  moveStep_ = ms;
+  static const int delay[4] = {0, 15, 35, 60};
+
+  assert (moveSequence_ == 0 && !moveInProgress_);
+  moveSequence_ = ms;
   moveInProgress_ = true;
-  startTimer (40);
+  if (animDelay_) startTimer (delay[animDelay_]);
   timerEvent (0);
 }
 
 void
 PlayField::timerEvent (QTimerEvent *) {
   assert (moveInProgress_);
-  if (moveStep_ == 0) {
+  if (moveSequence_ == 0) {
     killTimers ();
     moveInProgress_ = false;
     return;
   }
 
+  bool more=false;
+
   mapDelta_->start ();
-  bool more = moveStep_->next ();
+  if (animDelay_) more = moveSequence_->next ();
+  else while (moveSequence_->next ()) if (levelMap_->completed ()) break;
   mapDelta_->end ();
 
   paintDelta ();
@@ -527,7 +539,7 @@ PlayField::redo () {
 
 void
 PlayField::restartLevel () {
-  if (moveInProgress_) return;
+  stopMoving ();
   level (levelMap_->level ());
   emitMoves (true);
   repaint (false);
@@ -565,4 +577,12 @@ PlayField::changeSet (int set)
   levelMap_->changeSet (set);
   emitAll ();
   levelChange ();
+}
+
+void
+PlayField::changeAnim (int num)
+{
+  assert (num >= 0 && num <= 3);
+
+  animDelay_ = num;
 }

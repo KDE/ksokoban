@@ -68,6 +68,18 @@ MainWindow::MainWindow() : KTopLevelWidget()
   updateGfxMenu (checkedGfx_);
   menu_->insertItem("Graphics", graphics_);
 
+  animation_ = new QPopupMenu(0,"fanimation");
+  animation_->setCheckable (true);
+  connect (animation_, SIGNAL(activated(int)), this, SLOT(updateAnimMenu(int)));
+  connect (animation_, SIGNAL(activated(int)), playField_, SLOT(changeAnim(int)));
+  animation_->insertItem ("Slow", 3);
+  animation_->insertItem ("Medium", 2);
+  animation_->insertItem ("Fast", 1);
+  animation_->insertItem ("Off", 0);
+  checkedAnim_ = playField_->animDelay ();
+  updateAnimMenu (checkedAnim_);
+  menu_->insertItem("Animation", animation_);
+
   KApplication *app = KApplication::getKApplication ();
   help_ = app->getHelpMenu (true, "\
 ksokoban 0.1.2 - a Sokoban game for KDE
@@ -122,6 +134,8 @@ Simple Sokoban - by Phil Shapiro <pshapiro@his.com>
 
 MainWindow::~MainWindow()
 {
+  delete help_;
+  delete animation_;
   delete graphics_;
   delete set_;
   delete game_;
@@ -142,6 +156,14 @@ MainWindow::updateGfxMenu (int id) {
   checkedGfx_ = id;
   graphics_->setItemChecked (checkedGfx_, true);
 }
+
+void
+MainWindow::updateAnimMenu (int id) {
+  animation_->setItemChecked (checkedAnim_, false);
+  checkedAnim_ = id;
+  animation_->setItemChecked (checkedAnim_, true);
+}
+
 
 void
 MainWindow::changeGfx (int id) {

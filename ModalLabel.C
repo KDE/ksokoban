@@ -6,19 +6,57 @@
 //#include <qdrawutil.h>
 #include <kapp.h>
 #include <qwidcoll.h>
+#include <string.h>
 
 #include "ModalLabel.moc.C"
+
+static char *
+my_strchr (char *s, int c) {
+  while (*s) {
+    if (*s == c) return s;
+    s++;
+  }
+  return 0;
+}
+
+void
+ModalLabel::checkBounds (QFontMetrics &met, char *str)
+{
+  QRect bounds = met.boundingRect (str);
+  if (bounds.width () > width_) width_ = bounds.width ();
+  height_ += bounds.height ();
+}
+
 
 ModalLabel::ModalLabel (const char *text, QWidget *parent, const char * name, WFlags f)
   : QLabel (text, parent, name, f) {
   QFont font ("helvetica", 24, QFont::Bold);
+  QFontMetrics fontMet (font);
+
+  char str[strlen(text)+1];
+  strcpy (str, text);
+  char *str_pos=str;
+  int width = 0, height = 0;
+  for (;;) {
+    char *next_line = my_strchr (str_pos, '\n');
+    if (next_line) *next_line = '\0';
+    checkBounds (fontMet, str_pos);
+
+    if (next_line) str_pos = next_line+1;
+    else break;
+  }
+  width += 32;
+  height += 32;
+
+  if (width < 300) width = 300;
+  if (height < 75) height = 75;
 
   setAlignment (AlignCenter);
   setFrameStyle (QFrame::Panel | QFrame::Raised);
   setLineWidth (4);
   setFont (font);
-  move (parent->width ()/2-150, parent->height ()/2-37);
-  resize (300, 75);
+  move (parent->width ()/2 - width/2, parent->height ()/2 - height/2);
+  resize (width, height);
   show ();
 
   QWidgetList  *list = QApplication::allWidgets();

@@ -38,6 +38,7 @@ public:
 public slots:
   void changeGfx (int id);
   void updateSetMenu (int id);
+  void updateAnimMenu (int id);
 
   void changeCollection (const char *text);
   void changeLevel (const char *text);
@@ -54,9 +55,11 @@ private:
   QPopupMenu      *game_;
   QPopupMenu      *set_;
   QPopupMenu      *graphics_;
+  QPopupMenu      *animation_;
   QPopupMenu      *help_;
   int              checkedSet_;
   int              checkedGfx_;
+  int              checkedAnim_;
   KStatusBar      *statusBar_;
 
   void updateGfxMenu (int id);
