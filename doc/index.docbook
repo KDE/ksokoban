@@ -1,0 +1,218 @@
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook V3.1-Based Variant V1.0//EN">
+<book lang="en">
+<bookinfo>
+<title>The KSokoban Handbook</title>
+<authorgroup>
+<author>
+<firstname>Anders</firstname>
+<surname>Widell</surname>
+</author>
+</authorgroup>
+<date>Version 0.1.2, 10 September 1998</date>
+<releaseinfo><!-- information about this particular version --></releaseinfo>
+<revhistory>
+<revision>
+<revnumber></revnumber>
+<date></date>
+</revision>
+</revhistory>
+<abstract>
+<para>This documentation was last updated for ksokoban version 0.1.2. Please make any comments and additions to the author.</para>
+<para>a Sokoban game</para><!-- Merge this with the previous paragraph; it comes from <META NAME="description" CONTENT="..."> --></abstract>
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>game</keyword>
+<keyword>sokoban</keyword>
+</keywordset>
+</bookinfo>
+<chapter id="Introduction">
+<title>Introduction</title>
+<para>This game was originally invented in Japan in the early 80's and won a
+computer game contest there. &quot;Sokoban&quot; is japanese for
+&quot;warehouse keeper&quot;. The idea is that you are a warehouse
+keeper trying to push crates to their proper locations in a warehouse.</para>
+<para>The problem is that you cannot pull the crates or step over them. If
+you are not careful, some of the crates can get stuck in wrong places
+and/or block your way.</para>
+<para>It can be rather difficult just to solve a level. But if you want to make
+it even harder, you can try to minimise the number of moves and/or pushes
+you use to solve the level.</para>
+<para>To make the game more fun for small kids (below 10 years or so), some
+collections with easier levels are also included in ksokoban. These
+are marked <emphasis remap="bf">(easy)</emphasis> in the level colletion menu. Of course,
+these levels can be fun for adults too, for example if you don't want
+to expose yourself to too much mental strain.</para>
+</chapter>
+<chapter id="Howtoplay">
+<title>How to play</title>
+<para>The objective of the game is to push all the red gems to the goal
+squares, which are marked with green glassy round things on the floor.</para>
+<para>Use the cursor keys or the mouse to move about. If you move onto a gem
+using the cursor keys or the middle mouse button, and there is noting
+blocking it on the opposite side, then you will push the gem.  It
+isn't possible to pull the gems, so if you push a gem into a corner it
+will be stuck there. You can't step over the gems either, so you can
+also get trapped in a part of the maze by blocking the way with gems.
+Also note that it isn't possible to push more than one gem at a time.</para>
+<para>If you notice that you have moved the gems in such a way that the
+level is impossible to solve, then you can always use the undo feature
+to go back to a position where the mistake has not yet been made. You
+can of course also restart the level from the very beginning.</para>
+<sect1>
+<title>Controls</title>
+<para><informaltable>
+<tgroup cols="2" align="left">
+<tbody>
+<row><entry>Cursor keys </entry><entry>Move one square in a direction </entry></row>
+<row><entry><emphasis remap="bf">CONTROL</emphasis> + Cursor keys </entry><entry>Move as far as possible in a direction without pushing any gems </entry></row>
+<row><entry><emphasis remap="bf">SHIFT</emphasis> + Cursor keys </entry><entry>Move as far as possible in a direction, pushing any gem in the way </entry></row>
+<row><entry>Left mouse button </entry><entry>Move to any place in the maze that can be reached without pushing any gems </entry></row>
+<row><entry>Middle mouse button </entry><entry>Move up/down/left/right in a straight line, pushing any gem in the way </entry></row>
+<row><entry>Right mouse button or <emphasis remap="bf">U</emphasis> </entry><entry>Undo the last move </entry></row>
+<row><entry><emphasis remap="bf">R</emphasis> </entry><entry>Redo the last undone move </entry></row>
+<row><entry><emphasis remap="bf">N</emphasis> </entry><entry>Go to the next level in the current level collection </entry></row>
+<row><entry><emphasis remap="bf">P</emphasis> </entry><entry>Go to the previous level in the current level collection </entry></row>
+<row><entry><emphasis remap="bf">Escape</emphasis> </entry><entry>Restart the current level </entry></row>
+<row><entry><emphasis remap="bf">Q</emphasis> </entry><entry>Quit the game </entry></row>
+<row><entry></entry></row></tbody>
+</tgroup>
+</informaltable>
+</para>
+</sect1>
+</chapter>
+<chapter id="Epilogue">
+<title>Epilogue</title>
+<para>For the latest info on ksokoban, see the ksokoban homepage at
+<ulink url="http://hem.passagen.se/awl/ksokoban/">http://hem.passagen.se/awl/ksokoban/</ulink></para>
+<sect1>
+<title>Author</title>
+<para>ksokoban is copyright &copy; 1998 by
+Anders Widell
+&lt;<ulink url="mailto:d95-awi@nada.kth.se">d95-awi@nada.kth.se</ulink>&gt;</para>
+<para>The background graphics &quot;starfield&quot; was taken from the
+<ulink url="http://www.gimp.org/">Gimp</ulink>.
+All other graphics were created by 
+Anders Widell
+&lt;<ulink url="mailto:d95-awi@nada.kth.se">d95-awi@nada.kth.se</ulink>&gt;
+using the
+<ulink url="http://www.povray.org/">Povray</ulink> raytracer.</para>
+</sect1>
+<sect1>
+<title>License</title>
+<para>ksokoban is distributed under the GNU general public license. See
+<ulink url="http://www.gnu.org/copyleft/gpl.html">http://www.gnu.org/copyleft/gpl.html</ulink>
+for details.</para>
+</sect1>
+<sect1>
+<title>Levels</title>
+<para>The levels were taken (with permission) from:</para>
+<para><variablelist>
+<varlistentry>
+<term>xsokoban 3.3c for X-windows</term>
+<listitem>
+<para>www: <ulink url="http://xsokoban.lcs.mit.edu/xsokoban.html">http://xsokoban.lcs.mit.edu/xsokoban.html</ulink></para>
+<para>author: Andrew Myers
+&lt;<ulink url="mailto:andru@lcs.mit.edu">andru@lcs.mit.edu</ulink>&gt;</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>MacSokoban 3.0.3 for Macintosh</term>
+<listitem>
+<para>www: <ulink url="http://www.lysator.liu.se/&tilde;ingemar/games.html">http://www.lysator.liu.se/&tilde;ingemar/games.html</ulink></para>
+<para>author: Ingemar Ragnemalm
+&lt;<ulink url="mailto:ingemar@lysator.liu.se">ingemar@lysator.liu.se</ulink>&gt;</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>Sokoban 2.4 for Macintosh</term>
+<listitem>
+<para>www: <ulink url="http://members.aol.com/SokobanMac/">http://members.aol.com/SokobanMac/</ulink></para>
+<para>author: Scott Lindhurst
+&lt;<ulink url="scottl@alumni.Princeton.EDU">scottl@alumni.Princeton.EDU</ulink>&gt;</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>Yoshio's sokoban page</term>
+<listitem>
+<para>www: <ulink url="http://www.ne.jp/asahi/ai/yoshio/sokoban/main.htm">http://www.ne.jp/asahi/ai/yoshio/sokoban/main.htm</ulink></para>
+<para>author: Yoshio Murase
+&lt;<ulink url="mailto:yoshio@asahi.email.ne.jp">yoshio@asahi.email.ne.jp</ulink>&gt;</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect1>
+<sect1>
+<title>Level authors</title>
+<para>The levels are copyrighted by their authors:</para>
+<para><variablelist>
+<varlistentry>
+<term>Original</term>
+<listitem>
+<para>the first 50 original levels from xsokoban, by various
+authors. These levels are public domain</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>Extra</term>
+<listitem>
+<para>some more levels from xsokoban. Also public domain</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>Still more</term>
+<listitem>
+<para>by J. Franklin Mentzer
+&lt;<ulink url="mailto:wryter@aol.com">wryter@aol.com</ulink>&gt;</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>MacTommy inventions</term>
+<listitem>
+<para>by Tommy in Pennsylvania</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>Yoshio's autogenerated</term>
+<listitem>
+<para>by Yoshio Murase
+&lt;<ulink url="mailto:yoshio@asahi.email.ne.jp">yoshio@asahi.email.ne.jp</ulink>&gt;</para>
+<para>See also
+<ulink url="http://www.ne.jp/asahi/ai/yoshio/sokoban/main.htm">http://www.ne.jp/asahi/ai/yoshio/sokoban/main.htm</ulink>
+where he puts a new sokoban level every week.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>For the kids</term>
+<listitem>
+<para>by Ross (W.R.) Brown
+&lt;<ulink url="mailto:ross@bnr.ca">ross@bnr.ca</ulink>&gt;</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>Dimitri &amp; Yorick</term>
+<listitem>
+<para>by Jacques Duthen
+&lt;<ulink url="mailto:duthen@club-internet.fr">duthen@club-internet.fr</ulink>&gt;</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>Simple Sokoban</term>
+<listitem>
+<para>simplified original levels
+by Phil Shapiro
+&lt;<ulink url="mailto:pshapiro@his.com">pshapiro@his.com</ulink>&gt;</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect1>
+</chapter>
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-omittag: nil
+sgml-shorttag: t
+End:
+-->
