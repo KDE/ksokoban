@@ -20,7 +20,7 @@
 #include <kapp.h>
 #include <ktopwidget.h>
 #include <kmenubar.h>
-#include <qpopmenu.h>
+#include <qpopupmenu.h>
 #include <qkeycode.h>
 #include <kstatusbar.h>
 #include <qlabel.h>
