@@ -11,6 +11,7 @@ Comment[es]=El juego del guardián del depósito japonés
 Comment[sv]=Det japanska spelet där du sköter en lagerlokal
 Comment[pt_BR]=O jogo do fiscal de estoques japonês
 Comment[sk]=Japonská hra správca skladi¹»a
+Comment[no]=Det japanske spillet der du styrer et lagerlokal
 DocPath=ksokoban/index.html
 Exec=ksokoban -caption "%c"
 Icon=ksokoban.xpm
