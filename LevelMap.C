@@ -36,7 +36,10 @@
 #include "LevelMap.H"
 #include "LevelCollection.H"
 
+#ifndef LEVELS_INCLUDED
+#define LEVELS_INCLUDED 1
 #include "levels/data.c"
+#endif
 
 #define BUFSIZE (128*1024)
 
