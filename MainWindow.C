@@ -195,7 +195,8 @@ Simple Sokoban - by Phil Shapiro <pshapiro@his.com>\n\
 
 MainWindow::~MainWindow()
 {
-  delete help_;
+  // The following line segfaults when linked against qt 1.44
+  //delete help_;
 
   for (int i=1; i<=10; i++) {
     delete bookmarks_[i-1];
