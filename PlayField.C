@@ -171,11 +171,7 @@ PlayField::paintDelta() {
 void
 PlayField::paintEvent(QPaintEvent *e) {
   QPainter paint(this);
-#if QT_VERSION < 200
-  paint.setClipRect(e->rect());
-#else
   paint.setClipRegion(e->region());
-#endif
   paint.setClipping(true);
 
   int minx = pixel2x(e->rect().x());
@@ -188,11 +184,7 @@ PlayField::paintEvent(QPaintEvent *e) {
   if (maxx >= levelMap_->width()) maxx = levelMap_->width()-1;
   if (maxy >= levelMap_->height()) maxy = levelMap_->height()-1;
 
-#if QT_VERSION < 200
-  bool erased = false;
-#else
   bool erased = e->erased();
-#endif
   if (!erased) {
     int x1, x2, y1, y2;
     y1 = y2pixel(miny);
@@ -231,9 +223,6 @@ PlayField::paintEvent(QPaintEvent *e) {
 void
 PlayField::resizeEvent(QResizeEvent *e) {
   setSize(e->size().width(), e->size().height());
-#if QT_VERSION < 200
-  repaint(false);
-#endif
 }
 
 void

@@ -38,15 +38,7 @@
 
 void
 Bookmark::fileName(QString &p) {
-#if (KDE_VERSION_MAJOR > 1) || (KDE_VERSION_MINOR >= 9)
   p = KGlobal::dirs()->saveLocation("appdata");
-#else
-  p = (KApplication::kApplication())->localkdedir().data();
-  p += "/share/apps";
-  if (access(p, F_OK)) mkdir(p.data(), 0740);
-  p += "/ksokoban";
-  if (access(p, F_OK)) mkdir(p.data(), 0740);
-#endif
 
   QString n;
   n.setNum(number_);

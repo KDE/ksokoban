@@ -29,7 +29,7 @@
 
 static const char *description = I18N_NOOP("The japanese warehouse keeper game");
 
-static const char *version = "v0.4.1";
+static const char *version = "0.4.1";
 
 
 static KCmdLineOptions options[] = 
@@ -44,10 +44,15 @@ main (int argc, char **argv)
 {
   KAboutData aboutData("ksokoban", I18N_NOOP("KSokoban"), 
 		       version, description, KAboutData::License_GPL, 
-		       "(c) 1998-2000 Anders Widell", 0,
+		       "(c) 1998-2001  Anders Widell", 0,
 		       "http://hem.passagen.se/awl/ksokoban/");
-  aboutData.addAuthor("Anders Widell",0, "awl@hem.passagen.se",
+  aboutData.addAuthor("Anders Widell", 0,
+		      "awl@hem.passagen.se",
 		      "http://hem.passagen.se/awl/");
+  aboutData.addCredit("David W. Skinner",
+		      I18N_NOOP("For contributing the Sokoban levels included in this game"),
+		      "sasquatch@bentonrea.com",
+		      "http://bentonrea.com/~sasquatch/");
   KCmdLineArgs::init(argc, argv, &aboutData);
   KCmdLineArgs::addCmdLineOptions(options);
 //   KUniqueApplication::addCmdLineOptions();

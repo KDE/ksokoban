@@ -174,23 +174,7 @@ MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
     updateBookmark(i);
   }
 
-  QString aboutMsg = "ksokoban 0.4.1 - ";
-  aboutMsg += i18n("\
-a Sokoban game for KDE\n\
-\n\
-ksokoban is copyright (c) 1998-2000 Anders Widell <awl@hem.passagen.se>\n\
-See http://hem.passagen.se/awl/ksokoban/ for more info on ksokoban\n\
-\n\
-The levels are copyrighted by their authors:");
-
-  aboutMsg += i18n("\n\
-\n\
-Sasquatch - David W. Skinner <sasquatch@bentonrea.com>\n\
-Mas Sasquatch - David W. Skinner <sasquatch@bentonrea.com>\n\
-Sasquatch III - David W. Skinner <sasquatch@bentonrea.com>\n\
-Microban - David W. Skinner <sasquatch@bentonrea.com>\n\
-");
-  help_ = helpMenu(aboutMsg, false);
+  help_ = helpMenu(QString::null, false);
   menu_->insertSeparator();
   menu_->insertItem(i18n("&Help"), help_);
 

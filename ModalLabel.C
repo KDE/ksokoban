@@ -84,20 +84,6 @@ ModalLabel::timerEvent (QTimerEvent *) {
 bool
 ModalLabel::eventFilter (QObject *, QEvent *e) {
   switch (e->type()) {
-#if QT_VERSION < 200
-    case Event_MouseButtonPress:
-    case Event_MouseButtonRelease:
-    case Event_MouseButtonDblClick:
-    case Event_MouseMove:
-    case Event_KeyPress:
-    case Event_KeyRelease:
-    case Event_Accel:
-      //case Event_DragEnter:
-    case Event_DragMove:
-    case Event_DragLeave:
-    case Event_Drop:
-      //case Event_DragResponse:
-#else
     case QEvent::MouseButtonPress:
     case QEvent::MouseButtonRelease:
     case QEvent::MouseButtonDblClick:
@@ -110,7 +96,6 @@ ModalLabel::eventFilter (QObject *, QEvent *e) {
     case QEvent::DragLeave:
     case QEvent::Drop:
       //case QEvent::DragResponse:
-#endif
 
       //kdDebug << "Ate event" << endl;
     return true;
