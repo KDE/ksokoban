@@ -17,7 +17,10 @@ EXTRA_DIST = $(kde_icon_DATA) $(apps_DATA) $(html_DATA) index.sgml index.nif min
 install-data-local:
 	$(mkinstalldirs) $(kde_minidir)
 	$(INSTALL_DATA) $(srcdir)/mini-ksokoban.xpm $(kde_minidir)/ksokoban.xpm
+	$(mkinstalldirs) $(kde_minidir)/../large
+	$(INSTALL_DATA) $(srcdir)/large-ksokoban.xpm $(kde_minidir)/../large/ksokoban.xpm
 
 uninstall-local:
 	rm -f $(kde_minidir)/ksokoban.xpm
+	rm -f $(kde_minidir)/../large/ksokoban.xpm
 	rm -rf $(htmldir)
