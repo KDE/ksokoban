@@ -122,7 +122,7 @@ ModalLabel::eventFilter (QObject *, QEvent *e) {
 
 void
 ModalLabel::message (const QString &text, QWidget *parent) {
-  KApplication *app = KApplication::getKApplication ();
+  KApplication *app = KApplication::kApplication ();
   ModalLabel cl (text, parent);
 
   while (!cl.completed_) app->processOneEvent ();

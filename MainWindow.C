@@ -50,7 +50,7 @@ MainWindow::createCollectionMenu() {
   }
   checkedCollection_ = 0;
 
-  KConfig *cfg=(KApplication::getKApplication())->getConfig();
+  KConfig *cfg=(KApplication::kApplication())->config();
   cfg->setGroup("settings");
   int id = cfg->readNumEntry("collection", 0);
 
@@ -66,7 +66,7 @@ MainWindow::createCollectionMenu() {
 MainWindow::MainWindow() : KTMainWindow(), externalCollection_(0) {
   int i;
 
-  KConfig *cfg=(KApplication::getKApplication())->getConfig();
+  KConfig *cfg=(KApplication::kApplication())->config();
   cfg->setGroup("Geometry");
   int width = cfg->readNumEntry("width", 600);
   int height = cfg->readNumEntry("height", 450);
@@ -90,7 +90,7 @@ MainWindow::MainWindow() : KTMainWindow(), externalCollection_(0) {
   game_->insertItem(i18n("&Undo"), playField_, SLOT(undo()), Key_U);
   game_->insertItem(i18n("&Redo"), playField_, SLOT(redo()), Key_R);
   game_->insertSeparator();
-  game_->insertItem(i18n("&Quit"), KApplication::getKApplication(), SLOT(quit()), Key_Q);
+  game_->insertItem(i18n("&Quit"), KApplication::kApplication(), SLOT(quit()), Key_Q);
   menu_->insertItem(i18n("&Game"), game_);
 
   animation_ = new QPopupMenu(0,"animation menu");
@@ -160,7 +160,7 @@ MainWindow::MainWindow() : KTMainWindow(), externalCollection_(0) {
     updateBookmark(i);
   }
 
-  KApplication *app = KApplication::getKApplication();
+  KApplication *app = KApplication::kApplication();
   QString aboutMsg = "ksokoban 0.3.0 - ";
   aboutMsg += i18n("\
 a Sokoban game for KDE\n\
@@ -179,7 +179,7 @@ For the kids - by Ross (W.R.) Brown <ross@bnr.ca>\n\
 Dimitri & Yorick - by Jacques Duthen <duthen@club-internet.fr>\n\
 Simple Sokoban - by Phil Shapiro <pshapiro@his.com>\n\
 ");
-  help_ = app->getHelpMenu(true, aboutMsg.data());
+  help_ = app->helpMenu(true, aboutMsg.data());
   menu_->insertSeparator();
   menu_->insertItem(i18n("&Help"), help_);
 
@@ -191,7 +191,7 @@ Simple Sokoban - by Phil Shapiro <pshapiro@his.com>\n\
 
 MainWindow::~MainWindow()
 {
-  KConfig *cfg=(KApplication::getKApplication())->getConfig();
+  KConfig *cfg=(KApplication::kApplication())->config();
 
   cfg->setGroup("Geometry");
   cfg->writeEntry("width", width());
@@ -296,7 +296,7 @@ MainWindow::changeCollection(int id)
 
 void
 MainWindow::loadLevels() {
-  KConfig *cfg=(KApplication::getKApplication())->getConfig();
+  KConfig *cfg=(KApplication::kApplication())->config();
   cfg->setGroup("settings");
   QString lastFile = cfg->readEntry("lastLevelFile");
 

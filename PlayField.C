@@ -55,7 +55,7 @@ PlayField::PlayField(QWidget *parent, const char *name, WFlags f)
   setFocus();
   setBackgroundColor(QColor(0x66,0x66,0x66));
 
-  KConfig *cfg = (KApplication::getKApplication())->getConfig();
+  KConfig *cfg = (KApplication::kApplication())->config();
   cfg->setGroup("settings");
 
   imageData_ = new StaticImage;
@@ -75,7 +75,7 @@ PlayField::PlayField(QWidget *parent, const char *name, WFlags f)
 }
 
 PlayField::~PlayField() {
-  KConfig *cfg = (KApplication::getKApplication())->getConfig();
+  KConfig *cfg = (KApplication::kApplication())->config();
   cfg->setGroup("settings");
   cfg->writeEntry("animDelay", animDelay_, true, false, false);
 
@@ -401,7 +401,7 @@ PlayField::keyPressEvent(QKeyEvent * e) {
     break;
 
   case Key_Q:
-    KApplication::getKApplication()->quit();
+    KApplication::kApplication()->quit();
     break;
 
   case Key_Backspace:

@@ -142,7 +142,7 @@ LevelCollection::indexTextCollection() {
 void
 LevelCollection::loadPrefs() {
   if (id_ >= 0) {
-    KConfig *cfg=(KApplication::getKApplication())->getConfig();
+    KConfig *cfg=(KApplication::kApplication())->config();
     cfg->setGroup("settings");
 
     QString key;
@@ -218,7 +218,7 @@ LevelCollection::LevelCollection(const QString &_path, const QString &_name,
 
 LevelCollection::~LevelCollection() {
   if (id_ >= 0) {
-    KConfig *cfg=(KApplication::getKApplication())->getConfig();
+    KConfig *cfg=(KApplication::kApplication())->config();
     cfg->setGroup ("settings");
 
     QString key;
@@ -249,7 +249,7 @@ LevelCollection::levelCompleted() {
     QString key;
     key.sprintf("status%d", id_);
 
-    KConfig *cfg=(KApplication::getKApplication())->getConfig();
+    KConfig *cfg=(KApplication::kApplication())->config();
     cfg->setGroup("settings");
     cfg->writeEntry(key, x, true, false, false);
     cfg->sync();
