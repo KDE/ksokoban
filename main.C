@@ -35,7 +35,7 @@ int
 main (int argc, char **argv)
 {
   KAboutData aboutData( "ksokoban", I18N_NOOP("KSokoban"), 
-    version, description, KAboutData::GPL, 
+    version, description, KAboutData::License_GPL, 
     "(c) 1998, Anders Widell");
   aboutData.addAuthor("Anders Widell",0, "d95-awi@nada.kth.se");
   KCmdLineArgs::init( argc, argv, &aboutData );
