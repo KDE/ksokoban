@@ -28,12 +28,12 @@
 #include <qimage.h>
 #include <qbrush.h>
 
-#include "ImageData.H"
-#include "LevelMap.H"
+#include "ImageData.h"
+#include "LevelMap.h"
 class MapDelta;
 class MoveSequence;
 class Move;
-#include "PathFinder.H"
+#include "PathFinder.h"
 
 class History;
 class Bookmark;

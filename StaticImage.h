@@ -20,7 +20,7 @@
 #ifndef STATICIMAGE_H
 #define STATICIMAGE_H
 
-#include "ImageData.H"
+#include "ImageData.h"
 
 class
 StaticImage : public ImageData {

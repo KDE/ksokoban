@@ -3,11 +3,11 @@ APPSDIR = $(kde_appsdir)/Games/TacticStrategy
 SUBDIRS=data images levels
 
 bin_PROGRAMS = ksokoban
-ksokoban_SOURCES = Bookmark.C History.C HtmlPrinter.C ImageData.C InternalCollections.C LevelCollection.C LevelMap.C MainWindow.C Map.C MapDelta.C ModalLabel.C Move.C MoveSequence.C PathFinder.C PlayField.C StaticImage.C main.C
+ksokoban_SOURCES = Bookmark.cpp History.cpp HtmlPrinter.cpp ImageData.cpp InternalCollections.cpp LevelCollection.cpp LevelMap.cpp MainWindow.cpp Map.cpp MapDelta.cpp ModalLabel.cpp Move.cpp MoveSequence.cpp PathFinder.cpp PlayField.cpp StaticImage.cpp main.cpp
 ksokoban_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 ksokoban_LDADD = $(LIB_KIO)
 
-noinst_HEADERS  = Bookmark.H History.H HtmlPrinter.H ImageData.H InternalCollections.H LevelCollection.H LevelMap.H MainWindow.H Map.H MapDelta.H ModalLabel.H Move.H MoveSequence.H PathFinder.H PlayField.H Queue.H StaticImage.H
+noinst_HEADERS  = Bookmark.h History.h HtmlPrinter.h ImageData.h InternalCollections.h LevelCollection.h LevelMap.h MainWindow.h Map.h MapDelta.h ModalLabel.h Move.h MoveSequence.h PathFinder.h PlayField.h Queue.h StaticImage.h
 
 METASOURCES= MainWindow.moc ModalLabel.moc PlayField.moc
 
@@ -20,4 +20,4 @@ StaticImage.o: images/data.c
 InternalCollections.o: levels/data.c
 
 messages:
-	$(XGETTEXT) *.C -o $(podir)/ksokoban.pot
+	$(XGETTEXT) *.cpp -o $(podir)/ksokoban.pot

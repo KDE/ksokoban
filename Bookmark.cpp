@@ -17,9 +17,9 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "Bookmark.H"
-#include "History.H"
-#include "LevelMap.H"
+#include "Bookmark.h"
+#include "History.h"
+#include "LevelMap.h"
 
 #include <qfile.h>
 

@@ -17,9 +17,9 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "MoveSequence.H"
-#include "LevelMap.H"
-#include "Move.H"
+#include "MoveSequence.h"
+#include "LevelMap.h"
+#include "Move.h"
 
 MoveSequence::MoveSequence (Move *_move, LevelMap *_map, bool _undo) {
   assert (_move->finished_);

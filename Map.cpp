@@ -22,7 +22,7 @@
 #include <assert.h>
 #include <stdio.h>
 
-#include "Map.H"
+#include "Map.h"
 
 Map::Map() : xpos_(-1), ypos_(-1), width_(0), height_(0), objectsLeft_(-1) {
 }

@@ -33,8 +33,8 @@
 #include <zlib.h>
 #endif
 
-#include "LevelMap.H"
-#include "LevelCollection.H"
+#include "LevelMap.h"
+#include "LevelCollection.h"
 
 #define BUFSIZE (128*1024)
 

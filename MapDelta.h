@@ -22,7 +22,7 @@
 
 #include <assert.h>
 
-#include "Map.H"
+#include "Map.h"
 
 class MapDelta : private Map {
 public:

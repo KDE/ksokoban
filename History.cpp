@@ -19,10 +19,10 @@
 
 #include <qptrlist.h>
 
-#include "History.H"
-#include "Move.H"
-#include "MoveSequence.H"
-#include "LevelMap.H"
+#include "History.h"
+#include "Move.h"
+#include "MoveSequence.h"
+#include "LevelMap.h"
 
 History::History() {
   past_.setAutoDelete(true);

@@ -18,10 +18,10 @@
  */
 
 //#include <stdio.h>
-#include "PathFinder.H"
-#include "LevelMap.H"
-#include "Queue.H"
-#include "Move.H"
+#include "PathFinder.h"
+#include "LevelMap.h"
+#include "Queue.h"
+#include "Move.h"
 
 void
 PathFinder::BFS (int _x, int _y) {

@@ -30,18 +30,18 @@
 #include <kmessagebox.h>
 #include <kglobalsettings.h>
 
-#include "PlayField.H"
-#include "ModalLabel.H"
-#include "LevelMap.H"
-#include "Move.H"
-#include "History.H"
-#include "PathFinder.H"
-#include "MapDelta.H"
-#include "MoveSequence.H"
-#include "StaticImage.H"
-#include "HtmlPrinter.H"
-#include "Bookmark.H"
-#include "LevelCollection.H"
+#include "PlayField.h"
+#include "ModalLabel.h"
+#include "LevelMap.h"
+#include "Move.h"
+#include "History.h"
+#include "PathFinder.h"
+#include "MapDelta.h"
+#include "MoveSequence.h"
+#include "StaticImage.h"
+#include "HtmlPrinter.h"
+#include "Bookmark.h"
+#include "LevelCollection.h"
 
 #include "PlayField.moc"
 

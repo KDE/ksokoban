@@ -24,7 +24,7 @@
 #include <qstring.h>
 #include <qptrvector.h>
 
-#include "LevelCollection.H"
+#include "LevelCollection.h"
 
 class InternalCollections {
 public:

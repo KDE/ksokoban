@@ -22,8 +22,8 @@
 
 #include <kmainwindow.h>
 #include <kurl.h>
-#include "Bookmark.H"
-#include "InternalCollections.H"
+#include "Bookmark.h"
+#include "InternalCollections.h"
 
 class KMenuBar;
 class PlayField;

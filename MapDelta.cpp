@@ -19,7 +19,7 @@
 
 #include <string.h>
 
-#include "MapDelta.H"
+#include "MapDelta.h"
 
 
 MapDelta::MapDelta (Map *m) {

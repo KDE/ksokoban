@@ -21,8 +21,8 @@
 #include <string.h>
 #include <ctype.h>
 
-#include "Move.H"
-#include "LevelMap.H"
+#include "Move.h"
+#include "LevelMap.h"
 
 Move::Move (int _startX, int _startY) {
   assert (_startX>=0 && _startX<=MAX_X && _startY>=0 && _startY<=MAX_Y);

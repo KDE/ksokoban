@@ -20,7 +20,7 @@
 #include "config.h"
 
 #include <assert.h>
-#include "StaticImage.H"
+#include "StaticImage.h"
 
 #include "images/data.c"
 

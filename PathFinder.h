@@ -20,7 +20,7 @@
 #ifndef PATHFINDER_H
 #define PATHFINDER_H
 
-#include "Map.H"
+#include "Map.h"
 class Move;
 
 #define PATH_WALL 32767

@@ -39,9 +39,9 @@
 #include <kurldrag.h>
 #include <kstdaccel.h>
 
-#include "MainWindow.H"
-#include "PlayField.H"
-#include "LevelCollection.H"
+#include "MainWindow.h"
+#include "PlayField.h"
+#include "LevelCollection.h"
 
 #include "MainWindow.moc"
 

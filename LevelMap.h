@@ -23,7 +23,7 @@
 #include <assert.h>
 #include <qstring.h>
 
-#include "Map.H"
+#include "Map.h"
 class LevelCollection;
 
 //#define EXTERNAL_LEVEL 100

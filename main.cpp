@@ -24,7 +24,7 @@
 #include <kcmdlineargs.h>
 #include <kaboutdata.h>
 
-#include "MainWindow.H"
+#include "MainWindow.h"
 
 
 static const char *description = I18N_NOOP("The japanese warehouse keeper game");
