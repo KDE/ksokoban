@@ -1,0 +1,2 @@
+dnl zlib check for ksokoban
+AC_FIND_ZLIB
