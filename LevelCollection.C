@@ -63,6 +63,7 @@ LevelCollection::indexTextCollection() {
 
       case '\n':
 	addLevel(&data_[levelstart]);
+	levelend = levelstart;
 	state = DURING_NONE;
 	break;
 
