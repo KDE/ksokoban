@@ -309,7 +309,7 @@ MainWindow::loadLevels() {
 
   LevelCollection *tmpCollection = new LevelCollection(result, result.mid(namepos, result.length()));
   if (tmpCollection->noOfLevels() < 1) {
-    QMessageBox::warning(this, "Ksokoban", i18n("No levels found in file"));
+    QMessageBox::warning(this, "Ksokoban", i18n("No levels found in file"), i18n("OK"));
 
     delete tmpCollection;
 
