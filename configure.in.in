@@ -1,2 +1,3 @@
 dnl zlib check for ksokoban
 AC_FIND_ZLIB
+KDE_CHECK_KIMGIO
