@@ -33,16 +33,16 @@ public:
   LevelMap();
   ~LevelMap();
 
-  LevelCollection *collection() { return collection_; }
+  LevelCollection *collection() const { return collection_; }
   const QString &collectionName();
   void changeCollection(LevelCollection *_collection);
-  int totalMoves() { return totalMoves_; }
-  int totalPushes() { return totalPushes_; }
+  int totalMoves() const { return totalMoves_; }
+  int totalPushes() const { return totalPushes_; }
   void level(int _level);
-  int level();
-  int noOfLevels();
-  int completedLevels();
-  bool goodLevel() { return goodLevel_; }
+  int level() const;
+  int noOfLevels() const;
+  int completedLevels() const;
+  bool goodLevel() const { return goodLevel_; }
 
   bool step(int _x, int _y);
   bool push(int _x, int _y);

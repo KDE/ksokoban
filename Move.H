@@ -100,10 +100,10 @@ public:
 
   void finish ();
 
-  int startX () { return moves_[0]&0x7f; }
-  int startY () { return (moves_[0]>>8)&0x7f; }
-  int finalX () { return moves_[moveIndex_-1]&0x7f; }
-  int finalY () { return (moves_[moveIndex_-1]>>8)&0x7f; }
+  int startX () const { return moves_[0]&0x7f; }
+  int startY () const { return (moves_[0]>>8)&0x7f; }
+  int finalX () const { return moves_[moveIndex_-1]&0x7f; }
+  int finalY () const { return (moves_[moveIndex_-1]>>8)&0x7f; }
 
 
   void save (QString &_str);

@@ -100,7 +100,7 @@ PlayField::changeCursor(const QCursor* c) {
 }
 
 int
-PlayField::level() {
+PlayField::level() const {
   if (levelMap_ == 0) return 0;
   return levelMap_->level();
 }
@@ -113,13 +113,13 @@ PlayField::collectionName() {
 }
 
 int
-PlayField::totalMoves() {
+PlayField::totalMoves() const {
   if (levelMap_ == 0) return 0;
   return levelMap_->totalMoves();
 }
 
-int 
-PlayField::totalPushes() {
+int
+PlayField::totalPushes() const{
   if (levelMap_ == 0) return 0;
   return levelMap_->totalPushes();
 }
@@ -488,13 +488,13 @@ PlayField::step(int _x, int _y) {
   int oldX=levelMap_->xpos();
   int oldY=levelMap_->ypos();
   int x=oldX, y=oldY;
-  
+
   int dx=0, dy=0;
   if (_x>oldX) dx=1;
   if (_x<oldX) dx=-1;
   if (_y>oldY) dy=1;
   if (_y<oldY) dy=-1;
-  
+
   while (!(x==_x && y==_y) && levelMap_->step(x+dx, y+dy)) {
     x += dx;
     y += dy;
@@ -508,7 +508,7 @@ PlayField::step(int _x, int _y) {
     m->undo(levelMap_);
 
     startMoving(m);
-    
+
   }
 }
 
@@ -519,13 +519,13 @@ PlayField::push(int _x, int _y) {
   int oldX=levelMap_->xpos();
   int oldY=levelMap_->ypos();
   int x=oldX, y=oldY;
-  
+
   int dx=0, dy=0;
   if (_x>oldX) dx=1;
   if (_x<oldX) dx=-1;
   if (_y>oldY) dy=1;
   if (_y<oldY) dy=-1;
-  
+
   while (!(x==_x && y==_y) && levelMap_->step(x+dx, y+dy)) {
     x += dx;
     y += dy;
@@ -543,7 +543,7 @@ PlayField::push(int _x, int _y) {
 
     if (objX!=x || objY!=y) {
       m->push(x, y);
-      
+
       objX += dx;
       objY += dy;
     }
@@ -954,7 +954,7 @@ PlayField::updateLevelXpm() {
   QPainter paint(&lnumXpm_);
   paint.setBrushOrigin(- lnumRect_.x(), - lnumRect_.y());
   paint.fillRect(0, 0, lnumRect_.width(), lnumRect_.height(), background_);
- 
+
   QString str;
   paint.setFont(statusFont_);
   paint.setPen(QColor(255,0,0));
@@ -969,7 +969,7 @@ PlayField::updateStepsXpm() {
   QPainter paint(&snumXpm_);
   paint.setBrushOrigin(- snumRect_.x(), - snumRect_.y());
   paint.fillRect(0, 0, snumRect_.width(), snumRect_.height(), background_);
-  
+
   QString str;
   paint.setFont(statusFont_);
   paint.setPen(QColor(255,0,0));
@@ -984,7 +984,7 @@ PlayField::updatePushesXpm() {
   QPainter paint(&pnumXpm_);
   paint.setBrushOrigin(- pnumRect_.x(), - pnumRect_.y());
   paint.fillRect(0, 0, pnumRect_.width(), pnumRect_.height(), background_);
- 
+
   QString str;
   paint.setFont(statusFont_);
   paint.setPen(QColor(255,0,0));

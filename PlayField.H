@@ -52,14 +52,14 @@ public:
 
   void setSize(int w, int h);
   void level(int _l) { levelMap_->level(_l); }
-  LevelCollection  *collection() { return levelMap_->collection(); }
+  LevelCollection  *collection() const { return levelMap_->collection(); }
   void setBookmark(Bookmark *bm);
   void goToBookmark(Bookmark *bm);
 
-  int level();
+  int level() const;
   const QString &collectionName();
-  int totalMoves();
-  int totalPushes();
+  int totalMoves() const;
+  int totalPushes() const;
 
   void updateCollectionXpm();
   void updateTextXpm();
@@ -121,11 +121,11 @@ private:
   int mousePosX_, mousePosY_;
   int wheelDelta_;
 
-  int x2pixel (int x) { return size_*x+xOffs_; }
-  int y2pixel (int y) { return size_*y+yOffs_; }
+  int x2pixel (int x) const { return size_*x+xOffs_; }
+  int y2pixel (int y) const { return size_*y+yOffs_; }
 
-  int pixel2x (int x) { return (x-xOffs_)/size_; }
-  int pixel2y (int y) { return (y-yOffs_)/size_; }
+  int pixel2x (int x) const { return (x-xOffs_)/size_; }
+  int pixel2y (int y) const { return (y-yOffs_)/size_; }
 
   void startMoving (Move *m);
   void startMoving (MoveSequence *ms);

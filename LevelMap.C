@@ -59,7 +59,7 @@ LevelMap::changeCollection (LevelCollection *_collection)
 }
 
 int
-LevelMap::level () {
+LevelMap::level () const {
   if (collection_ == 0) return 0;
   return collection_->level();
 }
@@ -75,13 +75,13 @@ LevelMap::level (int _level) {
 }
 
 int
-LevelMap::noOfLevels () {
+LevelMap::noOfLevels () const {
   assert(collection_ != 0);
   return collection_->noOfLevels();
 }
 
 int
-LevelMap::completedLevels () {
+LevelMap::completedLevels () const{
   assert(collection_ != 0);
   return collection_->completedLevels();
 }
@@ -160,7 +160,7 @@ LevelMap::random (void) {
   maxY_ = MAX_Y;
   totalMoves_ = totalPushes_ = 0;
   clearMap ();
-  
+
   xpos_ = 13;
   ypos_ = 9;
 

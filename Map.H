@@ -36,7 +36,7 @@ class Map {
 public:
   Map();
 
-  bool completed () { return objectsLeft_ <= 0; }
+  bool completed () const { return objectsLeft_ <= 0; }
 
   bool step   (int _x, int _y);
   bool push   (int _x, int _y);
@@ -52,8 +52,8 @@ public:
     return (_xd!=0 && _yd!=0) || (_xd==0 && _yd==0);
   }
 
-  int xpos () { return xpos_; }
-  int ypos () { return ypos_; }
+  int xpos () const { return xpos_; }
+  int ypos () const { return ypos_; }
 
   bool empty  (int x, int y) {
     assert (x>=0 && x<=MAX_X && y>=0 && y<=MAX_Y);
@@ -95,8 +95,8 @@ public:
 
   void   printMap ();
 
-  int width() { return width_; }
-  int height() { return height_; }
+  int width() const { return width_; }
+  int height() const { return height_; }
 
 protected:
   int map (int x, int y) {
@@ -109,7 +109,7 @@ protected:
   void clearMap (int x, int y, int bits);
   void clearMap ();
   bool fillFloor (int x, int y);
-  int objectsLeft () { return objectsLeft_; }
+  int objectsLeft () const { return objectsLeft_; }
 
   int xpos_, ypos_;
 

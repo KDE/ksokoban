@@ -29,9 +29,9 @@ class Bookmark {
 public:
   Bookmark(int _num);
 
-  int collection() { return collection_; }
-  int level() { return level_; }
-  int moves() { return moves_; }
+  int collection() const { return collection_; }
+  int level() const { return level_; }
+  int moves() const { return moves_; }
   //int pushes() { return pushes_; }
 
   void set(int _collection, int _level, int _moves, History *_h);
