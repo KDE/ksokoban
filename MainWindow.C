@@ -179,7 +179,7 @@ For the kids - by Ross (W.R.) Brown <ross@bnr.ca>\n\
 Dimitri & Yorick - by Jacques Duthen <duthen@club-internet.fr>\n\
 Simple Sokoban - by Phil Shapiro <pshapiro@his.com>\n\
 ");
-  help_ = app->helpMenu(true, aboutMsg.data());
+  help_ = helpMenu(aboutMsg.data());
   menu_->insertSeparator();
   menu_->insertItem(i18n("&Help"), help_);
 
