@@ -20,6 +20,8 @@
 </author>
 </authorgroup>
 
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+
 <copyright>
 <year>2000</year>
 <holder>Anders Widell</holder>
@@ -217,6 +219,8 @@ sasquatch@bentonrea.com</ulink>&gt;. See his sokoban page at
 <ulink url="http://bentonrea.com/~sasquatch/sokoban/">
 http://bentonrea.com/~sasquatch/sokoban/</ulink>
 </para>
+
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
 &underFDL;
 &underGPL;
 </chapter>
