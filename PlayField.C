@@ -55,6 +55,7 @@ PlayField::PlayField(QWidget *parent, const char *name, WFlags f)
   setFocusPolicy(QWidget::StrongFocus);
   setFocus();
   setBackgroundMode(Qt::NoBackground);
+  setMouseTracking(true);
 
   KConfig *cfg = (KApplication::kApplication())->config();
   cfg->setGroup("settings");
@@ -87,6 +88,15 @@ PlayField::~PlayField() {
   delete imageData_;
 }
 
+void
+PlayField::changeCursor(const QCursor* c) {
+  if (cursor_ == c) return;
+
+  cursor_ = c;
+  if (c == 0) unsetCursor();
+  else setCursor(*c);
+}
+
 int
 PlayField::level() {
   if (levelMap_ == 0) return 0;
@@ -115,12 +125,14 @@ PlayField::totalPushes() {
 void
 PlayField::levelChange() {
   stopMoving();
+  stopDrag();
   history_->clear();
   setSize(width(), height());
 
   updateLevelXpm();
   updateStepsXpm();
   updatePushesXpm();
+  highlight();
 }
 
 void
@@ -137,9 +149,9 @@ PlayField::paintSquare(int x, int y, QPainter &paint) {
       if (levelMap_->goal(x, y))
 	imageData_->goal(paint, x2pixel(x), y2pixel(y));
       else
-	paint.fillRect(x2pixel(x), y2pixel(y), width_, height_, floor_);
+	paint.fillRect(x2pixel(x), y2pixel(y), size_, size_, floor_);
     } else {
-      paint.fillRect(x2pixel(x), y2pixel(y), width_, height_, background_);
+      paint.fillRect(x2pixel(x), y2pixel(y), size_, size_, background_);
     }
     return;
   }
@@ -149,11 +161,20 @@ PlayField::paintSquare(int x, int y, QPainter &paint) {
 		     levelMap_->wallRight(x, y));
     return;
   }
+
+
   if (levelMap_->object(x, y)) {
-    if (levelMap_->goal(x, y))
-      imageData_->treasure(paint, x2pixel(x), y2pixel(y));
-    else
-      imageData_->object(paint, x2pixel(x), y2pixel(y));
+    if (highlightX_ == x && highlightY_ == y) {
+      if (levelMap_->goal(x, y))
+	imageData_->brightTreasure(paint, x2pixel(x), y2pixel(y));
+      else
+	imageData_->brightObject(paint, x2pixel(x), y2pixel(y));
+    } else {
+      if (levelMap_->goal(x, y))
+	imageData_->treasure(paint, x2pixel(x), y2pixel(y));
+      else
+	imageData_->object(paint, x2pixel(x), y2pixel(y));
+    }
     return;
   }
 }
@@ -200,7 +221,7 @@ PlayField::paintPainterClip(QPainter &paint, int x, int y, int w, int h) {
 
 void
 PlayField::paintPainter(QPainter &paint, const QRect &rect) {
-  if (width_ <= 0 || height_ <= 0) return;
+  if (size_ <= 0) return;
   int minx = pixel2x(rect.x());
   int miny = pixel2y(rect.y());
   int maxx = pixel2x(rect.x()+rect.width()-1);
@@ -252,6 +273,149 @@ PlayField::resizeEvent(QResizeEvent *e) {
 }
 
 void
+PlayField::mouseMoveEvent(QMouseEvent *e) {
+  lastMouseXPos_ = e->x();
+  lastMouseYPos_ = e->y();
+
+  if (!dragInProgress_) return highlight();
+
+  int old_x = dragX_, old_y = dragY_;
+
+  dragX_ = lastMouseXPos_ - mousePosX_;
+  dragY_ = lastMouseYPos_ - mousePosY_;
+
+  {
+    int x = pixel2x(dragX_ + size_/2);
+    int y = pixel2y(dragY_ + size_/2);
+    if (x >= 0 && x < levelMap_->width() &&
+	y >= 0 && y < levelMap_->height() &&
+	pathFinder_.canDragTo(x, y)) {
+      x = x2pixel(x);
+      y = y2pixel(y);
+
+      if (dragX_ >= x - size_/4 &&
+	  dragX_ <  x + size_/4 &&
+	  dragY_ >= y - size_/4 &&
+	  dragY_ <  y + size_/4) {
+	dragX_ = x;
+	dragY_ = y;
+      }
+    }
+  }
+
+  if (dragX_ == old_x && dragY_ == old_y) return;
+
+  QRect rect(dragX_, dragY_, size_, size_);
+
+  dragXpm_.resize(size_, size_);
+
+  QPainter paint;
+  paint.begin(&dragXpm_);
+  paint.setBackgroundColor(backgroundColor());
+  paint.setBrushOrigin(- dragX_, - dragY_);
+  paint.translate((double) (- dragX_), (double) (- dragY_));
+  paintPainter(paint, rect);
+  paint.end();
+
+  dragImage_ = dragXpm_;
+  for (int yy=0; yy<size_; yy++) {
+    for (int xx=0; xx<size_; xx++) {
+      QRgb rgb1 = imageData_->objectImg().pixel(xx, yy);
+      int r1 = qRed(rgb1);
+      int g1 = qGreen(rgb1);
+      int b1 = qBlue(rgb1);
+      if (r1 != g1 || r1 != b1 || r1 == 255) {
+	QRgb rgb2 = dragImage_.pixel(xx, yy);
+	int r2 = qRed(rgb2);
+	int g2 = qGreen(rgb2);
+	int b2 = qBlue(rgb2);
+	r2 = (int) (0.75 * r1 + 0.25 * r2 + 0.5);
+	g2 = (int) (0.75 * g1 + 0.25 * g2 + 0.5);
+	b2 = (int) (0.75 * b1 + 0.25 * b2 + 0.5);
+	dragImage_.setPixel(xx, yy, qRgb(r2, g2, b2));
+      }
+    }
+  }
+
+  paint.begin(this);
+
+  // the following line is a workaround for a bug in Qt 2.0.1
+  // (and possibly earlier versions)
+  paint.setBrushOrigin(0, 0);
+
+  dragXpm_.convertFromImage(dragImage_,
+			    OrderedDither|OrderedAlphaDither|
+			    ColorOnly|AvoidDither);
+  paint.drawPixmap(dragX_, dragY_, dragXpm_);
+
+  {
+    int dx = dragX_ - old_x;
+    int dy = dragY_ - old_y;
+    int y2 = old_y;
+    if (dy > 0) {
+      paintPainterClip(paint, old_x, old_y, size_, dy);
+      // NOTE: clipping is now activated in the QPainter paint
+      y2 += dy;
+    } else if (dy < 0) {
+      paintPainterClip(paint, old_x, old_y+size_+dy, size_, -dy);
+      // NOTE: clipping is now activated in the QPainter paint
+      dy = -dy;
+    }
+    if (dx > 0) {
+      paintPainterClip(paint, old_x, y2, dx, size_-dy);
+      // NOTE: clipping is now activated in the QPainter paint
+    } else if (dx < 0) {
+      paintPainterClip(paint, old_x+size_+dx, y2, -dx, size_-dy);
+      // NOTE: clipping is now activated in the QPainter paint
+    }
+  }
+  paint.end();
+}
+
+void
+PlayField::highlight() {
+  // FIXME: the line below should not be needed
+  if (size_ == 0) return;
+
+  int x=pixel2x(lastMouseXPos_);
+  int y=pixel2y(lastMouseYPos_);
+
+  if (x < 0 || y < 0 || x >= levelMap_->width() || y >= levelMap_->height())
+    return;
+
+  if (x == highlightX_ && y == highlightY_) return;
+
+  if (pathFinder_.canDrag(x, y)) {
+    QPainter paint(this);
+
+    if (highlightX_ >= 0) {
+      int x = highlightX_, y = highlightY_;
+      highlightX_ = -1;
+      paintSquare(x, y, paint);
+    } else
+      changeCursor(&sizeAllCursor);
+
+    if (levelMap_->goal(x, y))
+      imageData_->brightTreasure(paint, x2pixel(x), y2pixel(y));
+    else
+      imageData_->brightObject(paint, x2pixel(x), y2pixel(y));
+    highlightX_ = x;
+    highlightY_ = y;
+  } else {
+    if (pathFinder_.canWalkTo(x, y)) changeCursor(&crossCursor);
+    else changeCursor(0);
+    if (highlightX_ >= 0) {
+      QPainter paint(this);
+
+      int x = highlightX_, y = highlightY_;
+      highlightX_ = -1;
+
+      paintSquare(x, y, paint);
+    }
+  }
+}
+
+void
 PlayField::stopMoving() {
   killTimers();
   delete moveSequence_;
@@ -263,6 +427,8 @@ PlayField::stopMoving() {
   QPainter paint(this);
   paint.drawPixmap(snumRect_.x(), snumRect_.y(), snumXpm_);
   paint.drawPixmap(pnumRect_.x(), pnumRect_.y(), pnumXpm_);
+
+  pathFinder_.updatePossibleMoves();
 }
 
 
@@ -420,6 +586,7 @@ PlayField::keyPressEvent(QKeyEvent * e) {
     break;
 
   case Key_Backspace:
+  case Key_Delete:
     if (e->state() & ControlButton) redo();
     else undo();
     break;
@@ -491,13 +658,76 @@ PlayField::keyPressEvent(QKeyEvent * e) {
 }
 
 void
+PlayField::stopDrag() {
+  if (!dragInProgress_) return;
+
+  changeCursor(0);
+
+  QPainter paint(this);
+
+  // the following line is a workaround for a bug in Qt 2.0.1
+  // (and possibly earlier versions)
+  paint.setBrushOrigin(0, 0);
+
+  int x = highlightX_, y = highlightY_;
+  highlightX_ = -1;
+  paintSquare(x, y, paint);
+
+  paintPainterClip(paint, dragX_, dragY_, size_, size_);
+  // NOTE: clipping is now activated in the QPainter paint
+  dragInProgress_ = false;
+
+}
+
+void
+PlayField::dragObject(int xpixel, int ypixel) {
+  int x=pixel2x(xpixel - mousePosX_ + size_/2);
+  int y=pixel2y(ypixel - mousePosY_ + size_/2);
+
+  if (x == highlightX_ && y == highlightY_) return;
+
+  printf("drag %d,%d to %d,%d\n", highlightX_, highlightY_, x, y);
+  pathFinder_.drag(highlightX_, highlightY_, x, y);
+  stopDrag();
+}
+
+
+void
 PlayField::mousePressEvent(QMouseEvent *e) {
   if (!canMoveNow()) return;
 
-  Move *m;
+  if (dragInProgress_) {
+    if (e->button() == LeftButton) dragObject(e->x(), e->y());
+    else stopDrag();
+    return;
+  }
+
   int x=pixel2x(e->x());
   int y=pixel2y(e->y());
 
+  if (x < 0 || y < 0 || x >= levelMap_->width() || y >= levelMap_->height())
+    return;
+
+  if (e->button() == LeftButton && pathFinder_.canDrag(x, y)) {
+    QPainter paint(this);
+    changeCursor(&sizeAllCursor);
+
+    if (levelMap_->goal(x, y))
+      imageData_->brightTreasure(paint, x2pixel(x), y2pixel(y));
+    else
+      imageData_->brightObject(paint, x2pixel(x), y2pixel(y));
+    highlightX_ = x;
+    highlightY_ = y;
+    pathFinder_.updatePossibleDestinations(x, y);
+
+    dragX_ = x2pixel(x);
+    dragY_ = y2pixel(y);
+    mousePosX_ = e->x() - dragX_;
+    mousePosY_ = e->y() - dragY_;
+    dragInProgress_ = true;
+  }
+
+  Move *m;
   switch (e->button()) {
   case LeftButton:
     m = pathFinder_.search(levelMap_, x, y);
@@ -534,6 +764,12 @@ PlayField::wheelEvent(QWheelEvent *e) {
 }
 
 void
+PlayField::mouseReleaseEvent(QMouseEvent *e) {
+  if (dragInProgress_) dragObject(e->x(), e->y());
+}
+
+
+void
 PlayField::focusInEvent(QFocusEvent *) {
   //printf("PlayField::focusInEvent\n");
 }
@@ -541,6 +777,11 @@ PlayField::focusInEvent(QFocusEvent *) {
 void
 PlayField::focusOutEvent(QFocusEvent *) {
   //printf("PlayField::focusOutEvent\n");
+}
+
+void
+PlayField::leaveEvent(QEvent *) {
+  stopDrag();
 }
 
 void
@@ -575,19 +816,16 @@ PlayField::setSize(int w, int h) {
   // FIXME: the line below should not be needed
   if (cols == 0 || rows == 0) return;
 
-  width_ = w / cols;
-  height_ = h / rows;
-  if (width_ < 8) width_ = 8;
-  if (height_ < 8) height_ = 8;
+  int xsize = w / cols;
+  int ysize = h / rows;
 
+  if (xsize < 8) xsize = 8;
+  if (ysize < 8) ysize = 8;
 
-  if (width_ > height_) width_ = height_;
-  if (height_ > width_) height_ = width_;
+  size_ = imageData_->resize(xsize > ysize ? ysize : xsize);
 
-  width_ = height_ = imageData_->resize(width_);
-
-  xOffs_ = (w - cols*width_) / 2;
-  yOffs_ = (h - rows*height_) / 2;
+  xOffs_ = (w - cols*size_) / 2;
+  yOffs_ = (h - rows*size_) / 2;
 
 
   updateCollectionXpm();

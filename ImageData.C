@@ -22,6 +22,8 @@
 #include <assert.h>
 #include <qpainter.h>
 #include <qpixmap.h>
+#include <qimage.h>
+#include <qcolor.h>
 
 ImageData::ImageData() : indexSize_(0), size_(0), halfSize_(0) {
   random.setSeed(0);
@@ -88,22 +90,76 @@ ImageData::resize(int size) {
   halfSize_ = size/2;
 
   for (int i=0; i<SMALL_STONES; i++) {
-    smallStone_xpm_[i].convertFromImage(images_[i].smoothScale(halfSize_, halfSize_), QPixmap::ColorOnly|QPixmap::DiffuseDither|QPixmap::DiffuseAlphaDither|QPixmap::AvoidDither);
+    image2pixmap(images_[i].smoothScale(halfSize_, halfSize_), smallStone_xpm_[i]);
+//     smallStone_xpm_[i].convertFromImage(images_[i].smoothScale(halfSize_, halfSize_), QPixmap::ColorOnly|QPixmap::DiffuseDither|QPixmap::DiffuseAlphaDither|QPixmap::AvoidDither);
   }
 
   for (int i=0; i<LARGE_STONES; i++) {
-    largeStone_xpm_[i].convertFromImage(images_[SMALL_STONES+i].smoothScale(size_, halfSize_) , QPixmap::ColorOnly|QPixmap::DiffuseDither|QPixmap::DiffuseAlphaDither|QPixmap::AvoidDither);
+    image2pixmap(images_[SMALL_STONES+i].smoothScale(size_, halfSize_), largeStone_xpm_[i]);
+//     largeStone_xpm_[i].convertFromImage(images_[SMALL_STONES+i].smoothScale(size_, halfSize_) , QPixmap::ColorOnly|QPixmap::DiffuseDither|QPixmap::DiffuseAlphaDither|QPixmap::AvoidDither);
   }
 
-  // I don't use DiffuseDither for the objects on the "floor" since
-  // it gives spurious dots on the floor around them
-  for (int i=0; i<OTHER_IMAGES; i++) {
-    otherPixmaps_[i].convertFromImage(images_[SMALL_STONES+LARGE_STONES+i].smoothScale(size_, size_), QPixmap::ColorOnly|QPixmap::OrderedDither|QPixmap::OrderedAlphaDither|QPixmap::AvoidDither);
+  objectImg_ = images_[SMALL_STONES+LARGE_STONES].smoothScale(size_, size_);
+
+  // Use copy() because if the size is not changed, smoothScale is not
+  // really a copy
+  // Use {[Geometry] height=753 width=781} to test
+
+  if (objectImg_.width() == size_) objectImg_ = objectImg_.copy();
+
+  image2pixmap(objectImg_, otherPixmaps_[0], false);
+  brighten(objectImg_);
+  image2pixmap(objectImg_, brightObject_, false);
+
+  QImage img = images_[SMALL_STONES+LARGE_STONES+1].smoothScale(size_, size_);
+  if (img.width() == size_) img = img.copy();
+
+  image2pixmap(img, otherPixmaps_[1], false);
+  brighten(img);
+  image2pixmap(img, brightTreasure_, false);
+
+  for (int i=2; i<OTHER_IMAGES; i++) {
+    image2pixmap(images_[SMALL_STONES+LARGE_STONES+i].smoothScale(size_, size_), otherPixmaps_[i]);
+//     otherPixmaps_[i].convertFromImage(images_[SMALL_STONES+LARGE_STONES+i].smoothScale(size_, size_), QPixmap::ColorOnly|QPixmap::OrderedDither|QPixmap::OrderedAlphaDither|QPixmap::AvoidDither);
   }
 
   return size_;
 }
 
+// Don't use DiffuseDither for the objects on the "floor" since
+// it gives spurious dots on the floor around them
+
+void
+ImageData::image2pixmap(QImage img, QPixmap& xpm, bool diffuse) {
+  xpm.convertFromImage(img,
+		       (diffuse ?
+			(QPixmap::DiffuseDither|QPixmap::DiffuseAlphaDither) :
+			(QPixmap::OrderedDither|QPixmap::OrderedAlphaDither))|
+		       QPixmap::ColorOnly|QPixmap::AvoidDither);
+}
+
+void
+ImageData::brighten(QImage& img) {
+  assert(img.depth() == 32);
+
+  for (int y=0; y<img.height(); y++) {
+    for (int x=0; x<img.width(); x++) {
+      QRgb rgb = img.pixel(x, y);
+      int r = qRed(rgb);
+      int g = qGreen(rgb);
+      int b = qBlue(rgb);
+
+      if (r > g && r > b) {
+       // only modify redish pixels
+
+       QColor col(r, g, b);
+       QColor lcol = col.light(130);
+
+       img.setPixel(x, y, lcol.rgb());
+      }
+    }
+  }
+}
 
 void
 ImageData::wall(QPainter &p, int x, int y, int index, bool left, bool right) {
@@ -123,25 +179,35 @@ ImageData::floor(QPainter &p, int x, int y) {
 
 void
 ImageData::goal(QPainter &p, int x, int y) {
-  p.drawPixmap(x, y, otherPixmaps_[0]);
-}
-
-void
-ImageData::man(QPainter &p, int x, int y) {
-  p.drawPixmap(x, y, otherPixmaps_[1]);
-}
-
-void
-ImageData::object(QPainter &p, int x, int y) {
   p.drawPixmap(x, y, otherPixmaps_[2]);
 }
 
 void
-ImageData::saveman(QPainter &p, int x, int y) {
+ImageData::man(QPainter &p, int x, int y) {
   p.drawPixmap(x, y, otherPixmaps_[3]);
 }
 
 void
-ImageData::treasure(QPainter &p, int x, int y) {
+ImageData::object(QPainter &p, int x, int y) {
+  p.drawPixmap(x, y, otherPixmaps_[0]);
+}
+
+void
+ImageData::saveman(QPainter &p, int x, int y) {
   p.drawPixmap(x, y, otherPixmaps_[4]);
+}
+
+void
+ImageData::treasure(QPainter &p, int x, int y) {
+  p.drawPixmap(x, y, otherPixmaps_[1]);
+}
+
+void
+ImageData::brightObject(QPainter &p, int x, int y) {
+  p.drawPixmap(x, y, brightObject_);
+}
+
+void
+ImageData::brightTreasure(QPainter &p, int x, int y) {
+  p.drawPixmap(x, y, brightTreasure_);
 }

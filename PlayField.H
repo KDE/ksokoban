@@ -25,6 +25,8 @@
 #include <qfont.h>
 #include <qfontmetrics.h>
 #include <qpixmap.h>
+#include <qimage.h>
+#include <qbrush.h>
 
 #include "ImageData.H"
 #include "LevelMap.H"
@@ -37,6 +39,7 @@ class History;
 class Bookmark;
 class LevelCollection;
 class QPainter;
+class QCursor;
 
 class PlayField : public QWidget {
   Q_OBJECT
@@ -81,8 +84,10 @@ protected:
   MoveSequence  *moveSequence_;
   MapDelta  *mapDelta_;
   bool       moveInProgress_;
+  bool       dragInProgress_;
   PathFinder pathFinder_;
   int        animDelay_;
+  const QCursor* cursor_;
 
   void levelChange ();
   void paintSquare (int x, int y, QPainter &paint);
@@ -91,24 +96,36 @@ protected:
   void paintPainterClip(QPainter& paint, int x, int y, int w, int h);
   void paintPainter(QPainter& paint, const QRect& rect);
   void resizeEvent (QResizeEvent *e);
+  void mouseMoveEvent(QMouseEvent* e);
   void keyPressEvent (QKeyEvent *);
   void focusInEvent (QFocusEvent *);
   void focusOutEvent (QFocusEvent *);
   void mousePressEvent (QMouseEvent *);
+  void mouseReleaseEvent(QMouseEvent*);
+  void leaveEvent(QEvent*);
   void wheelEvent (QWheelEvent *);
   void step (int _x, int _y);
   void push (int _x, int _y);
   virtual void timerEvent (QTimerEvent *);
+  void stopDrag();
+  void dragObject(int xpixel, int ypixel);
+  void highlight();
+  void changeCursor(const QCursor* c);
+  void eatKeyPressEvents();
 
 private:
-  int width_, height_, xOffs_, yOffs_;
+  int size_, xOffs_, yOffs_;
+  int highlightX_, highlightY_;
+  int dragX_, dragY_;
+  int lastMouseXPos_, lastMouseYPos_;
+  int mousePosX_, mousePosY_;
   int wheelDelta_;
 
-  int x2pixel (int x) { return width_*x+xOffs_; }
-  int y2pixel (int y) { return height_*y+yOffs_; }
+  int x2pixel (int x) { return size_*x+xOffs_; }
+  int y2pixel (int y) { return size_*y+yOffs_; }
 
-  int pixel2x (int x) { return (x-xOffs_)/width_; }
-  int pixel2y (int y) { return (y-yOffs_)/height_; }
+  int pixel2x (int x) { return (x-xOffs_)/size_; }
+  int pixel2y (int y) { return (y-yOffs_)/size_; }
 
   void startMoving (Move *m);
   void startMoving (MoveSequence *ms);
@@ -120,6 +137,8 @@ private:
   const QString levelText_, stepsText_, pushesText_;
   QPixmap pnumXpm_, ptxtXpm_, snumXpm_, stxtXpm_, lnumXpm_, ltxtXpm_;
   QPixmap collXpm_;
+  QPixmap dragXpm_;
+  QImage  dragImage_;
   QFont         statusFont_;
   QFontMetrics  statusMetrics_;
   QBrush  background_;

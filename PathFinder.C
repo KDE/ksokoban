@@ -145,3 +145,32 @@ PathFinder::search (Map *_map, int _x, int _y) {
     return 0;
   }
 }
+
+Move*
+PathFinder::drag(int /* x1 */, int /* y1 */, int /* x2 */, int /* y2 */) {
+  return 0;
+}
+
+bool
+PathFinder::canDrag(int /* x */, int /* y */) const {
+  return false;
+}
+
+bool
+PathFinder::canWalkTo(int /* x */, int /* y */) const {
+  return false;
+}
+
+bool
+PathFinder::canDragTo(int /* x */, int /* y */) const {
+  return false;
+}
+
+void
+PathFinder::updatePossibleMoves() {
+}
+
+void
+PathFinder::updatePossibleDestinations(int /* x */, int /* y */) {
+}
+

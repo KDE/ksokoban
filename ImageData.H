@@ -48,13 +48,18 @@ public:
   void object(QPainter &p, int x, int y);
   void saveman(QPainter &p, int x, int y);
   void treasure(QPainter &p, int x, int y);
+  void brightObject(QPainter &p, int x, int y);
+  void brightTreasure(QPainter &p, int x, int y);
 
   const QPixmap &background() { return background_; }
+  const QImage& objectImg() const { return objectImg_; }
 
 protected:
   ImageData();
 
   void expandIndex(int size);
+  void image2pixmap(QImage img, QPixmap& xpm, bool diffuse=true);
+  void brighten(QImage& img);
 
   const QPixmap &upperLarge(int index);
   const QPixmap &lowerLarge(int index);
@@ -66,7 +71,8 @@ protected:
   QPixmap smallStone_xpm_[SMALL_STONES];
   QPixmap largeStone_xpm_[LARGE_STONES];
   QPixmap otherPixmaps_[OTHER_IMAGES];
-  QPixmap background_;
+  QPixmap background_, brightObject_, brightTreasure_;
+  QImage  objectImg_;
   
   int indexSize_;
   QByteArray upperLargeIndex_;

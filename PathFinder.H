@@ -28,6 +28,12 @@ class Move;
 class PathFinder {
 public:
   Move *search (Map *_map, int _x, int _y);
+  Move* drag(int x1, int y1, int x2, int y2);
+  bool canDrag(int x, int y) const;
+  bool canWalkTo(int x, int y) const;
+  bool canDragTo(int x, int y) const;
+  void updatePossibleMoves();
+  void updatePossibleDestinations(int x, int y);
 
 protected:
   //static const int PATH_WALL=32767;
