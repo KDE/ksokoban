@@ -63,7 +63,7 @@ MainWindow::createCollectionMenu() {
 }
 
 
-MainWindow::MainWindow() : KTopLevelWidget(), externalCollection_(0) {
+MainWindow::MainWindow() : KTMainWindow(), externalCollection_(0) {
   int i;
 
   KConfig *cfg=(KApplication::getKApplication())->getConfig();

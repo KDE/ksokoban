@@ -30,7 +30,7 @@ class QPopupMenu;
 class QFocusEvent;
 class LevelCollection;
 
-class MainWindow : public KTopLevelWidget {
+class MainWindow : public KTMainWindow {
   Q_OBJECT
 public:
   MainWindow();
