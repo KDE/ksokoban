@@ -101,7 +101,7 @@ MainWindow::MainWindow() : KTMainWindow(), externalCollection_(0) {
   game_->insertItem(QIconSet(pixmap), i18n("&Redo"), playField_, SLOT(redo()), Key_R);
   game_->insertSeparator();
   pixmap = BarIcon("exit");
-  game_->insertItem(QIconSet(pixmap), i18n("&Quit"), KApplication::kApplication(), SLOT(quit()), Key_Q);
+  game_->insertItem(QIconSet(pixmap), i18n("&Quit"), KApplication::kApplication(), SLOT(closeAllWindows()), Key_Q);
   menu_->insertItem(i18n("&Game"), game_);
 
   animation_ = new QPopupMenu(0,"animation menu");
@@ -189,7 +189,7 @@ Mas Sasquatch - David W. Skinner <sasquatch@bentonrea.com>\n\
 Sasquatch III - David W. Skinner <sasquatch@bentonrea.com>\n\
 Microban - David W. Skinner <sasquatch@bentonrea.com>\n\
 ");
-  help_ = helpMenu(aboutMsg.data());
+  help_ = helpMenu(aboutMsg.data(), false);
   menu_->insertSeparator();
   menu_->insertItem(i18n("&Help"), help_);
 
@@ -343,8 +343,10 @@ MainWindow::openURL(KURL _url) {
     delete tmpCollection;
     return;
   }
-  cfg->setGroup("settings");
-  cfg->writeEntry("lastLevelFile", levelFile);
+  if (_url.isLocalFile()) {
+    cfg->setGroup("settings");
+    cfg->writeEntry("lastLevelFile", _url.path());
+  }
 
   delete externalCollection_;
   externalCollection_ = tmpCollection;
