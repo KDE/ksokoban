@@ -1,4 +1,4 @@
-ksokoban 0.2.0 - a Sokoban game for KDE
+ksokoban 0.2.1 - a Sokoban game for KDE
 
 copyright 1998 Anders Widell  <d95-awi@nada.kth.se>
 
@@ -16,7 +16,8 @@ REQUIREMENTS
 
 * KDE         (tested with version 1.0    )
 * Qt          (tested with version 1.41   )
-* zlib        (tested with version 1.1.2  )
+
+* zlib is used if found, but no longer required
 
 ------------------------------------------------------------------------
 

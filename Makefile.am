@@ -10,10 +10,10 @@ BUILT_SOURCES=MainWindow.moc.C PlayField.moc.C ModalLabel.moc.C
 INCLUDES = @all_includes@
 
 LDFLAGS = @all_libraries@ $(KDE_RPATH)
-LDADD = -lkdeui -lkdecore -lqt -lXext -lX11 -lz $(LIBSOCKET)
+LDADD = $(LIB_KDEUI) $(LIBZ)
 
 DISTCLEANFILES = $(BUILT_SOURCES)
-EXTRA_DIST=TODO ksokoban.kdelnk NEWS
+EXTRA_DIST=AUTHORS NEWS README TODO
 
 AUTOMAKE_OPTIONS = foreign
 

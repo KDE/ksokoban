@@ -73,9 +73,9 @@ MoveSequence::next () {
 
   if (undo_) {
     if (push_) return map_->unpush (x_, y_);
-    else return map_->unmove (x_, y_);
+    else return map_->unstep (x_, y_);
   } else {
     if (push_) return map_->push (x_, y_);
-    else return map_->move (x_, y_);
+    else return map_->step (x_, y_);
   }
 }

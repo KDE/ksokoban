@@ -106,8 +106,8 @@ PathFinder::search (Map *_map, int _x, int _y) {
       d = dist[ypos][xpos];
     }
     if (oldY != ypos) {
-      move->move (xpos, ypos);
-      //printf ("move (%d, %d)\n", xpos, ypos);
+      move->step (xpos, ypos);
+      //printf ("step (%d, %d)\n", xpos, ypos);
       continue;
     }
 
@@ -116,8 +116,8 @@ PathFinder::search (Map *_map, int _x, int _y) {
       d = dist[ypos][xpos];
     }
     if (oldY != ypos) {
-      move->move (xpos, ypos);
-      //printf ("move (%d, %d)\n", xpos, ypos);
+      move->step (xpos, ypos);
+      //printf ("step (%d, %d)\n", xpos, ypos);
       continue;
     }
 
@@ -126,8 +126,8 @@ PathFinder::search (Map *_map, int _x, int _y) {
       d = dist[ypos][xpos];
     }
     if (oldX != xpos) {
-      move->move (xpos, ypos);
-      //printf ("move (%d, %d)\n", xpos, ypos);
+      move->step (xpos, ypos);
+      //printf ("step (%d, %d)\n", xpos, ypos);
       continue;
     }
 
@@ -136,8 +136,8 @@ PathFinder::search (Map *_map, int _x, int _y) {
       d = dist[ypos][xpos];
     }
     if (oldX != xpos) {
-      move->move (xpos, ypos);
-      //printf ("move (%d, %d)\n", xpos, ypos);
+      move->step (xpos, ypos);
+      //printf ("step (%d, %d)\n", xpos, ypos);
       continue;
     }
 

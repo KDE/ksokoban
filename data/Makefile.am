@@ -7,7 +7,7 @@ appsdir = $(kde_appsdir)/Games
 html_DATA = index.html index-1.html index-2.html index-3.html logotp3.gif
 htmldir = $(kde_htmldir)/en/ksokoban
 
-EXTRA_DIST = index.sgml index.nif mini-ksokoban.xpm
+EXTRA_DIST = $(icon_DATA) $(apps_DATA) $(html_DATA) index.sgml index.nif mini-ksokoban.xpm
 
 #all: index.html
 #

@@ -69,7 +69,7 @@ Map::fillFloor (int x, int y) {
 }
 
 bool
-Map::move (int _x, int _y) {
+Map::step (int _x, int _y) {
   assert (!badCoords (xpos_, ypos_));
   assert (empty (xpos_, ypos_));
 
@@ -125,8 +125,8 @@ Map::push (int _x, int _y) {
 }
 
 bool
-Map::unmove (int _x, int _y) {
-  return Map::move (_x, _y);
+Map::unstep (int _x, int _y) {
+  return Map::step (_x, _y);
 }
 
 bool

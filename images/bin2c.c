@@ -24,9 +24,17 @@
  *
  */
 
+#include "../../config.h"
+
 #include <stdio.h>
 #include <stdlib.h>
+
+#ifdef HAVE_ZLIB_H
 #include <zlib.h>
+#else
+typedef unsigned char Bytef;
+typedef unsigned long uLongf;
+#endif
 
 #define BUFSIZE 16384            /* Increase buffer size by this amount */
 
@@ -85,6 +93,7 @@ my_strrchr (s, c)
   return ptr;
 }
 
+#ifdef HAVE_ZLIB_H
 /*
  * NOTE: my_compress2 is taken directly from zlib 1.1.3
  *
@@ -141,6 +150,7 @@ int my_compress2 (dest, destLen, source, sourceLen, level)
     err = deflateEnd(&stream);
     return err;
 }
+#endif
 
 int
 main (argc, argv)
@@ -178,6 +188,8 @@ main (argc, argv)
     }
     fclose (infile);
 
+#ifdef HAVE_ZLIB_H
+
     /* (Re)allocate dest buffer */
     destLen = sourceBufSize + (sourceBufSize+9)/10 + 12;
     if (destBufSize < destLen) {
@@ -190,6 +202,13 @@ main (argc, argv)
     destLen = destBufSize;
     result = my_compress2 (dest, &destLen, source, sourceLen, 9);
     if (result != Z_OK) return error ("error compressing '", argv[i], "'");
+
+#else
+
+    destLen = sourceLen;
+    dest = source;
+
+#endif
 
     /* Output dest buffer as C source code to outfile */
     ptr = my_strrchr (argv[i], '.');
@@ -215,7 +234,9 @@ main (argc, argv)
   }
 
   fclose (outfile);
+#ifdef HAVE_ZLIB_H
   free (dest);
+#endif
   free (source);
 
   return 0;

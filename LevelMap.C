@@ -17,17 +17,21 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-//#include <stdlib.h>
+#include "config.h"
 
 #include <kconfig.h>
 #include <kapp.h>
 
 #include <unistd.h>
-#include <zlib.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include <assert.h>
 #include <stdio.h>
+#include <string.h>
+
+#ifdef HAVE_ZLIB_H
+#include <zlib.h>
+#endif
 
 #include "LevelMap.H"
 
@@ -70,6 +74,7 @@ LevelMap::realCollection2Config (int collection) {
 LevelMap::LevelMap () {
   KConfig *cfg=(KApplication::getKApplication ())->getConfig ();
 
+#ifdef HAVE_ZLIB_H
   data = (char *) malloc (BUFSIZE);
   if (data == NULL) abort ();
 
@@ -77,6 +82,12 @@ LevelMap::LevelMap () {
   uncompress ((unsigned char *) data, (long unsigned int *) &datasize, level_data, sizeof (level_data));
   data = (char *) realloc (data, datasize);
   if (data == NULL) abort ();
+#else
+  datasize = sizeof (level_data);
+  data = (char *) malloc (datasize);
+  if (data == NULL) abort ();
+  memcpy (data, level_data, datasize);
+#endif
 
   totalLevels_ = noOfCollections_ = 0;
   bool newLevel=true;
@@ -219,7 +230,7 @@ void
 LevelMap::changeCollection (int _collection)
 {
   if (_collection < 0 || _collection >= noOfCollections_) _collection = 0;
-  if (collection_ == _collection) return;
+  //if (collection_ == _collection) return;
   collection_ = _collection;
   level (level ());
 }
@@ -345,10 +356,10 @@ LevelMap::distance (int x1, int y1, int x2, int y2) {
 }
 
 bool
-LevelMap::move (int _x, int _y) {
+LevelMap::step (int _x, int _y) {
   int oldX=xpos_, oldY=ypos_;
 
-  bool success = Map::move (_x, _y);
+  bool success = Map::step (_x, _y);
 
   totalMoves_ += distance (oldX, oldY, xpos_, ypos_);
 
@@ -393,10 +404,10 @@ LevelMap::push (int _x, int _y) {
 }
 
 bool
-LevelMap::unmove (int _x, int _y) {
+LevelMap::unstep (int _x, int _y) {
   int oldX=xpos_, oldY=ypos_;
 
-  bool success = Map::unmove (_x, _y);
+  bool success = Map::unstep (_x, _y);
 
   totalMoves_ -= distance (oldX, oldY, xpos_, ypos_);
 

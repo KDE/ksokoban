@@ -29,8 +29,8 @@ class LevelMap;
 /**
  * Holds information about a move
  *
- * The move can consist of several atomic moves and pushes. An atomic
- * move/push is a move/push along a straight line. The reason why these are
+ * The move can consist of several atomic steps and pushes. An atomic
+ * step/push is a step/push along a straight line. The reason why these are
  * grouped together in a Move object is that they belong to the same logical
  * move in the player's point of view. An undo/redo will undo/redo all the
  * atomic moves in one step.
@@ -67,7 +67,7 @@ public:
    * @param x  x position of destination
    * @param y  y position of destination
    */
-  void move (int _x, int _y) {
+  void step (int _x, int _y) {
 #ifndef NDEBUG
     assert (!finished_);
     assert (_x>=0 && _x<=MAX_X && _y>=0 && _y<=MAX_Y);

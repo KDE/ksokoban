@@ -269,7 +269,7 @@ PlayField::setOffset () {
 }
 
 void
-PlayField::move (int _x, int _y) {
+PlayField::step (int _x, int _y) {
   if (moveInProgress_) return;
   int oldX=levelMap_->xpos ();
   int oldY=levelMap_->ypos ();
@@ -281,14 +281,14 @@ PlayField::move (int _x, int _y) {
   if (_y>oldY) dy=1;
   if (_y<oldY) dy=-1;
   
-  while (!(x==_x && y==_y) && levelMap_->move (x+dx, y+dy)) {
+  while (!(x==_x && y==_y) && levelMap_->step (x+dx, y+dy)) {
     x += dx;
     y += dy;
   }
 
   if (x!=oldX || y!=oldY) {
     Move *m = new Move (oldX, oldY);
-    m->move (x, y);
+    m->step (x, y);
     m->finish ();
     history_->add (m);
     m->undo (levelMap_);
@@ -311,7 +311,7 @@ PlayField::push (int _x, int _y) {
   if (_y>oldY) dy=1;
   if (_y<oldY) dy=-1;
   
-  while (!(x==_x && y==_y) && levelMap_->move (x+dx, y+dy)) {
+  while (!(x==_x && y==_y) && levelMap_->step (x+dx, y+dy)) {
     x += dx;
     y += dy;
   }
@@ -324,7 +324,7 @@ PlayField::push (int _x, int _y) {
   if (x!=oldX || y!=oldY) {
     Move *m = new Move (oldX, oldY);
 
-    if (objX!=oldX || objY!=oldY) m->move (objX, objY);
+    if (objX!=oldX || objY!=oldY) m->step (objX, objY);
 
     if (objX!=x || objY!=y) {
       m->push (x, y);
@@ -348,22 +348,22 @@ PlayField::keyPressEvent (QKeyEvent * e) {
 
   switch (e->key ()) {
   case Key_Up:
-    if (e->state () & ControlButton) move (x, 0);
+    if (e->state () & ControlButton) step (x, 0);
     else if (e->state () & ShiftButton) push (x, 0);
     else push (x, y-1);
     break;
   case Key_Down:
-    if (e->state () & ControlButton) move (x, MAX_Y);
+    if (e->state () & ControlButton) step (x, MAX_Y);
     else if (e->state () & ShiftButton) push (x, MAX_Y);
     else push (x, y+1);
     break;
   case Key_Left:
-    if (e->state () & ControlButton) move (0, y);
+    if (e->state () & ControlButton) step (0, y);
     else if (e->state () & ShiftButton) push (0, y);
     else push (x-1, y);
     break;
   case Key_Right:
-    if (e->state () & ControlButton) move (MAX_X, y);
+    if (e->state () & ControlButton) step (MAX_X, y);
     else if (e->state () & ShiftButton) push (MAX_X, y);
     else push (x+1, y);
     break;

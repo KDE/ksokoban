@@ -165,7 +165,7 @@ Move::load (const char *s) {
     }
 
     if (isupper (c)) push (x, y);
-    else move (x, y);
+    else step (x, y);
 
     if (last) break;
   }
@@ -185,7 +185,7 @@ Move::redo (LevelMap *map) {
     bool ret;
 
     if (push) ret = map->push (x, y);
-    else ret = map->move (x, y);
+    else ret = map->step (x, y);
 
     if (!ret) return false;
   }
@@ -204,7 +204,7 @@ Move::undo (LevelMap *map) {
     bool ret;
 
     if (push) ret = map->unpush (x, y);
-    else ret = map->unmove (x, y);
+    else ret = map->unstep (x, y);
 
     if (!ret) return false;
   }

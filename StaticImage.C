@@ -17,7 +17,12 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#include "config.h"
+
+#ifdef HAVE_ZLIB_H
 #include <zlib.h>
+#endif
+
 #include "StaticImage.H"
 
 #include "images/data.c"
@@ -26,6 +31,7 @@
 
 void
 StaticImage::loadImage (int num, const unsigned char *data, int size) {
+#ifdef HAVE_ZLIB_H
   uLongf bufLen;
   unsigned char *buf = new unsigned char[BUFSIZE];
 
@@ -36,6 +42,10 @@ StaticImage::loadImage (int num, const unsigned char *data, int size) {
   images_[num]->loadFromData (buf, bufLen);
 
   delete [] buf;
+#else
+  images_[num] = new QPixmap;
+  images_[num]->loadFromData (data, size);
+#endif
 }
 
 StaticImage::StaticImage () {

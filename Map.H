@@ -38,9 +38,9 @@ public:
 
   bool completed () { return objectsLeft_ <= 0; }
 
-  bool move   (int _x, int _y);
+  bool step   (int _x, int _y);
   bool push   (int _x, int _y);
-  bool unmove (int _x, int _y);
+  bool unstep (int _x, int _y);
   bool unpush (int _x, int _y);
 
 

@@ -87,7 +87,7 @@ protected:
   void focusInEvent (QFocusEvent *);
   void focusOutEvent (QFocusEvent *);
   void mousePressEvent (QMouseEvent *);
-  void move (int _x, int _y);
+  void step (int _x, int _y);
   void push (int _x, int _y);
   virtual void timerEvent (QTimerEvent *);
 

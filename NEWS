@@ -1,4 +1,14 @@
 -------------------------------------------------------------------------------
+version 0.2.1: Date 1998-10-25
+
+* Bugfix: Fixed failed assertion that showed up if you changed to small
+          graphics and restarted the game.
+          Thanks to Bernd Weber <bernd.weber@systemhaus.net> for reporting
+          this.
+
+* No longer requires zlib. It is still used if found, though.
+
+-------------------------------------------------------------------------------
 version 0.2.0: Date 1998-10-15
 
 New features:
