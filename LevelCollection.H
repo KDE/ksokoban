@@ -22,7 +22,7 @@
 
 #include <qstring.h>
 #include <qcstring.h>
-#include <qvector.h>
+#include <qptrvector.h>
 
 class Map;
 
@@ -51,7 +51,7 @@ private:
   void addData(const char* _data, unsigned _len);
   void addSeparator();
 
-  QVector<const char> index_;
+  QPtrVector<const char> index_;
   QByteArray    data_;
   //int    dataLen_;
 
