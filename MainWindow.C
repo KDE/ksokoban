@@ -160,7 +160,6 @@ MainWindow::MainWindow() : KTMainWindow(), externalCollection_(0) {
     updateBookmark(i);
   }
 
-  KApplication *app = KApplication::kApplication();
   QString aboutMsg = "ksokoban 0.3.0 - ";
   aboutMsg += i18n("\
 a Sokoban game for KDE\n\
