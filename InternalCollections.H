@@ -38,6 +38,7 @@ private:
   static int realCollection2Config(int collection);
 
   Array<LevelCollection *> collections_;
+  char *data_;
 
 };
 

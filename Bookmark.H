@@ -32,7 +32,7 @@ public:
   int collection() { return collection_; }
   int level() { return level_; }
   int moves() { return moves_; }
-  int pushes() { return pushes_; }
+  //int pushes() { return pushes_; }
 
   void set(int _collection, int _level, int _moves, History *_h);
   bool goTo(LevelMap *_map, History *_h);
@@ -44,7 +44,7 @@ private:
   int     collection_;
   int     level_;
   int     moves_;
-  int     pushes_;
+  //int     pushes_;
   QString data_;
 };
 

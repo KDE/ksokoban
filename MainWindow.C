@@ -191,9 +191,6 @@ Simple Sokoban - by Phil Shapiro <pshapiro@his.com>\n\
 
 MainWindow::~MainWindow()
 {
-  // The following line segfaults when linked against qt 1.44
-  //delete help_;
-
   KConfig *cfg=(KApplication::getKApplication())->getConfig();
 
   cfg->setGroup("Geometry");
@@ -209,14 +206,18 @@ MainWindow::~MainWindow()
 
 
   delete externalCollection_;
+
+  // The following line segfaults when linked against qt 1.44
+  //delete help_;
   delete goToBM_;
   delete setBM_;
   delete bookmarkMenu_;
   delete animation_;
   delete collection_;
   delete game_;
-  delete menu_;
-  delete playField_;
+  //delete menu_;
+
+  //delete playField_;
 }
 
 

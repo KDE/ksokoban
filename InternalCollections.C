@@ -32,22 +32,21 @@ InternalCollections::realCollection2Config(int collection) {
 
 
 InternalCollections::InternalCollections() {
-  char *data;
   int datasize, levelnum=0;
 
 #ifdef USE_LIBZ
-  data = (char *) malloc(BUFSIZE);
-  if (data == NULL) abort();
+  data_ = (char *) malloc(BUFSIZE);
+  if (data_ == NULL) abort();
 
   datasize = BUFSIZE;
-  uncompress ((unsigned char *) data, (long unsigned int *) &datasize, level_data_, sizeof (level_data_));
-  data = (char *) realloc(data, datasize);
-  if (data == NULL) abort ();
+  uncompress ((unsigned char *) data_, (long unsigned int *) &datasize, level_data_, sizeof (level_data_));
+  data_ = (char *) realloc(data_, datasize);
+  if (data_ == NULL) abort ();
 #else
   datasize = sizeof (level_data_);
-  data = (char *) malloc(datasize);
-  if (data == NULL) abort();
-  memcpy(data, level_data_, datasize);
+  data_ = (char *) malloc(datasize);
+  if (data_ == NULL) abort();
+  memcpy(data_, level_data_, datasize);
 #endif
 
   int start=0, end=0, name=0;
@@ -55,8 +54,8 @@ InternalCollections::InternalCollections() {
   while (end < datasize) {
     switch (state) {
     case NAME:
-      if (data[end] == '\n') {
-	data[end] = '\0';
+      if (data_[end] == '\n') {
+	data_[end] = '\0';
 	state = DATA;
       }
       end++;
@@ -64,9 +63,9 @@ InternalCollections::InternalCollections() {
       break;
 
     case DATA:
-      if (isalpha(data[end])) {
-	collections_.add(new LevelCollection(data+start, end-start, data+name, collection_save_id[levelnum]));
-	//printf("Level found: '%s'\n", data+name);
+      if (isalpha(data_[end])) {
+	collections_.add(new LevelCollection(data_+start, end-start, data_+name, collection_save_id[levelnum]));
+	//printf("Level found: '%s'\n", data_+name);
 	levelnum++;
 	name = end;
 	state = NAME;
@@ -79,8 +78,8 @@ InternalCollections::InternalCollections() {
     }
   }
   if (state == DATA) {
-    collections_.add(new LevelCollection(data+start, end-start, data+name, collection_save_id[levelnum]));
-    //printf("***Level found: '%s'\n", data+name);
+    collections_.add(new LevelCollection(data_+start, end-start, data_+name, collection_save_id[levelnum]));
+    //printf("***Level found: '%s'\n", data_+name);
   }
   //printf("numlevels: %d/%d\n", levelnum+1, collections_.size());
 }
@@ -89,6 +88,8 @@ InternalCollections::~InternalCollections() {
   for (int i=0; i<collections_.size(); i++) {
     delete collections_[i];
   }
+
+  free(data_);
 }
 
 int

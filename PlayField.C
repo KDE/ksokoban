@@ -79,6 +79,7 @@ PlayField::~PlayField() {
   cfg->setGroup("settings");
   cfg->writeEntry("animDelay", animDelay_, true, false, false);
 
+  delete mapDelta_;
   delete history_;
   delete levelMap_;
   delete imageData_;
@@ -187,7 +188,11 @@ PlayField::paintEvent(QPaintEvent *e) {
   if (maxx >= levelMap_->width()) maxx = levelMap_->width()-1;
   if (maxy >= levelMap_->height()) maxy = levelMap_->height()-1;
 
+#if QT_VERSION < 200
+  bool erased = false;
+#else
   bool erased = e->erased();
+#endif
   if (!erased) {
     int x1, x2, y1, y2;
     y1 = y2pixel(miny);
@@ -226,6 +231,9 @@ PlayField::paintEvent(QPaintEvent *e) {
 void
 PlayField::resizeEvent(QResizeEvent *e) {
   setSize(e->size().width(), e->size().height());
+#if QT_VERSION < 200
+  repaint(false);
+#endif
 }
 
 void

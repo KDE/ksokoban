@@ -90,17 +90,29 @@ ImageData::resize(int size) {
   halfSize_ = size/2;
 
   for (int i=0; i<SMALL_STONES; i++) {
+#if QT_VERSION < 200
+    smallStone_xpm_[i].convertFromImage(images_[i].smoothScale(halfSize_, halfSize_), ColorOnly|DiffuseDither|DiffuseAlphaDither|AvoidDither);
+#else
     smallStone_xpm_[i].convertFromImage(images_[i].smoothScale(halfSize_, halfSize_), QPixmap::ColorOnly|QPixmap::DiffuseDither|QPixmap::DiffuseAlphaDither|QPixmap::AvoidDither);
+#endif
   }
 
   for (int i=0; i<LARGE_STONES; i++) {
+#if QT_VERSION < 200
+    largeStone_xpm_[i].convertFromImage(images_[SMALL_STONES+i].smoothScale(size_, halfSize_) , ColorOnly|DiffuseDither|DiffuseAlphaDither|AvoidDither);
+#else
     largeStone_xpm_[i].convertFromImage(images_[SMALL_STONES+i].smoothScale(size_, halfSize_) , QPixmap::ColorOnly|QPixmap::DiffuseDither|QPixmap::DiffuseAlphaDither|QPixmap::AvoidDither);
+#endif
   }
 
   // I don't use DiffuseDither for the objects on the "floor" since
   // it gives spurious dots on the floor around them
   for (int i=0; i<OTHER_IMAGES; i++) {
+#if QT_VERSION < 200
+    otherPixmaps_[i].convertFromImage(images_[SMALL_STONES+LARGE_STONES+i].smoothScale(size_, size_), ColorOnly|OrderedDither|OrderedAlphaDither|AvoidDither);
+#else
     otherPixmaps_[i].convertFromImage(images_[SMALL_STONES+LARGE_STONES+i].smoothScale(size_, size_), QPixmap::ColorOnly|QPixmap::OrderedDither|QPixmap::OrderedAlphaDither|QPixmap::AvoidDither);
+#endif
   }
 
   return size_;
