@@ -17,7 +17,7 @@ POVRAY=povray +L/usr/local/lib/povray3/include +L.. $(ANTIALIAS)
 all: ../bin2c data.c
 
 ../bin2c: ../bin2c.c
-	$(MAKE) -C .. bin2c
+	(cd .. && $(MAKE) bin2c)
 
 eastwall.ppm: ../eastwall.pov ../wall_common.inc
 	$(POVRAY) $(RESOLUTION) +I$< +Oimage.tga
