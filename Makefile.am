@@ -1,4 +1,4 @@
-APPSDIR = $(kde_appsdir)/Programs/Games
+APPSDIR = $(kde_appsdir)/Games
 
 SUBDIRS=data images levels
 
