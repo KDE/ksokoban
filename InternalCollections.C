@@ -1,3 +1,4 @@
+#include <klocale.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -37,6 +38,30 @@ InternalCollections::realCollection2Config(int collection) {
   return collection_save_id[collection];
 }
 
+QString
+InternalCollections::collectionName(int _level) {
+  switch (_level) {
+  case 0:
+    return i18n("Sasquatch");
+    break;
+
+  case 1:
+    return i18n("Mas Sasquatch");
+    break;
+
+  case 2:
+    return i18n("Sasquatch III");
+    break;
+
+  case 3:
+    return i18n("Microban (easy)");
+    break;
+  }
+
+  assert(false);
+  return QString();
+}
+
 
 InternalCollections::InternalCollections() {
   int datasize, levelnum=0;
@@ -71,7 +96,8 @@ InternalCollections::InternalCollections() {
 
     case DATA:
       if (isalpha(data_[end])) {
-	collections_.add(new LevelCollection(data_+start, end-start, data_+name, collection_save_id[levelnum]));
+// 	collections_.add(new LevelCollection(data_+start, end-start, data_+name, collection_save_id[levelnum]));
+	collections_.add(new LevelCollection(data_+start, end-start, collectionName(levelnum), collection_save_id[levelnum]));
 	//printf("Level found: '%s'\n", data_+name);
 	levelnum++;
 	name = end;
@@ -85,7 +111,8 @@ InternalCollections::InternalCollections() {
     }
   }
   if (state == DATA) {
-    collections_.add(new LevelCollection(data_+start, end-start, data_+name, collection_save_id[levelnum]));
+//     collections_.add(new LevelCollection(data_+start, end-start, data_+name, collection_save_id[levelnum]));
+    collections_.add(new LevelCollection(data_+start, end-start, collectionName(levelnum), collection_save_id[levelnum]));
     //printf("***Level found: '%s'\n", data_+name);
   }
   //printf("numlevels: %d/%d\n", levelnum+1, collections_.size());

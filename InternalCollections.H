@@ -1,6 +1,6 @@
 /*
  *  ksokoban - a Sokoban game for KDE
- *  Copyright (C) 1998  Anders Widell  <d95-awi@nada.kth.se>
+ *  Copyright (C) 1998-2000  Anders Widell  <awl@hem.passagen.se>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@
 #define INTERNALCOLLECTIONS_H
 
 #include <assert.h>
+#include <qstring.h>
 
 #include "Array.H"
 #include "LevelCollection.H"
@@ -41,6 +42,7 @@ public:
 private:
   static int configCollection2Real(int collection);
   static int realCollection2Config(int collection);
+  static QString collectionName(int _level);
 
   Array<LevelCollection *> collections_;
   char *data_;
