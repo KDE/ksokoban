@@ -18,7 +18,7 @@
  */
 
 #include <kapp.h>
-#include <kimgio.h>
+#include <kimageio.h>
 #include <klocale.h>
 #include <kcmdlineargs.h>
 #include <kaboutdata.h>
@@ -43,7 +43,7 @@ main (int argc, char **argv)
   QApplication::setColorSpec(QApplication::ManyColor);
 
   KApplication app;
-  kimgioRegister();
+  KImageIO::registerFormats();
 
   MainWindow *widget = new MainWindow();
   app.setMainWidget(widget);
