@@ -35,6 +35,7 @@
 #include <kiconloader.h>
 #include <qiconset.h>
 #include <qdragobject.h>
+#include <kpopupmenu.h>
 
 #include "MainWindow.H"
 #include "PlayField.H"
