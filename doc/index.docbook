@@ -29,8 +29,8 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2002-01-24</date>
-<releaseinfo>0.42.00</releaseinfo>
+<date>2003-09-17</date>
+<releaseinfo>0.4.2</releaseinfo>
 
 <abstract>
 <para>
@@ -122,14 +122,14 @@ can of course also restart the level from the very beginning.
 <row><entry><keycombo action="simul">&Ctrl;<keycap>Cursor</keycap></keycombo> keys </entry><entry>Move as far as possible in a direction without pushing any gems </entry></row>
 <row><entry><keycombo action="simul">&Shift;<keycap>Cursor</keycap></keycombo> keys </entry><entry>Move as far as possible in a direction, pushing any gem in the way </entry></row>
 <row><entry><mousebutton>Left</mousebutton> mouse button </entry><entry>Move to any place in the maze that can be reached without pushing any gems </entry></row>
-<row><entry><mousebutton>Middle</mousebutton> mouse button or <keycap>U</keycap> </entry><entry>Undo the last move </entry></row>
+<row><entry><mousebutton>Middle</mousebutton> mouse button or <keycombo action="simul">&Ctrl;<keycap>Z</keycap></keycombo></entry><entry>Undo the last move </entry></row>
 <row><entry><mousebutton>Right</mousebutton> mouse button </entry><entry>Move up/down/left/right in a straight line, pushing any gem in the way </entry></row>
 <row><entry><mousebutton>Mouse wheel</mousebutton></entry><entry>Traverse the history </entry></row>
-<row><entry><keycap>R</keycap> </entry><entry>Redo the last undone move </entry></row>
+<row><entry><keycombo action="simul">&Ctrl;&Shift;<keycap>Z</keycap></keycombo></entry><entry>Redo the last undone move </entry></row>
 <row><entry><keycap>N</keycap> </entry><entry>Go to the next level in the current level collection </entry></row>
 <row><entry><keycap>P</keycap> </entry><entry>Go to the previous level in the current level collection </entry></row>
 <row><entry>&Esc; </entry><entry>Restart the current level </entry></row>
-<row><entry><keycap>Q</keycap> </entry><entry>Quit the game </entry></row>
+<row><entry><keycombo action="simul">&Ctrl;<keycap>Q</keycap></keycombo></entry><entry>Quit the game </entry></row>
 </tbody>
 </tgroup>
 </informaltable>
@@ -143,7 +143,7 @@ can of course also restart the level from the very beginning.
 &ksokoban; has the ability to load external sokoban levels from text
 files.  You can load levels using the menu entry
 <menuchoice><guimenu>Game</guimenu> <guimenuitem>Load
-levels...</guimenuitem> </menuchoice>, or by specifying the level file
+Levels...</guimenuitem> </menuchoice>, or by specifying the level file
 &URL; as a command line argument when starting &ksokoban; from a
 shell.
 </para>
@@ -260,7 +260,7 @@ on the internet.</para>
 
 <varlistentry>
 <term><menuchoice>
-<shortcut><keycap>U</keycap></shortcut>
+<shortcut><keycombo action="simul">&Ctrl;<keycap>Z</keycap></keycombo></shortcut>
 <guimenu>Game</guimenu>
 <guimenuitem>Undo</guimenuitem>
 </menuchoice></term>
@@ -271,7 +271,7 @@ on the internet.</para>
 
 <varlistentry>
 <term><menuchoice>
-<shortcut><keycap>R</keycap></shortcut>
+<shortcut><keycombo action="simul">&Ctrl;&Shift;<keycap>Z</keycap></keycombo></shortcut>
 <guimenu>Game</guimenu>
 <guimenuitem>Redo</guimenuitem>
 </menuchoice></term>
@@ -283,7 +283,7 @@ above.</action></para>
 
 <varlistentry>
 <term><menuchoice>
-<shortcut><keycap>Q</keycap></shortcut>
+<shortcut><keycombo action="simul">&Ctrl;<keycap>Q</keycap></keycombo></shortcut>
 <guimenu>Game</guimenu>
 <guimenuitem>Quit</guimenuitem>
 </menuchoice></term>
@@ -337,6 +337,9 @@ default setting is <guimenuitem>Medium</guimenuitem>.</para>
 <para>&ksokoban; allows you to <action>set bookmarks with a level at a
 particular state.</action> You might use this to save yourself
 repeating the same initial steps in a level.</para>
+<para>You can have up to ten bookmarks at a time, and access them via the
+hotkey <keycombo action="simul">&Ctrl;<keycap><replaceable>X</replaceable></keycap></keycombo>,
+where <replaceable>X</replaceable> is any digit between 0 and 9.</para>
 </listitem>
 </varlistentry>
 
@@ -364,7 +367,7 @@ bookmark</action>.</para>
 <keycombo action="simul"><keycap>F1</keycap></keycombo>
 </shortcut>
 <guimenu>Help</guimenu>
-<guimenuitem>Contents...</guimenuitem>
+<guimenuitem>&kappname; Handbook...</guimenuitem>
 </menuchoice>
 </term>
 <listitem><para><action>Invokes the KDE Help system</action> starting at the
