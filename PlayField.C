@@ -91,6 +91,37 @@ PlayField::~PlayField () {
 }
 
 void
+PlayField::emitAll () {
+  static char levelText[20];
+
+  emit collectionChanged (levelMap_->setName (set ()));
+  sprintf (levelText, "Level: %d", levelMap_->level ()+1);
+  emit levelChanged (levelText);
+  emitMoves (true);
+}
+
+void
+PlayField::emitMoves (bool force) {
+  static int lastMoves=-1, lastPushes=-1;
+  int moves=levelMap_->totalMoves ();
+  int pushes=levelMap_->totalPushes ();
+
+  if (lastMoves != moves || force) {
+    static char moveBuf[20];
+    sprintf (moveBuf, "Moves: %d", moves);
+    emit movesChanged (moveBuf);
+    lastMoves = moves;
+  }
+
+  if (lastPushes != pushes || force) {
+    static char pushBuf[20];
+    sprintf (pushBuf, "Pushes: %d", pushes);
+    emit pushesChanged (pushBuf);
+    lastPushes = pushes;
+  }
+}
+
+void
 PlayField::levelChange () {
   history_->clear ();
   maxX_ = levelMap_->maxX ();
@@ -110,6 +141,7 @@ PlayField::levelChange () {
   if (y2pixel (maxY_+1) < (MAX_Y+1)*height_)
     erase (0, y2pixel (maxY_+1), (MAX_X+1)*width_, (MAX_Y+1)*height_ - y2pixel (maxY_+1));
 
+  emitAll ();
   //printf ("width: %d, height: %d\n", width_, height_);
   //printf ("xoffs: %d, yoffs: %d\n", xOffs_, yOffs_);
   repaint (false);
@@ -179,6 +211,7 @@ PlayField::stopMoving () {
   delete moveStep_;
   moveStep_ = 0;
   moveInProgress_ = false;
+  emitMoves (false);
 }
 
 
@@ -495,6 +528,7 @@ void
 PlayField::restartLevel () {
   if (moveInProgress_) return;
   level (levelMap_->level ());
+  emitMoves (true);
   repaint (false);
 }
 
@@ -528,5 +562,6 @@ PlayField::changeSet (int set)
 {
   if (levelMap_->set () == set) return;
   levelMap_->changeSet (set);
+  emitAll ();
   levelChange ();
 }

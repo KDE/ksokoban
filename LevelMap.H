@@ -42,6 +42,8 @@ public:
   int noOfSets () { return noOfSets_; }
   const char *setName (int i) { assert (i>=0 && i <noOfSets_); return setNames_[i]; }
   void changeSet (int _set);
+  int totalMoves () { return totalMoves_; }
+  int totalPushes () { return totalPushes_; }
 
   bool move   (int _x, int _y);
   bool push   (int _x, int _y);
@@ -68,8 +70,12 @@ private:
   int    totalLevels_;
   int    noOfSets_;
 
+  int    totalMoves_;
+  int    totalPushes_;
+
   static int configSet2Real (int set);
   static int realSet2Config (int set);
+  static int distance (int x1, int y1, int x2, int y2);
 };
 
 #endif  /* LEVELMAP_H */

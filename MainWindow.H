@@ -26,6 +26,7 @@ class KMenuBar;
 class PlayField;
 class QPopupMenu;
 class QFocusEvent;
+class KStatusBar;
 
 class MainWindow : public KTopLevelWidget
 {
@@ -37,6 +38,11 @@ public:
 public slots:
   void changeGfx (int id);
   void updateSetMenu (int id);
+
+  void changeCollection (const char *text);
+  void changeLevel (const char *text);
+  void changeMoves (const char *text);
+  void changePushes (const char *text);
 
 protected:
   void focusInEvent (QFocusEvent *);
@@ -51,6 +57,7 @@ private:
   QPopupMenu      *help_;
   int              checkedSet_;
   int              checkedGfx_;
+  KStatusBar      *statusBar_;
 
   void updateGfxMenu (int id);
 

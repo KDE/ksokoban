@@ -227,6 +227,7 @@ LevelMap::level (int _level) {
   minX_ = MAX_X;
   minY_ = MAX_Y;
   maxX_ = maxY_ = 0;
+  totalMoves_ = totalPushes_ = 0;
 
   //printf ("set_: %d, setMaxLevel_: %d\n", set_, setMaxLevel_[set_]);
   //printf ("level(%d): completedLevels=%d, noOfLevels=%d\n", _level, completedLevels (), noOfLevels ());
@@ -342,6 +343,20 @@ LevelMap::level (int _level) {
 #endif
 }
 
+
+int
+LevelMap::distance (int x1, int y1, int x2, int y2) {
+  int d;
+
+  if (x2 > x1) d = x2-x1;
+  else d = x1-x2;
+
+  if (y2 > y1) d += y2-y1;
+  else d += y1-y2;
+
+  return d;
+}
+
 bool
 LevelMap::move (int _x, int _y) {
   assert (!badCoords (xpos_, ypos_));
@@ -360,6 +375,8 @@ LevelMap::move (int _x, int _y) {
     y += yd;
     if (!empty (x, y)) return false;
   } while (!(x==_x && y==_y));
+
+  totalMoves_ += distance (xpos_, ypos_, _x, _y);
 
   xpos_ = _x;
   ypos_ = _y;
@@ -391,6 +408,11 @@ LevelMap::push (int _x, int _y) {
 
   clearMap (xpos_+xd, ypos_+yd, OBJECT);
   setMap (_x+xd, _y+yd, OBJECT);
+
+  int d = distance (xpos_, ypos_, _x, _y);
+  totalMoves_ += d;
+  totalPushes_ += d;
+
   xpos_ = _x;
   ypos_ = _y;
 
@@ -422,7 +444,15 @@ LevelMap::push (int _x, int _y) {
 
 bool
 LevelMap::unmove (int _x, int _y) {
-  return move (_x, _y);
+  int moves=totalMoves_;
+  int oldX=xpos_, oldY=ypos_;
+  bool success = move (_x, _y);
+
+  if (!success) return false;
+
+  totalMoves_ = moves - distance (xpos_, ypos_, oldX, oldY);
+
+  return true;
 }
 
 bool
@@ -448,6 +478,11 @@ LevelMap::unpush (int _x, int _y) {
 
   clearMap (xpos_-xd, ypos_-yd, OBJECT);
   setMap (_x-xd, _y-yd, OBJECT);
+
+  int d = distance (_x, _y, xpos_, ypos_);
+  totalMoves_ -= d;
+  totalPushes_ -= d;
+
   xpos_ = _x;
   ypos_ = _y;
 

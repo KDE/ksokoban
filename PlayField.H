@@ -48,6 +48,7 @@ public:
   void level (int _l) { levelMap_->level (_l); }
   int set () { return levelMap_->set (); }
   void levelChange ();
+  void emitAll ();
 
 public slots:
   void nextLevel ();
@@ -56,6 +57,12 @@ public slots:
   void redo ();
   void restartLevel ();
   void changeSet (int set);
+
+signals:
+  void levelChanged (const char *text);
+  void collectionChanged (const char *text);
+  void movesChanged (const char *text);
+  void pushesChanged (const char *text);
 
 protected:
   ImageData *imageData_;
@@ -97,6 +104,8 @@ private:
   void startMoving (Move *m);
   void startMoving (MoveSequence *ms);
   void stopMoving ();
+
+  void emitMoves (bool force);
 
 };
 

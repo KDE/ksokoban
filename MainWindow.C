@@ -22,6 +22,8 @@
 #include <kmenubar.h>
 #include <qpopmenu.h>
 #include <qkeycode.h>
+#include <kstatusbar.h>
+#include <qlabel.h>
 
 #include "MainWindow.H"
 #include "PlayField.H"
@@ -70,10 +72,10 @@ MainWindow::MainWindow() : KTopLevelWidget()
   help_ = app->getHelpMenu (true, "\
 ksokoban 0.1.2 - a Sokoban game for KDE
 
-copyright 1998 Anders Widell  <d95-awi@nada.kth.se>
+ksokoban is copyright (c) 1998 Anders Widell <d95-awi@nada.kth.se>
 See http://hem.passagen.se/awl/ksokoban/ for more info on ksokoban
 
-The levels:
+The levels are copyrighted by their authors:
 
 Original - the first 50 original levels from xsokoban
 Extra - some additional levels from xsokoban
@@ -91,6 +93,25 @@ Simple Sokoban - by Phil Shapiro <pshapiro@his.com>
   setMenu(menu_);
   menu_->show();
 
+  statusBar_ = new KStatusBar (this, "statusBar");
+  statusBar_->setInsertOrder (KStatusBar::RightToLeft);
+  statusBar_->setBorderWidth (3);
+  //collectionLabel_ = new QLabel ("None           ", statusBar_);
+  //statusBar_->insertWidget (collectionLabel_, 20, 2);
+  //levelLabel_ = new QLabel ("   3", statusBar_);
+  //statusBar_->insertWidget (levelLabel_, 20, 1);
+  statusBar_->insertItem ("Pushes: 00000", 4);
+  statusBar_->insertItem ("Moves: 00000", 3);
+  statusBar_->insertItem ("Level: 0000", 2);
+  statusBar_->insertItem ("#########################", 1);
+
+  connect (playField_, SIGNAL(levelChanged(const char *)), this, SLOT(changeLevel(const char *)));
+  connect (playField_, SIGNAL(collectionChanged(const char *)), this, SLOT(changeCollection(const char *)));
+  connect (playField_, SIGNAL(movesChanged(const char *)), this, SLOT(changeMoves(const char *)));
+  connect (playField_, SIGNAL(pushesChanged(const char *)), this, SLOT(changePushes(const char *)));
+
+  setStatusBar (statusBar_);
+  playField_->emitAll ();
 
   //resize (playField_->size ());
   //playField_->setSize ();
@@ -135,5 +156,25 @@ MainWindow::updateSetMenu (int id)
   set_->setItemChecked (checkedSet_, false);
   checkedSet_ = id;
   set_->setItemChecked (checkedSet_, true);
+}
+
+void
+MainWindow::changeCollection (const char *text) {
+  statusBar_->changeItem (text, 1);
+}
+
+void
+MainWindow::changeLevel (const char *text) {
+  statusBar_->changeItem (text, 2);
+}
+
+void
+MainWindow::changeMoves (const char *text) {
+  statusBar_->changeItem (text, 3);
+}
+
+void
+MainWindow::changePushes (const char *text) {
+  statusBar_->changeItem (text, 4);
 }
 
