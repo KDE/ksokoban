@@ -100,11 +100,11 @@ protected:
 private:
   int width_, height_, xOffs_, yOffs_;
 
-  x2pixel (int x) { return width_*x+xOffs_; }
-  y2pixel (int y) { return height_*y+yOffs_; }
+  int x2pixel (int x) { return width_*x+xOffs_; }
+  int y2pixel (int y) { return height_*y+yOffs_; }
 
-  pixel2x (int x) { return (x-xOffs_)/width_; }
-  pixel2y (int y) { return (y-yOffs_)/height_; }
+  int pixel2x (int x) { return (x-xOffs_)/width_; }
+  int pixel2y (int y) { return (y-yOffs_)/height_; }
 
   void startMoving (Move *m);
   void startMoving (MoveSequence *ms);
