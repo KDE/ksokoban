@@ -29,7 +29,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#ifdef HAVE_ZLIB_H
+#ifdef HAVE_LIBZ
 #include <zlib.h>
 #endif
 
@@ -74,7 +74,7 @@ LevelMap::realCollection2Config (int collection) {
 LevelMap::LevelMap () {
   KConfig *cfg=(KApplication::getKApplication ())->getConfig ();
 
-#ifdef HAVE_ZLIB_H
+#ifdef HAVE_LIBZ
   data = (char *) malloc (BUFSIZE);
   if (data == NULL) abort ();
 
