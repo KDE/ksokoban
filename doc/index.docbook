@@ -1,9 +1,9 @@
-<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook V3.1-Based Variant V1.0//EN" [
+<?xml version="1.0" ?><!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.1-Based Variant V1.0//EN" "dtd/kdex.dtd" [
   <!ENTITY kappname "&ksokoban;">
-  <!ENTITY % English "INCLUDE" -- change language only here -->
+  <!ENTITY % English "INCLUDE" > <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Documentation V1.0//EN">
-  %ents;
+  
+  
 ]>
 
 <book lang="&language;">
@@ -74,7 +74,7 @@ you use to solve the level.
 <para>
 To make the game more fun for small kids (below 10 years or so), some
 collections with easier levels are also included in &ksokoban;. These
-are marked <emphasis remap="bf">(easy)</emphasis> in the level collection menu.
+are marked <emphasis>(easy)</emphasis> in the level collection menu.
 Of course, these levels can be fun for adults too, for example if you don't
 want to expose yourself to too much mental strain.
 </para>
@@ -117,16 +117,16 @@ can of course also restart the level from the very beginning.
 
 <tbody>
 <row><entry>Cursor keys </entry><entry>Move one square in a direction </entry></row>
-<row><entry><emphasis remap="bf">CONTROL</emphasis> + Cursor keys </entry><entry>Move as far as possible in a direction without pushing any gems </entry></row>
-<row><entry><emphasis remap="bf">SHIFT</emphasis> + Cursor keys </entry><entry>Move as far as possible in a direction, pushing any gem in the way </entry></row>
+<row><entry><emphasis>CONTROL</emphasis> + Cursor keys </entry><entry>Move as far as possible in a direction without pushing any gems </entry></row>
+<row><entry><emphasis>SHIFT</emphasis> + Cursor keys </entry><entry>Move as far as possible in a direction, pushing any gem in the way </entry></row>
 <row><entry>Left mouse button </entry><entry>Move to any place in the maze that can be reached without pushing any gems </entry></row>
 <row><entry>Middle mouse button </entry><entry>Move up/down/left/right in a straight line, pushing any gem in the way </entry></row>
-<row><entry>Right mouse button or <emphasis remap="bf">U</emphasis> </entry><entry>Undo the last move </entry></row>
-<row><entry><emphasis remap="bf">R</emphasis> </entry><entry>Redo the last undone move </entry></row>
-<row><entry><emphasis remap="bf">N</emphasis> </entry><entry>Go to the next level in the current level collection </entry></row>
-<row><entry><emphasis remap="bf">P</emphasis> </entry><entry>Go to the previous level in the current level collection </entry></row>
-<row><entry><emphasis remap="bf">Escape</emphasis> </entry><entry>Restart the current level </entry></row>
-<row><entry><emphasis remap="bf">Q</emphasis> </entry><entry>Quit the game </entry></row>
+<row><entry>Right mouse button or <emphasis>U</emphasis> </entry><entry>Undo the last move </entry></row>
+<row><entry><emphasis>R</emphasis> </entry><entry>Redo the last undone move </entry></row>
+<row><entry><emphasis>N</emphasis> </entry><entry>Go to the next level in the current level collection </entry></row>
+<row><entry><emphasis>P</emphasis> </entry><entry>Go to the previous level in the current level collection </entry></row>
+<row><entry><emphasis>Escape</emphasis> </entry><entry>Restart the current level </entry></row>
+<row><entry><emphasis>Q</emphasis> </entry><entry>Quit the game </entry></row>
 </tbody>
 </tgroup>
 </informaltable>
@@ -163,7 +163,7 @@ between the levels.
 
 <tbody>
 <row><entry>#</entry><entry>Wall</entry></row>
-<row><entry><emphasis remap="bf">(space)</emphasis></entry><entry>Empty square</entry></row>
+<row><entry><emphasis>(space)</emphasis></entry><entry>Empty square</entry></row>
 <row><entry>.</entry><entry>Goal square</entry></row>
 <row><entry>$</entry><entry>Object on an empty square</entry></row>
 <row><entry>*</entry><entry>Object on a goal square</entry></row>
@@ -176,7 +176,7 @@ between the levels.
 
 <para>
 As an example, below is a text representation of the first level in the
-<emphasis remap="bf">Microban</emphasis> level collection:
+<emphasis>Microban</emphasis> level collection:
 </para>
 
 <para>
@@ -225,5 +225,6 @@ http://bentonrea.com/~sasquatch/sokoban/</ulink>
 &underGPL;
 </chapter>
 
-<![ %addindex; [ &documentation.index; ]]>
+&documentation.index; 
 </book>
+
