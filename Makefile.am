@@ -15,9 +15,6 @@ LDADD = -lkdeui -lkdecore -lqt -lXext -lX11 -lz $(LIBSOCKET)
 DISTCLEANFILES = $(BUILTSOURCES)
 EXTRA_DIST=TODO ksokoban.kdelnk NEWS
 
-%.moc.C: %.H
-	$(MOC) $< -o $@
-
 MainWindow.C: MainWindow.moc.C
 
 PlayField.C: PlayField.moc.C

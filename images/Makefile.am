@@ -1,6 +1,6 @@
 SUBDIRS=20 32 40
 
-all: bin2c data.c
+all-local: bin2c data.c
 
 bin2c: bin2c.c
 	@echo "#############################################################"

@@ -14,7 +14,7 @@ ANTIALIAS=+A
 
 POVRAY=povray +L/usr/local/lib/povray3/include +L.. $(ANTIALIAS)
 
-all: ../bin2c data.c
+all-local: ../bin2c data.c
 
 ../bin2c: ../bin2c.c
 	(cd .. && $(MAKE) bin2c)

@@ -9,10 +9,10 @@ htmldir = $(kde_htmldir)/en/ksokoban
 
 EXTRA_DIST = index.sgml index.nif mini-ksokoban.xpm
 
-all: index.html
-
-$(html_DATA): index.sgml
-	ksgml2html $< en
+#all: index.html
+#
+#$(html_DATA): index.sgml
+#	ksgml2html $< en
 
 install-data-local:
 	$(mkinstalldirs) $(kde_minidir)
