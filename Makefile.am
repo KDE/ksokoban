@@ -7,15 +7,13 @@ ksokoban_SOURCES = HiRes.C History.C LevelMap.C LowRes.C MainWindow.C MedRes.C M
 
 BUILT_SOURCES=MainWindow.moc.C PlayField.moc.C ModalLabel.moc.C
 
-INCLUDES = @all_includes@
+INCLUDES = $(all_includes)
 
-LDFLAGS = @all_libraries@ $(KDE_RPATH)
+LDFLAGS = $(all_libraries) $(KDE_RPATH)
 LDADD = $(LIB_KDEUI) $(LIBZ)
 
 DISTCLEANFILES = $(BUILT_SOURCES)
 EXTRA_DIST=AUTHORS NEWS README TODO
-
-AUTOMAKE_OPTIONS = foreign
 
 # moc dependencies
 
