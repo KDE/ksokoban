@@ -1,0 +1,20 @@
+-------------------------------------------------------------------------------
+version 0.1.2: ksokoban imported to CVS. Date 1998-08-30
+
+-------------------------------------------------------------------------------
+version 0.1.1: bugfix release. Date 1998-08-25
+
+* BUGFIX: ksokoban now ignores mouseclicks while a move is in progress.
+	  Previously such a click would cause a memory leak and a corrupted
+	  undo/redo history (or a failed assertion if debugging was turned on).
+	  Thanks to Natali Giuliano <natali@stone.trew.it> for reporting this.
+
+* ksokoban should now work with older zlib & Qt libraries.
+  I have tested it with zlib 1.0.3 and Qt 1.33
+
+* Detects the old gcc 2.7 and turns off optimisations if it is found.
+  It might work with the gcc 2.7 now. No promises, though.
+  I can only test it with gcc 2.8 and egcs/pgcc.
+
+-------------------------------------------------------------------------------
+version 0.1.0: initial release. Date 1998-08-22

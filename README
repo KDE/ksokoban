@@ -1,0 +1,54 @@
+ksokoban 0.1.2 - a Sokoban game for KDE
+
+copyright 1998 Anders Widell  <d95-awi@nada.kth.se>
+
+ksokoban is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License. See the file
+COPYING for details.
+
+See http://hem.passagen.se/awl/ksokoban/ for later versions of ksokoban.
+See the file AUTHORS for details about where the levels come from.
+
+------------------------------------------------------------------------
+
+REQUIREMENTS
+============
+
+* KDE         (tested with version 1.0    )
+* Qt          (tested with version 1.40   )
+* zlib        (tested with version 1.1.2  )
+* GNU make    (tested with version 3.76   )
+
+------------------------------------------------------------------------
+
+BUILDING
+========
+
+ksokoban uses standard automake/autoconf installation procedure. See
+the file INSTALL for details. You may need to specify
+--with-extra-includes and/or --with-extra-libs to configure if zlib is
+not installed in a standard location.
+
+------------------------------------------------------------------------
+
+PLAYING
+=======
+
+The objective of the game is to push all the red gems (these should
+actually have been crates, but gems looked nicer) to the goal squares,
+which are marked with green glassy things on the floor.
+
+Use the cursor keys to move about. If you move onto a gem and there is
+noting blocking it on the opposite side, then you will push the gem.
+
+Use the CONTROL key together with the cursor keys to move as far as
+possible in a direction without pushing any gems. With the SHIFT key
+you will move as far as possible in a direction, possibly pushing a
+gem if it is in the way.
+
+Use the left mouse button to move to any place you can reach without
+pushing any gems. The middle mouse moves in a straight line, possibly
+pushing a gem if it is in the way.
+
+The U key or the right mouse button undoes the last move.
+
