@@ -85,9 +85,11 @@ protected:
   int        animDelay_;
 
   void levelChange ();
-  void paintSquare (int x, int y, QPainter &paint, bool erased);
+  void paintSquare (int x, int y, QPainter &paint);
   void paintDelta ();
   void paintEvent (QPaintEvent *e);
+  void paintPainterClip(QPainter& paint, int x, int y, int w, int h);
+  void paintPainter(QPainter& paint, const QRect& rect);
   void resizeEvent (QResizeEvent *e);
   void keyPressEvent (QKeyEvent *);
   void focusInEvent (QFocusEvent *);
@@ -120,6 +122,8 @@ private:
   QPixmap collXpm_;
   QFont         statusFont_;
   QFontMetrics  statusMetrics_;
+  QBrush  background_;
+  QBrush  floor_;
 
 };
 

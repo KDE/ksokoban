@@ -72,6 +72,8 @@ MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
   int i;
   QPixmap pixmap;
 
+  setEraseColor(QColor(0,0,0));
+
   KConfig *cfg=(KApplication::kApplication())->config();
   cfg->setGroup("Geometry");
   int width = cfg->readNumEntry("width", 750);

@@ -54,7 +54,7 @@ PlayField::PlayField(QWidget *parent, const char *name, WFlags f)
 
   setFocusPolicy(QWidget::StrongFocus);
   setFocus();
-  setBackgroundColor(QColor(0x66,0x66,0x66));
+  setBackgroundMode(Qt::NoBackground);
 
   KConfig *cfg = (KApplication::kApplication())->config();
   cfg->setGroup("settings");
@@ -66,7 +66,8 @@ PlayField::PlayField(QWidget *parent, const char *name, WFlags f)
 
   history_ = new History;
 
-  setBackgroundPixmap(imageData_->background());
+  background_.setPixmap(imageData_->background());
+  floor_ = QColor(0x66,0x66,0x66);
 
   levelMap_  = new LevelMap;
   mapDelta_ = new MapDelta(levelMap_);
@@ -123,7 +124,7 @@ PlayField::levelChange() {
 }
 
 void
-PlayField::paintSquare(int x, int y, QPainter &paint, bool erased) {
+PlayField::paintSquare(int x, int y, QPainter &paint) {
   if (levelMap_->xpos() == x && levelMap_->ypos() == y) {
     if (levelMap_->goal(x, y))
       imageData_->saveman(paint, x2pixel(x), y2pixel(y));
@@ -136,9 +137,9 @@ PlayField::paintSquare(int x, int y, QPainter &paint, bool erased) {
       if (levelMap_->goal(x, y))
 	imageData_->goal(paint, x2pixel(x), y2pixel(y));
       else
-	imageData_->floor(paint, x2pixel(x), y2pixel(y));
+	paint.fillRect(x2pixel(x), y2pixel(y), width_, height_, floor_);
     } else {
-      if (!erased) erase(x2pixel(x), y2pixel(y), width_, height_);
+      paint.fillRect(x2pixel(x), y2pixel(y), width_, height_, background_);
     }
     return;
   }
@@ -160,9 +161,14 @@ PlayField::paintSquare(int x, int y, QPainter &paint, bool erased) {
 void
 PlayField::paintDelta() {
   QPainter paint(this);
+
+  // the following line is a workaround for a bug in Qt 2.0.1
+  // (and possibly earlier versions)
+  paint.setBrushOrigin(0, 0);
+
   for (int y=0; y<levelMap_->height(); y++) {
     for (int x=0; x<levelMap_->width(); x++) {
-      if (mapDelta_->hasChanged(x, y)) paintSquare(x, y, paint, false);
+      if (mapDelta_->hasChanged(x, y)) paintSquare(x, y, paint);
     }
   }
 }
@@ -172,53 +178,72 @@ PlayField::paintDelta() {
 void
 PlayField::paintEvent(QPaintEvent *e) {
   QPainter paint(this);
+
+  // the following line is a workaround for a bug in Qt 2.0.1
+  // (and possibly earlier versions)
+  paint.setBrushOrigin(0, 0);
+
   paint.setClipRegion(e->region());
   paint.setClipping(true);
 
-  int minx = pixel2x(e->rect().x());
-  int miny = pixel2y(e->rect().y());
-  int maxx = pixel2x(e->rect().x()+e->rect().width()-1);
-  int maxy = pixel2y(e->rect().y()+e->rect().height()-1);
+  paintPainter(paint, e->rect());
+}
+
+void
+PlayField::paintPainterClip(QPainter &paint, int x, int y, int w, int h) {
+  QRect rect(x, y, w, h);
+
+  paint.setClipRect(rect);
+  paint.setClipping(true);
+  paintPainter(paint, rect);
+}
+
+void
+PlayField::paintPainter(QPainter &paint, const QRect &rect) {
+  if (width_ <= 0 || height_ <= 0) return;
+  int minx = pixel2x(rect.x());
+  int miny = pixel2y(rect.y());
+  int maxx = pixel2x(rect.x()+rect.width()-1);
+  int maxy = pixel2y(rect.y()+rect.height()-1);
 
   if (minx < 0) minx = 0;
   if (miny < 0) miny = 0;
   if (maxx >= levelMap_->width()) maxx = levelMap_->width()-1;
   if (maxy >= levelMap_->height()) maxy = levelMap_->height()-1;
 
-  bool erased = e->erased();
-  if (!erased) {
+  {
     int x1, x2, y1, y2;
     y1 = y2pixel(miny);
-    if (y1 > e->rect().y()) erase(e->rect().x(), e->rect().y(), e->rect().width(), y1-e->rect().y());
+    if (y1 > rect.y()) paint.fillRect(rect.x(), rect.y(), rect.width(), y1-rect.y(), background_);
 
-    int bot=e->rect().y()+e->rect().height();
+    int bot=rect.y()+rect.height();
     if (bot > height()-collRect_.height()) bot = height()-collRect_.height();
 
     y2 = y2pixel(maxy+1);
-    if (y2 < bot) erase(e->rect().x(), y2, e->rect().width(), bot-y2);
-    
+    if (y2 < bot) paint.fillRect(rect.x(), y2, rect.width(), bot-y2, background_);
+
     x1 = x2pixel(minx);
-    if (x1 > e->rect().x()) erase(e->rect().x(), y1, x1-e->rect().x(), y2-y1);
+    if (x1 > rect.x()) paint.fillRect(rect.x(), y1, x1-rect.x(), y2-y1, background_);
 
     x2 = x2pixel(maxx+1);
-    if (x2 < e->rect().x()+e->rect().width()) erase(x2, y1, e->rect().x()+e->rect().width()-x2, y2-y1);
+    if (x2 < rect.x()+rect.width()) paint.fillRect(x2, y1, rect.x()+rect.width()-x2, y2-y1, background_);
 
     // paint.eraseRect
   }
 
   for (int y=miny; y<=maxy; y++) {
     for (int x=minx; x<=maxx; x++) {
-      paintSquare(x, y, paint, erased);
+      paintSquare(x, y, paint);
     }
   }
 
-  if (collRect_.intersects(e->rect())) paint.drawPixmap(collRect_.x(), collRect_.y(), collXpm_);
-  if (ltxtRect_.intersects(e->rect())) paint.drawPixmap(ltxtRect_.x(), ltxtRect_.y(), ltxtXpm_);
-  if (lnumRect_.intersects(e->rect())) paint.drawPixmap(lnumRect_.x(), lnumRect_.y(), lnumXpm_);
-  if (stxtRect_.intersects(e->rect())) paint.drawPixmap(stxtRect_.x(), stxtRect_.y(), stxtXpm_);
-  if (snumRect_.intersects(e->rect())) paint.drawPixmap(snumRect_.x(), snumRect_.y(), snumXpm_);
-  if (ptxtRect_.intersects(e->rect())) paint.drawPixmap(ptxtRect_.x(), ptxtRect_.y(), ptxtXpm_);
-  if (pnumRect_.intersects(e->rect())) paint.drawPixmap(pnumRect_.x(), pnumRect_.y(), pnumXpm_);
+  if (collRect_.intersects(rect)) paint.drawPixmap(collRect_.x(), collRect_.y(), collXpm_);
+  if (ltxtRect_.intersects(rect)) paint.drawPixmap(ltxtRect_.x(), ltxtRect_.y(), ltxtXpm_);
+  if (lnumRect_.intersects(rect)) paint.drawPixmap(lnumRect_.x(), lnumRect_.y(), lnumXpm_);
+  if (stxtRect_.intersects(rect)) paint.drawPixmap(stxtRect_.x(), stxtRect_.y(), stxtXpm_);
+  if (snumRect_.intersects(rect)) paint.drawPixmap(snumRect_.x(), snumRect_.y(), snumXpm_);
+  if (ptxtRect_.intersects(rect)) paint.drawPixmap(ptxtRect_.x(), ptxtRect_.y(), ptxtXpm_);
+  if (pnumRect_.intersects(rect)) paint.drawPixmap(pnumRect_.x(), pnumRect_.y(), pnumXpm_);
 }
 
 void
@@ -641,10 +666,11 @@ PlayField::changeCollection(LevelCollection *collection) {
 void
 PlayField::updateCollectionXpm() {
   if (collXpm_.isNull()) return;
-  collXpm_.fill(this, collRect_.x(), collRect_.y());
 
   QPainter paint(&collXpm_);
-  
+  paint.setBrushOrigin(- collRect_.x(), - collRect_.y());
+  paint.fillRect(0, 0, collRect_.width(), collRect_.height(), background_);
+
   paint.setFont(statusFont_);
   paint.setPen(QColor(0,255,0));
   paint.drawText(0, 0, collRect_.width(), collRect_.height(),
@@ -654,33 +680,42 @@ PlayField::updateCollectionXpm() {
 void
 PlayField::updateTextXpm() {
   if (ltxtXpm_.isNull()) return;
-  ltxtXpm_.fill(this, ltxtRect_.x(), ltxtRect_.y());
-  stxtXpm_.fill(this, stxtRect_.x(), stxtRect_.y());
-  ptxtXpm_.fill(this, ptxtRect_.x(), ptxtRect_.y());
 
-  QPainter p1(&ltxtXpm_);
-  p1.setFont(statusFont_);
-  p1.setPen(QColor(128,128,128));
-  p1.drawText(0, 0, ltxtRect_.width(), ltxtRect_.height(), AlignLeft, levelText_);
+  QPainter paint;
 
-  QPainter p2(&stxtXpm_);
-  p2.setFont(statusFont_);
-  p2.setPen(QColor(128,128,128));
-  p2.drawText(0, 0, stxtRect_.width(), stxtRect_.height(), AlignLeft, stepsText_);
+  paint.begin(&ltxtXpm_);
+  paint.setBrushOrigin(- ltxtRect_.x(), - ltxtRect_.y());
+  paint.fillRect(0, 0, ltxtRect_.width(), ltxtRect_.height(), background_);
+  paint.setFont(statusFont_);
+  paint.setPen(QColor(128,128,128));
+  paint.drawText(0, 0, ltxtRect_.width(), ltxtRect_.height(), AlignLeft, levelText_);
+  paint.end();
 
-  QPainter p3(&ptxtXpm_);
-  p3.setFont(statusFont_);
-  p3.setPen(QColor(128,128,128));
-  p3.drawText(0, 0, ptxtRect_.width(), ptxtRect_.height(), AlignLeft, pushesText_);
+  paint.begin(&stxtXpm_);
+  paint.setBrushOrigin(- stxtRect_.x(), - stxtRect_.y());
+  paint.fillRect(0, 0, stxtRect_.width(), stxtRect_.height(), background_);
+  paint.setFont(statusFont_);
+  paint.setPen(QColor(128,128,128));
+  paint.drawText(0, 0, stxtRect_.width(), stxtRect_.height(), AlignLeft, stepsText_);
+  paint.end();
+
+  paint.begin(&ptxtXpm_);
+  paint.setBrushOrigin(- ptxtRect_.x(), - ptxtRect_.y());
+  paint.fillRect(0, 0, ptxtRect_.width(), ptxtRect_.height(), background_);
+  paint.setFont(statusFont_);
+  paint.setPen(QColor(128,128,128));
+  paint.drawText(0, 0, ptxtRect_.width(), ptxtRect_.height(), AlignLeft, pushesText_);
+  paint.end();
 }
 
 void
 PlayField::updateLevelXpm() {
   if (lnumXpm_.isNull()) return;
-  lnumXpm_.fill(this, lnumRect_.x(), lnumRect_.y());
 
   QPainter paint(&lnumXpm_);
-  
+  paint.setBrushOrigin(- lnumRect_.x(), - lnumRect_.y());
+  paint.fillRect(0, 0, lnumRect_.width(), lnumRect_.height(), background_);
+ 
   QString str;
   paint.setFont(statusFont_);
   paint.setPen(QColor(255,0,0));
@@ -691,9 +726,10 @@ PlayField::updateLevelXpm() {
 void
 PlayField::updateStepsXpm() {
   if (snumXpm_.isNull()) return;
-  snumXpm_.fill(this, snumRect_.x(), snumRect_.y());
 
   QPainter paint(&snumXpm_);
+  paint.setBrushOrigin(- snumRect_.x(), - snumRect_.y());
+  paint.fillRect(0, 0, snumRect_.width(), snumRect_.height(), background_);
   
   QString str;
   paint.setFont(statusFont_);
@@ -705,10 +741,11 @@ PlayField::updateStepsXpm() {
 void
 PlayField::updatePushesXpm() {
   if (pnumXpm_.isNull()) return;
-  pnumXpm_.fill(this, pnumRect_.x(), pnumRect_.y());
 
   QPainter paint(&pnumXpm_);
-  
+  paint.setBrushOrigin(- pnumRect_.x(), - pnumRect_.y());
+  paint.fillRect(0, 0, pnumRect_.width(), pnumRect_.height(), background_);
+ 
   QString str;
   paint.setFont(statusFont_);
   paint.setPen(QColor(255,0,0));
