@@ -29,6 +29,8 @@ class KMenuBar;
 class PlayField;
 class QPopupMenu;
 class QFocusEvent;
+class QDragEnterEvent;
+class QDropEvent;
 class LevelCollection;
 
 class MainWindow : public KMainWindow {
@@ -48,8 +50,10 @@ public slots:
   void loadLevels();
 
 protected:
-  void focusInEvent(QFocusEvent *);
+  void focusInEvent(QFocusEvent*);
   void createCollectionMenu();
+  virtual void dragEnterEvent(QDragEnterEvent*);
+  virtual void dropEvent(QDropEvent*);
 
 private:
   InternalCollections internalCollections_;

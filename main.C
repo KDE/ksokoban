@@ -29,7 +29,7 @@
 
 static const char *description = I18N_NOOP("The japanese warehouse keeper game");
 
-static const char *version = "v0.4.0";
+static const char *version = "v0.4.1";
 
 
 static KCmdLineOptions options[] = 

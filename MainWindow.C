@@ -34,6 +34,7 @@
 #include <kio/netaccess.h>
 #include <kiconloader.h>
 #include <qiconset.h>
+#include <qdragobject.h>
 
 #include "MainWindow.H"
 #include "PlayField.H"
@@ -173,7 +174,7 @@ MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
     updateBookmark(i);
   }
 
-  QString aboutMsg = "ksokoban 0.4.0 - ";
+  QString aboutMsg = "ksokoban 0.4.1 - ";
   aboutMsg += i18n("\
 a Sokoban game for KDE\n\
 \n\
@@ -194,6 +195,8 @@ Microban - David W. Skinner <sasquatch@bentonrea.com>\n\
   menu_->insertItem(i18n("&Help"), help_);
 
   menu_->show();
+
+  setAcceptDrops(true);
 }
 
 MainWindow::~MainWindow()
@@ -354,3 +357,18 @@ MainWindow::openURL(KURL _url) {
 
 }
 
+void
+MainWindow::dragEnterEvent(QDragEnterEvent* event) {
+  event->accept(QUriDrag::canDecode(event));
+}
+
+void
+MainWindow::dropEvent(QDropEvent* event) {
+  QStrList  urls;
+
+  if (QUriDrag::decode(event, urls)) {
+//     kdDebug() << "MainWindow:Handling QUriDrag..." << endl;
+    char *s = urls.first();
+    if (s != 0) openURL(KURL(s));
+  }
+}
