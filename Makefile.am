@@ -47,3 +47,6 @@ images/40/data.c:
 # Rule for building moc-files
 %.moc.C: %.H
 	$(MOC) $< -o $@
+
+messages:
+	$(XGETTEXT) -C -ki18n -x $(includedir)/kde.pot *.C && mv messages.po ../po/ksokoban.pot
