@@ -189,7 +189,7 @@ Mas Sasquatch - David W. Skinner <sasquatch@bentonrea.com>\n\
 Sasquatch III - David W. Skinner <sasquatch@bentonrea.com>\n\
 Microban - David W. Skinner <sasquatch@bentonrea.com>\n\
 ");
-  help_ = helpMenu(aboutMsg.latin1(), false);
+  help_ = helpMenu(aboutMsg, false);
   menu_->insertSeparator();
   menu_->insertItem(i18n("&Help"), help_);
 

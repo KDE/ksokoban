@@ -21,12 +21,12 @@
 #include "History.H"
 #include "LevelMap.H"
 
+#include <qfile.h>
+
 #include <kapp.h>
 
-#if (KDE_VERSION_MAJOR > 1) || (KDE_VERSION_MINOR >= 9)
 #include <kglobal.h>
 #include <kstddirs.h>
-#endif
 
 #include <stdio.h>
 #include <sys/stat.h>
@@ -101,7 +101,7 @@ Bookmark::set(int _collection, int _level, int _moves, History *_h) {
   
   QString p;
   fileName(p);
-  FILE *file = fopen(p.latin1(), "w");
+  FILE *file = fopen(QFile::encodeName(p), "w");
   if (file == NULL) return;
   fprintf(file, "%d %d %d\n", collection_, level_, moves_);
   fprintf(file, "%s\n", data_.latin1());
