@@ -13,5 +13,5 @@ camera {
 
 object {
   Stone
-  texture { StoneTexture translate <2,0,0> }
+  texture { StoneTexture translate <3,0,0> }
 }
