@@ -122,8 +122,9 @@ can of course also restart the level from the very beginning.
 <row><entry><keycombo action="simul">&Ctrl;<keycap>Cursor</keycap></keycombo> keys </entry><entry>Move as far as possible in a direction without pushing any gems </entry></row>
 <row><entry><keycombo action="simul">&Shift;<keycap>Cursor</keycap></keycombo> keys </entry><entry>Move as far as possible in a direction, pushing any gem in the way </entry></row>
 <row><entry><mousebutton>Left</mousebutton> mouse button </entry><entry>Move to any place in the maze that can be reached without pushing any gems </entry></row>
-<row><entry><mousebutton>Middle</mousebutton> mouse button </entry><entry>Move up/down/left/right in a straight line, pushing any gem in the way </entry></row>
-<row><entry><mousebutton>Right</mousebutton> mouse button or <keycap>U</keycap> </entry><entry>Undo the last move </entry></row>
+<row><entry><mousebutton>Middle</mousebutton> mouse button or <keycap>U</keycap> </entry><entry>Undo the last move </entry></row>
+<row><entry><mousebutton>Right</mousebutton> mouse button </entry><entry>Move up/down/left/right in a straight line, pushing any gem in the way </entry></row>
+<row><entry><mousebutton>Mouse wheel</mousebutton></entry><entry>Traverse the history </entry></row>
 <row><entry><keycap>R</keycap> </entry><entry>Redo the last undone move </entry></row>
 <row><entry><keycap>N</keycap> </entry><entry>Go to the next level in the current level collection </entry></row>
 <row><entry><keycap>P</keycap> </entry><entry>Go to the previous level in the current level collection </entry></row>
