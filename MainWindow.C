@@ -83,24 +83,24 @@ MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
   menu_ = new KMenuBar(this, "menubar" );
 
   game_ = new QPopupMenu(0,"game menu");
-  pixmap = BarIcon("fileopen");
+  pixmap = SmallIcon("fileopen");
   game_->insertItem(QIconSet(pixmap), i18n("&Load levels..."), this, SLOT(loadLevels()));
-  pixmap = BarIcon("forward");
+  pixmap = SmallIcon("forward");
   game_->insertItem(QIconSet(pixmap), i18n("&Next level"), playField_, SLOT(nextLevel()), Key_N);
-  pixmap = BarIcon("back");
+  pixmap = SmallIcon("back");
   game_->insertItem(QIconSet(pixmap), i18n("&Previous level"), playField_, SLOT(previousLevel()), Key_P);
-  pixmap = BarIcon("reload");
+  pixmap = SmallIcon("reload");
   game_->insertItem(QIconSet(pixmap), i18n("Re&start level"), playField_, SLOT(restartLevel()), Key_Escape);
 
   createCollectionMenu();
   game_->insertItem(i18n("&Level collection"), collection_);
 
-  pixmap = BarIcon("undo");
+  pixmap = SmallIcon("undo");
   game_->insertItem(QIconSet(pixmap), i18n("&Undo"), playField_, SLOT(undo()), Key_U);
-  pixmap = BarIcon("redo");
+  pixmap = SmallIcon("redo");
   game_->insertItem(QIconSet(pixmap), i18n("&Redo"), playField_, SLOT(redo()), Key_R);
   game_->insertSeparator();
-  pixmap = BarIcon("exit");
+  pixmap = SmallIcon("exit");
   game_->insertItem(QIconSet(pixmap), i18n("&Quit"), KApplication::kApplication(), SLOT(closeAllWindows()), Key_Q);
   menu_->insertItem(i18n("&Game"), game_);
 
@@ -116,7 +116,7 @@ MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
   updateAnimMenu(checkedAnim_);
   menu_->insertItem(i18n("&Animation"), animation_);
 
-  pixmap = BarIcon("bookmark_add");
+  pixmap = SmallIcon("bookmark_add");
   bookmarkMenu_ = new QPopupMenu(0,"bookmarks menu");
   setBM_ = new QPopupMenu(0, "set bookmark menu");
   setBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 1);
@@ -142,7 +142,7 @@ MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
   connect(setBM_, SIGNAL(activated(int)), this, SLOT(setBookmark(int)));
   bookmarkMenu_->insertItem(i18n("&Set bookmark"), setBM_);
 
-  pixmap = BarIcon("bookmark");
+  pixmap = SmallIcon("bookmark");
   goToBM_ = new QPopupMenu(0, "go to bookmark menu");
   goToBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 1);
   goToBM_->setAccel(Key_1, 1);
