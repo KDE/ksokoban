@@ -133,9 +133,9 @@ void
 ImageData::image2pixmap(QImage img, QPixmap& xpm, bool diffuse) {
   xpm.convertFromImage(img,
 		       (diffuse ?
-			(QPixmap::DiffuseDither|QPixmap::DiffuseAlphaDither) :
-			(QPixmap::OrderedDither|QPixmap::OrderedAlphaDither))|
-		       QPixmap::ColorOnly|QPixmap::AvoidDither);
+			(Qt::DiffuseDither|Qt::DiffuseAlphaDither) :
+			(Qt::OrderedDither|Qt::OrderedAlphaDither))|
+		       Qt::ColorOnly|Qt::AvoidDither);
 }
 
 void

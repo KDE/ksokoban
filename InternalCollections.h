@@ -22,7 +22,7 @@
 
 #include <assert.h>
 #include <qstring.h>
-#include <qptrvector.h>
+#include <q3ptrvector.h>
 
 #include "LevelCollection.h"
 
@@ -46,7 +46,7 @@ private:
   static int realCollection2Config(int collection);
   static QString collectionName(int _level);
 
-  QPtrVector<LevelCollection> collections_;
+  Q3PtrVector<LevelCollection> collections_;
   char *data_;
 
 };

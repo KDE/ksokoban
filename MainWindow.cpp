@@ -22,19 +22,24 @@
 #include <kapplication.h>
 #include <kconfig.h>
 #include <kmenubar.h>
-#include <qpopupmenu.h>
-#include <qkeycode.h>
+#include <q3popupmenu.h>
+#include <qnamespace.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QDragEnterEvent>
+#include <QFocusEvent>
+#include <QDropEvent>
 #include <assert.h>
 #include <klocale.h>
 #include <qstring.h>
 #include <kfiledialog.h>
-#include <qframe.h>
+#include <q3frame.h>
 #include <kmessagebox.h>
 #include <kstandarddirs.h>
 #include <kio/netaccess.h>
 #include <kiconloader.h>
-#include <qiconset.h>
-#include <qdragobject.h>
+#include <qicon.h>
+#include <q3dragobject.h>
 #include <kpopupmenu.h>
 #include <kurldrag.h>
 #include <kstdaccel.h>
@@ -47,7 +52,7 @@
 
 void
 MainWindow::createCollectionMenu() {
-  collection_ = new QPopupMenu(0,"collection menu");
+  collection_ = new Q3PopupMenu(0,"collection menu");
   collection_->setCheckable(true);
   //connect(collection_, SIGNAL(activated(int)), playField_, SLOT(changeCollection(int)));
   connect(collection_, SIGNAL(activated(int)), this, SLOT(changeCollection(int)));
@@ -88,29 +93,29 @@ MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
 
   menu_ = new KMenuBar(this, "menubar" );
 
-  game_ = new QPopupMenu(0,"game menu");
+  game_ = new Q3PopupMenu(0,"game menu");
   pixmap = SmallIcon("fileopen");
-  game_->insertItem(QIconSet(pixmap), i18n("&Load Levels..."), this, SLOT(loadLevels()));
+  game_->insertItem(QIcon(pixmap), i18n("&Load Levels..."), this, SLOT(loadLevels()));
   pixmap = SmallIcon("forward");
-  game_->insertItem(QIconSet(pixmap), i18n("&Next Level"), playField_, SLOT(nextLevel()), Key_N);
+  game_->insertItem(QIcon(pixmap), i18n("&Next Level"), playField_, SLOT(nextLevel()), Key_N);
   pixmap = SmallIcon("back");
-  game_->insertItem(QIconSet(pixmap), i18n("&Previous Level"), playField_, SLOT(previousLevel()), Key_P);
+  game_->insertItem(QIcon(pixmap), i18n("&Previous Level"), playField_, SLOT(previousLevel()), Key_P);
   pixmap = SmallIcon("reload");
-  game_->insertItem(QIconSet(pixmap), i18n("Re&start Level"), playField_, SLOT(restartLevel()), Key_Escape);
+  game_->insertItem(QIcon(pixmap), i18n("Re&start Level"), playField_, SLOT(restartLevel()), Key_Escape);
 
   createCollectionMenu();
   game_->insertItem(i18n("&Level Collection"), collection_);
 
   pixmap = SmallIcon("undo");
-  game_->insertItem(QIconSet(pixmap), i18n("&Undo"), playField_, SLOT(undo()),QKeySequence( (KStdAccel::undo()).toString()));
+  game_->insertItem(QIcon(pixmap), i18n("&Undo"), playField_, SLOT(undo()),QKeySequence( (KStdAccel::undo()).toString()));
   pixmap = SmallIcon("redo");
-  game_->insertItem(QIconSet(pixmap), i18n("&Redo"), playField_, SLOT(redo()), QKeySequence( (KStdAccel::redo()).toString()));
+  game_->insertItem(QIcon(pixmap), i18n("&Redo"), playField_, SLOT(redo()), QKeySequence( (KStdAccel::redo()).toString()));
   game_->insertSeparator();
   pixmap = SmallIcon("exit");
-  game_->insertItem(QIconSet(pixmap), i18n("&Quit"), KApplication::kApplication(), SLOT(closeAllWindows()), QKeySequence( (KStdAccel::quit()).toString()));
+  game_->insertItem(QIcon(pixmap), i18n("&Quit"), KApplication::kApplication(), SLOT(closeAllWindows()), QKeySequence( (KStdAccel::quit()).toString()));
   menu_->insertItem(i18n("&Game"), game_);
 
-  animation_ = new QPopupMenu(0,"animation menu");
+  animation_ = new Q3PopupMenu(0,"animation menu");
   animation_->setCheckable(true);
   connect(animation_, SIGNAL(activated(int)), this, SLOT(updateAnimMenu(int)));
   connect(animation_, SIGNAL(activated(int)), playField_, SLOT(changeAnim(int)));
@@ -123,52 +128,52 @@ MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
   menu_->insertItem(i18n("&Animation"), animation_);
 
   pixmap = SmallIcon("bookmark_add");
-  bookmarkMenu_ = new QPopupMenu(0,"bookmarks menu");
-  setBM_ = new QPopupMenu(0, "set bookmark menu");
-  setBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 1);
+  bookmarkMenu_ = new Q3PopupMenu(0,"bookmarks menu");
+  setBM_ = new Q3PopupMenu(0, "set bookmark menu");
+  setBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 1);
   setBM_->setAccel(CTRL+Key_1, 1);
-  setBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 2);
+  setBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 2);
   setBM_->setAccel(CTRL+Key_2, 2);
-  setBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 3);
+  setBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 3);
   setBM_->setAccel(CTRL+Key_3, 3);
-  setBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 4);
+  setBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 4);
   setBM_->setAccel(CTRL+Key_4, 4);
-  setBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 5);
+  setBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 5);
   setBM_->setAccel(CTRL+Key_5, 5);
-  setBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 6);
+  setBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 6);
   setBM_->setAccel(CTRL+Key_6, 6);
-  setBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 7);
+  setBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 7);
   setBM_->setAccel(CTRL+Key_7, 7);
-  setBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 8);
+  setBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 8);
   setBM_->setAccel(CTRL+Key_8, 8);
-  setBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 9);
+  setBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 9);
   setBM_->setAccel(CTRL+Key_9, 9);
-  setBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 10);
+  setBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 10);
   setBM_->setAccel(CTRL+Key_0, 10);
   connect(setBM_, SIGNAL(activated(int)), this, SLOT(setBookmark(int)));
   bookmarkMenu_->insertItem(i18n("&Set Bookmark"), setBM_);
 
   pixmap = SmallIcon("bookmark");
-  goToBM_ = new QPopupMenu(0, "go to bookmark menu");
-  goToBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 1);
+  goToBM_ = new Q3PopupMenu(0, "go to bookmark menu");
+  goToBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 1);
   goToBM_->setAccel(Key_1, 1);
-  goToBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 2);
+  goToBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 2);
   goToBM_->setAccel(Key_2, 2);
-  goToBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 3);
+  goToBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 3);
   goToBM_->setAccel(Key_3, 3);
-  goToBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 4);
+  goToBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 4);
   goToBM_->setAccel(Key_4, 4);
-  goToBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 5);
+  goToBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 5);
   goToBM_->setAccel(Key_5, 5);
-  goToBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 6);
+  goToBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 6);
   goToBM_->setAccel(Key_6, 6);
-  goToBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 7);
+  goToBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 7);
   goToBM_->setAccel(Key_7, 7);
-  goToBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 8);
+  goToBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 8);
   goToBM_->setAccel(Key_8, 8);
-  goToBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 9);
+  goToBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 9);
   goToBM_->setAccel(Key_9, 9);
-  goToBM_->insertItem(QIconSet(pixmap), i18n("(unused)"), 10);
+  goToBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 10);
   goToBM_->setAccel(Key_0, 10);
   connect(goToBM_, SIGNAL(activated(int)), this, SLOT(goToBookmark(int)));
   bookmarkMenu_->insertItem(i18n("&Go to Bookmark"), goToBM_);
