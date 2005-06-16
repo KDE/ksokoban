@@ -38,6 +38,7 @@
 #include <qpainter.h>
 #include <kmessagebox.h>
 #include <kglobalsettings.h>
+#include <QAbstractEventDispatcher>
 
 #include "PlayField.h"
 #include "ModalLabel.h"
@@ -430,7 +431,7 @@ PlayField::highlight() {
 
 void
 PlayField::stopMoving() {
-  killTimers();
+  QAbstractEventDispatcher::instance()->unregisterTimers(this);
   delete moveSequence_;
   moveSequence_ = 0;
   moveInProgress_ = false;
@@ -465,7 +466,7 @@ void
 PlayField::timerEvent(QTimerEvent *) {
   assert(moveInProgress_);
   if (moveSequence_ == 0) {
-    killTimers();
+    QAbstractEventDispatcher::instance()->unregisterTimers(this);
     moveInProgress_ = false;
     return;
   }
