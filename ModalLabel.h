@@ -21,6 +21,9 @@
 #define MODALLABEL_H
 
 #include <qlabel.h>
+//Added by qt3to4:
+#include <QTimerEvent>
+#include <QEvent>
 
 class ModalLabel : public QLabel {
   Q_OBJECT
@@ -32,7 +35,7 @@ public:
   bool completed_;
 
 protected:
-  ModalLabel (const QString &text, QWidget *parent, const char *name=0, WFlags f=0);
+  ModalLabel (const QString &text, QWidget *parent, const char *name=0, Qt::WFlags f=0);
 
 };
 

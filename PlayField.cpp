@@ -22,13 +22,23 @@
 
 #include <qwidget.h>
 #include <qpixmap.h>
-#include <qkeycode.h>
+#include <qnamespace.h>
+//Added by qt3to4:
+#include <QWheelEvent>
+#include <QFocusEvent>
+#include <QPaintEvent>
+#include <QKeyEvent>
+#include <QEvent>
+#include <QTimerEvent>
+#include <QResizeEvent>
+#include <QMouseEvent>
 #include <kconfig.h>
 #include <kapplication.h>
 #include <klocale.h>
 #include <qpainter.h>
 #include <kmessagebox.h>
 #include <kglobalsettings.h>
+#include <QAbstractEventDispatcher>
 
 #include "PlayField.h"
 #include "ModalLabel.h"
@@ -45,8 +55,8 @@
 
 #include "PlayField.moc"
 
-PlayField::PlayField(QWidget *parent, const char *name, WFlags f)
-  : QWidget(parent, name, f|WResizeNoErase), imageData_(0), lastLevel_(-1),
+PlayField::PlayField(QWidget *parent, const char *name, Qt::WFlags f)
+  : QWidget(parent, name, f|Qt::WResizeNoErase), imageData_(0), lastLevel_(-1),
     moveSequence_(0), moveInProgress_(false), dragInProgress_(false),
     xOffs_(0), yOffs_(0),
     wheelDelta_(0),
@@ -421,7 +431,7 @@ PlayField::highlight() {
 
 void
 PlayField::stopMoving() {
-  killTimers();
+  QAbstractEventDispatcher::instance()->unregisterTimers(this);
   delete moveSequence_;
   moveSequence_ = 0;
   moveInProgress_ = false;
@@ -456,7 +466,7 @@ void
 PlayField::timerEvent(QTimerEvent *) {
   assert(moveInProgress_);
   if (moveSequence_ == 0) {
-    killTimers();
+    QAbstractEventDispatcher::instance()->unregisterTimers(this);
     moveInProgress_ = false;
     return;
   }
@@ -564,67 +574,67 @@ PlayField::keyPressEvent(QKeyEvent * e) {
   int y=levelMap_->ypos();
 
   switch (e->key()) {
-  case Key_Up:
+  case Qt::Key_Up:
     if (e->state() & ControlButton) step(x, 0);
     else if (e->state() & ShiftButton) push(x, 0);
     else push(x, y-1);
     break;
-  case Key_Down:
+  case Qt::Key_Down:
     if (e->state() & ControlButton) step(x, MAX_Y);
     else if (e->state() & ShiftButton) push(x, MAX_Y);
     else push(x, y+1);
     break;
-  case Key_Left:
+  case Qt::Key_Left:
     if (e->state() & ControlButton) step(0, y);
     else if (e->state() & ShiftButton) push(0, y);
     else push(x-1, y);
     break;
-  case Key_Right:
+  case Qt::Key_Right:
     if (e->state() & ControlButton) step(MAX_X, y);
     else if (e->state() & ShiftButton) push(MAX_X, y);
     else push(x+1, y);
     break;
 
-  case Key_Q:
+  case Qt::Key_Q:
     KApplication::kApplication()->quit();
     break;
 
-  case Key_Backspace:
-  case Key_Delete:
+  case Qt::Key_Backspace:
+  case Qt::Key_Delete:
     if (e->state() & ControlButton) redo();
     else undo();
     break;
 
 #if 0
-  case Key_X:
+  case Qt::Key_X:
     levelMap_->random();
     levelChange();
     repaint(false);
     break;
 
-  case Key_R:
+  case Qt::Key_R:
     level(levelMap_->level());
     return;
     break;
-  case Key_N:
+  case Qt::Key_N:
     nextLevel();
     return;
     break;
-  case Key_P:
+  case Qt::Key_P:
     previousLevel();
     return;
     break;
-  case Key_U:
+  case Qt::Key_U:
     undo();
     return;
     break;
-  case Key_I:
+  case Qt::Key_I:
     history_->redo(levelMap_);
     repaint(false);
     return;
     break;
 
-  case Key_S:
+  case Qt::Key_S:
     {
       QString buf;
       history_->save(buf);
@@ -633,7 +643,7 @@ PlayField::keyPressEvent(QKeyEvent * e) {
     return;
     break;
 
-  case Key_L:
+  case Qt::Key_L:
     stopMoving();
     history_->clear();
     level(levelMap_->level());
@@ -650,7 +660,7 @@ PlayField::keyPressEvent(QKeyEvent * e) {
 #endif
 
 
-  case Key_Print:
+  case Qt::Key_Print:
     HtmlPrinter::printHtml(levelMap_);
     break;
 
@@ -732,7 +742,7 @@ PlayField::mousePressEvent(QMouseEvent *e) {
 
   Move *m;
   switch (e->button()) {
-  case LeftButton:
+  case Qt::LeftButton:
     m = pathFinder_.search(levelMap_, x, y);
     if (m != 0) {
       history_->add(m);
@@ -740,11 +750,11 @@ PlayField::mousePressEvent(QMouseEvent *e) {
       startMoving(m);
     }
     break;
-  case MidButton:
+  case Qt::MidButton:
     undo();
     return;
     break;
-  case RightButton:
+  case Qt::RightButton:
     push(x, y);
     break;
 

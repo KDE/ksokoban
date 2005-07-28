@@ -24,10 +24,15 @@
 #include <kurl.h>
 #include "Bookmark.h"
 #include "InternalCollections.h"
+//Added by qt3to4:
+#include <QDragEnterEvent>
+#include <QFocusEvent>
+#include <Q3PopupMenu>
+#include <QDropEvent>
 
 class KMenuBar;
 class PlayField;
-class QPopupMenu;
+class Q3PopupMenu;
 class QFocusEvent;
 class QDragEnterEvent;
 class QDropEvent;
@@ -63,13 +68,13 @@ private:
   Bookmark        *bookmarks_[10];
   int              currentCollection_;
 
-  QPopupMenu      *game_;
-  QPopupMenu      *collection_;
-  QPopupMenu      *animation_;
-  QPopupMenu      *bookmarkMenu_;
-  QPopupMenu      *setBM_;
-  QPopupMenu      *goToBM_;
-  QPopupMenu      *help_;
+  Q3PopupMenu      *game_;
+  Q3PopupMenu      *collection_;
+  Q3PopupMenu      *animation_;
+  Q3PopupMenu      *bookmarkMenu_;
+  Q3PopupMenu      *setBM_;
+  Q3PopupMenu      *goToBM_;
+  Q3PopupMenu      *help_;
   int              checkedCollection_;
   int              checkedAnim_;
 

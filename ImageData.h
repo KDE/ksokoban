@@ -22,7 +22,7 @@
 
 #include <qimage.h>
 #include <qpixmap.h>
-#include <qcstring.h>
+#include <q3cstring.h>
 
 #include <krandomsequence.h>
 

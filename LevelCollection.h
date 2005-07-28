@@ -21,8 +21,8 @@
 #define LEVELCOLLECTION_H
 
 #include <qstring.h>
-#include <qcstring.h>
-#include <qptrvector.h>
+#include <q3cstring.h>
+#include <q3ptrvector.h>
 
 class Map;
 
@@ -51,7 +51,7 @@ private:
   void addData(const char* _data, unsigned _len);
   void addSeparator();
 
-  QPtrVector<const char> index_;
+  Q3PtrVector<const char> index_;
   QByteArray    data_;
   //int    dataLen_;
 

@@ -21,15 +21,19 @@
 
 #include <qlabel.h>
 #include <qfont.h>
+//Added by qt3to4:
+#include <QTimerEvent>
+#include <Q3Frame>
+#include <QEvent>
 #include <kapplication.h>
 #include <kglobalsettings.h>
-#include <qwidgetlist.h>
+#include <qwidget.h>
 #include <qstring.h>
 
 #include "ModalLabel.moc"
 
 ModalLabel::ModalLabel(const QString &text, QWidget *parent,
-		       const char *name, WFlags f)
+		       const char *name, Qt::WFlags f)
   : QLabel(text, parent, name, f) {
   QFont font(KGlobalSettings::generalFont().family(), 24, QFont::Bold);
   QFontMetrics fontMet(font);
@@ -58,7 +62,7 @@ ModalLabel::ModalLabel(const QString &text, QWidget *parent,
   if (height < 75) height = 75;
 
   setAlignment (AlignCenter);
-  setFrameStyle (QFrame::Panel | QFrame::Raised);
+  setFrameStyle (Q3Frame::Panel | Q3Frame::Raised);
   setLineWidth (4);
   setFont (font);
   move (parent->width ()/2 - width/2, parent->height ()/2 - height/2);
@@ -91,7 +95,7 @@ ModalLabel::eventFilter (QObject *, QEvent *e) {
     case QEvent::MouseMove:
     case QEvent::KeyPress:
     case QEvent::KeyRelease:
-    case QEvent::Accel:
+    case QEvent::Shortcut:
       //case QEvent::DragEnter:
     case QEvent::DragMove:
     case QEvent::DragLeave:

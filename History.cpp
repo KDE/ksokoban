@@ -17,7 +17,7 @@
  *  Foundation, Inc., 51 Franklin Steet, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 
 #include "History.h"
 #include "Move.h"

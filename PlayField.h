@@ -27,6 +27,15 @@
 #include <qpixmap.h>
 #include <qimage.h>
 #include <qbrush.h>
+//Added by qt3to4:
+#include <QWheelEvent>
+#include <QFocusEvent>
+#include <QPaintEvent>
+#include <QKeyEvent>
+#include <QEvent>
+#include <QTimerEvent>
+#include <QResizeEvent>
+#include <QMouseEvent>
 
 #include "ImageData.h"
 #include "LevelMap.h"
@@ -44,7 +53,7 @@ class QCursor;
 class PlayField : public QWidget {
   Q_OBJECT
 public:
-  PlayField(QWidget *parent, const char *name=0, WFlags f=0);
+  PlayField(QWidget *parent, const char *name=0, Qt::WFlags f=0);
   ~PlayField ();
 
   bool canMoveNow();
