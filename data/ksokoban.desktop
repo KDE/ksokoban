@@ -41,7 +41,6 @@ GenericName[sr]=Игра Sokoban-а
 GenericName[sr@Latn]=Igra Sokoban-a
 GenericName[sv]=Sokoban-spel
 GenericName[ta]=சொகோபான் விளையாட்டு
-GenericName[uk]=Гра Sokoban
 DocPath=ksokoban/index.html
 Exec=ksokoban %i %m -caption "%c"
 Icon=ksokoban
