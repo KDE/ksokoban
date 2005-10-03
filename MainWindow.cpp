@@ -40,7 +40,7 @@
 #include <kiconloader.h>
 #include <qicon.h>
 #include <q3dragobject.h>
-#include <kpopupmenu.h>
+#include <kmenu.h>
 #include <kurldrag.h>
 #include <kstdaccel.h>
 
