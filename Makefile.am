@@ -5,7 +5,7 @@ SUBDIRS=data images levels
 bin_PROGRAMS = ksokoban
 ksokoban_SOURCES = Bookmark.cpp History.cpp HtmlPrinter.cpp ImageData.cpp InternalCollections.cpp LevelCollection.cpp LevelMap.cpp MainWindow.cpp Map.cpp MapDelta.cpp ModalLabel.cpp Move.cpp MoveSequence.cpp PathFinder.cpp PlayField.cpp StaticImage.cpp main.cpp
 ksokoban_LDFLAGS = $(all_libraries) $(KDE_RPATH)
-ksokoban_LDADD = $(LIB_KIO)
+ksokoban_LDADD = $(LIB_KIO) $(LIB_KDE3SUPPORT)
 
 noinst_HEADERS  = Bookmark.h History.h HtmlPrinter.h ImageData.h InternalCollections.h LevelCollection.h LevelMap.h MainWindow.h Map.h MapDelta.h ModalLabel.h Move.h MoveSequence.h PathFinder.h PlayField.h Queue.h StaticImage.h
 

@@ -61,7 +61,7 @@ ModalLabel::ModalLabel(const QString &text, QWidget *parent,
   if (width < 300) width = 300;
   if (height < 75) height = 75;
 
-  setAlignment (AlignCenter);
+  setAlignment ( Qt::AlignCenter);
   setFrameStyle (Q3Frame::Panel | Q3Frame::Raised);
   setLineWidth (4);
   setFont (font);
@@ -69,13 +69,8 @@ ModalLabel::ModalLabel(const QString &text, QWidget *parent,
   resize (width, height);
   show ();
 
-  QWidgetList  *list = QApplication::allWidgets();
-  QWidgetListIt it( *list );
-  while (it.current()) {
-    it.current()->installEventFilter (this);
-    ++it;
-  }
-  delete list;
+  foreach (QWidget *widget, QApplication::allWidgets())
+       widget->installEventFilter (this);
 
   completed_ = false;
   startTimer (1000);

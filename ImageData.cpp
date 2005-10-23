@@ -163,10 +163,10 @@ ImageData::brighten(QImage& img) {
 
 void
 ImageData::wall(QPainter &p, int x, int y, int index, bool left, bool right) {
-  if (left) p.drawPixmap(x, y, upperLarge(index-1), halfSize_);
+  if (left) p.drawPixmap(x, y, upperLarge(index-1), halfSize_, 0, -1, -1);
   else p.drawPixmap(x, y, leftSmall(index));
 
-  if (right) p.drawPixmap(x+halfSize_, y, upperLarge(index), 0, 0, halfSize_);
+  if (right) p.drawPixmap(x+halfSize_, y, upperLarge(index), 0, 0, halfSize_, -1);
   else p.drawPixmap(x+halfSize_, y, rightSmall(index));
 
   p.drawPixmap(x, y+halfSize_, lowerLarge(index));

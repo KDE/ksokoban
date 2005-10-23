@@ -64,7 +64,7 @@ PlayField::PlayField(QWidget *parent, const char *name, Qt::WFlags f)
     pushesText_(i18n("Pushes:")),
     statusFont_(KGlobalSettings::generalFont().family(), 18, QFont::Bold), statusMetrics_(statusFont_) {
 
-  setFocusPolicy(QWidget::StrongFocus);
+  setFocusPolicy(Qt::StrongFocus);
   setFocus();
   setBackgroundMode(Qt::NoBackground);
   setMouseTracking(true);
@@ -103,12 +103,16 @@ PlayField::~PlayField() {
 }
 
 void
-PlayField::changeCursor(const QCursor* c) {
-  if (cursor_ == c) return;
+PlayField::changeCursor(const QCursor& c) {
+  if (cursor_.handle() == c.handle()) return;
 
   cursor_ = c;
-  if (c == 0) unsetCursor();
-  else setCursor(*c);
+  QWidget::setCursor(c);
+}
+
+void PlayField::unsetCursor() {
+  cursor_ = Qt::BlankCursor; // just so
+  QWidget::unsetCursor();
 }
 
 int
@@ -358,8 +362,8 @@ PlayField::mouseMoveEvent(QMouseEvent *e) {
   paint.setBrushOrigin(0, 0);
 
   dragXpm_.convertFromImage(dragImage_,
-			    OrderedDither|OrderedAlphaDither|
-			    ColorOnly|AvoidDither);
+			    Qt::OrderedDither|Qt::OrderedAlphaDither|
+			    Qt::ColorOnly|Qt::AvoidDither);
   paint.drawPixmap(dragX_, dragY_, dragXpm_);
 
   {
@@ -407,7 +411,7 @@ PlayField::highlight() {
       highlightX_ = -1;
       paintSquare(x, y, paint);
     } else
-      changeCursor(&sizeAllCursor);
+      changeCursor(Qt::sizeAllCursor);
 
     if (levelMap_->goal(x, y))
       imageData_->brightTreasure(paint, x2pixel(x), y2pixel(y));
@@ -416,8 +420,8 @@ PlayField::highlight() {
     highlightX_ = x;
     highlightY_ = y;
   } else {
-    if (pathFinder_.canWalkTo(x, y)) changeCursor(&crossCursor);
-    else changeCursor(0);
+    if (pathFinder_.canWalkTo(x, y)) changeCursor(Qt::crossCursor);
+    else unsetCursor();
     if (highlightX_ >= 0) {
       QPainter paint(this);
 
@@ -575,23 +579,23 @@ PlayField::keyPressEvent(QKeyEvent * e) {
 
   switch (e->key()) {
   case Qt::Key_Up:
-    if (e->state() & ControlButton) step(x, 0);
-    else if (e->state() & ShiftButton) push(x, 0);
+    if (e->state() & Qt::ControlButton) step(x, 0);
+    else if (e->state() & Qt::ShiftButton) push(x, 0);
     else push(x, y-1);
     break;
   case Qt::Key_Down:
-    if (e->state() & ControlButton) step(x, MAX_Y);
-    else if (e->state() & ShiftButton) push(x, MAX_Y);
+    if (e->state() & Qt::ControlButton) step(x, MAX_Y);
+    else if (e->state() & Qt::ShiftButton) push(x, MAX_Y);
     else push(x, y+1);
     break;
   case Qt::Key_Left:
-    if (e->state() & ControlButton) step(0, y);
-    else if (e->state() & ShiftButton) push(0, y);
+    if (e->state() & Qt::ControlButton) step(0, y);
+    else if (e->state() & Qt::ShiftButton) push(0, y);
     else push(x-1, y);
     break;
   case Qt::Key_Right:
-    if (e->state() & ControlButton) step(MAX_X, y);
-    else if (e->state() & ShiftButton) push(MAX_X, y);
+    if (e->state() & Qt::ControlButton) step(MAX_X, y);
+    else if (e->state() & Qt::ShiftButton) push(MAX_X, y);
     else push(x+1, y);
     break;
 
@@ -601,7 +605,7 @@ PlayField::keyPressEvent(QKeyEvent * e) {
 
   case Qt::Key_Backspace:
   case Qt::Key_Delete:
-    if (e->state() & ControlButton) redo();
+    if (e->state() & Qt::ControlButton) redo();
     else undo();
     break;
 
@@ -675,7 +679,7 @@ void
 PlayField::stopDrag() {
   if (!dragInProgress_) return;
 
-  changeCursor(0);
+  unsetCursor();
 
   QPainter paint(this);
 
@@ -710,7 +714,7 @@ PlayField::mousePressEvent(QMouseEvent *e) {
   if (!canMoveNow()) return;
 
   if (dragInProgress_) {
-    if (e->button() == LeftButton) dragObject(e->x(), e->y());
+    if (e->button() == Qt::LeftButton) dragObject(e->x(), e->y());
     else stopDrag();
     return;
   }
@@ -721,9 +725,9 @@ PlayField::mousePressEvent(QMouseEvent *e) {
   if (x < 0 || y < 0 || x >= levelMap_->width() || y >= levelMap_->height())
     return;
 
-  if (e->button() == LeftButton && pathFinder_.canDrag(x, y)) {
+  if (e->button() == Qt::LeftButton && pathFinder_.canDrag(x, y)) {
     QPainter paint(this);
-    changeCursor(&sizeAllCursor);
+    changeCursor(Qt::sizeAllCursor);
 
     if (levelMap_->goal(x, y))
       imageData_->brightTreasure(paint, x2pixel(x), y2pixel(y));
@@ -925,7 +929,7 @@ PlayField::updateCollectionXpm() {
   paint.setFont(statusFont_);
   paint.setPen(QColor(0,255,0));
   paint.drawText(0, 0, collRect_.width(), collRect_.height(),
-		 AlignLeft, collectionName());
+		 Qt::AlignLeft, collectionName());
 }
 
 void
@@ -939,7 +943,7 @@ PlayField::updateTextXpm() {
   paint.fillRect(0, 0, ltxtRect_.width(), ltxtRect_.height(), background_);
   paint.setFont(statusFont_);
   paint.setPen(QColor(128,128,128));
-  paint.drawText(0, 0, ltxtRect_.width(), ltxtRect_.height(), AlignLeft, levelText_);
+  paint.drawText(0, 0, ltxtRect_.width(), ltxtRect_.height(), Qt::AlignLeft, levelText_);
   paint.end();
 
   paint.begin(&stxtXpm_);
@@ -947,7 +951,7 @@ PlayField::updateTextXpm() {
   paint.fillRect(0, 0, stxtRect_.width(), stxtRect_.height(), background_);
   paint.setFont(statusFont_);
   paint.setPen(QColor(128,128,128));
-  paint.drawText(0, 0, stxtRect_.width(), stxtRect_.height(), AlignLeft, stepsText_);
+  paint.drawText(0, 0, stxtRect_.width(), stxtRect_.height(), Qt::AlignLeft, stepsText_);
   paint.end();
 
   paint.begin(&ptxtXpm_);
@@ -955,7 +959,7 @@ PlayField::updateTextXpm() {
   paint.fillRect(0, 0, ptxtRect_.width(), ptxtRect_.height(), background_);
   paint.setFont(statusFont_);
   paint.setPen(QColor(128,128,128));
-  paint.drawText(0, 0, ptxtRect_.width(), ptxtRect_.height(), AlignLeft, pushesText_);
+  paint.drawText(0, 0, ptxtRect_.width(), ptxtRect_.height(), Qt::AlignLeft, pushesText_);
   paint.end();
 }
 
@@ -971,7 +975,7 @@ PlayField::updateLevelXpm() {
   paint.setFont(statusFont_);
   paint.setPen(QColor(255,0,0));
   paint.drawText(0, 0, lnumRect_.width(), lnumRect_.height(),
-		 AlignLeft, str.sprintf("%05d", level()+1));
+		 Qt::AlignLeft, str.sprintf("%05d", level()+1));
 }
 
 void
@@ -986,7 +990,7 @@ PlayField::updateStepsXpm() {
   paint.setFont(statusFont_);
   paint.setPen(QColor(255,0,0));
   paint.drawText(0, 0, snumRect_.width(), snumRect_.height(),
-		 AlignLeft, str.sprintf("%05d", totalMoves()));
+		 Qt::AlignLeft, str.sprintf("%05d", totalMoves()));
 }
 
 void
@@ -1001,7 +1005,7 @@ PlayField::updatePushesXpm() {
   paint.setFont(statusFont_);
   paint.setPen(QColor(255,0,0));
   paint.drawText(0, 0, pnumRect_.width(), pnumRect_.height(),
-		 AlignLeft, str.sprintf("%05d", totalPushes()));
+		 Qt::AlignLeft, str.sprintf("%05d", totalPushes()));
 }
 
 

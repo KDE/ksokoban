@@ -27,6 +27,7 @@
 #include <qpixmap.h>
 #include <qimage.h>
 #include <qbrush.h>
+#include <QCursor>
 //Added by qt3to4:
 #include <QWheelEvent>
 #include <QFocusEvent>
@@ -48,7 +49,6 @@ class History;
 class Bookmark;
 class LevelCollection;
 class QPainter;
-class QCursor;
 
 class PlayField : public QWidget {
   Q_OBJECT
@@ -96,7 +96,7 @@ protected:
   bool       dragInProgress_;
   PathFinder pathFinder_;
   int        animDelay_;
-  const QCursor* cursor_;
+  QCursor    cursor_;
 
   void levelChange ();
   void paintSquare (int x, int y, QPainter &paint);
@@ -119,7 +119,8 @@ protected:
   void stopDrag();
   void dragObject(int xpixel, int ypixel);
   void highlight();
-  void changeCursor(const QCursor* c);
+  void changeCursor(const QCursor& c);
+  void unsetCursor();
   void eatKeyPressEvents();
 
 private:

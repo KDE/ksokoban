@@ -30,6 +30,7 @@
 #include <Q3PopupMenu>
 #include <QDropEvent>
 
+class KMenu;
 class KMenuBar;
 class PlayField;
 class Q3PopupMenu;
@@ -74,7 +75,7 @@ private:
   Q3PopupMenu      *bookmarkMenu_;
   Q3PopupMenu      *setBM_;
   Q3PopupMenu      *goToBM_;
-  Q3PopupMenu      *help_;
+  KMenu            *help_;
   int              checkedCollection_;
   int              checkedAnim_;
 

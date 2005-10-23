@@ -62,7 +62,7 @@ LevelCollection::indexTextCollection() {
 	break;
 
       case '\n':
-	addLevel(&data_[levelstart]);
+	addLevel(data_.constData() + levelstart);
 	levelend = levelstart;
 	state = DURING_NONE;
 	break;
@@ -222,7 +222,7 @@ LevelCollection::LevelCollection(const QString &_path, const QString &_name,
   int len;
 
   QFile file(path_);
-  if (file.open(IO_Raw | QIODevice::ReadOnly)) {
+  if (file.open(QIODevice::Unbuffered | QIODevice::ReadOnly)) {
     while ((len = file.readBlock(buf, 1024)) > 0) {
       addData((const char *) buf, len);
     }
