@@ -411,7 +411,7 @@ PlayField::highlight() {
       highlightX_ = -1;
       paintSquare(x, y, paint);
     } else
-      changeCursor(Qt::sizeAllCursor);
+      changeCursor(Qt::SizeAllCursor);
 
     if (levelMap_->goal(x, y))
       imageData_->brightTreasure(paint, x2pixel(x), y2pixel(y));
@@ -420,7 +420,7 @@ PlayField::highlight() {
     highlightX_ = x;
     highlightY_ = y;
   } else {
-    if (pathFinder_.canWalkTo(x, y)) changeCursor(Qt::crossCursor);
+    if (pathFinder_.canWalkTo(x, y)) changeCursor(Qt::CrossCursor);
     else unsetCursor();
     if (highlightX_ >= 0) {
       QPainter paint(this);
@@ -727,7 +727,7 @@ PlayField::mousePressEvent(QMouseEvent *e) {
 
   if (e->button() == Qt::LeftButton && pathFinder_.canDrag(x, y)) {
     QPainter paint(this);
-    changeCursor(Qt::sizeAllCursor);
+    changeCursor(Qt::SizeAllCursor);
 
     if (levelMap_->goal(x, y))
       imageData_->brightTreasure(paint, x2pixel(x), y2pixel(y));
