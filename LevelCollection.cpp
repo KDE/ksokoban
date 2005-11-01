@@ -9,7 +9,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <kconfig.h>
-#include <kapplication.h>
+#include <kglobal.h>
 
 static inline unsigned long
 forward(unsigned long a, unsigned long b, unsigned long c, unsigned long d)
@@ -34,7 +34,7 @@ LevelCollection::indexTextCollection() {
   } state = BEFORE_NONE;
 
   int levelstart=0, levelend=0;
-  for (unsigned pos=0; pos<(data_.size()-1); pos++) {
+  for (int pos=0; pos<(data_.size()-1); pos++) {
     switch (state) {
     case BEFORE_NONE:
       switch (data_[pos]) {
@@ -143,15 +143,14 @@ LevelCollection::indexTextCollection() {
 void
 LevelCollection::loadPrefs() {
   if (id_ >= 0) {
-    KConfig *cfg=(KApplication::kApplication())->config();
-    cfg->setGroup("settings");
+    KConfigGroup cg(KGlobal::config(), "settings");
 
     QString key;
     key.sprintf("level%d", id_);
-    level_ = cfg->readNumEntry(key, 0);
+    level_ = cg.readNumEntry(key, 0);
 
     key.sprintf("status%d", id_);
-    unsigned long x = cfg->readUnsignedLongNumEntry(key, 0);
+    unsigned long x = cg.readUnsignedLongNumEntry(key, 0);
 
     x = backward(x, 0xc1136a15ul, 0x12ul, 0x80ff0b94ul);
     x = backward(x, 0xd38fd2ddul, 0x01ul, 0xd4d657b4ul);
@@ -163,7 +162,7 @@ LevelCollection::loadPrefs() {
     x = backward(x, 0x3b0e11f3ul, 0x13ul, 0x608aef3ful);
 
     completedLevels_ = x>>16 & 0x3ff;
-    if (!cfg->hasKey(key)) completedLevels_ = 0;
+    if (!cg.hasKey(key)) completedLevels_ = 0;
     if (((x>>26) & 0x3ful) != (unsigned long) id_) completedLevels_ = 0;
     if ((x & 0xfffful) != (unsigned long) getuid()) completedLevels_ = 0;
     if (completedLevels_ > noOfLevels_) completedLevels_ = 0;
@@ -240,12 +239,11 @@ LevelCollection::LevelCollection(const QString &_path, const QString &_name,
 
 LevelCollection::~LevelCollection() {
   if (id_ >= 0) {
-    KConfig *cfg=(KApplication::kApplication())->config();
-    cfg->setGroup ("settings");
+    KConfigGroup cg(KGlobal::config(), "settings");	
 
     QString key;
     key.sprintf("level%d", id_);
-    cfg->writeEntry(key, level_, true, false, false);
+    cg.writeEntry(key, level_, true, false, false);
   }
 }
 
@@ -271,10 +269,8 @@ LevelCollection::levelCompleted() {
     QString key;
     key.sprintf("status%d", id_);
 
-    KConfig *cfg=(KApplication::kApplication())->config();
-    cfg->setGroup("settings");
-    cfg->writeEntry(key, x, true, false, false);
-    cfg->sync();
+    KConfigGroup cg(KGlobal::config(), "settings");
+    cg.writeEntry(key, x, true, false, false);
   }
 }
 
