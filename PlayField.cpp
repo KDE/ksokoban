@@ -579,23 +579,23 @@ PlayField::keyPressEvent(QKeyEvent * e) {
 
   switch (e->key()) {
   case Qt::Key_Up:
-    if (e->state() & Qt::ControlButton) step(x, 0);
-    else if (e->state() & Qt::ShiftButton) push(x, 0);
+    if (e->state() & Qt::ControlModifier) step(x, 0);
+    else if (e->state() & Qt::ShiftModifier) push(x, 0);
     else push(x, y-1);
     break;
   case Qt::Key_Down:
-    if (e->state() & Qt::ControlButton) step(x, MAX_Y);
-    else if (e->state() & Qt::ShiftButton) push(x, MAX_Y);
+    if (e->state() & Qt::ControlModifier) step(x, MAX_Y);
+    else if (e->state() & Qt::ShiftModifier) push(x, MAX_Y);
     else push(x, y+1);
     break;
   case Qt::Key_Left:
-    if (e->state() & Qt::ControlButton) step(0, y);
-    else if (e->state() & Qt::ShiftButton) push(0, y);
+    if (e->state() & Qt::ControlModifier) step(0, y);
+    else if (e->state() & Qt::ShiftModifier) push(0, y);
     else push(x-1, y);
     break;
   case Qt::Key_Right:
-    if (e->state() & Qt::ControlButton) step(MAX_X, y);
-    else if (e->state() & Qt::ShiftButton) push(MAX_X, y);
+    if (e->state() & Qt::ControlModifier) step(MAX_X, y);
+    else if (e->state() & Qt::ShiftModifier) push(MAX_X, y);
     else push(x+1, y);
     break;
 
@@ -605,7 +605,7 @@ PlayField::keyPressEvent(QKeyEvent * e) {
 
   case Qt::Key_Backspace:
   case Qt::Key_Delete:
-    if (e->state() & Qt::ControlButton) redo();
+    if (e->state() & Qt::ControlModifier) redo();
     else undo();
     break;
 

@@ -74,7 +74,7 @@ Bookmark::Bookmark(int _num) :
   }
   fclose(file);        
 
-  data_ = data_.stripWhiteSpace();
+  data_ = data_.trimmed();
 }
 
 
