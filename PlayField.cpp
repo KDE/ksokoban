@@ -71,7 +71,7 @@ PlayField::PlayField(QWidget *parent, const char *name, Qt::WFlags f)
 
   highlightX_ = highlightY_ = 0;
 
-  KConfig *cfg = (KApplication::kApplication())->config();
+  KConfig *cfg = (KApplication::kApplication())->sessionConfig();
   cfg->setGroup("settings");
 
   imageData_ = new StaticImage;
@@ -92,7 +92,7 @@ PlayField::PlayField(QWidget *parent, const char *name, Qt::WFlags f)
 }
 
 PlayField::~PlayField() {
-  KConfig *cfg = (KApplication::kApplication())->config();
+  KConfig *cfg = (KApplication::kApplication())->sessionConfig();
   cfg->setGroup("settings");
   cfg->writeEntry("animDelay", animDelay_, true, false, false);
 

@@ -62,7 +62,7 @@ MainWindow::createCollectionMenu() {
   }
   checkedCollection_ = 0;
 
-  KConfig *cfg=(KApplication::kApplication())->config();
+  KConfig *cfg=(KApplication::kApplication())->sessionConfig();
   cfg->setGroup("settings");
   int id = cfg->readNumEntry("collection", 10);
 
@@ -81,7 +81,7 @@ MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
 
   setEraseColor(QColor(0,0,0));
 
-  KConfig *cfg=(KApplication::kApplication())->config();
+  KConfig *cfg=(KApplication::kApplication())->sessionConfig();
   cfg->setGroup("Geometry");
   int width = cfg->readNumEntry("width", 750);
   int height = cfg->readNumEntry("height", 562);
@@ -196,7 +196,7 @@ MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
 
 MainWindow::~MainWindow()
 {
-  KConfig *cfg=(KApplication::kApplication())->config();
+  KConfig *cfg=(KApplication::kApplication())->sessionConfig();
 
   cfg->setGroup("Geometry");
   cfg->writeEntry("width", width());
@@ -304,7 +304,7 @@ MainWindow::changeCollection(int id)
 
 void
 MainWindow::loadLevels() {
-  KConfig *cfg=(KApplication::kApplication())->config();
+  KConfig *cfg=(KApplication::kApplication())->sessionConfig();
   cfg->setGroup("settings");
   QString lastFile = cfg->readPathEntry("lastLevelFile");
 
@@ -316,7 +316,7 @@ MainWindow::loadLevels() {
 
 void
 MainWindow::openURL(KURL _url) {
-  KConfig *cfg=(KApplication::kApplication())->config();
+  KConfig *cfg=(KApplication::kApplication())->sessionConfig();
 
 //   int namepos = _url.path().findRev('/') + 1; // NOTE: findRev can return -1
 //   QString levelName = _url.path().mid(namepos);
