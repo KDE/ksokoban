@@ -71,12 +71,11 @@ PlayField::PlayField(QWidget *parent, const char *name, Qt::WFlags f)
 
   highlightX_ = highlightY_ = 0;
 
-  KConfig *cfg = KGlobal::config();
-  cfg->setGroup("settings");
+  KConfigGroup settings(KGlobal::config(), "settings");
 
   imageData_ = new StaticImage;
 
-  animDelay_ = cfg->readNumEntry("animDelay", 2);
+  animDelay_ = settings.readNumEntry("animDelay", 2);
   if (animDelay_ < 0 || animDelay_ > 3) animDelay_ = 2;
 
   history_ = new History;
@@ -92,9 +91,8 @@ PlayField::PlayField(QWidget *parent, const char *name, Qt::WFlags f)
 }
 
 PlayField::~PlayField() {
-  KConfig *cfg = KGlobal::config();
-  cfg->setGroup("settings");
-  cfg->writeEntry("animDelay", animDelay_, true, false, false);
+  KConfigGroup settings(KGlobal::config(), "settings");
+  settings.writeEntry("animDelay", animDelay_, true, false, false);
 
   delete mapDelta_;
   delete history_;

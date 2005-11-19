@@ -62,9 +62,8 @@ MainWindow::createCollectionMenu() {
   }
   checkedCollection_ = 0;
 
-  KConfig *cfg=KGlobal::config();
-  cfg->setGroup("settings");
-  int id = cfg->readNumEntry("collection", 10);
+  KConfigGroup settings(KGlobal::config(), "settings");
+  int id = settings.readNumEntry("collection", 10);
 
   currentCollection_ = 0;
   for (int i=0; i<internalCollections_.collections(); i++) {
@@ -81,10 +80,9 @@ MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
 
   setEraseColor(QColor(0,0,0));
 
-  KConfig *cfg=KGlobal::config();
-  cfg->setGroup("Geometry");
-  int width = cfg->readNumEntry("width", 750);
-  int height = cfg->readNumEntry("height", 562);
+  KConfigGroup cfg(KGlobal::config(), "Geometry");
+  int width = cfg.readNumEntry("width", 750);
+  int height = cfg.readNumEntry("height", 562);
   resize(width, height);
 
   playField_ = new PlayField(this, "playfield");
@@ -196,14 +194,13 @@ MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
 
 MainWindow::~MainWindow()
 {
-  KConfig *cfg=KGlobal::config();
+  KConfigGroup cfg(KGlobal::config(), "Geometry");
 
-  cfg->setGroup("Geometry");
-  cfg->writeEntry("width", width());
-  cfg->writeEntry("height", height());
+  cfg.writeEntry("width", width());
+  cfg.writeEntry("height", height());
 
-  cfg->setGroup("settings");
-  cfg->writeEntry("collection", internalCollections_[checkedCollection_]->id());
+  KConfigGroup settings(KGlobal::config(), "settings");
+  settings.writeEntry("collection", internalCollections_[checkedCollection_]->id());
 
   for (int i=1; i<=10; i++) {
     delete bookmarks_[i-1];
