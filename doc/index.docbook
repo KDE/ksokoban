@@ -15,21 +15,20 @@
 <firstname>Anders</firstname>
 <surname>Widell</surname>
 <affiliation>
-<address><email>awl@passagen.se</email></address>
+<address>&Anders.Widell.mail;</address>
 </affiliation>
 </author>
-</authorgroup>
-
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
+</authorgroup>
 
 <copyright>
 <year>2000</year>
-<holder>Anders Widell</holder>
+<holder>&Anders.Widell;</holder>
 </copyright>
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2003-09-17</date>
+<date>2005-12-14</date>
 <releaseinfo>0.4.2</releaseinfo>
 
 <abstract>
@@ -94,7 +93,7 @@ Use the cursor keys or the mouse to move about. If you move onto a gem
 using the cursor keys or the <mousebutton>middle</mousebutton> mouse
 button, and there is nothing blocking it on the opposite side, then you
 will push the gem.  It isn't possible to pull the gems, so if you push
-a gem into a corner it will be stuck there. You can't step over the
+a gem into a corner it will be stuck there. You cannot step over the
 gems either, so you can also get trapped in a part of the maze by
 blocking the way with gems.  Also note that it isn't possible to push
 more than one gem at a time.
@@ -198,7 +197,7 @@ As an example, below is a text representation of the first level in the
 <para>This is a complete guide to the menus of &ksokoban;.</para>
 
 <sect1 id="game-menu">
-<title>The <guimenu>Game</guimenu> menu</title>
+<title>The <guimenu>Game</guimenu> Menu</title>
 
 <variablelist>
 <varlistentry>
@@ -297,32 +296,54 @@ above.</action></para>
 <sect1 id="animation-menu">
 <title>The <guimenu>Animation</guimenu> Menu</title>
 
+<para>
+The <guimenu>Animation</guimenu> Menu allows you to specify the speed that movement replay animations are shown at.
+</para>
+
 <variablelist>
 <varlistentry>
 <term><menuchoice>
 <guimenu>Animation</guimenu>
-<guimenuitem>Slow</guimenuitem>
-</menuchoice>
-<menuchoice>
-<guimenu>Animation</guimenu>
-<guimenuitem>Medium</guimenuitem>
-</menuchoice>
-<menuchoice>
-<guimenu>Animation</guimenu>
-<guimenuitem>Fast</guimenuitem>
-</menuchoice>
-<menuchoice>
-<guimenu>Animation</guimenu>
-<guimenuitem>Off</guimenuitem>
+<guisubmenu>Slow</guisubmenu>
 </menuchoice></term>
 <listitem>
-<para><action>Change the speed of the animations.</action>  The
-default setting is <guimenuitem>Medium</guimenuitem>.</para>
+<para><action>Show replay animations at a slow pace</action>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Animation</guimenu>
+<guisubmenu>Medium</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>This is the default setting, and <action>shows replay animations at a slightly faster pace</action>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Animation</guimenu>
+<guisubmenu>Fast</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para><action>Show replay animations at the fastest pace</action>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Animation</guimenu>
+<guisubmenu>Off</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para><action>Do not animate replay animations</action>.</para>
 </listitem>
 </varlistentry>
 </variablelist>
 
 </sect1>
+
 
 <sect1 id="bookmarks">
 <title>The <guimenu>Bookmarks</guimenu> Menu</title>
@@ -370,7 +391,7 @@ bookmark</action>.</para>
 <guimenuitem>&kappname; Handbook...</guimenuitem>
 </menuchoice>
 </term>
-<listitem><para><action>Invokes the KDE Help system</action> starting at the
+<listitem><para><action>Invokes the &kde; Help system</action> starting at the
 &kappname; help pages. (this document).</para></listitem>
 </varlistentry>
 
@@ -395,9 +416,9 @@ information.</action></para></listitem>
 <varlistentry>
 <term><menuchoice>
 <guimenu>Help</guimenu>
-<guimenuitem>About KDE</guimenuitem>
+<guimenuitem>About &kde;</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>This displays the KDE version and other basic
+<listitem><para><action>This displays the &kde; version and other basic
 information.</action></para></listitem>
 </varlistentry>
 </variablelist>
@@ -409,8 +430,8 @@ information.</action></para></listitem>
 <title>Credits and License</title>
 
 <para>
-&ksokoban; is copyright &copy; 1998-2000 by Anders Widell
-<email>awl@passagen.se</email>.  For
+&ksokoban; is copyright &copy; 1998-2000 by &Anders.Widell;
+&Anders.Widell.mail;.  For
 the latest info on &ksokoban;, see the &ksokoban; home page at
 <ulink url="http://hem.passagen.se/awl/ksokoban/">
 http://hem.passagen.se/awl/ksokoban/</ulink>
@@ -419,7 +440,7 @@ http://hem.passagen.se/awl/ksokoban/</ulink>
 <para>
 The background graphics <quote>starfield</quote> was taken from the
 <ulink url="http://www.gimp.org/">Gimp</ulink>. All other graphics
-were created by Anders Widell <email>awl@passagen.se</email> using
+were created by &Anders.Widell; &Anders.Widell.mail; using
 the <ulink url="http://www.povray.org/">Povray</ulink> ray tracer.
 </para>
 
