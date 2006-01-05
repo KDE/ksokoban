@@ -270,7 +270,7 @@ LevelCollection::levelCompleted() {
     key.sprintf("status%d", id_);
 
     KConfigGroup cg(KGlobal::config(), "settings");
-    cg.writeEntry(key, x, true, false, false);
+    cg.writeEntry(key, int(x), true, false, false);
   }
 }
 
