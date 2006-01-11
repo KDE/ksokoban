@@ -243,7 +243,7 @@ LevelCollection::~LevelCollection() {
 
     QString key;
     key.sprintf("level%d", id_);
-    cg.writeEntry(key, level_, true, false, false);
+    cg.writeEntry(key, level_, KConfigBase::Normal);
   }
 }
 
@@ -270,7 +270,7 @@ LevelCollection::levelCompleted() {
     key.sprintf("status%d", id_);
 
     KConfigGroup cg(KGlobal::config(), "settings");
-    cg.writeEntry(key, int(x), true, false, false);
+    cg.writeEntry(key, int(x), KConfigBase::Normal);
   }
 }
 

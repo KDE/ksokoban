@@ -92,7 +92,7 @@ PlayField::PlayField(QWidget *parent, const char *name, Qt::WFlags f)
 
 PlayField::~PlayField() {
   KConfigGroup settings(KGlobal::config(), "settings");
-  settings.writeEntry("animDelay", animDelay_, true, false, false);
+  settings.writeEntry("animDelay", animDelay_, KConfigBase::Normal);
 
   delete mapDelta_;
   delete history_;
