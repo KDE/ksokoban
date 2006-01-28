@@ -305,14 +305,14 @@ MainWindow::loadLevels() {
   cfg->setGroup("settings");
   QString lastFile = cfg->readPathEntry("lastLevelFile");
 
-  KURL result = KFileDialog::getOpenURL(lastFile, "*", this, i18n("Load Levels From File"));
+  KUrl result = KFileDialog::getOpenURL(lastFile, "*", this, i18n("Load Levels From File"));
   if (result.isEmpty()) return;
 
   openURL(result);
 }
 
 void
-MainWindow::openURL(KURL _url) {
+MainWindow::openURL(KUrl _url) {
   KConfig *cfg=KGlobal::config();
 
 //   int namepos = _url.path().findRev('/') + 1; // NOTE: findRev can return -1
@@ -357,11 +357,11 @@ MainWindow::dragEnterEvent(QDragEnterEvent* event) {
 
 void
 MainWindow::dropEvent(QDropEvent* event) {
-  KURL::List urls;
+  KUrl::List urls;
   if (K3URLDrag::decode(event, urls)) {
 //     kdDebug() << "MainWindow:Handling QUriDrag..." << endl;
      if (urls.count() > 0) {
-         const KURL &url = urls.first();
+         const KUrl &url = urls.first();
          openURL(url);
      }
   }

@@ -64,7 +64,7 @@ main (int argc, char **argv)
 
 //   KUniqueApplication app;
   KApplication app;
-//   KImageIO::registerFormats();
+//   
 
   MainWindow *widget = new MainWindow();
   app.setMainWidget(widget);
