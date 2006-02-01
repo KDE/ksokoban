@@ -75,7 +75,7 @@ PlayField::PlayField(QWidget *parent, const char *name, Qt::WFlags f)
 
   imageData_ = new StaticImage;
 
-  animDelay_ = settings.readNumEntry("animDelay", 2);
+  animDelay_ = settings.readEntry("animDelay", 2);
   if (animDelay_ < 0 || animDelay_ > 3) animDelay_ = 2;
 
   history_ = new History;

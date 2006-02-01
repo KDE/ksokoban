@@ -63,7 +63,7 @@ MainWindow::createCollectionMenu() {
   checkedCollection_ = 0;
 
   KConfigGroup settings(KGlobal::config(), "settings");
-  int id = settings.readNumEntry("collection", 10);
+  int id = settings.readEntry("collection", 10);
 
   currentCollection_ = 0;
   for (int i=0; i<internalCollections_.collections(); i++) {
@@ -81,8 +81,8 @@ MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
   setEraseColor(QColor(0,0,0));
 
   KConfigGroup cfg(KGlobal::config(), "Geometry");
-  int width = cfg.readNumEntry("width", 750);
-  int height = cfg.readNumEntry("height", 562);
+  int width = cfg.readEntry("width", 750);
+  int height = cfg.readEntry("height", 562);
   resize(width, height);
 
   playField_ = new PlayField(this, "playfield");

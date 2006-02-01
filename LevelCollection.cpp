@@ -147,7 +147,7 @@ LevelCollection::loadPrefs() {
 
     QString key;
     key.sprintf("level%d", id_);
-    level_ = cg.readNumEntry(key, 0);
+    level_ = cg.readEntry(key, 0);
 
     key.sprintf("status%d", id_);
     unsigned long x = cg.readUnsignedLongNumEntry(key, 0);
