@@ -97,7 +97,7 @@ ModalLabel::eventFilter (QObject *, QEvent *e) {
     case QEvent::Drop:
       //case QEvent::DragResponse:
 
-      //kdDebug << "Ate event" << endl;
+      //kDebug << "Ate event" << endl;
     return true;
     break;
   default:

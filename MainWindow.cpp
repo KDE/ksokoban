@@ -359,7 +359,7 @@ void
 MainWindow::dropEvent(QDropEvent* event) {
   KUrl::List urls;
   if (K3URLDrag::decode(event, urls)) {
-//     kdDebug() << "MainWindow:Handling QUriDrag..." << endl;
+//     kDebug() << "MainWindow:Handling QUriDrag..." << endl;
      if (urls.count() > 0) {
          const KUrl &url = urls.first();
          openURL(url);
