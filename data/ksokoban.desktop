@@ -3,6 +3,7 @@ Encoding=UTF-8
 Name=KSokoban
 Name[x-test]=xxKSokobanxx
 GenericName=Sokoban Game
+GenericName[fr]=Jeu Sokoban
 GenericName[x-test]=xxSokoban Gamexx
 DocPath=ksokoban/index.html
 Exec=ksokoban -caption "%c"
