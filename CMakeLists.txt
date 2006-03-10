@@ -8,8 +8,11 @@ include_directories( ${KDE4_INCLUDE_DIR} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_D
 
 
 ########### next target ###############
+add_custom_command(OUTPUT ${CMAKE_SOURCE_DIR}/ksokoban/levels/data.c COMMAND ${CMAKE_SOURCE_DIR}/ksokoban/images/bin2c  ARGS "" ${CMAKE_SOURCE_DIR}/ksokoban/levels/level.data DEPENDS ${CMAKE_SOURCE_DIR}/ksokoban/images/bin2c ${CMAKE_SOURCE_DIR}/ksokoban/levels/level.data )
 
-set(ksokoban_SRCS 
+
+
+set(ksokoban_SRCS ${CMAKE_SOURCE_DIR}/ksokoban/levels/data.c
    Bookmark.cpp 
    History.cpp 
    HtmlPrinter.cpp 
@@ -32,7 +35,7 @@ kde4_automoc(${ksokoban_SRCS})
 
 kde4_add_executable(ksokoban ${ksokoban_SRCS})
 
-target_link_libraries(ksokoban  ${QT_AND_KDECORE_LIBS} kio kde3support )
+target_link_libraries(ksokoban  ${LIB_KDE3SUPPORT} )
 
 install_targets(/bin ksokoban )
 
