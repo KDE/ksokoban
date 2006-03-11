@@ -8,7 +8,7 @@ include_directories( ${KDE4_INCLUDE_DIR} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_D
 
 
 ########### next target ###############
-add_custom_command(OUTPUT ${CMAKE_SOURCE_DIR}/ksokoban/levels/data.c COMMAND ${CMAKE_SOURCE_DIR}/ksokoban/images/bin2c  ARGS "" ${CMAKE_SOURCE_DIR}/ksokoban/levels/level.data DEPENDS ${CMAKE_SOURCE_DIR}/ksokoban/images/bin2c ${CMAKE_SOURCE_DIR}/ksokoban/levels/level.data )
+add_custom_command(OUTPUT ${CMAKE_SOURCE_DIR}/ksokoban/levels/data.c COMMAND ${CMAKE_SOURCE_DIR}/ksokoban/images/bin2c  ARGS \"\" ${CMAKE_SOURCE_DIR}/ksokoban/levels/level.data DEPENDS ${CMAKE_SOURCE_DIR}/ksokoban/images/bin2c ${CMAKE_SOURCE_DIR}/ksokoban/levels/level.data )
 
 
 
