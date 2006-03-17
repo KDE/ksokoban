@@ -1,4 +1,5 @@
 kde4_header()
+project(ksokoban)
 
 add_subdirectory( data ) 
 add_subdirectory( images ) 
