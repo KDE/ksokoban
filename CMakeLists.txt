@@ -9,11 +9,30 @@ include_directories( ${KDE4_INCLUDE_DIR} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_D
 
 
 ########### next target ###############
-add_custom_command(OUTPUT ${CMAKE_SOURCE_DIR}/ksokoban/levels/data.c COMMAND ${CMAKE_SOURCE_DIR}/ksokoban/images/bin2c  ARGS \"\" ${CMAKE_SOURCE_DIR}/ksokoban/levels/level.data DEPENDS ${CMAKE_SOURCE_DIR}/ksokoban/images/bin2c ${CMAKE_SOURCE_DIR}/ksokoban/levels/level.data )
+add_custom_command(OUTPUT ${CMAKE_SOURCE_DIR}/ksokoban/levels/data.c COMMAND ../images/bin2c  ARGS \"\" ${CMAKE_SOURCE_DIR}/ksokoban/levels/level.data DEPENDS ${CMAKE_SOURCE_DIR}/ksokoban/images/bin2c ${CMAKE_SOURCE_DIR}/ksokoban/levels/level.data WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/ksokoban/levels/ )
+
+set(images_FILES
+	${CMAKE_SOURCE_DIR}/ksokoban/images/goal.png
+	${CMAKE_SOURCE_DIR}/ksokoban/images/halfstone_1.png
+	${CMAKE_SOURCE_DIR}/ksokoban/images/halfstone_2.png
+	${CMAKE_SOURCE_DIR}/ksokoban/images/halfstone_3.png
+	${CMAKE_SOURCE_DIR}/ksokoban/images/halfstone_4.png
+	${CMAKE_SOURCE_DIR}/ksokoban/images/man.png
+	${CMAKE_SOURCE_DIR}/ksokoban/images/object.png
+	${CMAKE_SOURCE_DIR}/ksokoban/images/saveman.png
+	${CMAKE_SOURCE_DIR}/ksokoban/images/stone_1.png
+	${CMAKE_SOURCE_DIR}/ksokoban/images/stone_2.png
+	${CMAKE_SOURCE_DIR}/ksokoban/images/stone_3.png
+	${CMAKE_SOURCE_DIR}/ksokoban/images/stone_4.png
+	${CMAKE_SOURCE_DIR}/ksokoban/images/stone_5.png
+	${CMAKE_SOURCE_DIR}/ksokoban/images/stone_6.png
+	${CMAKE_SOURCE_DIR}/ksokoban/images/treasure.png
+	${CMAKE_SOURCE_DIR}/ksokoban/images/starfield.png)
+	
+add_custom_command(OUTPUT ${CMAKE_SOURCE_DIR}/ksokoban/images/data.c COMMAND ../images/bin2c  ARGS \"\" ${images_FILES} DEPENDS ${CMAKE_SOURCE_DIR}/ksokoban/images/bin2c WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/ksokoban/images/ )
 
 
-
-set(ksokoban_SRCS ${CMAKE_SOURCE_DIR}/ksokoban/levels/data.c
+set(ksokoban_SRCS ${CMAKE_SOURCE_DIR}/ksokoban/levels/data.c ${CMAKE_SOURCE_DIR}/ksokoban/images/data.c
    Bookmark.cpp 
    History.cpp 
    HtmlPrinter.cpp 
