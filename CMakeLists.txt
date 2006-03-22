@@ -55,7 +55,7 @@ kde4_automoc(${ksokoban_SRCS})
 
 kde4_add_executable(ksokoban ${ksokoban_SRCS})
 
-target_link_libraries(ksokoban  ${LIB_KDE3SUPPORT} )
+target_link_libraries(ksokoban  ${KDE4_KDE3SUPPORT_LIBRARIES} )
 
 install_targets(/bin ksokoban )
 
