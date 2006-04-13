@@ -22,7 +22,7 @@
 #include <assert.h>
 #include "StaticImage.h"
 
-#include "images/data.c"
+#include "data.c"
 
 const unsigned char *const
 imageData[NO_OF_IMAGES] = {

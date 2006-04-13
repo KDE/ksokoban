@@ -9,7 +9,6 @@ include_directories( ${KDE4_INCLUDE_DIR} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_D
 
 
 ########### next target ###############
-add_custom_command(OUTPUT ${CMAKE_SOURCE_DIR}/ksokoban/levels/data.c COMMAND ../images/bin2c  ARGS \"\" ${CMAKE_SOURCE_DIR}/ksokoban/levels/level.data DEPENDS ${CMAKE_SOURCE_DIR}/ksokoban/images/bin2c ${CMAKE_SOURCE_DIR}/ksokoban/levels/level.data WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/ksokoban/levels/ )
 
 set(images_FILES
 	${CMAKE_SOURCE_DIR}/ksokoban/images/goal.png
@@ -28,11 +27,11 @@ set(images_FILES
 	${CMAKE_SOURCE_DIR}/ksokoban/images/stone_6.png
 	${CMAKE_SOURCE_DIR}/ksokoban/images/treasure.png
 	${CMAKE_SOURCE_DIR}/ksokoban/images/starfield.png)
+
+add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/data.c COMMAND images/bin2c  ARGS \"\" ${CMAKE_SOURCE_DIR}/ksokoban/levels/level.data ${images_FILES} DEPENDS ${CMAKE_SOURCE_DIR}/ksokoban/images/bin2c ${CMAKE_SOURCE_DIR}/ksokoban/levels/level.data ${images_FILES} WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} )
 	
-add_custom_command(OUTPUT ${CMAKE_SOURCE_DIR}/ksokoban/images/data.c COMMAND ../images/bin2c  ARGS \"\" ${images_FILES} DEPENDS ${CMAKE_SOURCE_DIR}/ksokoban/images/bin2c WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/ksokoban/images/ )
-
-
-set(ksokoban_SRCS ${CMAKE_SOURCE_DIR}/ksokoban/levels/data.c ${CMAKE_SOURCE_DIR}/ksokoban/images/data.c
+set(ksokoban_SRCS
+   ${CMAKE_CURRENT_BINARY_DIR}/data.c
    Bookmark.cpp 
    History.cpp 
    HtmlPrinter.cpp 

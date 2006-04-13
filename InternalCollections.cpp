@@ -11,7 +11,7 @@
 
 #ifndef LEVELS_INCLUDED
 #define LEVELS_INCLUDED 1
-#include "levels/data.c"
+#include "data.c"
 #endif
 
 #define BUFSIZE (128*1024)
