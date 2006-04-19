@@ -222,7 +222,7 @@ LevelCollection::LevelCollection(const QString &_path, const QString &_name,
 
   QFile file(path_);
   if (file.open(QIODevice::Unbuffered | QIODevice::ReadOnly)) {
-    while ((len = file.readBlock(buf, 1024)) > 0) {
+    while ((len = file.read(buf, 1024)) > 0) {
       addData((const char *) buf, len);
     }
     file.close();
@@ -239,7 +239,7 @@ LevelCollection::LevelCollection(const QString &_path, const QString &_name,
 
 LevelCollection::~LevelCollection() {
   if (id_ >= 0) {
-    KConfigGroup cg(KGlobal::config(), "settings");	
+    KConfigGroup cg(KGlobal::config(), "settings");
 
     QString key;
     key.sprintf("level%d", id_);

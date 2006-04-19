@@ -53,7 +53,7 @@ class QPainter;
 class PlayField : public QWidget {
   Q_OBJECT
 public:
-  PlayField(QWidget *parent, const char *name=0, Qt::WFlags f=0);
+  PlayField(QWidget *parent, Qt::WFlags f=0);
   ~PlayField ();
 
   bool canMoveNow();

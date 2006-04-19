@@ -51,7 +51,7 @@ Bookmark::Bookmark(int _num) :
   QString p;
   fileName(p);
 
-  FILE *file = fopen(p.latin1(), "r");
+  FILE *file = fopen(p.toLatin1(), "r");
   if (file == NULL) return;
 
   char buf[4096];
@@ -72,7 +72,7 @@ Bookmark::Bookmark(int _num) :
     buf[len] = '\0';
     data_ += buf;
   }
-  fclose(file);        
+  fclose(file);
 
   data_ = data_.trimmed();
 }
@@ -90,19 +90,19 @@ Bookmark::set(int _collection, int _level, int _moves, History *_h) {
 
   data_ = "";
   _h->save(data_);
-  
+
   QString p;
   fileName(p);
   FILE *file = fopen(QFile::encodeName(p), "w");
   if (file == NULL) return;
   fprintf(file, "%d %d %d\n", collection_, level_, moves_);
-  fprintf(file, "%s\n", data_.latin1());
+  fprintf(file, "%s\n", static_cast<const char*>( data_.toLatin1() ));
   fclose(file);
 }
 
 bool
 Bookmark::goTo(LevelMap *_map, History *_h) {
-  return _h->load(_map, data_.latin1()) != 0;
+  return _h->load(_map, data_.toLatin1()) != 0;
 }
 
 

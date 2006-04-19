@@ -90,16 +90,16 @@ ImageData::resize(int size) {
   halfSize_ = size/2;
 
   for (int i=0; i<SMALL_STONES; i++) {
-    image2pixmap(images_[i].smoothScale(halfSize_, halfSize_), smallStone_xpm_[i]);
+    image2pixmap(images_[i].scaled(halfSize_, halfSize_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation), smallStone_xpm_[i]);
 //     smallStone_xpm_[i].convertFromImage(images_[i].smoothScale(halfSize_, halfSize_), QPixmap::ColorOnly|QPixmap::DiffuseDither|QPixmap::DiffuseAlphaDither|QPixmap::AvoidDither);
   }
 
   for (int i=0; i<LARGE_STONES; i++) {
-    image2pixmap(images_[SMALL_STONES+i].smoothScale(size_, halfSize_), largeStone_xpm_[i]);
+    image2pixmap(images_[SMALL_STONES+i].scaled(size_, halfSize_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation), largeStone_xpm_[i]);
 //     largeStone_xpm_[i].convertFromImage(images_[SMALL_STONES+i].smoothScale(size_, halfSize_) , QPixmap::ColorOnly|QPixmap::DiffuseDither|QPixmap::DiffuseAlphaDither|QPixmap::AvoidDither);
   }
 
-  objectImg_ = images_[SMALL_STONES+LARGE_STONES].smoothScale(size_, size_);
+  objectImg_ = images_[SMALL_STONES+LARGE_STONES].scaled(size_, size_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 
   // Use copy() because if the size is not changed, smoothScale is not
   // really a copy
@@ -111,7 +111,7 @@ ImageData::resize(int size) {
   brighten(objectImg_);
   image2pixmap(objectImg_, brightObject_, false);
 
-  QImage img = images_[SMALL_STONES+LARGE_STONES+1].smoothScale(size_, size_);
+  QImage img = images_[SMALL_STONES+LARGE_STONES+1].scaled(size_, size_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
   if (img.width() == size_) img = img.copy();
 
   image2pixmap(img, otherPixmaps_[1], false);
@@ -119,7 +119,7 @@ ImageData::resize(int size) {
   image2pixmap(img, brightTreasure_, false);
 
   for (int i=2; i<OTHER_IMAGES; i++) {
-    image2pixmap(images_[SMALL_STONES+LARGE_STONES+i].smoothScale(size_, size_), otherPixmaps_[i]);
+    image2pixmap(images_[SMALL_STONES+LARGE_STONES+i].scaled(size_, size_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation), otherPixmaps_[i]);
 //     otherPixmaps_[i].convertFromImage(images_[SMALL_STONES+LARGE_STONES+i].smoothScale(size_, size_), QPixmap::ColorOnly|QPixmap::OrderedDither|QPixmap::OrderedAlphaDither|QPixmap::AvoidDither);
   }
 
@@ -131,11 +131,11 @@ ImageData::resize(int size) {
 
 void
 ImageData::image2pixmap(QImage img, QPixmap& xpm, bool diffuse) {
-  xpm.convertFromImage(img,
-		       (diffuse ?
-			(Qt::DiffuseDither|Qt::DiffuseAlphaDither) :
-			(Qt::OrderedDither|Qt::OrderedAlphaDither))|
-		       Qt::ColorOnly|Qt::AvoidDither);
+  xpm = QPixmap::fromImage(img,
+                           (diffuse ?
+                            (Qt::DiffuseDither|Qt::DiffuseAlphaDither) :
+                            (Qt::OrderedDither|Qt::OrderedAlphaDither))|
+                           Qt::ColorOnly|Qt::AvoidDither);
 }
 
 void

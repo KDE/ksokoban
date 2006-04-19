@@ -78,14 +78,17 @@ MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
   int i;
   QPixmap pixmap;
 
-  setEraseColor(QColor(0,0,0));
+  QPalette palette;
+  palette.setColor( backgroundRole(), Qt::black );
+  setPalette( palette );
 
   KConfigGroup cfg(KGlobal::config(), "Geometry");
   int width = cfg.readEntry("width", 750);
   int height = cfg.readEntry("height", 562);
   resize(width, height);
 
-  playField_ = new PlayField(this, "playfield");
+  playField_ = new PlayField(this);
+  playField_->setObjectName( "playfield" );
   setCentralWidget(playField_);
   playField_->show();
 

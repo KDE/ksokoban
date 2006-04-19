@@ -64,10 +64,9 @@ main (int argc, char **argv)
 
 //   KUniqueApplication app;
   KApplication app;
-//   
+//
 
   MainWindow *widget = new MainWindow();
-  app.setMainWidget(widget);
   widget->show();
 
   KCmdLineArgs *args = KCmdLineArgs::parsedArgs();

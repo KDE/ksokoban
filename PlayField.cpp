@@ -55,8 +55,8 @@
 
 #include "PlayField.moc"
 
-PlayField::PlayField(QWidget *parent, const char *name, Qt::WFlags f)
-  : QWidget(parent, name, f|Qt::WResizeNoErase), imageData_(0), lastLevel_(-1),
+PlayField::PlayField(QWidget *parent, Qt::WFlags f)
+  : QWidget(parent, f|Qt::WResizeNoErase), imageData_(0), lastLevel_(-1),
     moveSequence_(0), moveInProgress_(false), dragInProgress_(false),
     xOffs_(0), yOffs_(0),
     wheelDelta_(0),
@@ -80,7 +80,10 @@ PlayField::PlayField(QWidget *parent, const char *name, Qt::WFlags f)
 
   history_ = new History;
 
-  background_.setPixmap(imageData_->background());
+  QPalette palette;
+  palette.setBrush( backgroundRole(), QBrush( imageData_->background() ) );
+  setPalette( palette );
+
   floor_ = QColor(0x66,0x66,0x66);
 
   levelMap_  = new LevelMap;
@@ -323,7 +326,7 @@ PlayField::mouseMoveEvent(QMouseEvent *e) {
 
   QRect rect(dragX_, dragY_, size_, size_);
 
-  dragXpm_.resize(size_, size_);
+  dragXpm_= QPixmap(size_, size_);
 
   QPainter paint;
   paint.begin(&dragXpm_);
@@ -359,7 +362,7 @@ PlayField::mouseMoveEvent(QMouseEvent *e) {
   // (and possibly earlier versions)
   paint.setBrushOrigin(0, 0);
 
-  dragXpm_.convertFromImage(dragImage_,
+  dragXpm_ = QPixmap::fromImage(dragImage_,
 			    Qt::OrderedDither|Qt::OrderedAlphaDither|
 			    Qt::ColorOnly|Qt::AvoidDither);
   paint.drawPixmap(dragX_, dragY_, dragXpm_);
@@ -815,13 +818,13 @@ PlayField::setSize(int w, int h) {
   ltxtRect_.setRect(lnumRect_.x()-sbarLevelWidth, h-sbarHeight, sbarLevelWidth, sbarHeight);
   collRect_.setRect(0, h-sbarHeight, ltxtRect_.x(), sbarHeight);
 
-  collXpm_.resize(collRect_.size());
-  ltxtXpm_.resize(ltxtRect_.size());
-  lnumXpm_.resize(lnumRect_.size());
-  stxtXpm_.resize(stxtRect_.size());
-  snumXpm_.resize(snumRect_.size());
-  ptxtXpm_.resize(ptxtRect_.size());
-  pnumXpm_.resize(pnumRect_.size());
+  collXpm_ = QPixmap(collRect_.size());
+  ltxtXpm_ = QPixmap(ltxtRect_.size());
+  lnumXpm_ = QPixmap(lnumRect_.size());
+  stxtXpm_ = QPixmap(stxtRect_.size());
+  snumXpm_ = QPixmap(snumRect_.size());
+  ptxtXpm_ = QPixmap(ptxtRect_.size());
+  pnumXpm_ = QPixmap(pnumRect_.size());
 
   h -= sbarHeight;
 
@@ -867,7 +870,7 @@ this level yet."), this);
 
   level(levelMap_->level()+1);
   levelChange();
-  repaint(false);
+  repaint();
 }
 
 void
@@ -880,7 +883,7 @@ the current collection."), this);
   }
   level(levelMap_->level()-1);
   levelChange();
-  repaint(false);
+  repaint();
 }
 
 void
@@ -904,7 +907,7 @@ PlayField::restartLevel() {
   level(levelMap_->level());
   updateStepsXpm();
   updatePushesXpm();
-  repaint(false);
+  repaint();
 }
 
 void
@@ -913,7 +916,7 @@ PlayField::changeCollection(LevelCollection *collection) {
   levelMap_->changeCollection(collection);
   levelChange();
   //erase(collRect_);
-  repaint(false);
+  repaint();
 }
 
 void
@@ -1042,7 +1045,7 @@ PlayField::goToBookmark(Bookmark *bm) {
   //updateLevelXpm();
   updateStepsXpm();
   updatePushesXpm();
-  repaint(false);
+  repaint();
 }
 
 bool

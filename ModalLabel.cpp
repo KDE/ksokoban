@@ -32,9 +32,8 @@
 
 #include "ModalLabel.moc"
 
-ModalLabel::ModalLabel(const QString &text, QWidget *parent,
-		       const char *name, Qt::WFlags f)
-  : QLabel(text, parent, name, f) {
+ModalLabel::ModalLabel(const QString &text, QWidget *parent, Qt::WFlags f)
+  : QLabel(text, parent, f) {
   QFont font(KGlobalSettings::generalFont().family(), 24, QFont::Bold);
   QFontMetrics fontMet(font);
 
@@ -44,7 +43,7 @@ ModalLabel::ModalLabel(const QString &text, QWidget *parent,
 
   for (int linePos=0; linePos < (int) text.length(); linePos += lineLen+1) {
 
-    lineLen = text.find('\n', linePos);
+    lineLen = text.indexOf('\n', linePos);
     if (lineLen < 0) lineLen = text.length() - linePos;
     else lineLen -= linePos;
 
