@@ -66,7 +66,6 @@ PlayField::PlayField(QWidget *parent, Qt::WFlags f)
 
   setFocusPolicy(Qt::StrongFocus);
   setFocus();
-  setBackgroundMode(Qt::NoBackground);
   setMouseTracking(true);
 
   highlightX_ = highlightY_ = 0;
@@ -330,7 +329,7 @@ PlayField::mouseMoveEvent(QMouseEvent *e) {
 
   QPainter paint;
   paint.begin(&dragXpm_);
-  paint.setBackgroundColor(backgroundColor());
+  paint.setBackground(palette().color(backgroundRole()));
   paint.setBrushOrigin(- dragX_, - dragY_);
   paint.translate((double) (- dragX_), (double) (- dragY_));
   paintPainter(paint, rect);
