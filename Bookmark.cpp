@@ -96,7 +96,7 @@ Bookmark::set(int _collection, int _level, int _moves, History *_h) {
   FILE *file = fopen(QFile::encodeName(p), "w");
   if (file == NULL) return;
   fprintf(file, "%d %d %d\n", collection_, level_, moves_);
-  fprintf(file, "%s\n", static_cast<const char*>( data_.toLatin1() ));
+  fprintf(file, "%s\n", data_.toLatin1().constData() );
   fclose(file);
 }
 
