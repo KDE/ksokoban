@@ -335,7 +335,7 @@ PlayField::mouseMoveEvent(QMouseEvent *e) {
   paintPainter(paint, rect);
   paint.end();
 
-  dragImage_ = dragXpm_;
+  dragImage_ = dragXpm_.toImage();
   for (int yy=0; yy<size_; yy++) {
     for (int xx=0; xx<size_; xx++) {
       QRgb rgb1 = imageData_->objectImg().pixel(xx, yy);
