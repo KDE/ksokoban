@@ -19,5 +19,3 @@ EXTRA_DIST=AUTHORS NEWS README TODO
 StaticImage.o: images/data.c
 InternalCollections.o: levels/data.c
 
-messages:
-	$(XGETTEXT) *.cpp -o $(podir)/ksokoban.pot
