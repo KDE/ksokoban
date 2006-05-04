@@ -11,24 +11,27 @@ include_directories( ${KDE4_INCLUDE_DIR} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_D
 ########### next target ###############
 
 set(images_FILES
-	${CMAKE_SOURCE_DIR}/ksokoban/images/goal.png
-	${CMAKE_SOURCE_DIR}/ksokoban/images/halfstone_1.png
-	${CMAKE_SOURCE_DIR}/ksokoban/images/halfstone_2.png
-	${CMAKE_SOURCE_DIR}/ksokoban/images/halfstone_3.png
-	${CMAKE_SOURCE_DIR}/ksokoban/images/halfstone_4.png
-	${CMAKE_SOURCE_DIR}/ksokoban/images/man.png
-	${CMAKE_SOURCE_DIR}/ksokoban/images/object.png
-	${CMAKE_SOURCE_DIR}/ksokoban/images/saveman.png
-	${CMAKE_SOURCE_DIR}/ksokoban/images/stone_1.png
-	${CMAKE_SOURCE_DIR}/ksokoban/images/stone_2.png
-	${CMAKE_SOURCE_DIR}/ksokoban/images/stone_3.png
-	${CMAKE_SOURCE_DIR}/ksokoban/images/stone_4.png
-	${CMAKE_SOURCE_DIR}/ksokoban/images/stone_5.png
-	${CMAKE_SOURCE_DIR}/ksokoban/images/stone_6.png
-	${CMAKE_SOURCE_DIR}/ksokoban/images/treasure.png
-	${CMAKE_SOURCE_DIR}/ksokoban/images/starfield.png)
+        ${CMAKE_CURRENT_SOURCE_DIR}/images/goal.png
+        ${CMAKE_CURRENT_SOURCE_DIR}/images/halfstone_1.png
+        ${CMAKE_CURRENT_SOURCE_DIR}/images/halfstone_2.png
+        ${CMAKE_CURRENT_SOURCE_DIR}/images/halfstone_3.png
+        ${CMAKE_CURRENT_SOURCE_DIR}/images/halfstone_4.png
+        ${CMAKE_CURRENT_SOURCE_DIR}/images/man.png
+        ${CMAKE_CURRENT_SOURCE_DIR}/images/object.png
+        ${CMAKE_CURRENT_SOURCE_DIR}/images/saveman.png
+        ${CMAKE_CURRENT_SOURCE_DIR}/images/stone_1.png
+        ${CMAKE_CURRENT_SOURCE_DIR}/images/stone_2.png
+        ${CMAKE_CURRENT_SOURCE_DIR}/images/stone_3.png
+        ${CMAKE_CURRENT_SOURCE_DIR}/images/stone_4.png
+        ${CMAKE_CURRENT_SOURCE_DIR}/images/stone_5.png
+        ${CMAKE_CURRENT_SOURCE_DIR}/images/stone_6.png
+        ${CMAKE_CURRENT_SOURCE_DIR}/images/treasure.png
+        ${CMAKE_CURRENT_SOURCE_DIR}/images/starfield.png)
 
-add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/data.c COMMAND images/bin2c  ARGS \"\" ${CMAKE_SOURCE_DIR}/ksokoban/levels/level.data ${images_FILES} DEPENDS ${CMAKE_SOURCE_DIR}/ksokoban/images/bin2c ${CMAKE_SOURCE_DIR}/ksokoban/levels/level.data ${images_FILES} WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} )
+add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/data.c COMMAND images/bin2c  
+		   ARGS \"\" ${CMAKE_CURRENT_SOURCE_DIR}/levels/level.data ${images_FILES} 
+                   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/images/bin2c ${CMAKE_CURRENT_SOURCE_DIR}/levels/level.data ${images_FILES} 
+                   WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} )
 	
 set(ksokoban_SRCS
    ${CMAKE_CURRENT_BINARY_DIR}/data.c
