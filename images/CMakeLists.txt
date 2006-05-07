@@ -14,9 +14,6 @@ kde4_add_executable(bin2c ${bin2c_SRCS})
 target_link_libraries(bin2c  ${KDE4_KDECORE_LIBS} )
 
 
-########### install files ###############
-
-install_files(  FILES data.c )
 
 kde4_footer()
 
