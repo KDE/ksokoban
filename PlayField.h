@@ -20,9 +20,9 @@
 #ifndef PLAYFIELD_H
 #define PLAYFIELD_H
 
-#include <qwidget.h>
-#include <qstring.h>
-#include <qfont.h>
+#include <QWidget>
+#include <QString>
+#include <QFont>
 #include <qfontmetrics.h>
 #include <qpixmap.h>
 #include <qimage.h>

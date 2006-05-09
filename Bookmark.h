@@ -23,7 +23,7 @@
 class History;
 class LevelMap;
 
-#include <qstring.h>
+#include <QString>
 
 class Bookmark {
 public:

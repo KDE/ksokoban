@@ -19,16 +19,16 @@
 
 #include "ModalLabel.h"
 
-#include <qlabel.h>
-#include <qfont.h>
+#include <QLabel>
+#include <QFont>
 //Added by qt3to4:
 #include <QTimerEvent>
 #include <Q3Frame>
 #include <QEvent>
 #include <kapplication.h>
 #include <kglobalsettings.h>
-#include <qwidget.h>
-#include <qstring.h>
+#include <QWidget>
+#include <QString>
 
 #include "ModalLabel.moc"
 

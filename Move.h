@@ -21,7 +21,7 @@
 #define MOVE_H
 
 #include <assert.h>
-#include <qstring.h>
+#include <QString>
 
 #include "Map.h"
 class LevelMap;

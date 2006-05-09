@@ -23,7 +23,7 @@
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <qimage.h>
-#include <qcolor.h>
+#include <QColor>
 
 ImageData::ImageData() : indexSize_(0), size_(0), halfSize_(0) {
   random.setSeed(0);

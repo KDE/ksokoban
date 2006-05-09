@@ -21,7 +21,7 @@
 #include "History.h"
 #include "LevelMap.h"
 
-#include <qfile.h>
+#include <QFile>
 
 #include <kapplication.h>
 

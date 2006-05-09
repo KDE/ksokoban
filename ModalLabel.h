@@ -20,7 +20,7 @@
 #ifndef MODALLABEL_H
 #define MODALLABEL_H
 
-#include <qlabel.h>
+#include <QLabel>
 //Added by qt3to4:
 #include <QTimerEvent>
 #include <QEvent>

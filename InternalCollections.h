@@ -21,7 +21,7 @@
 #define INTERNALCOLLECTIONS_H
 
 #include <assert.h>
-#include <qstring.h>
+#include <QString>
 #include <q3ptrvector.h>
 
 #include "LevelCollection.h"

@@ -20,7 +20,7 @@
 #include <stdio.h>
 #include <assert.h>
 
-#include <qwidget.h>
+#include <QWidget>
 #include <qpixmap.h>
 #include <qnamespace.h>
 //Added by qt3to4:

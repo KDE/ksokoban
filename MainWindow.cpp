@@ -31,7 +31,7 @@
 #include <QDropEvent>
 #include <assert.h>
 #include <klocale.h>
-#include <qstring.h>
+#include <QString>
 #include <kfiledialog.h>
 #include <q3frame.h>
 #include <kmessagebox.h>

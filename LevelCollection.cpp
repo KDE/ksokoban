@@ -2,7 +2,7 @@
 
 #include "Map.h"
 
-#include <qfile.h>
+#include <QFile>
 #include <stdio.h>
 
 #include <assert.h>

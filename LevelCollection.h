@@ -20,7 +20,7 @@
 #ifndef LEVELCOLLECTION_H
 #define LEVELCOLLECTION_H
 
-#include <qstring.h>
+#include <QString>
 #include <q3cstring.h>
 #include <q3ptrvector.h>
 
