@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -15,7 +14,6 @@ target_link_libraries(bin2c  ${KDE4_KDECORE_LIBS} )
 
 
 
-kde4_footer()
 
 
 

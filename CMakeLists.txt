@@ -1,4 +1,3 @@
-kde4_header()
 project(ksokoban)
 
 add_subdirectory( data ) 
@@ -65,7 +64,6 @@ install_targets(/bin ksokoban )
 ########### install files ###############
 
 
-kde4_footer()
 
 
 

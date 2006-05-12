@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -9,7 +8,6 @@ install_files( ${XDG_APPS_DIR} FILES ksokoban.desktop )
 
 kde4_install_icons( ${ICON_INSTALL_DIR}  hicolor )
 
-kde4_footer()
 
 
 
