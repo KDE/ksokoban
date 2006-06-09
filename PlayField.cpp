@@ -79,10 +79,7 @@ PlayField::PlayField(QWidget *parent, Qt::WFlags f)
 
   history_ = new History;
 
-  QPalette palette;
-  palette.setBrush( backgroundRole(), QBrush( imageData_->background() ) );
-  setPalette( palette );
-
+  background_.setTexture( imageData_->background() );
   floor_ = QColor(0x66,0x66,0x66);
 
   levelMap_  = new LevelMap;
@@ -442,9 +439,7 @@ PlayField::stopMoving() {
   updateStepsXpm();
   updatePushesXpm();
 
-  QPainter paint(this);
-  paint.drawPixmap(snumRect_.x(), snumRect_.y(), snumXpm_);
-  paint.drawPixmap(pnumRect_.x(), pnumRect_.y(), pnumXpm_);
+  update(snumRect_.unite(pnumRect_));
 
   pathFinder_.updatePossibleMoves();
 }
