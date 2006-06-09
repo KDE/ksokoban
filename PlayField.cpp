@@ -196,15 +196,11 @@ PlayField::paintSquare(int x, int y, QPainter &paint) {
 
 void
 PlayField::paintDelta() {
-  QPainter paint(this);
-
-  // the following line is a workaround for a bug in Qt 2.0.1
-  // (and possibly earlier versions)
-  paint.setBrushOrigin(0, 0);
 
   for (int y=0; y<levelMap_->height(); y++) {
     for (int x=0; x<levelMap_->width(); x++) {
-      if (mapDelta_->hasChanged(x, y)) paintSquare(x, y, paint);
+      if (mapDelta_->hasChanged(x, y)) 
+          update(x2pixel(x), y2pixel(y), size_, size_);
     }
   }
 }
