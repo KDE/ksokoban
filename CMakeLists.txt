@@ -3,9 +3,6 @@ project(ksokoban)
 add_subdirectory( data ) 
 add_subdirectory( images ) 
 
-
-
-
 ########### next target ###############
 
 set(images_FILES
@@ -61,6 +58,7 @@ install_targets(/bin ksokoban )
 
 
 ########### install files ###############
+install_files( ${DATA_INSTALL_DIR}/ksokoban FILES ksokobanui.rc )
 
 
 

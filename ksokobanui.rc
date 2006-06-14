@@ -1,0 +1,55 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui version="4" name="KSokoban" >
+<MenuBar>
+    <Menu name="game" >
+        <text>&amp;Game</text>
+
+        <Action name ="open" />
+        <Action name = "load_levels" />
+        <Action name = "next_level" />
+        <Action name = "prev_level" />
+        <Action name = "reload_level" />
+        <Action name = "collections" />
+        <Action name = "undo" />
+        <Action name = "redo" />
+        <Separator />
+        <Action name = "quit" />
+    </Menu>
+    <Menu name="animation_speed" >
+        <text>&amp;Animation</text>
+        <Action name = "anim_slow" />
+        <Action name = "anim_medium" />
+        <Action name = "anim_fast" />
+        <Action name = "anim_off" />
+    </Menu>
+    <Menu name="bookmarks_menu">
+        <text>&amp;Bookmarks</text>
+        <Menu name="set_bookmarks">
+            <text>&amp;Set Bookmark</text>
+            <Action name = "bm_add_1" />
+            <Action name = "bm_add_2" />
+            <Action name = "bm_add_3" />
+            <Action name = "bm_add_4" />
+            <Action name = "bm_add_5" />
+            <Action name = "bm_add_6" />
+            <Action name = "bm_add_7" />
+            <Action name = "bm_add_8" />
+            <Action name = "bm_add_9" />
+            <Action name = "bm_add_10" />
+        </Menu>
+        <Menu name="goto_bookmarks">
+            <text>&amp;Go to Bookmark</text>
+            <Action name = "bm_goto_1" />
+            <Action name = "bm_goto_2" />
+            <Action name = "bm_goto_3" />
+            <Action name = "bm_goto_4" />
+            <Action name = "bm_goto_5" />
+            <Action name = "bm_goto_6" />
+            <Action name = "bm_goto_7" />
+            <Action name = "bm_goto_8" />
+            <Action name = "bm_goto_9" />
+            <Action name = "bm_goto_10" />
+        </Menu>
+    </Menu>
+</MenuBar>
+</kpartgui>

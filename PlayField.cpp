@@ -1001,7 +1001,7 @@ PlayField::updatePushesXpm() {
 
 
 void
-PlayField::changeAnim(int num)
+PlayField::setAnimationSpeed(int num)
 {
   assert(num >= 0 && num <= 3);
 

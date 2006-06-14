@@ -24,20 +24,18 @@
 #include <kurl.h>
 #include "Bookmark.h"
 #include "InternalCollections.h"
-//Added by qt3to4:
-#include <QDragEnterEvent>
-#include <QFocusEvent>
-#include <Q3PopupMenu>
-#include <QDropEvent>
 
-class KMenu;
-class KMenuBar;
 class PlayField;
-class Q3PopupMenu;
 class QFocusEvent;
 class QDragEnterEvent;
 class QDropEvent;
 class LevelCollection;
+class KSelectAction;
+
+// NOTE: make this app-wide constant?
+// if so, then bookmarks menu can't be constructed in ksokobanui.rc -
+// will need to create it dynamically instead
+#define NUM_BOOKMARKS 10
 
 class MainWindow : public KMainWindow {
   Q_OBJECT
@@ -47,12 +45,11 @@ public:
 
   void openURL(KUrl _url);
 
-public slots:
+private slots:
   void changeCollection(int id);
-  void updateAnimMenu(int id);
-  void setBookmark(int id);
-  void goToBookmark(int id);
-
+  void slotAnimSpeedSelected(QAction*);
+  void slotSetBookmark(QAction* bm);
+  void slotGotoBookmark(QAction* bm);
   void loadLevels();
 
 protected:
@@ -62,25 +59,14 @@ protected:
   virtual void dropEvent(QDropEvent*);
 
 private:
-  InternalCollections internalCollections_;
-  LevelCollection *externalCollection_;
-  KMenuBar        *menu_;
-  PlayField       *playField_;
-  Bookmark        *bookmarks_[10];
-  int              currentCollection_;
-
-  Q3PopupMenu      *game_;
-  Q3PopupMenu      *collection_;
-  Q3PopupMenu      *animation_;
-  Q3PopupMenu      *bookmarkMenu_;
-  Q3PopupMenu      *setBM_;
-  Q3PopupMenu      *goToBM_;
-  KMenu            *help_;
-  int              checkedCollection_;
-  int              checkedAnim_;
-
+  void setupActions();
   void updateBookmark(int num);
 
+  InternalCollections internalCollections_;
+  LevelCollection *externalCollection_;
+  PlayField       *playField_;
+  Bookmark        *bookmarks_[NUM_BOOKMARKS];
+  KSelectAction   *collectionsAct_;
 };
 
 #endif  /* MAINWINDOW_H */

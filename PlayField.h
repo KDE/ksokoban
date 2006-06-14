@@ -76,6 +76,7 @@ public:
   void updateStepsXpm();
   void updatePushesXpm();
 
+  void setAnimationSpeed(int num);
 public slots:
   void nextLevel();
   void previousLevel();
@@ -83,7 +84,6 @@ public slots:
   void redo();
   void restartLevel();
   void changeCollection(LevelCollection *collection);
-  void changeAnim(int num);
 
 protected:
   ImageData *imageData_;

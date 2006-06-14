@@ -17,32 +17,24 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include <stdio.h>
-
 #include <kapplication.h>
+#include <kstdaction.h>
+#include <kaction.h>
+#include <kactioncollection.h>
+#include <ktoggleaction.h>
+#include <kselectaction.h>
+#include <klocale.h>
 #include <kconfig.h>
-#include <kmenubar.h>
-#include <q3popupmenu.h>
-#include <qnamespace.h>
-//Added by qt3to4:
+#include <kio/netaccess.h>
+#include <kfiledialog.h>
+#include <kmessagebox.h>
+#include <kstandarddirs.h>
+
+#include <k3urldrag.h>
 #include <QPixmap>
 #include <QDragEnterEvent>
 #include <QFocusEvent>
 #include <QDropEvent>
-#include <assert.h>
-#include <klocale.h>
-#include <QString>
-#include <kfiledialog.h>
-#include <q3frame.h>
-#include <kmessagebox.h>
-#include <kstandarddirs.h>
-#include <kio/netaccess.h>
-#include <kiconloader.h>
-#include <qicon.h>
-#include <q3dragobject.h>
-#include <kmenu.h>
-#include <k3urldrag.h>
-#include <kstdaccel.h>
 
 #include "MainWindow.h"
 #include "PlayField.h"
@@ -52,32 +44,26 @@
 
 void
 MainWindow::createCollectionMenu() {
-  collection_ = new Q3PopupMenu(0,"collection menu");
-  collection_->setCheckable(true);
-  //connect(collection_, SIGNAL(activated(int)), playField_, SLOT(changeCollection(int)));
-  connect(collection_, SIGNAL(activated(int)), this, SLOT(changeCollection(int)));
+  collectionsAct_ = new KSelectAction( i18n("&Level Collection"), actionCollection(), "collections" );
+  connect( collectionsAct_, SIGNAL(triggered(int)), this, SLOT(changeCollection(int)) );
 
   for (int i=0; i<internalCollections_.collections(); i++) {
-    collection_->insertItem(internalCollections_[i]->name(), i);
+    collectionsAct_->addAction(internalCollections_[i]->name());
   }
-  checkedCollection_ = 0;
 
   KConfigGroup settings(KGlobal::config(), "settings");
   int id = settings.readEntry("collection", 10);
 
-  currentCollection_ = 0;
+  int currentCollection = 0;
   for (int i=0; i<internalCollections_.collections(); i++) {
-    if (internalCollections_[i]->id() == id) currentCollection_ = i;
+    if (internalCollections_[i]->id() == id) currentCollection = i;
   }
 
-  changeCollection(currentCollection_);
+  changeCollection(currentCollection);
 }
 
 
-MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
-  int i;
-  QPixmap pixmap;
-
+MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0), collectionsAct_(0) {
   QPalette palette;
   palette.setColor( backgroundRole(), Qt::black );
   setPalette( palette );
@@ -92,105 +78,12 @@ MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
   setCentralWidget(playField_);
   playField_->show();
 
-  menu_ = new KMenuBar(this);
-  menu_->setObjectName("menubar" );
+  setupActions();
 
-  game_ = new Q3PopupMenu(0);
-  pixmap = SmallIcon("fileopen");
-  game_->insertItem(QIcon(pixmap), i18n("&Load Levels..."), this, SLOT(loadLevels()));
-  pixmap = SmallIcon("forward");
-  game_->insertItem(QIcon(pixmap), i18n("&Next Level"), playField_, SLOT(nextLevel()), Qt::Key_N);
-  pixmap = SmallIcon("back");
-  game_->insertItem(QIcon(pixmap), i18n("&Previous Level"), playField_, SLOT(previousLevel()), Qt::Key_P);
-  pixmap = SmallIcon("reload");
-  game_->insertItem(QIcon(pixmap), i18n("Re&start Level"), playField_, SLOT(restartLevel()), Qt::Key_Escape);
-
-  createCollectionMenu();
-  game_->insertItem(i18n("&Level Collection"), collection_);
-
-  pixmap = SmallIcon("undo");
-  game_->insertItem(QIcon(pixmap), i18n("&Undo"), playField_, SLOT(undo()),QKeySequence( (KStdAccel::undo()).toString()));
-  pixmap = SmallIcon("redo");
-  game_->insertItem(QIcon(pixmap), i18n("&Redo"), playField_, SLOT(redo()), QKeySequence( (KStdAccel::redo()).toString()));
-  game_->insertSeparator();
-  pixmap = SmallIcon("exit");
-  game_->insertItem(QIcon(pixmap), i18n("&Quit"), KApplication::kApplication(), SLOT(closeAllWindows()), QKeySequence( (KStdAccel::quit()).toString()));
-  menu_->insertItem(i18n("&Game"), game_);
-
-  animation_ = new Q3PopupMenu(0,"animation menu");
-  animation_->setCheckable(true);
-  connect(animation_, SIGNAL(activated(int)), this, SLOT(updateAnimMenu(int)));
-  connect(animation_, SIGNAL(activated(int)), playField_, SLOT(changeAnim(int)));
-  animation_->insertItem(i18n("&Slow"), 3);
-  animation_->insertItem(i18n("&Medium"), 2);
-  animation_->insertItem(i18n("&Fast"), 1);
-  animation_->insertItem(i18n("&Off"), 0);
-  checkedAnim_ = playField_->animDelay();
-  updateAnimMenu(checkedAnim_);
-  menu_->insertItem(i18n("&Animation"), animation_);
-
-  pixmap = SmallIcon("bookmark_add");
-  bookmarkMenu_ = new Q3PopupMenu(0,"bookmarks menu");
-  setBM_ = new Q3PopupMenu(0, "set bookmark menu");
-  setBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 1);
-  setBM_->setAccel(Qt::CTRL+Qt::Key_1, 1);
-  setBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 2);
-  setBM_->setAccel(Qt::CTRL+Qt::Key_2, 2);
-  setBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 3);
-  setBM_->setAccel(Qt::CTRL+Qt::Key_3, 3);
-  setBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 4);
-  setBM_->setAccel(Qt::CTRL+Qt::Key_4, 4);
-  setBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 5);
-  setBM_->setAccel(Qt::CTRL+Qt::Key_5, 5);
-  setBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 6);
-  setBM_->setAccel(Qt::CTRL+Qt::Key_6, 6);
-  setBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 7);
-  setBM_->setAccel(Qt::CTRL+Qt::Key_7, 7);
-  setBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 8);
-  setBM_->setAccel(Qt::CTRL+Qt::Key_8, 8);
-  setBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 9);
-  setBM_->setAccel(Qt::CTRL+Qt::Key_9, 9);
-  setBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 10);
-  setBM_->setAccel(Qt::CTRL+Qt::Key_0, 10);
-  connect(setBM_, SIGNAL(activated(int)), this, SLOT(setBookmark(int)));
-  bookmarkMenu_->insertItem(i18n("&Set Bookmark"), setBM_);
-
-  pixmap = SmallIcon("bookmark");
-  goToBM_ = new Q3PopupMenu(0, "go to bookmark menu");
-  goToBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 1);
-  goToBM_->setAccel(Qt::Key_1, 1);
-  goToBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 2);
-  goToBM_->setAccel(Qt::Key_2, 2);
-  goToBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 3);
-  goToBM_->setAccel(Qt::Key_3, 3);
-  goToBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 4);
-  goToBM_->setAccel(Qt::Key_4, 4);
-  goToBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 5);
-  goToBM_->setAccel(Qt::Key_5, 5);
-  goToBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 6);
-  goToBM_->setAccel(Qt::Key_6, 6);
-  goToBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 7);
-  goToBM_->setAccel(Qt::Key_7, 7);
-  goToBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 8);
-  goToBM_->setAccel(Qt::Key_8, 8);
-  goToBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 9);
-  goToBM_->setAccel(Qt::Key_9, 9);
-  goToBM_->insertItem(QIcon(pixmap), i18n("(unused)"), 10);
-  goToBM_->setAccel(Qt::Key_0, 10);
-  connect(goToBM_, SIGNAL(activated(int)), this, SLOT(goToBookmark(int)));
-  bookmarkMenu_->insertItem(i18n("&Go to Bookmark"), goToBM_);
-  menu_->insertItem(i18n("&Bookmarks"), bookmarkMenu_);
-
-  for (i=1; i<=10; i++) {
+  for (int i=1; i<=10; i++) {
     bookmarks_[i-1] = new Bookmark(i);
     updateBookmark(i);
   }
-
-  help_ = helpMenu(QString::null, false);
-  menu_->insertSeparator();
-  menu_->insertItem(i18n("&Help"), help_);
-
-  menu_->show();
 
   setAcceptDrops(true);
 }
@@ -203,7 +96,7 @@ MainWindow::~MainWindow()
   cfg.writeEntry("height", height());
 
   KConfigGroup settings(KGlobal::config(), "settings");
-  settings.writeEntry("collection", internalCollections_[checkedCollection_]->id());
+  settings.writeEntry("collection", internalCollections_[collectionsAct_->currentItem()]->id());
 
   for (int i=1; i<=10; i++) {
     delete bookmarks_[i-1];
@@ -212,31 +105,112 @@ MainWindow::~MainWindow()
 
   delete externalCollection_;
 
-  // The following line segfaults when linked against qt 1.44
-  //delete help_;
-  delete goToBM_;
-  delete setBM_;
-  delete bookmarkMenu_;
-  delete animation_;
-  delete collection_;
-  delete game_;
-  //delete menu_;
-
   //delete playField_;
 }
 
+void
+MainWindow::setupActions() {
+  (void)KStdAction::open( this, SLOT(loadLevels()), actionCollection(), "load_levels" );
 
+  KAction* nextLevel = new KAction( KIcon("forward"), i18n("&Next Level"), actionCollection(), "next_level" );
+  nextLevel->setShortcut( Qt::Key_N );
+  connect( nextLevel, SIGNAL(triggered(bool)), playField_, SLOT(nextLevel()) );
+
+  KAction* prevLevel = new KAction( KIcon("back"), i18n("&Previous Level"), actionCollection(), "prev_level" );
+  prevLevel->setShortcut( Qt::Key_P );
+  connect( prevLevel, SIGNAL(triggered(bool)), playField_, SLOT(previousLevel()) );
+
+  KAction* reload = new KAction( KIcon("reload"), i18n("Re&start Level"), actionCollection(), "reload_level" );
+  reload->setShortcut( Qt::Key_Escape );
+  connect( reload, SIGNAL(triggered(bool)), playField_, SLOT(restartLevel()) );
+
+  createCollectionMenu();
+
+  (void)KStdAction::undo( playField_, SLOT(undo()), actionCollection(), "undo" );
+  (void)KStdAction::redo( playField_, SLOT(redo()), actionCollection(), "redo" );
+  (void)KStdAction::quit( this, SLOT(close()), actionCollection(), "quit" );
+
+  QActionGroup* animGrp = new QActionGroup(this);
+  animGrp->setExclusive(true);
+  connect(animGrp, SIGNAL(triggered(QAction*)), SLOT(slotAnimSpeedSelected(QAction*)) );
+
+  // FIXME dimsuz: use QVariant setData() as with bookmarks? 
+  KToggleAction* slow   = new KToggleAction( i18n("&Slow"), actionCollection(), "anim_slow", animGrp );
+  KToggleAction* medium = new KToggleAction( i18n("&Medium"), actionCollection(), "anim_medium", animGrp );
+  KToggleAction* fast   = new KToggleAction( i18n("&Fast"), actionCollection(), "anim_fast", animGrp );
+  KToggleAction* off    = new KToggleAction( i18n("&Off"), actionCollection(), "anim_off", animGrp );
+
+  int animDelay = playField_->animDelay();
+
+  // select saved animation speed
+  if( animDelay == 3 )
+      slow->setChecked( true );
+  else if( animDelay == 2 )
+      medium->setChecked( true );
+  else if( animDelay == 1 )
+      fast->setChecked( true );
+  else if( animDelay == 0 )
+      off->setChecked( true );
+
+
+  KAction* setBm[NUM_BOOKMARKS] = { 0 };
+  QActionGroup* setBmGrp = new QActionGroup(this);
+  setBmGrp->setExclusive(false);
+  for(int i=0; i<NUM_BOOKMARKS; i++)
+  {
+      setBm[i] = new KAction( KIcon("bookmark_add"), i18n("(unused)"), actionCollection(), QString("bm_add_%1").arg(i+1) );
+      setBm[i]->setData( QVariant(i+1) );
+      setBmGrp->addAction( setBm[i] );
+  }
+
+  // uhhh... have to do this by hand...
+  // Or there is a way?
+  // If you know one, mail me: dimsuz@gmail.com ;)
+  setBm[0]->setShortcut( Qt::CTRL + Qt::Key_1 );
+  setBm[1]->setShortcut( Qt::CTRL + Qt::Key_2 );
+  setBm[2]->setShortcut( Qt::CTRL + Qt::Key_3 );
+  setBm[3]->setShortcut( Qt::CTRL + Qt::Key_4 );
+  setBm[4]->setShortcut( Qt::CTRL + Qt::Key_5 );
+  setBm[5]->setShortcut( Qt::CTRL + Qt::Key_6 );
+  setBm[6]->setShortcut( Qt::CTRL + Qt::Key_7 );
+  setBm[7]->setShortcut( Qt::CTRL + Qt::Key_8 );
+  setBm[8]->setShortcut( Qt::CTRL + Qt::Key_9 );
+  setBm[9]->setShortcut( Qt::CTRL + Qt::Key_0 );
+
+  connect(setBmGrp, SIGNAL(triggered(QAction*)), this, SLOT(slotSetBookmark(QAction*)));
+
+  KAction* gotoBm[NUM_BOOKMARKS] = { 0 };
+  QActionGroup* gotoBmGrp = new QActionGroup(this);
+  gotoBmGrp->setExclusive(false);
+  for(int i=0; i<NUM_BOOKMARKS; i++)
+  {
+      gotoBm[i] = new KAction( KIcon("bookmark"), i18n("(unused)"), actionCollection(), QString("bm_goto_%1").arg(i+1) );
+      gotoBm[i]->setData( QVariant(i+1) );
+      gotoBmGrp->addAction( gotoBm[i] );
+  }
+
+  // uhhh... have to do this by hand...
+  // Or there is a way?
+  // If you know one, mail me: dimsuz@gmail.com ;)
+  gotoBm[0]->setShortcut( Qt::Key_1 );
+  gotoBm[1]->setShortcut( Qt::Key_2 );
+  gotoBm[2]->setShortcut( Qt::Key_3 );
+  gotoBm[3]->setShortcut( Qt::Key_4 );
+  gotoBm[4]->setShortcut( Qt::Key_5 );
+  gotoBm[5]->setShortcut( Qt::Key_6 );
+  gotoBm[6]->setShortcut( Qt::Key_7 );
+  gotoBm[7]->setShortcut( Qt::Key_8 );
+  gotoBm[8]->setShortcut( Qt::Key_9 );
+  gotoBm[9]->setShortcut( Qt::Key_0 );
+
+  connect(gotoBmGrp, SIGNAL(triggered(QAction*)), this, SLOT(slotGotoBookmark(QAction*)));
+
+  createGUI();
+}
 
 void
 MainWindow::focusInEvent(QFocusEvent *) {
   playField_->setFocus();
-}
-
-void
-MainWindow::updateAnimMenu(int id) {
-  animation_->setItemChecked(checkedAnim_, false);
-  checkedAnim_ = id;
-  animation_->setItemChecked(checkedAnim_, true);
 }
 
 void
@@ -258,20 +232,21 @@ MainWindow::updateBookmark(int num) {
   l.setNum(mov);
   name += " (" + l + ")";
 
-#warning port to QAction
-  setBM_->changeItem(num, name);
-  goToBM_->changeItem(num, name);
+  actionCollection()->action( QString("bm_add_%1").arg(num) )->setText(name);
+  actionCollection()->action( QString("bm_goto_%1").arg(num) )->setText(name);
 }
 
 void
-MainWindow::setBookmark(int id) {
+MainWindow::slotSetBookmark(QAction* bmAct) {
+  int id = bmAct->data().toInt();
   assert(id >= 1 && id <= 10);
   playField_->setBookmark(bookmarks_[id-1]);
   updateBookmark(id);
 }
 
 void
-MainWindow::goToBookmark(int id) {
+MainWindow::slotGotoBookmark(QAction* bmAct) {
+  int id = bmAct->data().toInt();
   assert(id >= 1 && id <= 10);
 
   Bookmark *bm = bookmarks_[id-1];
@@ -293,9 +268,7 @@ MainWindow::goToBookmark(int id) {
 void
 MainWindow::changeCollection(int id)
 {
-  collection_->setItemChecked(checkedCollection_, false);
-  checkedCollection_ = id;
-  collection_->setItemChecked(checkedCollection_, true);
+  collectionsAct_->setCurrentItem(id);
 
   delete externalCollection_;
   externalCollection_ = 0;
@@ -312,6 +285,20 @@ MainWindow::loadLevels() {
   if (result.isEmpty()) return;
 
   openURL(result);
+}
+
+void
+MainWindow::slotAnimSpeedSelected(QAction* speedAct)
+{
+    // FIXME dimsuz: attach data to each action and check it instead?
+    if(speedAct == actionCollection()->action("anim_slow"))
+        playField_->setAnimationSpeed(3);
+    else if(speedAct == actionCollection()->action("anim_medium"))
+        playField_->setAnimationSpeed(2);
+    else if(speedAct == actionCollection()->action("anim_fast"))
+        playField_->setAnimationSpeed(1);
+    else if(speedAct == actionCollection()->action("anim_off"))
+        playField_->setAnimationSpeed(0);
 }
 
 void
@@ -347,10 +334,10 @@ MainWindow::openURL(KUrl _url) {
   delete externalCollection_;
   externalCollection_ = tmpCollection;
 
-  collection_->setItemChecked(checkedCollection_, false);
+  // FIXME dimsuz: is it ok to uncheck _selected_ action in KSelectAction?
+  collectionsAct_->currentAction()->setChecked(false);
+
   playField_->changeCollection(externalCollection_);
-
-
 }
 
 void
