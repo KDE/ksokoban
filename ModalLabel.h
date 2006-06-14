@@ -21,9 +21,8 @@
 #define MODALLABEL_H
 
 #include <QLabel>
-//Added by qt3to4:
-#include <QTimerEvent>
-#include <QEvent>
+
+class QTimerEvent;
 
 class ModalLabel : public QLabel {
   Q_OBJECT

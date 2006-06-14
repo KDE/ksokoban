@@ -17,18 +17,11 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include <stdio.h>
-#include <assert.h>
-
 #include <QWidget>
-#include <qpixmap.h>
-#include <qnamespace.h>
-//Added by qt3to4:
 #include <QWheelEvent>
 #include <QFocusEvent>
 #include <QPaintEvent>
 #include <QKeyEvent>
-#include <QEvent>
 #include <QTimerEvent>
 #include <QResizeEvent>
 #include <QMouseEvent>
@@ -694,7 +687,6 @@ PlayField::dragObject(int xpixel, int ypixel) {
 
   if (x == highlightX_ && y == highlightY_) return;
 
-  printf("drag %d,%d to %d,%d\n", highlightX_, highlightY_, x, y);
   pathFinder_.drag(highlightX_, highlightY_, x, y);
   stopDrag();
 }
@@ -860,7 +852,7 @@ this level yet."), this);
 
   level(levelMap_->level()+1);
   levelChange();
-  repaint();
+  update();
 }
 
 void
@@ -873,7 +865,7 @@ the current collection."), this);
   }
   level(levelMap_->level()-1);
   levelChange();
-  repaint();
+  update();
 }
 
 void
@@ -897,7 +889,7 @@ PlayField::restartLevel() {
   level(levelMap_->level());
   updateStepsXpm();
   updatePushesXpm();
-  repaint();
+  update();
 }
 
 void
@@ -906,7 +898,7 @@ PlayField::changeCollection(LevelCollection *collection) {
   levelMap_->changeCollection(collection);
   levelChange();
   //erase(collRect_);
-  repaint();
+  update();
 }
 
 void
@@ -1031,11 +1023,12 @@ void
 PlayField::goToBookmark(Bookmark *bm) {
   level(bm->level());
   levelChange();
-  if (!bm->goTo(levelMap_, history_)) fprintf(stderr, "Warning: bad bookmark\n");
+  if (!bm->goTo(levelMap_, history_))
+      kDebug()<<"Warning: bad bookmark"<<endl;
   //updateLevelXpm();
   updateStepsXpm();
   updatePushesXpm();
-  repaint();
+  update();
 }
 
 bool

@@ -21,14 +21,10 @@
 
 #include <QLabel>
 #include <QFont>
-//Added by qt3to4:
 #include <QTimerEvent>
-#include <Q3Frame>
-#include <QEvent>
 #include <kapplication.h>
 #include <kglobalsettings.h>
 #include <QWidget>
-#include <QString>
 
 #include "ModalLabel.moc"
 
@@ -61,7 +57,7 @@ ModalLabel::ModalLabel(const QString &text, QWidget *parent, Qt::WFlags f)
   if (height < 75) height = 75;
 
   setAlignment ( Qt::AlignCenter);
-  setFrameStyle (Q3Frame::Panel | Q3Frame::Raised);
+  setFrameStyle (QFrame::Panel | QFrame::Raised);
   setLineWidth (4);
   setFont (font);
   move (parent->width ()/2 - width/2, parent->height ()/2 - height/2);

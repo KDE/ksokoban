@@ -64,10 +64,6 @@ MainWindow::createCollectionMenu() {
 
 
 MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0), collectionsAct_(0) {
-  QPalette palette;
-  palette.setColor( backgroundRole(), Qt::black );
-  setPalette( palette );
-
   KConfigGroup cfg(KGlobal::config(), "Geometry");
   int width = cfg.readEntry("width", 750);
   int height = cfg.readEntry("height", 562);
