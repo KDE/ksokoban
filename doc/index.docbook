@@ -28,7 +28,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2005-12-14</date>
+<date>2006-06-19</date>
 <releaseinfo>0.4.2</releaseinfo>
 
 <abstract>
@@ -380,48 +380,8 @@ bookmark</action>.</para>
 
 <sect1 id="help-menu">
 <title>The <guimenu>Help</guimenu> Menu</title>
-<variablelist>
-<varlistentry>
-<term>
-<menuchoice>
-<shortcut>
-<keycombo action="simul"><keycap>F1</keycap></keycombo>
-</shortcut>
-<guimenu>Help</guimenu>
-<guimenuitem>&kappname; Handbook...</guimenuitem>
-</menuchoice>
-</term>
-<listitem><para><action>Invokes the &kde; Help system</action> starting at the
-&kappname; help pages. (this document).</para></listitem>
-</varlistentry>
 
-<varlistentry>
-<term><menuchoice>
-<guimenu>Help</guimenu>
-<guimenuitem>Report Bug...</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>Opens the Bug report dialog</action> where you can
-report a bug or request a <quote>wishlist</quote> feature.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><menuchoice>
-<guimenu>Help</guimenu>
-<guimenuitem>About &kappname;</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>This will display version and author
-information.</action></para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><menuchoice>
-<guimenu>Help</guimenu>
-<guimenuitem>About &kde;</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>This displays the &kde; version and other basic
-information.</action></para></listitem>
-</varlistentry>
-</variablelist>
+&help.menu.documentation;
 
 </sect1>
 </chapter>
