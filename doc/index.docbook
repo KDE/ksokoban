@@ -34,8 +34,7 @@
 <abstract>
 <para>
 &ksokoban; is a &kde; implementation of the Japanese warehouse keeper
-game <quote>sokoban</quote>. This document describes &ksokoban;
-version 0.4.2.
+game <quote>sokoban</quote>.
 </para>
 </abstract>
 
