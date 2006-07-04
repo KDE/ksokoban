@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${XDG_APPS_DIR} FILES ksokoban.desktop )
+install( FILES ksokoban.desktop  DESTINATION  ${XDG_APPS_DIR} )
 
 kde4_install_icons( ${ICON_INSTALL_DIR}  hicolor )
 

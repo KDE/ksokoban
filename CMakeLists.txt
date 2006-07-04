@@ -58,7 +58,7 @@ install_targets(/bin ksokoban )
 
 
 ########### install files ###############
-install_files( ${DATA_INSTALL_DIR}/ksokoban FILES ksokobanui.rc )
+install( FILES ksokobanui.rc  DESTINATION  ${DATA_INSTALL_DIR}/ksokoban )
 
 
 
