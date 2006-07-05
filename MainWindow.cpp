@@ -277,7 +277,7 @@ MainWindow::loadLevels() {
   cfg->setGroup("settings");
   QString lastFile = cfg->readPathEntry("lastLevelFile");
 
-  KUrl result = KFileDialog::getOpenURL(lastFile, "*", this, i18n("Load Levels From File"));
+  KUrl result = KFileDialog::getOpenUrl(lastFile, "*", this, i18n("Load Levels From File"));
   if (result.isEmpty()) return;
 
   openURL(result);
