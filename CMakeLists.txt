@@ -23,9 +23,9 @@ set(images_FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/images/treasure.png
         ${CMAKE_CURRENT_SOURCE_DIR}/images/starfield.png)
 
-add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/data.c COMMAND images${BIN_INSTALL_DIR}2c  
+add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/data.c COMMAND images/bin2c
 		   ARGS \"\" ${CMAKE_CURRENT_SOURCE_DIR}/levels/level.data ${images_FILES} 
-                   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/images${BIN_INSTALL_DIR}2c ${CMAKE_CURRENT_SOURCE_DIR}/levels/level.data ${images_FILES} 
+                   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/images/bin2c ${CMAKE_CURRENT_SOURCE_DIR}/levels/level.data ${images_FILES} 
                    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} )
 	
 set(ksokoban_SRCS
