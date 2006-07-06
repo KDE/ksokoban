@@ -55,7 +55,7 @@ target_link_libraries(bin2c  ${KDE4_KDECORE_LIBS} )
 #
 #data.c: $(IMAGES) bin2c
 #	list=""; for i in $(IMAGES); do list="$$list $(srcdir)/$$i"; done; \
-#	./bin2c "" $$list
+#	.${BIN_INSTALL_DIR}2c "" $$list
 #
 #############################################################################
 ## Povray rules to generate images
