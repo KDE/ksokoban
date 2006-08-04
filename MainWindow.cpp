@@ -29,6 +29,7 @@
 #include <kfiledialog.h>
 #include <kmessagebox.h>
 #include <kstandarddirs.h>
+#include <kicon.h>
 
 #include <k3urldrag.h>
 #include <QPixmap>
