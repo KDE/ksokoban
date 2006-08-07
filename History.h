@@ -20,9 +20,7 @@
 #ifndef HISTORY_H
 #define HISTORY_H
 
-#include <q3ptrlist.h>
-#include <QString>
-
+#include <QList>
 #include "Move.h"
 class MoveSequence;
 
@@ -37,8 +35,8 @@ class MoveSequence;
 
 class History {
 private:
-  Q3PtrList<Move> past_;
-  Q3PtrList<Move> future_;
+  QList<Move*> past_;
+  QList<Move*> future_;
 
 protected:
 

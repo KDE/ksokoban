@@ -177,32 +177,21 @@ LevelCollection::loadPrefs() {
 }
 
 void
-LevelCollection::addLevel(const char* _level) {
-  unsigned s = index_.size();
-  index_.resize(s + 1);
-  index_.insert(s, _level);
-}
-
-void
-LevelCollection::addData(const char* _data, unsigned _len) {
-  unsigned pos = data_.size();
-  data_.resize(pos + _len);
-  memcpy(data_.data() + pos, _data, _len);
+LevelCollection::addLevel(const QString& _level) {
+  index_.append(_level);
 }
 
 void
 LevelCollection::addSeparator() {
-  unsigned pos = data_.size();
-  data_.resize(pos + 1);
-  data_[pos] = '\0';
+  data_.append('\0');
 }
 
-LevelCollection::LevelCollection(const char *_def, int _len,
+LevelCollection::LevelCollection(const QByteArray& _def,
 				 const QString &_name, int _id) :
   level_(0), completedLevels_(0), noOfLevels_(0),
   name_(_name), id_(_id) {
 
-  addData(_def, _len);
+  data_.append(_def);
   addSeparator();
 
   indexTextCollection();
@@ -215,16 +204,13 @@ LevelCollection::LevelCollection(const char *_def, int _len,
 LevelCollection::LevelCollection(const QString &_path, const QString &_name,
 				 int _id) :
   level_(0), completedLevels_(0), noOfLevels_(0),
-  name_(_name), path_(_path), id_(_id) {
-
-  char buf[1024];
-  int len;
+  name_(_name), path_(_path), id_(_id) 
+{
 
   QFile file(path_);
-  if (file.open(QIODevice::Unbuffered | QIODevice::ReadOnly)) {
-    while ((len = file.read(buf, 1024)) > 0) {
-      addData((const char *) buf, len);
-    }
+  if (file.open(QIODevice::ReadOnly))
+  {
+    data_ = file.readAll();
     file.close();
     addSeparator();
   }
@@ -286,30 +272,25 @@ LevelCollection::level(int _level) {
 }
 
 static int
-minX(const char *def) {
+minX(const QString& def) {
   int min_x = 10000;
 
   int x=0;
-  for (int pos=0; def[pos]; pos++) {
-    switch(def[pos]) {
-    case '\n':
+  for (int pos=0; pos < def.length(); pos++) {
+    if(def[pos] == '\n')
       x = 0;
-      break;
-
-    case ' ':
+    else if(def[pos] == ' ')
       x++;
-      break;
-
-    case '\t':
+    else if(def[pos] == '\t')
       x = (x+8) & ~7;
-      break;
-
-    case '\r':
-      break;
-
-    default:
-      if (x < min_x) min_x = x;
-      break;
+    else if(def[pos] == '\r')
+    {
+        //no-op
+    }
+    else
+    {
+      if (x < min_x) 
+          min_x = x;
     }
   }
 
@@ -321,7 +302,7 @@ bool
 LevelCollection::loadLevel(Map *_map) {
   _map->clearMap();
 
-  const char *def = index_[level_];
+  QString def = index_[level_];
   bool goodMap = true;
   int x=0, y=0, goalsLeft=0;
 
@@ -335,74 +316,74 @@ LevelCollection::loadLevel(Map *_map) {
   _map->xpos_ = -1;
   _map->ypos_ = -1;
 
-  for (int pos=0; def[pos]; pos++) {
-    switch(def[pos]) {
-    case '\n':
-      y++;
-      x = 0;
-      break;
-
-    case ' ':
-      x++;
-      break;
-
-    case '\t':
-      x = (x+8) & ~7;
-      break;
-
-    case '@':
+  for (int pos=0; pos<def.length(); pos++) {
+    if(def[pos] == '\n')
+    {
+        y++;
+        x = 0;
+    }
+    else if(def[pos] == ' ')
+    {
+        x++;
+    }
+    else if(def[pos] == '\t')
+    {
+        x = (x+8) & ~7;
+    }
+    else if(def[pos] == '@')
+    {
+        if (x-min_x > MAX_X || y > MAX_Y) goodMap = false;
+        else {
+            _map->xpos_ = x-min_x;
+            _map->ypos_ = y;
+        }
+        x++;
+    }
+    else if(def[pos] == '$')
+    {
+        if (x-min_x > MAX_X || y > MAX_Y) goodMap = false;
+        else _map->map(x-min_x, y, OBJECT);
+        x++;
+    }
+    else if(def[pos] == '.')
+    {
       if (x-min_x > MAX_X || y > MAX_Y) goodMap = false;
       else {
-	_map->xpos_ = x-min_x;
-	_map->ypos_ = y;
+          _map->map(x-min_x, y, GOAL);
+          goalsLeft++;
       }
       x++;
-      break;
-
-    case '$':
-      if (x-min_x > MAX_X || y > MAX_Y) goodMap = false;
-      else _map->map(x-min_x, y, OBJECT);
-      x++;
-      break;
-
-    case '.':
-      if (x-min_x > MAX_X || y > MAX_Y) goodMap = false;
-      else {
-	_map->map(x-min_x, y, GOAL);
-	goalsLeft++;
-      }
-      x++;
-      break;
-
-    case '#':
-      if (x-min_x > MAX_X || y > MAX_Y) goodMap = false;
-      else _map->map(x-min_x, y, WALL);
-      x++;
-      break;
-
-    case '+':
-      if (x-min_x > MAX_X || y > MAX_Y) goodMap = false;
-      else {
-	_map->xpos_ = x-min_x;
-	_map->ypos_ = y;
-	_map->map(x-min_x, y, GOAL);
-	goalsLeft++;
-      }
-      x++;
-      break;
-
-    case '*':
-      if (x-min_x > MAX_X || y > MAX_Y) goodMap = false;
-      else _map->map(x-min_x, y, OBJECT|GOAL);
-      x++;
-      break;
-
-    case '\r':
-      break;
-
-    default:
-      goodMap = false;
-      break;
+    }
+    else if(def[pos] == '#')
+    {
+        if (x-min_x > MAX_X || y > MAX_Y) goodMap = false;
+        else _map->map(x-min_x, y, WALL);
+        x++;
+    }
+    else if(def[pos] == '+')
+    {
+        if (x-min_x > MAX_X || y > MAX_Y) goodMap = false;
+        else {
+            _map->xpos_ = x-min_x;
+            _map->ypos_ = y;
+            _map->map(x-min_x, y, GOAL);
+            goalsLeft++;
+        }
+        x++;
+    }
+    else if(def[pos] == '*')
+    {
+        if (x-min_x > MAX_X || y > MAX_Y) goodMap = false;
+        else _map->map(x-min_x, y, OBJECT|GOAL);
+        x++;
+    }
+    else if(def[pos] == '\r')
+    {
+        //no-op
+    }
+    else
+    {
+        goodMap = false;
     }
   }
 

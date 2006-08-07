@@ -20,10 +20,7 @@
 #ifndef INTERNALCOLLECTIONS_H
 #define INTERNALCOLLECTIONS_H
 
-#include <assert.h>
-#include <QString>
-#include <q3ptrvector.h>
-
+#include <QList>
 #include "LevelCollection.h"
 
 class InternalCollections {
@@ -46,7 +43,7 @@ private:
   static int realCollection2Config(int collection);
   static QString collectionName(int _level);
 
-  Q3PtrVector<LevelCollection> collections_;
+  QList<LevelCollection*> collections_;
   char *data_;
 
 };

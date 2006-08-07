@@ -17,46 +17,39 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include <q3ptrlist.h>
-
 #include "History.h"
 #include "Move.h"
 #include "MoveSequence.h"
 #include "LevelMap.h"
 
 History::History() {
-  past_.setAutoDelete(true);
-  future_.setAutoDelete(true);
 }
 
 
 void
 History::add(Move *_m) {
+  qDeleteAll(future_);
   future_.clear();
   past_.append(_m);
 }
 
 void
 History::clear() {
+  qDeleteAll(past_);
+  qDeleteAll(future_);
   past_.clear();
   future_.clear();
 }
 
 void
 History::save(QString &_str) {
-  Move *m = past_.first();
-
-  while (m != 0) {
+  foreach( Move *m, past_ )
     m->save(_str);
-    m = past_.next();
-  }
+
   _str += '-';
 
-  m = future_.first();
-  while (m != 0) {
+  foreach( Move *m, future_ )
     m->save(_str);
-    m = future_.next();
-  }
 }
 
 const char *
@@ -98,7 +91,7 @@ bool
 History::redo(LevelMap *map) {
   if (future_.isEmpty()) return false;
 
-  Move *m=future_.take(0);
+  Move *m=future_.takeFirst();
   past_.append(m);
   return m->redo(map);
 }
@@ -107,7 +100,7 @@ MoveSequence *
 History::deferRedo(LevelMap *map) {
   if (future_.isEmpty()) return 0;
 
-  Move *m=future_.take(0);
+  Move *m=future_.takeFirst();
   past_.append(m);
   return new MoveSequence(m, map);
 }
@@ -116,8 +109,8 @@ bool
 History::undo(LevelMap *map) {
   if (past_.isEmpty()) return false;
 
-  Move *m = past_.take(past_.count ()-1);
-  future_.insert(0, m);
+  Move *m = past_.takeLast();
+  future_.prepend(m);
   return m->undo(map);
 }
 
@@ -125,7 +118,7 @@ MoveSequence *
 History::deferUndo(LevelMap *map) {
   if (past_.isEmpty()) return 0;
 
-  Move *m = past_.take(past_.count()-1);
-  future_.insert(0, m);
+  Move *m = past_.takeLast();
+  future_.prepend(m);
   return new MoveSequence(m, map, true);
 }

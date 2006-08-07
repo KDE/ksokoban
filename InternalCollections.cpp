@@ -34,7 +34,7 @@ InternalCollections::configCollection2Real (int collection) {
 
 int
 InternalCollections::realCollection2Config(int collection) {
-  assert(collection < (int) (sizeof (collection_save_id) / sizeof (int)));
+  Q_ASSERT(collection < (int) (sizeof (collection_save_id) / sizeof (int)));
   return collection_save_id[collection];
 }
 
@@ -62,7 +62,7 @@ InternalCollections::collectionName(int _level) {
     break;
   }
 
-  assert(false);
+  Q_ASSERT(false);
   return QString();
 }
 
@@ -101,7 +101,7 @@ InternalCollections::InternalCollections() {
     case DATA:
       if (isalpha(data_[end])) {
 // 	collections_.add(new LevelCollection(data_+start, end-start, data_+name, collection_save_id[levelnum]));
-	add(new LevelCollection(data_+start, end-start, collectionName(levelnum), collection_save_id[levelnum]));
+	add(new LevelCollection(QByteArray(data_+start, end-start), collectionName(levelnum), collection_save_id[levelnum]));
 	//printf("Level found: '%s'\n", data_+name);
 	levelnum++;
 	name = end;
@@ -111,21 +111,19 @@ InternalCollections::InternalCollections() {
       break;
 
     default:
-      assert(0);
+      Q_ASSERT(0);
     }
   }
   if (state == DATA) {
 //     collections_.add(new LevelCollection(data_+start, end-start, data_+name, collection_save_id[levelnum]));
-    add(new LevelCollection(data_+start, end-start, collectionName(levelnum), collection_save_id[levelnum]));
+    add(new LevelCollection(QByteArray(data_+start, end-start), collectionName(levelnum), collection_save_id[levelnum]));
     //printf("***Level found: '%s'\n", data_+name);
   }
   //printf("numlevels: %d/%d\n", levelnum+1, collections_.size());
 }
 
 InternalCollections::~InternalCollections() {
-  for (unsigned i=0; i<collections_.size(); i++) {
-    delete collections_[i];
-  }
+  qDeleteAll(collections_);
 
   free(data_);
 }
@@ -142,7 +140,5 @@ InternalCollections::operator[](int n) {
 
 void
 InternalCollections::add(LevelCollection* c) {
-  unsigned s = collections_.size();
-  collections_.resize(s + 1);
-  collections_.insert(s, c);
+  collections_.append(c);
 }
