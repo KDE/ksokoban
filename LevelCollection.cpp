@@ -150,7 +150,7 @@ LevelCollection::loadPrefs() {
     level_ = cg.readEntry(key, 0);
 
     key.sprintf("status%d", id_);
-    unsigned long x = cg.readUnsignedLongNumEntry(key, 0);
+    unsigned int x = cg.readEntry(key, QVariant::fromValue(0ul)).toUInt();
 
     x = backward(x, 0xc1136a15ul, 0x12ul, 0x80ff0b94ul);
     x = backward(x, 0xd38fd2ddul, 0x01ul, 0xd4d657b4ul);
@@ -163,8 +163,8 @@ LevelCollection::loadPrefs() {
 
     completedLevels_ = x>>16 & 0x3ff;
     if (!cg.hasKey(key)) completedLevels_ = 0;
-    if (((x>>26) & 0x3ful) != (unsigned long) id_) completedLevels_ = 0;
-    if ((x & 0xfffful) != (unsigned long) getuid()) completedLevels_ = 0;
+    if (((x>>26) & 0x3ful) != (unsigned int) id_) completedLevels_ = 0;
+    if ((x & 0xfffful) != (unsigned int) getuid()) completedLevels_ = 0;
     if (completedLevels_ > noOfLevels_) completedLevels_ = 0;
 
     if (level_ > completedLevels_) level_ = completedLevels_;
