@@ -78,7 +78,10 @@ History::load(LevelMap *map, const char *_str) {
   while (*_str != '\0') {
     m = new Move(x, y);
     _str = m->load(_str);
-    if (_str == 0) return 0;
+    if (!_str) { 
+      delete m;
+      return 0;
+    }
     x = m->finalX();
     y = m->finalY();
     future_.append(m);
