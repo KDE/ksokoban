@@ -71,7 +71,7 @@ main (int argc, char **argv)
 
   KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
   if (args->count() > 0) {
-    widget->openURL(args->url(0));
+    widget->openUrl(args->url(0));
   }
   args->clear();
 

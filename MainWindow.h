@@ -43,7 +43,7 @@ public:
   MainWindow();
   ~MainWindow();
 
-  void openURL(KUrl _url);
+  void openUrl(KUrl _url);
 
 private slots:
   void changeCollection(int id);

@@ -281,7 +281,7 @@ MainWindow::loadLevels() {
   KUrl result = KFileDialog::getOpenUrl(lastFile, "*", this, i18n("Load Levels From File"));
   if (result.isEmpty()) return;
 
-  openURL(result);
+  openUrl(result);
 }
 
 void
@@ -299,7 +299,7 @@ MainWindow::slotAnimSpeedSelected(QAction* speedAct)
 }
 
 void
-MainWindow::openURL(KUrl _url) {
+MainWindow::openUrl(KUrl _url) {
   KConfig *cfg=KGlobal::config();
 
 //   int namepos = _url.path().findRev('/') + 1; // NOTE: findRev can return -1
@@ -349,7 +349,7 @@ MainWindow::dropEvent(QDropEvent* event) {
 //     kDebug() << "MainWindow:Handling QUriDrag..." << endl;
      if (urls.count() > 0) {
          const KUrl &url = urls.first();
-         openURL(url);
+         openUrl(url);
      }
   }
 }
