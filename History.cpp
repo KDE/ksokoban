@@ -62,17 +62,18 @@ History::load(LevelMap *map, const char *_str) {
   while (*_str != '\0' && *_str != '-') {
     m = new Move(x, y);
     _str = m->load(_str);
-    if (_str == 0) return 0;
+    if (_str == 0) { delete m; return 0; }
     x = m->finalX();
     y = m->finalY();
     past_.append(m);
     if (!m->redo(map)) {
       //printf("redo failed: %s\n", _str);
       //abort();
+      delete m;
       return 0;
     }
   }
-  if (*_str != '-') return 0;
+  if (*_str != '-') { delete m; return 0; }
 
   _str++;
   while (*_str != '\0') {
