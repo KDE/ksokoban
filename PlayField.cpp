@@ -57,6 +57,7 @@ PlayField::PlayField(QWidget *parent, Qt::WFlags f)
     pushesText_(i18n("Pushes:")),
     statusFont_(KGlobalSettings::generalFont().family(), 18, QFont::Bold), statusMetrics_(statusFont_) {
 
+  setAttribute(Qt::WA_PaintOutsidePaintEvent, true);
   setFocusPolicy(Qt::StrongFocus);
   setFocus();
   setMouseTracking(true);
