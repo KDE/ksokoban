@@ -21,7 +21,7 @@
 // };
 
 static const int collection_save_id[] = {
-  10, 11, 12, 13, 14
+  10, 11, 12, 13, 14, 15, 16, 17, 18, 19
 };
 
 int
@@ -59,6 +59,26 @@ InternalCollections::collectionName(int _level) {
 
   case 4:
     return i18n("Sasquatch IV");
+    break;
+
+  case 5:
+    return i18n("Sasquatch V");
+    break;
+
+  case 6:
+    return i18n("Mas Microban (easy)");
+    break;
+
+  case 7:
+    return i18n("Sasquatch VI");
+    break;
+
+  case 8:
+    return i18n("LOMA");
+    break;
+
+  case 9:
+    return i18n("Sasquatch VII");
     break;
   }
 

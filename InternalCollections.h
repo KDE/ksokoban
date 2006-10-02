@@ -29,7 +29,7 @@ public:
   ~InternalCollections();
 
   static int toInternalId(int _id) {
-    if (_id < 10 || _id > 14) return 1000;
+    if (_id < 10 || _id > 19) return 1000;
     return _id - 10;
   }
 

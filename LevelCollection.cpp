@@ -11,18 +11,18 @@
 #include <kconfig.h>
 #include <kglobal.h>
 
-static inline unsigned long
-forward(unsigned long a, unsigned long b, unsigned long c, unsigned long d)
+static inline unsigned
+forward(unsigned a, unsigned b, unsigned c, unsigned d)
 {
-  unsigned long x=(a^b)&0xfffffffful;
-  return (((x<<c)|(x>>((32ul-c)&31ul)))*d)&0xfffffffful;
+  unsigned x=(a^b)&0xffffffffu;
+  return (((x<<c)|(x>>((32u-c)&31u)))*d)&0xffffffffu;
 }
 
-static inline unsigned long
-backward(unsigned long a, unsigned long b, unsigned long c, unsigned long d)
+static inline unsigned
+backward(unsigned a, unsigned b, unsigned c, unsigned d)
 {
-  unsigned long x=(a*b)&0xfffffffful;
-  return (((x<<c)|(x>>((32ul-c)&31ul)))^d)&0xfffffffful;
+  unsigned x=(a*b)&0xffffffffu;
+  return (((x<<c)|(x>>((32u-c)&31u)))^d)&0xffffffffu;
 }
 
 
@@ -150,21 +150,21 @@ LevelCollection::loadPrefs() {
     level_ = cg.readEntry(key, 0);
 
     key.sprintf("status%d", id_);
-    unsigned int x = cg.readEntry(key, QVariant::fromValue(0ul)).toUInt();
+    unsigned x = cg.readEntry(key, QVariant::fromValue(unsigned(0))).toUInt();
 
-    x = backward(x, 0xc1136a15ul, 0x12ul, 0x80ff0b94ul);
-    x = backward(x, 0xd38fd2ddul, 0x01ul, 0xd4d657b4ul);
-    x = backward(x, 0x59004eeful, 0x1eul, 0xf6c75e2cul);
-    x = backward(x, 0x366c3e25ul, 0x0aul, 0x61ebc208ul);
-    x = backward(x, 0x20a784c9ul, 0x15ul, 0x207d488bul);
-    x = backward(x, 0xc02864abul, 0x09ul, 0x709e62a3ul);
-    x = backward(x, 0xe2a60f19ul, 0x0eul, 0x8bb02c07ul);
-    x = backward(x, 0x3b0e11f3ul, 0x13ul, 0x608aef3ful);
+    x = backward(x, 0xc1136a15u, 0x12u, 0x80ff0b94u);
+    x = backward(x, 0xd38fd2ddu, 0x01u, 0xd4d657b4u);
+    x = backward(x, 0x59004eefu, 0x1eu, 0xf6c75e2cu);
+    x = backward(x, 0x366c3e25u, 0x0au, 0x61ebc208u);
+    x = backward(x, 0x20a784c9u, 0x15u, 0x207d488bu);
+    x = backward(x, 0xc02864abu, 0x09u, 0x709e62a3u);
+    x = backward(x, 0xe2a60f19u, 0x0eu, 0x8bb02c07u);
+    x = backward(x, 0x3b0e11f3u, 0x13u, 0x608aef3fu);
 
     completedLevels_ = x>>16 & 0x3ff;
     if (!cg.hasKey(key)) completedLevels_ = 0;
-    if (((x>>26) & 0x3ful) != (unsigned int) id_) completedLevels_ = 0;
-    if ((x & 0xfffful) != (unsigned int) getuid()) completedLevels_ = 0;
+    if (((x>>26) & 0x3fu) != static_cast<unsigned>(id_)) completedLevels_ = 0;
+    if ((x & 0xffffu) != static_cast<unsigned>(getuid())) completedLevels_ = 0;
     if (completedLevels_ > noOfLevels_) completedLevels_ = 0;
 
     if (level_ > completedLevels_) level_ = completedLevels_;
@@ -239,24 +239,24 @@ LevelCollection::levelCompleted() {
   if (completedLevels_ < (level_+1)) completedLevels_ = level_+1;
 
   if (id_ >= 0) {
-    unsigned long x=(((unsigned long) getuid()) & 0xfffful);
-    x |= ((unsigned long) id_)<<26;
-    x |= ((unsigned long) completedLevels_)<<16;
+    unsigned x=((static_cast<unsigned>(getuid())) & 0xffffu);
+    x |= (static_cast<unsigned>(id_))<<26;
+    x |= (static_cast<unsigned>(completedLevels_))<<16;
 
-    x = forward(x, 0x608aef3ful, 0x0dul, 0xfb00ef3bul);
-    x = forward(x, 0x8bb02c07ul, 0x12ul, 0x2a37dd29ul);
-    x = forward(x, 0x709e62a3ul, 0x17ul, 0x23607603ul);
-    x = forward(x, 0x207d488bul, 0x0bul, 0xc31fd579ul);
-    x = forward(x, 0x61ebc208ul, 0x16ul, 0xbcffadadul);
-    x = forward(x, 0xf6c75e2cul, 0x02ul, 0xa2baa00ful);
-    x = forward(x, 0xd4d657b4ul, 0x1ful, 0x7e129575ul);
-    x = forward(x, 0x80ff0b94ul, 0x0eul, 0x92fc153dul);
+    x = forward(x, 0x608aef3fu, 0x0du, 0xfb00ef3bu);
+    x = forward(x, 0x8bb02c07u, 0x12u, 0x2a37dd29u);
+    x = forward(x, 0x709e62a3u, 0x17u, 0x23607603u);
+    x = forward(x, 0x207d488bu, 0x0bu, 0xc31fd579u);
+    x = forward(x, 0x61ebc208u, 0x16u, 0xbcffadadu);
+    x = forward(x, 0xf6c75e2cu, 0x02u, 0xa2baa00fu);
+    x = forward(x, 0xd4d657b4u, 0x1fu, 0x7e129575u);
+    x = forward(x, 0x80ff0b94u, 0x0eu, 0x92fc153du);
 
     QString key;
     key.sprintf("status%d", id_);
 
     KConfigGroup cg(KGlobal::config(), "settings");
-    cg.writeEntry(key, int(x), KConfigBase::Normal);
+    cg.writeEntry(key, unsigned(x), KConfigBase::Normal);
   }
 }
 
