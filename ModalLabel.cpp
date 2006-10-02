@@ -30,6 +30,8 @@
 
 ModalLabel::ModalLabel(const QString &text, QWidget *parent, Qt::WFlags f)
   : QLabel(text, parent, f) {
+  setAutoFillBackground(true);
+
   QFont font(KGlobalSettings::generalFont().family(), 24, QFont::Bold);
   QFontMetrics fontMet(font);
 

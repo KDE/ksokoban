@@ -57,7 +57,6 @@ PlayField::PlayField(QWidget *parent, Qt::WFlags f)
     pushesText_(i18n("Pushes:")),
     statusFont_(KGlobalSettings::generalFont().family(), 18, QFont::Bold), statusMetrics_(statusFont_) {
 
-  setAttribute(Qt::WA_PaintOutsidePaintEvent, true);
   setFocusPolicy(Qt::StrongFocus);
   setFocus();
   setMouseTracking(true);
@@ -391,31 +390,24 @@ PlayField::highlight() {
   if (x == highlightX_ && y == highlightY_) return;
 
   if (pathFinder_.canDrag(x, y)) {
-    QPainter paint(this);
-
     if (highlightX_ >= 0) {
       int x = highlightX_, y = highlightY_;
       highlightX_ = -1;
-      paintSquare(x, y, paint);
+      update(x2pixel(x), y2pixel(y), size_, size_);
     } else
       changeCursor(Qt::SizeAllCursor);
 
-    if (levelMap_->goal(x, y))
-      imageData_->brightTreasure(paint, x2pixel(x), y2pixel(y));
-    else
-      imageData_->brightObject(paint, x2pixel(x), y2pixel(y));
     highlightX_ = x;
     highlightY_ = y;
+    update(x2pixel(x), y2pixel(y), size_, size_);
   } else {
     if (pathFinder_.canWalkTo(x, y)) changeCursor(Qt::CrossCursor);
     else unsetCursor();
     if (highlightX_ >= 0) {
-      QPainter paint(this);
-
       int x = highlightX_, y = highlightY_;
       highlightX_ = -1;
 
-      paintSquare(x, y, paint);
+      update(x2pixel(x), y2pixel(y), size_, size_);
     }
   }
 }
@@ -666,17 +658,8 @@ PlayField::stopDrag() {
 
   unsetCursor();
 
-  QPainter paint(this);
-
-  // the following line is a workaround for a bug in Qt 2.0.1
-  // (and possibly earlier versions)
-  paint.setBrushOrigin(0, 0);
-
-  int x = highlightX_, y = highlightY_;
-  paintSquare(x, y, paint);
-
-  paintPainterClip(paint, dragX_, dragY_, size_, size_);
-  // NOTE: clipping is now activated in the QPainter paint
+  update(x2pixel(highlightX_), y2pixel(highlightY_), size_, size_);
+  update(x2pixel(dragX_), y2pixel(dragY_), size_, size_);
   dragInProgress_ = false;
 
 }
@@ -710,15 +693,11 @@ PlayField::mousePressEvent(QMouseEvent *e) {
     return;
 
   if (e->button() == Qt::LeftButton && pathFinder_.canDrag(x, y)) {
-    QPainter paint(this);
     changeCursor(Qt::SizeAllCursor);
 
-    if (levelMap_->goal(x, y))
-      imageData_->brightTreasure(paint, x2pixel(x), y2pixel(y));
-    else
-      imageData_->brightObject(paint, x2pixel(x), y2pixel(y));
     highlightX_ = x;
     highlightY_ = y;
+    update(x2pixel(x), y2pixel(y), size_, size_);
     pathFinder_.updatePossibleDestinations(x, y);
 
     dragX_ = x2pixel(x);
@@ -799,7 +778,7 @@ PlayField::setSize(int w, int h) {
   stxtRect_.setRect(snumRect_.x()-sbarStepsWidth, h-sbarHeight, sbarStepsWidth, sbarHeight);
   lnumRect_.setRect(stxtRect_.x()-sbarNumWidth, h-sbarHeight, sbarNumWidth, sbarHeight);
   ltxtRect_.setRect(lnumRect_.x()-sbarLevelWidth, h-sbarHeight, sbarLevelWidth, sbarHeight);
-  collRect_.setRect(0, h-sbarHeight, ltxtRect_.x(), sbarHeight);
+  collRect_.setRect(0, h-sbarHeight, ltxtRect_.x() >= 0 ? ltxtRect_.x() : 0, sbarHeight);
 
   collXpm_ = QPixmap(collRect_.size());
   ltxtXpm_ = QPixmap(ltxtRect_.size());
