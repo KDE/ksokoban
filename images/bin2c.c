@@ -176,7 +176,7 @@ main (argc, argv)
       fprintf (stderr, "%s: can't open 'data.c' for writing\n", argv[0]);
       return 1;
   }
-
+  fprintf(outfile, "#ifndef DATA_C\n#define DATA_C\n");
   suffix = argv[1];
   /* Process each file given on command line */
   for (i=2; i<argc; i++) {
@@ -245,7 +245,7 @@ main (argc, argv)
     if ((destLen-1)%8 == 0) fprintf (outfile, "  0x%02x\n};\n\n", ((unsigned) dest[destLen-1]) & 0xffu);
     else fprintf (outfile, "0x%02x\n};\n\n", ((unsigned) dest[destLen-1]) & 0xffu);
   }
-
+  fprintf(outfile, "#endif\n");
   fclose (outfile);
 #ifdef USE_LIBZ
   free (dest);
