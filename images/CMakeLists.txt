@@ -6,7 +6,7 @@
 
 set(bin2c_SRCS bin2c.c )
 
-kde4_automoc(bin2c ${bin2c_SRCS})
+kde4_automoc(${bin2c_SRCS})
 
 kde4_add_executable(bin2c NOGUI ${bin2c_SRCS})
 

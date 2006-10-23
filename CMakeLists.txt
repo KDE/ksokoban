@@ -48,7 +48,7 @@ set(ksokoban_SRCS
    StaticImage.cpp 
    main.cpp )
 
-kde4_automoc(ksokoban ${ksokoban_SRCS})
+kde4_automoc(${ksokoban_SRCS})
 
 kde4_add_executable(ksokoban ${ksokoban_SRCS})
 
