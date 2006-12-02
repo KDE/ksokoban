@@ -23,13 +23,7 @@ set(images_FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/images/treasure.png
         ${CMAKE_CURRENT_SOURCE_DIR}/images/starfield.png)
 
-if (WIN32)
-  set (BIN2C ${CMAKE_BINARY_DIR}/bin/bin2c)
-else (WIN32)
-  set (BIN2C images/bin2c)
-endif(WIN32)
-
-add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/data.c COMMAND ${BIN2C}
+add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/data.c COMMAND images/bin2c
 		   ARGS \"\" ${CMAKE_CURRENT_SOURCE_DIR}/levels/level.data ${images_FILES} 
                    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/images/bin2c ${CMAKE_CURRENT_SOURCE_DIR}/levels/level.data ${images_FILES} 
                    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} )
