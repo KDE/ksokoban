@@ -25,7 +25,7 @@ set(images_FILES
 
 add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/data.c COMMAND images/bin2c
 		   ARGS \"\" ${CMAKE_CURRENT_SOURCE_DIR}/levels/level.data ${images_FILES} 
-                   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/images/bin2c ${CMAKE_CURRENT_SOURCE_DIR}/levels/level.data ${images_FILES} 
+                   DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/images/bin2c ${CMAKE_CURRENT_SOURCE_DIR}/levels/level.data ${images_FILES} 
                    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} )
 	
 set(ksokoban_SRCS
