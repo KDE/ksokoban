@@ -18,7 +18,7 @@
  */
 
 #include <kapplication.h>
-#include <kstdaction.h>
+#include <kstandardaction.h>
 #include <kaction.h>
 #include <kactioncollection.h>
 #include <ktoggleaction.h>
@@ -107,7 +107,7 @@ MainWindow::~MainWindow()
 
 void
 MainWindow::setupActions() {
-  (void)KStdAction::open( this, SLOT(loadLevels()), actionCollection(), "load_levels" );
+  (void)KStandardAction::open( this, SLOT(loadLevels()), actionCollection(), "load_levels" );
 
   KAction* nextLevel = new KAction( KIcon("forward"), i18n("&Next Level"), actionCollection(), "next_level" );
   nextLevel->setShortcut( Qt::Key_N );
@@ -123,9 +123,9 @@ MainWindow::setupActions() {
 
   createCollectionMenu();
 
-  (void)KStdAction::undo( playField_, SLOT(undo()), actionCollection(), "undo" );
-  (void)KStdAction::redo( playField_, SLOT(redo()), actionCollection(), "redo" );
-  (void)KStdAction::quit( this, SLOT(close()), actionCollection(), "quit" );
+  (void)KStandardAction::undo( playField_, SLOT(undo()), actionCollection(), "undo" );
+  (void)KStandardAction::redo( playField_, SLOT(redo()), actionCollection(), "redo" );
+  (void)KStandardAction::quit( this, SLOT(close()), actionCollection(), "quit" );
 
   QActionGroup* animGrp = new QActionGroup(this);
   animGrp->setExclusive(true);
