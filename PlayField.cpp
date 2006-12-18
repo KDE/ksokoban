@@ -17,6 +17,13 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+#include <klocale.h>
+#include <kglobal.h>
+#include <kconfig.h>
+#include <kmessagebox.h>
+#include <kglobalsettings.h>
+#include <kapplication.h>
+
 #include <QWidget>
 #include <QWheelEvent>
 #include <QFocusEvent>
@@ -25,12 +32,7 @@
 #include <QTimerEvent>
 #include <QResizeEvent>
 #include <QMouseEvent>
-#include <kconfig.h>
-#include <kapplication.h>
-#include <klocale.h>
 #include <qpainter.h>
-#include <kmessagebox.h>
-#include <kglobalsettings.h>
 #include <QAbstractEventDispatcher>
 
 #include "PlayField.h"
