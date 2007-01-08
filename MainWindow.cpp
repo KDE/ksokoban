@@ -45,7 +45,8 @@
 
 void
 MainWindow::createCollectionMenu() {
-  collectionsAct_ = new KSelectAction( i18n("&Level Collection"), actionCollection(), "collections" );
+  collectionsAct_ = new KSelectAction( i18n("&Level Collection"), this );
+  actionCollection()->addAction( "collections", collectionsAct_ );
   connect( collectionsAct_, SIGNAL(triggered(int)), this, SLOT(changeCollection(int)) );
 
   for (int i=0; i<internalCollections_.collections(); i++) {
@@ -107,35 +108,50 @@ MainWindow::~MainWindow()
 
 void
 MainWindow::setupActions() {
-  (void)KStandardAction::open( this, SLOT(loadLevels()), actionCollection(), "load_levels" );
+  actionCollection()->addAction( KStandardAction::Open, "load_levels",
+                                 this, SLOT(loadLevels()) );
 
-  KAction* nextLevel = new KAction( KIcon("forward"), i18n("&Next Level"), actionCollection(), "next_level" );
+  QAction* nextLevel = actionCollection()->addAction( "next_level" );
+  nextLevel->setIcon( KIcon("forward") );
+  nextLevel->setText( i18n("&Next Level") );
   nextLevel->setShortcut( Qt::Key_N );
   connect( nextLevel, SIGNAL(triggered(bool)), playField_, SLOT(nextLevel()) );
 
-  KAction* prevLevel = new KAction( KIcon("back"), i18n("&Previous Level"), actionCollection(), "prev_level" );
+  QAction* prevLevel = actionCollection()->addAction( "prev_level" );
+  prevLevel->setIcon( KIcon("back") );
+  prevLevel->setText( i18n("&Previous Level") );
   prevLevel->setShortcut( Qt::Key_P );
   connect( prevLevel, SIGNAL(triggered(bool)), playField_, SLOT(previousLevel()) );
 
-  KAction* reload = new KAction( KIcon("reload"), i18n("Re&start Level"), actionCollection(), "reload_level" );
+  QAction* reload = actionCollection()->addAction( "reload_level" );
+  reload->setIcon( KIcon("reload") );
+  reload->setText( i18n("Re&start Level") );
   reload->setShortcut( Qt::Key_Escape );
   connect( reload, SIGNAL(triggered(bool)), playField_, SLOT(restartLevel()) );
 
   createCollectionMenu();
 
-  (void)KStandardAction::undo( playField_, SLOT(undo()), actionCollection(), "undo" );
-  (void)KStandardAction::redo( playField_, SLOT(redo()), actionCollection(), "redo" );
-  (void)KStandardAction::quit( this, SLOT(close()), actionCollection(), "quit" );
+  actionCollection()->addAction( KStandardAction::Undo, "undo", playField_, SLOT(undo()) );
+  actionCollection()->addAction( KStandardAction::Redo, "redo", playField_, SLOT(redo()) );
+  actionCollection()->addAction( KStandardAction::Quit, "quit", this, SLOT(close()) );
 
   QActionGroup* animGrp = new QActionGroup(this);
   animGrp->setExclusive(true);
   connect(animGrp, SIGNAL(triggered(QAction*)), SLOT(slotAnimSpeedSelected(QAction*)) );
 
-  // FIXME dimsuz: use QVariant setData() as with bookmarks? 
-  KToggleAction* slow   = new KToggleAction( i18n("&Slow"), actionCollection(), "anim_slow", animGrp );
-  KToggleAction* medium = new KToggleAction( i18n("&Medium"), actionCollection(), "anim_medium", animGrp );
-  KToggleAction* fast   = new KToggleAction( i18n("&Fast"), actionCollection(), "anim_fast", animGrp );
-  KToggleAction* off    = new KToggleAction( i18n("&Off"), actionCollection(), "anim_off", animGrp );
+  // FIXME dimsuz: use QVariant setData() as with bookmarks?
+  KToggleAction* slow   = new KToggleAction( i18n("&Slow"), this );
+  actionCollection()->addAction( "anim_slow", slow );
+  slow->setActionGroup( animGrp );
+  KToggleAction* medium = new KToggleAction( i18n("&Medium"), this );
+  actionCollection()->addAction( "anim_medium", medium );
+  medium->setActionGroup( animGrp );
+  KToggleAction* fast   = new KToggleAction( i18n("&Fast"), this );
+  actionCollection()->addAction( "anim_fast", fast );
+  fast->setActionGroup( animGrp );
+  KToggleAction* off    = new KToggleAction( i18n("&Off"), this );
+  actionCollection()->addAction( "anim_off", off );
+  off->setActionGroup( animGrp );
 
   int animDelay = playField_->animDelay();
 
@@ -150,12 +166,14 @@ MainWindow::setupActions() {
       off->setChecked( true );
 
 
-  KAction* setBm[NUM_BOOKMARKS] = { 0 };
+  QAction* setBm[NUM_BOOKMARKS] = { 0 };
   QActionGroup* setBmGrp = new QActionGroup(this);
   setBmGrp->setExclusive(false);
   for(int i=0; i<NUM_BOOKMARKS; i++)
   {
-      setBm[i] = new KAction( KIcon("bookmark_add"), i18n("(unused)"), actionCollection(), QString("bm_add_%1").arg(i+1) );
+      setBm[i] = actionCollection()->addAction( QString("bm_add_%1").arg(i+1) );
+      setBm[i]->setIcon( KIcon("bookmark_add") );
+      setBm[i]->setText( i18n("(unused)") );
       setBm[i]->setData( QVariant(i+1) );
       setBmGrp->addAction( setBm[i] );
   }
@@ -176,12 +194,14 @@ MainWindow::setupActions() {
 
   connect(setBmGrp, SIGNAL(triggered(QAction*)), this, SLOT(slotSetBookmark(QAction*)));
 
-  KAction* gotoBm[NUM_BOOKMARKS] = { 0 };
+  QAction* gotoBm[NUM_BOOKMARKS] = { 0 };
   QActionGroup* gotoBmGrp = new QActionGroup(this);
   gotoBmGrp->setExclusive(false);
   for(int i=0; i<NUM_BOOKMARKS; i++)
   {
-      gotoBm[i] = new KAction( KIcon("bookmark"), i18n("(unused)"), actionCollection(), QString("bm_goto_%1").arg(i+1) );
+      gotoBm[i] = actionCollection()->addAction( QString("bm_goto_%1").arg(i+1) );
+      gotoBm[i]->setIcon( KIcon("bookmark") );
+      gotoBm[i]->setText( i18n("(unused)") );
       gotoBm[i]->setData( QVariant(i+1) );
       gotoBmGrp->addAction( gotoBm[i] );
   }
