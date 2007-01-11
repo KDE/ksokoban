@@ -20,7 +20,6 @@
 #include "config.h"
 
 #include <kconfig.h>
-#include <kapplication.h>
 
 #include <unistd.h>
 #include <stdlib.h>

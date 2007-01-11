@@ -17,7 +17,6 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include <kapplication.h>
 #include <kstandardaction.h>
 #include <kaction.h>
 #include <kactioncollection.h>

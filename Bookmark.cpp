@@ -23,7 +23,6 @@
 
 #include <QFile>
 
-#include <kapplication.h>
 
 #include <kglobal.h>
 #include <kstandarddirs.h>
