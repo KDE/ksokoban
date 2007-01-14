@@ -4,6 +4,7 @@ Name=KSokoban
 Name[x-test]=xxKSokobanxx
 GenericName=Sokoban Game
 GenericName[fr]=Jeu Sokoban
+GenericName[ja]=倉庫番ゲーム
 GenericName[x-test]=xxSokoban Gamexx
 DocPath=ksokoban/index.html
 Exec=ksokoban -caption "%c"
