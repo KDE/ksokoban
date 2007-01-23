@@ -24,7 +24,7 @@
  *
  */
 
-#include "../../config.h"
+#include "../config-ksokoban.h"
 
 #include <stdio.h>
 #include <stdlib.h>

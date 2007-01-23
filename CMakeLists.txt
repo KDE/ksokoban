@@ -1,7 +1,11 @@
 project(ksokoban)
 
-add_subdirectory( data ) 
-add_subdirectory( images ) 
+find_package(ZLIB REQUIRED)
+macro_bool_to_01(ZLIB_FOUND USE_LIBZ)
+configure_file(config-ksokoban.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-ksokoban.h)
+
+add_subdirectory( data )
+add_subdirectory( images )
 
 ########### next target ###############
 
