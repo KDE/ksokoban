@@ -2,6 +2,7 @@
 Encoding=UTF-8
 Name=KSokoban
 Name[af]=Ksokoban
+Name[be]=Сакабан
 Name[bn]=কে-সোকোবান
 Name[eo]=Sokobano
 Name[hi]=के-शोकोबॉन
@@ -15,6 +16,7 @@ Name[tg]=KСокобан
 Name[zh_TW]=KSokoban 倉庫番
 Name[zu]=I-KSokoban
 GenericName=Sokoban Game
+GenericName[be]=Гульня Сакабан
 GenericName[bg]=Логическа игра
 GenericName[bn]=সোকোবান খেলা
 GenericName[bs]=Igra Sokoban
