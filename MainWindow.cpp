@@ -35,6 +35,7 @@
 #include <QDragEnterEvent>
 #include <QFocusEvent>
 #include <QDropEvent>
+#include <kconfiggroup.h>
 
 #include "MainWindow.h"
 #include "PlayField.h"
@@ -293,7 +294,7 @@ MainWindow::changeCollection(int id)
 
 void
 MainWindow::loadLevels() {
-  KConfig *cfg=KGlobal::config();
+  KSharedConfig::Ptr cfg = KGlobal::config();
   cfg->setGroup("settings");
   QString lastFile = cfg->readPathEntry("lastLevelFile");
 
@@ -319,7 +320,7 @@ MainWindow::slotAnimSpeedSelected(QAction* speedAct)
 
 void
 MainWindow::openUrl(KUrl _url) {
-  KConfig *cfg=KGlobal::config();
+  KSharedConfig::Ptr cfg = KGlobal::config();
 
 //   int namepos = _url.path().findRev('/') + 1; // NOTE: findRev can return -1
 //   QString levelName = _url.path().mid(namepos);
