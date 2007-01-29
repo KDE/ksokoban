@@ -34,6 +34,7 @@
 #include <QMouseEvent>
 #include <qpainter.h>
 #include <QAbstractEventDispatcher>
+#include <kconfiggroup.h>
 
 #include "PlayField.h"
 #include "ModalLabel.h"

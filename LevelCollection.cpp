@@ -10,6 +10,7 @@
 #include <string.h>
 #include <kconfig.h>
 #include <kglobal.h>
+#include <kconfiggroup.h>
 
 static inline unsigned
 forward(unsigned a, unsigned b, unsigned c, unsigned d)
