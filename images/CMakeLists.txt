@@ -6,11 +6,13 @@
 
 set(bin2c_SRCS bin2c.c )
 
+include_directories( ${ZLIB_INCLUDE_DIR} )
+
 kde4_automoc(${bin2c_SRCS})
 
 kde4_add_executable(bin2c NOGUI ${bin2c_SRCS})
 
-target_link_libraries(bin2c  ${KDE4_KDECORE_LIBS} )
+target_link_libraries(bin2c  ${KDE4_KDECORE_LIBS} ${ZLIB_LIBRARY} )
 
 
 

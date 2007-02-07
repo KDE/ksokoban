@@ -54,17 +54,13 @@ set(ksokoban_SRCS
    StaticImage.cpp 
    main.cpp )
 
+include_directories( ${ZLIB_INCLUDE_DIR} )
+
 kde4_automoc(${ksokoban_SRCS})
 
 kde4_add_executable(ksokoban ${ksokoban_SRCS})
 
-if(ZLIB_FOUND)
-  include_directories( ${ZLIB_INCLUDE_DIR} )
-
-  target_link_libraries(ksokoban  ${KDE4_KDE3SUPPORT_LIBS} )
-else(ZLIB_FOUND)
-  target_link_libraries(ksokoban  ${KDE4_KDE3SUPPORT_LIBS} ${ZLIB_LIBRARY} )
-endif(ZLIB_FOUND)
+target_link_libraries(ksokoban  ${KDE4_KDE3SUPPORT_LIBS} ${ZLIB_LIBRARY} )
 
 install(TARGETS ksokoban  DESTINATION ${BIN_INSTALL_DIR} )
 
