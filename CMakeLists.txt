@@ -7,6 +7,8 @@ configure_file(config-ksokoban.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-ksokob
 add_subdirectory( data )
 add_subdirectory( images )
 
+add_definitions (-DQT3_SUPPORT -DQT3_SUPPORT_WARNINGS)
+
 ########### next target ###############
 
 set(images_FILES
