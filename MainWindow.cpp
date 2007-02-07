@@ -359,7 +359,7 @@ MainWindow::openUrl(KUrl _url) {
 
 void
 MainWindow::dragEnterEvent(QDragEnterEvent* event) {
-  event->accept(K3URLDrag::canDecode(event));
+  event->setAccepted(K3URLDrag::canDecode(event));
 }
 
 void
