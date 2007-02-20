@@ -294,9 +294,8 @@ MainWindow::changeCollection(int id)
 
 void
 MainWindow::loadLevels() {
-  KSharedConfig::Ptr cfg = KGlobal::config();
-  cfg->setGroup("settings");
-  QString lastFile = cfg->readPathEntry("lastLevelFile");
+  KConfigGroup cfg(KGlobal::config(), "settings");
+  QString lastFile = cfg.readPathEntry("lastLevelFile");
 
   KUrl result = KFileDialog::getOpenUrl(lastFile, "*", this, i18n("Load Levels From File"));
   if (result.isEmpty()) return;

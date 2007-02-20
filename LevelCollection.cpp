@@ -8,7 +8,7 @@
 #include <assert.h>
 #include <unistd.h>
 #include <string.h>
-#include <kconfig.h>
+#include <ksharedconfig.h>
 #include <kglobal.h>
 #include <kconfiggroup.h>
 
