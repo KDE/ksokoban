@@ -30,7 +30,6 @@
 #include <kstandarddirs.h>
 #include <kicon.h>
 
-#include <k3urldrag.h>
 #include <QPixmap>
 #include <QDragEnterEvent>
 #include <QFocusEvent>
@@ -358,17 +357,15 @@ MainWindow::openUrl(KUrl _url) {
 
 void
 MainWindow::dragEnterEvent(QDragEnterEvent* event) {
-  event->setAccepted(K3URLDrag::canDecode(event));
+  event->setAccepted(KUrl::List::canDecode(event->mimeData()));
 }
 
 void
 MainWindow::dropEvent(QDropEvent* event) {
-  KUrl::List urls;
-  if (K3URLDrag::decode(event, urls)) {
+  KUrl::List urls = KUrl::List::fromMimeData(event->mimeData());
+  if (!urls.isEmpty()) {
 //     kDebug() << "MainWindow:Handling QUriDrag..." << endl;
-     if (urls.count() > 0) {
          const KUrl &url = urls.first();
          openUrl(url);
-     }
   }
 }
