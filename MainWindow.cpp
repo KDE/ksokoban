@@ -111,19 +111,19 @@ MainWindow::setupActions() {
                                  this, SLOT(loadLevels()) );
 
   QAction* nextLevel = actionCollection()->addAction( "next_level" );
-  nextLevel->setIcon( KIcon("forward") );
+  nextLevel->setIcon( KIcon("go-next") );
   nextLevel->setText( i18n("&Next Level") );
   nextLevel->setShortcut( Qt::Key_N );
   connect( nextLevel, SIGNAL(triggered(bool)), playField_, SLOT(nextLevel()) );
 
   QAction* prevLevel = actionCollection()->addAction( "prev_level" );
-  prevLevel->setIcon( KIcon("back") );
+  prevLevel->setIcon( KIcon("go-previous") );
   prevLevel->setText( i18n("&Previous Level") );
   prevLevel->setShortcut( Qt::Key_P );
   connect( prevLevel, SIGNAL(triggered(bool)), playField_, SLOT(previousLevel()) );
 
   QAction* reload = actionCollection()->addAction( "reload_level" );
-  reload->setIcon( KIcon("reload") );
+  reload->setIcon( KIcon("view-refresh") );
   reload->setText( i18n("Re&start Level") );
   reload->setShortcut( Qt::Key_Escape );
   connect( reload, SIGNAL(triggered(bool)), playField_, SLOT(restartLevel()) );
@@ -171,7 +171,7 @@ MainWindow::setupActions() {
   for(int i=0; i<NUM_BOOKMARKS; i++)
   {
       setBm[i] = actionCollection()->addAction( QString("bm_add_%1").arg(i+1) );
-      setBm[i]->setIcon( KIcon("bookmark_add") );
+      setBm[i]->setIcon( KIcon("bookmark-new") );
       setBm[i]->setText( i18n("(unused)") );
       setBm[i]->setData( QVariant(i+1) );
       setBmGrp->addAction( setBm[i] );
