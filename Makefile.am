@@ -1,6 +1,6 @@
 APPSDIR = $(kde_appsdir)/Games/TacticStrategy
 
-SUBDIRS=data images levels
+SUBDIRS=levels data images
 
 bin_PROGRAMS = ksokoban
 ksokoban_SOURCES = Bookmark.cpp History.cpp HtmlPrinter.cpp ImageData.cpp InternalCollections.cpp LevelCollection.cpp LevelMap.cpp MainWindow.cpp Map.cpp MapDelta.cpp ModalLabel.cpp Move.cpp MoveSequence.cpp PathFinder.cpp PlayField.cpp StaticImage.cpp main.cpp
