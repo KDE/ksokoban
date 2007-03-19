@@ -22,9 +22,9 @@
 #include <QLabel>
 #include <QFont>
 #include <QTimerEvent>
-#include <kapplication.h>
 #include <kglobalsettings.h>
 #include <QWidget>
+#include <QApplication>
 
 #include "ModalLabel.moc"
 
@@ -104,8 +104,7 @@ ModalLabel::eventFilter (QObject *, QEvent *e) {
 
 void
 ModalLabel::message (const QString &text, QWidget *parent) {
-  KApplication *app = KApplication::kApplication ();
   ModalLabel cl (text, parent);
 
-  while (!cl.completed_) app->processOneEvent ();
+  while (!cl.completed_) qApp->processOneEvent ();
 }
