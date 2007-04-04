@@ -56,28 +56,28 @@ const QPixmap &
 ImageData::upperLarge(int index) {
   assert(index >= 0);
   if (indexSize_ <= index) expandIndex(index);
-  return largeStone_xpm_[upperLargeIndex_[index]];
+  return largeStone_xpm_[(unsigned char)upperLargeIndex_[index]];
 }
 
 const QPixmap &
 ImageData::lowerLarge(int index) {
   assert(index >= 0);
   if (indexSize_ <= index) expandIndex(index);
-  return largeStone_xpm_[lowerLargeIndex_[index]];
+  return largeStone_xpm_[(unsigned char)lowerLargeIndex_[index]];
 }
 
 const QPixmap &
 ImageData::leftSmall(int index) {
   assert(index >= 0);
   if (indexSize_ <= index) expandIndex(index);
-  return smallStone_xpm_[leftSmallIndex_[index]];
+  return smallStone_xpm_[(unsigned char)leftSmallIndex_[index]];
 }
 
 const QPixmap &
 ImageData::rightSmall(int index) {
   assert(index >= 0);
   if (indexSize_ <= index) expandIndex(index);
-  return smallStone_xpm_[rightSmallIndex_[index]];
+  return smallStone_xpm_[(unsigned char)rightSmallIndex_[index]];
 }
 
 int
