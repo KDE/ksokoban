@@ -318,8 +318,6 @@ MainWindow::slotAnimSpeedSelected(QAction* speedAct)
 
 void
 MainWindow::openUrl(KUrl _url) {
-  KSharedConfig::Ptr cfg = KGlobal::config();
-
 //   int namepos = _url.path().findRev('/') + 1; // NOTE: findRev can return -1
 //   QString levelName = _url.path().mid(namepos);
   QString levelName = _url.fileName();
@@ -342,8 +340,8 @@ MainWindow::openUrl(KUrl _url) {
     return;
   }
   if (_url.isLocalFile()) {
-    cfg->setGroup("settings");
-    cfg->writePathEntry("lastLevelFile", _url.path());
+    KConfigGroup cfg(KGlobal::config(), "settings");
+    cfg.writePathEntry("lastLevelFile", _url.path());
   }
 
   delete externalCollection_;
