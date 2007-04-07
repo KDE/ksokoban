@@ -106,5 +106,5 @@ void
 ModalLabel::message (const QString &text, QWidget *parent) {
   ModalLabel cl (text, parent);
 
-  while (!cl.completed_) qApp->processOneEvent ();
+  while (!cl.completed_) qApp->processEvents (QEventLoop::WaitForMoreEvents);
 }
