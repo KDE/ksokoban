@@ -64,7 +64,7 @@ MainWindow::createCollectionMenu() {
 }
 
 
-MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0), collectionsAct_(0) {
+MainWindow::MainWindow() : KXmlGuiWindow(0), externalCollection_(0), collectionsAct_(0) {
   KConfigGroup cfg(KGlobal::config(), "Geometry");
   int width = cfg.readEntry("width", 750);
   int height = cfg.readEntry("height", 562);

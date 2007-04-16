@@ -20,7 +20,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <kmainwindow.h>
+#include <kxmlguiwindow.h>
 #include <kurl.h>
 #include "Bookmark.h"
 #include "InternalCollections.h"
@@ -37,7 +37,7 @@ class KSelectAction;
 // will need to create it dynamically instead
 #define NUM_BOOKMARKS 10
 
-class MainWindow : public KMainWindow {
+class MainWindow : public KXmlGuiWindow {
   Q_OBJECT
 public:
   MainWindow();
