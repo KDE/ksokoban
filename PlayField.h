@@ -21,7 +21,7 @@
 #define PLAYFIELD_H
 
 #include <QWidget>
-#include <QString>
+
 #include <QFont>
 #include <qfontmetrics.h>
 #include <qpixmap.h>
