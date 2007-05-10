@@ -1,11 +1,13 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KSokoban
+Name[sv]=Ksokoban
 GenericName=Sokoban Game
 GenericName[de]=Sokoban-Spiel
 GenericName[el]=Παιχνίδι Sokoban
 GenericName[pt]=Jogo de Sokoban
 GenericName[pt_BR]=Jogo de Sokoban
+GenericName[sv]=Sokoban-spel
 DocPath=ksokoban/index.html
 Exec=ksokoban -caption "%c"
 Icon=ksokoban
