@@ -3,6 +3,7 @@ Encoding=UTF-8
 Name=KSokoban
 Name[sv]=Ksokoban
 GenericName=Sokoban Game
+GenericName[bg]=Игра Sokoban
 GenericName[de]=Sokoban-Spiel
 GenericName[el]=Παιχνίδι Sokoban
 GenericName[et]=Sokoban
