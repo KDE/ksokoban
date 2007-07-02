@@ -32,28 +32,25 @@ static const char description[] = I18N_NOOP("The japanese warehouse keeper game"
 static const char version[] = "0.4.2";
 
 
-static KCmdLineOptions options[] =
-{
-     { "+[file]", I18N_NOOP("Level collection file to load"), 0 },
-     KCmdLineLastOption  // End of options.
-};
-
 
 int
 main (int argc, char **argv)
 {
-  KAboutData aboutData("ksokoban", I18N_NOOP("KSokoban"),
-		       version, description, KAboutData::License_GPL,
-		       "(c) 1998-2001  Anders Widell", 0,
+  KAboutData aboutData("ksokoban", 0, ki18n("KSokoban"),
+		       version, ki18n(description), KAboutData::License_GPL,
+		       ki18n("(c) 1998-2001  Anders Widell"), KLocalizedString(),
 		       "http://hem.passagen.se/awl/ksokoban/");
-  aboutData.addAuthor("Anders Widell", 0,
+  aboutData.addAuthor(ki18n("Anders Widell"), KLocalizedString(),
 		      "awl@passagen.se",
 		      "http://hem.passagen.se/awl/");
-  aboutData.addCredit("David W. Skinner",
-		      I18N_NOOP("For contributing the Sokoban levels included in this game"),
+  aboutData.addCredit(ki18n("David W. Skinner"),
+		      ki18n("For contributing the Sokoban levels included in this game"),
 		      "sasquatch@bentonrea.com",
 		      "http://users.bentonrea.com/~sasquatch/");
   KCmdLineArgs::init(argc, argv, &aboutData);
+
+  KCmdLineOptions options;
+  options.add("+[file]", ki18n("Level collection file to load"));
   KCmdLineArgs::addCmdLineOptions(options);
 //   KUniqueApplication::addCmdLineOptions();
 
