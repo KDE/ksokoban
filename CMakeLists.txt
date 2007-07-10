@@ -56,8 +56,6 @@ set(ksokoban_SRCS
 
 include_directories( ${ZLIB_INCLUDE_DIR} )
 
-kde4_automoc(${ksokoban_SRCS})
-
 kde4_add_executable(ksokoban ${ksokoban_SRCS})
 
 target_link_libraries(ksokoban  ${KDE4_KIO_LIBS} ${ZLIB_LIBRARY} )
