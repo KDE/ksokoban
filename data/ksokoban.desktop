@@ -1,7 +1,13 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KSokoban
+Name[pt_BR]=KSokoban
+Name[uk]=KSokoban
+Name[x-test]=xxKSokobanxx
 GenericName=Sokoban Game
+GenericName[pt_BR]=Jogo Sokoban
+GenericName[uk]=Гра, подібна до гри Сокобан
+GenericName[x-test]=xxSokoban Gamexx
 DocPath=ksokoban/index.html
 Exec=ksokoban -caption "%c"
 Icon=ksokoban
