@@ -2,10 +2,14 @@
 Encoding=UTF-8
 Name=KSokoban
 Name[pt_BR]=KSokoban
+Name[sk]=KSokoban
+Name[sv]=Ksokoban
 Name[uk]=KSokoban
 Name[x-test]=xxKSokobanxx
 GenericName=Sokoban Game
 GenericName[pt_BR]=Jogo Sokoban
+GenericName[sk]=Hra Sokoban
+GenericName[sv]=Sokoban-spel
 GenericName[uk]=Гра, подібна до гри Сокобан
 GenericName[x-test]=xxSokoban Gamexx
 DocPath=ksokoban/index.html
