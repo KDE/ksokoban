@@ -1,12 +1,16 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KSokoban
+Name[cs]=KSokoban
+Name[pt]=KSokoban
 Name[pt_BR]=KSokoban
 Name[sk]=KSokoban
 Name[sv]=Ksokoban
 Name[uk]=KSokoban
 Name[x-test]=xxKSokobanxx
 GenericName=Sokoban Game
+GenericName[cs]=Hra Sokoban
+GenericName[pt]=Jogo de Sokoban
 GenericName[pt_BR]=Jogo Sokoban
 GenericName[sk]=Hra Sokoban
 GenericName[sv]=Sokoban-spel
