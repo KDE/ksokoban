@@ -2,6 +2,7 @@
 Encoding=UTF-8
 Name=KSokoban
 Name[cs]=KSokoban
+Name[de]=KSokoban
 Name[et]=KSokoban
 Name[fr]=KSokoban
 Name[ga]=KSokoban
@@ -16,6 +17,7 @@ Name[uk]=KSokoban
 Name[x-test]=xxKSokobanxx
 GenericName=Sokoban Game
 GenericName[cs]=Hra Sokoban
+GenericName[de]=„Sokoban“-Spiel
 GenericName[et]=Sokobani mäng
 GenericName[fr]=Jeu de Sokoban
 GenericName[ga]=Cluiche Sokoban
