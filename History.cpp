@@ -17,39 +17,49 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+#include <QList>
+
 #include "History.h"
 #include "Move.h"
 #include "MoveSequence.h"
 #include "LevelMap.h"
 
 History::History() {
+  //past_.setAutoDelete(true);
+  //future_.setAutoDelete(true);
 }
-
+History::~History() {
+	for(QList<Move*>::iterator it=past_.begin(); it!=past_.end(); it++)
+		delete *it;
+	for(QList<Move*>::iterator it=future_.begin(); it!=future_.end(); it++)
+		delete *it;
+}
 
 void
 History::add(Move *_m) {
-  qDeleteAll(future_);
   future_.clear();
   past_.append(_m);
 }
 
 void
 History::clear() {
-  qDeleteAll(past_);
-  qDeleteAll(future_);
   past_.clear();
   future_.clear();
 }
 
 void
 History::save(QString &_str) {
-  foreach( Move *m, past_ )
-    m->save(_str);
+  
 
+  for(QList<Move*>::Iterator iterator = past_.begin(); iterator != past_.end(); ++iterator) {
+    (*iterator)->save(_str);
+  }
   _str += '-';
 
-  foreach( Move *m, future_ )
-    m->save(_str);
+  
+  for(QList<Move*>::Iterator iterator = future_.begin(); iterator != future_.end(); ++iterator) {
+    (*iterator)->save(_str);
+  }
 }
 
 const char *
@@ -62,27 +72,23 @@ History::load(LevelMap *map, const char *_str) {
   while (*_str != '\0' && *_str != '-') {
     m = new Move(x, y);
     _str = m->load(_str);
-    if (_str == 0) { delete m; return 0; }
+    if (_str == 0) return 0;
     x = m->finalX();
     y = m->finalY();
     past_.append(m);
     if (!m->redo(map)) {
       //printf("redo failed: %s\n", _str);
       //abort();
-      delete m;
       return 0;
     }
   }
-  if (*_str != '-') { delete m; return 0; }
+  if (*_str != '-') return 0;
 
   _str++;
   while (*_str != '\0') {
     m = new Move(x, y);
     _str = m->load(_str);
-    if (!_str) { 
-      delete m;
-      return 0;
-    }
+    if (_str == 0) return 0;
     x = m->finalX();
     y = m->finalY();
     future_.append(m);
@@ -95,7 +101,7 @@ bool
 History::redo(LevelMap *map) {
   if (future_.isEmpty()) return false;
 
-  Move *m=future_.takeFirst();
+  Move *m=future_.takeAt(0);
   past_.append(m);
   return m->redo(map);
 }
@@ -104,7 +110,7 @@ MoveSequence *
 History::deferRedo(LevelMap *map) {
   if (future_.isEmpty()) return 0;
 
-  Move *m=future_.takeFirst();
+  Move *m=future_.takeAt(0);
   past_.append(m);
   return new MoveSequence(m, map);
 }
@@ -113,8 +119,8 @@ bool
 History::undo(LevelMap *map) {
   if (past_.isEmpty()) return false;
 
-  Move *m = past_.takeLast();
-  future_.prepend(m);
+  Move *m = past_.takeAt(past_.count ()-1);
+  future_.insert(0, m);
   return m->undo(map);
 }
 
@@ -122,7 +128,7 @@ MoveSequence *
 History::deferUndo(LevelMap *map) {
   if (past_.isEmpty()) return 0;
 
-  Move *m = past_.takeLast();
-  future_.prepend(m);
+  Move *m = past_.takeAt(past_.count()-1);
+  future_.insert(0, m);
   return new MoveSequence(m, map, true);
 }

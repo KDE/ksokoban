@@ -17,27 +17,24 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include "Bookmark.h"
-#include "History.h"
-#include "LevelMap.h"
-
-#include <QFile>
-
-
-#include <kglobal.h>
-#include <kstandarddirs.h>
-
 #include <stdio.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <fcntl.h>
 #include <unistd.h>
-
 #include <assert.h>
+
+#include <QFile>
+#include <QStandardPaths>
+
+
+#include "Bookmark.h"
+#include "History.h"
+#include "LevelMap.h"
 
 void
 Bookmark::fileName(QString &p) {
-  p = KGlobal::dirs()->saveLocation("appdata");
+  p = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
 
   QString n;
   n.setNum(number_);
@@ -95,7 +92,7 @@ Bookmark::set(int _collection, int _level, int _moves, History *_h) {
   FILE *file = fopen(QFile::encodeName(p), "w");
   if (file == NULL) return;
   fprintf(file, "%d %d %d\n", collection_, level_, moves_);
-  fprintf(file, "%s\n", data_.toLatin1().constData() );
+  fprintf(file, "%s\n", data_.toLatin1().constData());
   fclose(file);
 }
 

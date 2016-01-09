@@ -20,16 +20,16 @@
 #ifndef LEVELCOLLECTION_H
 #define LEVELCOLLECTION_H
 
-#include <QList>
-#include <QByteArray>
 #include <QString>
+#include <QByteArray>
+#include <QVector>
 
 class Map;
 
 class LevelCollection {
 public:
+  LevelCollection(const char *_def, int _len, const QString &_name, int _id=-1);
   LevelCollection(const QString &_path, const QString &_name, int _id=-1);
-  LevelCollection(const QByteArray &_def, const QString &_name, int _id=-1);
   ~LevelCollection();
 
   const QString &name() const { return name_; }
@@ -47,10 +47,11 @@ protected:
 
 
 private:
-  void addLevel(const QString& _level);
+  void addLevel(const char* _level);
+  void addData(const char* _data, unsigned _len);
   void addSeparator();
 
-  QList<QString> index_;
+  QVector<const char*> index_;
   QByteArray    data_;
   //int    dataLen_;
 

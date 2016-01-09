@@ -21,6 +21,8 @@
 #define HISTORY_H
 
 #include <QList>
+#include <QString>
+
 #include "Move.h"
 class MoveSequence;
 
@@ -42,6 +44,7 @@ protected:
 
 public:
   History();
+  ~History();
   /**
    * Add a move to the history. Deletes all currently undone moves.
    */

@@ -17,10 +17,6 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include "config-ksokoban.h"
-
-#include <kconfig.h>
-
 #include <unistd.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -28,9 +24,9 @@
 #include <stdio.h>
 #include <string.h>
 
-#ifdef USE_LIBZ
+#include <KConfig>
+
 #include <zlib.h>
-#endif
 
 #include "LevelMap.h"
 #include "LevelCollection.h"

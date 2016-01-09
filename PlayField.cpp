@@ -17,24 +17,21 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include <klocale.h>
-#include <kglobal.h>
-#include <kconfig.h>
-#include <kmessagebox.h>
-#include <kglobalsettings.h>
-#include <kapplication.h>
+#include <stdio.h>
+#include <assert.h>
 
 #include <QWidget>
-#include <QWheelEvent>
-#include <QFocusEvent>
-#include <QPaintEvent>
+#include <QPixmap>
 #include <QKeyEvent>
-#include <QTimerEvent>
-#include <QResizeEvent>
+#include <QApplication>
+#include <KSharedConfig>
+#include <KMessageBox>
+#include <KConfigGroup>
+#include <KLocalizedString>
+#include <QPainter>
 #include <QMouseEvent>
-#include <qpainter.h>
-#include <QAbstractEventDispatcher>
-#include <kconfiggroup.h>
+#include <QWheelEvent>
+#include <QFontDatabase>
 
 #include "PlayField.h"
 #include "ModalLabel.h"
@@ -51,32 +48,38 @@
 
 #include "PlayField.moc"
 
-PlayField::PlayField(QWidget *parent, Qt::WFlags f)
-  : QWidget(parent, f|Qt::WResizeNoErase), imageData_(0), lastLevel_(-1),
+PlayField::PlayField(QWidget *parent)
+  : QWidget(parent), imageData_(0), lastLevel_(-1),
     moveSequence_(0), moveInProgress_(false), dragInProgress_(false),
     xOffs_(0), yOffs_(0),
-    wheelDelta_(0),
+    wheelDelta_(0), debug_counter(0),
+    sizeAllCursor(Qt::SizeAllCursor), crossCursor(Qt::CrossCursor),
     levelText_(i18n("Level:")), stepsText_(i18n("Steps:")),
     pushesText_(i18n("Pushes:")),
-    statusFont_(KGlobalSettings::generalFont().family(), 18, QFont::Bold), statusMetrics_(statusFont_) {
+	pnumXpm_(NULL), ptxtXpm_(NULL), snumXpm_(NULL), stxtXpm_(NULL),
+	lnumXpm_(NULL), ltxtXpm_(NULL), collXpm_(NULL),
+    statusFont_(QFontDatabase::systemFont(QFontDatabase::GeneralFont).family(), 18, QFont::Bold),
+    statusMetrics_(statusFont_) {
 
+  //setAttribute(Qt::WA_PaintOutsidePaintEvent);
   setFocusPolicy(Qt::StrongFocus);
   setFocus();
   setMouseTracking(true);
 
   highlightX_ = highlightY_ = 0;
 
-  KConfigGroup settings(KGlobal::config(), "settings");
-
+  KSharedConfigPtr cfg = KSharedConfig::openConfig();
+  KConfigGroup settingsGroup(cfg, "settings");
+  
   imageData_ = new StaticImage;
 
-  animDelay_ = settings.readEntry("animDelay", 2);
+  animDelay_ = settingsGroup.readEntry("animDelay", QString("2")).toInt();
   if (animDelay_ < 0 || animDelay_ > 3) animDelay_ = 2;
 
   history_ = new History;
 
-  background_.setTexture( imageData_->background() );
-  floor_ = QColor(0x66,0x66,0x66);
+  background_.setTexture(imageData_->background());
+  //floor_ = QColor(0x66,0x66,0x66, 255);
 
   levelMap_  = new LevelMap;
   mapDelta_ = new MapDelta(levelMap_);
@@ -86,26 +89,37 @@ PlayField::PlayField(QWidget *parent, Qt::WFlags f)
 }
 
 PlayField::~PlayField() {
-  KConfigGroup settings(KGlobal::config(), "settings");
-  settings.writeEntry("animDelay", animDelay_, KConfigBase::Normal);
+  KSharedConfigPtr cfg = KSharedConfig::openConfig();
+  KConfigGroup settingsGroup(cfg, "settings");
+  settingsGroup.writeEntry("animDelay", QString("%1").arg(animDelay_));
 
   delete mapDelta_;
   delete history_;
   delete levelMap_;
   delete imageData_;
+  if(ltxtXpm_) 
+	delete ltxtXpm_;
+  if(lnumXpm_)
+	delete lnumXpm_;
+  if(stxtXpm_)
+    delete stxtXpm_;
+  if(snumXpm_)
+    delete snumXpm_;
+  if(ptxtXpm_)
+    delete ptxtXpm_;
+  if(pnumXpm_)
+    delete pnumXpm_;
+  if(collXpm_)
+    delete collXpm_;
 }
 
 void
-PlayField::changeCursor(const QCursor& c) {
-  if (cursor_.handle() == c.handle()) return;
+PlayField::changeCursor(const QCursor* c) {
+  if (cursor_ == c) return;
 
   cursor_ = c;
-  QWidget::setCursor(c);
-}
-
-void PlayField::unsetCursor() {
-  cursor_ = Qt::BlankCursor; // just so
-  QWidget::unsetCursor();
+  if (c == 0) unsetCursor();
+  else setCursor(*c);
 }
 
 int
@@ -151,16 +165,21 @@ PlayField::paintSquare(int x, int y, QPainter &paint) {
   if (levelMap_->xpos() == x && levelMap_->ypos() == y) {
     if (levelMap_->goal(x, y))
       imageData_->saveman(paint, x2pixel(x), y2pixel(y));
-    else
+    else {
       imageData_->man(paint, x2pixel(x), y2pixel(y));
+	  //printf("imageData_->man() %d; %d\n",x2pixel(x), y2pixel(y));
+	} 
     return;
   }
   if (levelMap_->empty(x, y)) {
     if (levelMap_->floor(x, y)) {
       if (levelMap_->goal(x, y))
-	imageData_->goal(paint, x2pixel(x), y2pixel(y));
-      else
-	paint.fillRect(x2pixel(x), y2pixel(y), size_, size_, floor_);
+		imageData_->goal(paint, x2pixel(x), y2pixel(y));
+      else{
+		//paint.fillRect(x2pixel(x), y2pixel(y), size_, size_, floor_);
+		imageData_->floor(paint, x2pixel(x), y2pixel(y));
+		//printf("executing paint.fillRect(): %d; %d,%d,%d,%d\n",++debug_counter, x2pixel(x), y2pixel(y), size_, size_);
+	  }
     } else {
       paint.fillRect(x2pixel(x), y2pixel(y), size_, size_, background_);
     }
@@ -192,21 +211,15 @@ PlayField::paintSquare(int x, int y, QPainter &paint) {
 
 void
 PlayField::paintDelta() {
-
-  for (int y=0; y<levelMap_->height(); y++) {
-    for (int x=0; x<levelMap_->width(); x++) {
-      if (mapDelta_->hasChanged(x, y)) 
-          update(x2pixel(x), y2pixel(y), size_, size_);
-    }
-  }
+  repaint();
 }
 
 
 
 void
 PlayField::paintEvent(QPaintEvent *e) {
-  QPainter paint(this);
-
+  QPainter paint;
+  paint.begin(this);
   // the following line is a workaround for a bug in Qt 2.0.1
   // (and possibly earlier versions)
   paint.setBrushOrigin(0, 0);
@@ -215,6 +228,7 @@ PlayField::paintEvent(QPaintEvent *e) {
   paint.setClipping(true);
 
   paintPainter(paint, e->rect());
+  paint.end();
 }
 
 void
@@ -265,13 +279,13 @@ PlayField::paintPainter(QPainter &paint, const QRect &rect) {
     }
   }
 
-  if (collRect_.intersects(rect)) paint.drawPixmap(collRect_.x(), collRect_.y(), collXpm_);
-  if (ltxtRect_.intersects(rect)) paint.drawPixmap(ltxtRect_.x(), ltxtRect_.y(), ltxtXpm_);
-  if (lnumRect_.intersects(rect)) paint.drawPixmap(lnumRect_.x(), lnumRect_.y(), lnumXpm_);
-  if (stxtRect_.intersects(rect)) paint.drawPixmap(stxtRect_.x(), stxtRect_.y(), stxtXpm_);
-  if (snumRect_.intersects(rect)) paint.drawPixmap(snumRect_.x(), snumRect_.y(), snumXpm_);
-  if (ptxtRect_.intersects(rect)) paint.drawPixmap(ptxtRect_.x(), ptxtRect_.y(), ptxtXpm_);
-  if (pnumRect_.intersects(rect)) paint.drawPixmap(pnumRect_.x(), pnumRect_.y(), pnumXpm_);
+  if (collRect_.intersects(rect) && collXpm_)  paint.drawPixmap(collRect_.x(), collRect_.y(), *collXpm_);
+  if (ltxtRect_.intersects(rect) && ltxtXpm_)  paint.drawPixmap(ltxtRect_.x(), ltxtRect_.y(), *ltxtXpm_);
+  if (lnumRect_.intersects(rect) && lnumXpm_)  paint.drawPixmap(lnumRect_.x(), lnumRect_.y(), *lnumXpm_);
+  if (stxtRect_.intersects(rect) && stxtXpm_)  paint.drawPixmap(stxtRect_.x(), stxtRect_.y(), *stxtXpm_);
+  if (snumRect_.intersects(rect) && snumXpm_)  paint.drawPixmap(snumRect_.x(), snumRect_.y(), *snumXpm_);
+  if (ptxtRect_.intersects(rect) && ptxtXpm_)  paint.drawPixmap(ptxtRect_.x(), ptxtRect_.y(), *ptxtXpm_);
+  if (pnumRect_.intersects(rect) && pnumXpm_)  paint.drawPixmap(pnumRect_.x(), pnumRect_.y(), *pnumXpm_);
 }
 
 void
@@ -312,71 +326,8 @@ PlayField::mouseMoveEvent(QMouseEvent *e) {
 
   if (dragX_ == old_x && dragY_ == old_y) return;
 
-  QRect rect(dragX_, dragY_, size_, size_);
-
-  dragXpm_= QPixmap(size_, size_);
-
-  QPainter paint;
-  paint.begin(&dragXpm_);
-  paint.setBackground(palette().color(backgroundRole()));
-  paint.setBrushOrigin(- dragX_, - dragY_);
-  paint.translate((double) (- dragX_), (double) (- dragY_));
-  paintPainter(paint, rect);
-  paint.end();
-
-  dragImage_ = dragXpm_.toImage();
-  for (int yy=0; yy<size_; yy++) {
-    for (int xx=0; xx<size_; xx++) {
-      QRgb rgb1 = imageData_->objectImg().pixel(xx, yy);
-      int r1 = qRed(rgb1);
-      int g1 = qGreen(rgb1);
-      int b1 = qBlue(rgb1);
-      if (r1 != g1 || r1 != b1 || r1 == 255) {
-	QRgb rgb2 = dragImage_.pixel(xx, yy);
-	int r2 = qRed(rgb2);
-	int g2 = qGreen(rgb2);
-	int b2 = qBlue(rgb2);
-	r2 = (int) (0.75 * r1 + 0.25 * r2 + 0.5);
-	g2 = (int) (0.75 * g1 + 0.25 * g2 + 0.5);
-	b2 = (int) (0.75 * b1 + 0.25 * b2 + 0.5);
-	dragImage_.setPixel(xx, yy, qRgb(r2, g2, b2));
-      }
-    }
-  }
-
-  paint.begin(this);
-
-  // the following line is a workaround for a bug in Qt 2.0.1
-  // (and possibly earlier versions)
-  paint.setBrushOrigin(0, 0);
-
-  dragXpm_ = QPixmap::fromImage(dragImage_,
-			    Qt::OrderedDither|Qt::OrderedAlphaDither|
-			    Qt::ColorOnly|Qt::AvoidDither);
-  paint.drawPixmap(dragX_, dragY_, dragXpm_);
-
-  {
-    int dx = dragX_ - old_x;
-    int dy = dragY_ - old_y;
-    int y2 = old_y;
-    if (dy > 0) {
-      paintPainterClip(paint, old_x, old_y, size_, dy);
-      // NOTE: clipping is now activated in the QPainter paint
-      y2 += dy;
-    } else if (dy < 0) {
-      paintPainterClip(paint, old_x, old_y+size_+dy, size_, -dy);
-      // NOTE: clipping is now activated in the QPainter paint
-      dy = -dy;
-    }
-    if (dx > 0) {
-      paintPainterClip(paint, old_x, y2, dx, size_-dy);
-      // NOTE: clipping is now activated in the QPainter paint
-    } else if (dx < 0) {
-      paintPainterClip(paint, old_x+size_+dx, y2, -dx, size_-dy);
-      // NOTE: clipping is now activated in the QPainter paint
-    }
-  }
-  paint.end();
+  repaint();
+  
 }
 
 void
@@ -393,39 +344,28 @@ PlayField::highlight() {
   if (x == highlightX_ && y == highlightY_) return;
 
   if (pathFinder_.canDrag(x, y)) {
-    if (highlightX_ >= 0) {
-      int x = highlightX_, y = highlightY_;
-      highlightX_ = -1;
-      update(x2pixel(x), y2pixel(y), size_, size_);
-    } else
-      changeCursor(Qt::SizeAllCursor);
-
     highlightX_ = x;
     highlightY_ = y;
-    update(x2pixel(x), y2pixel(y), size_, size_);
+    repaint();
   } else {
-    if (pathFinder_.canWalkTo(x, y)) changeCursor(Qt::CrossCursor);
-    else unsetCursor();
+    if (pathFinder_.canWalkTo(x, y)) changeCursor(&crossCursor);
+    else changeCursor(0);
     if (highlightX_ >= 0) {
-      int x = highlightX_, y = highlightY_;
-      highlightX_ = -1;
-
-      update(x2pixel(x), y2pixel(y), size_, size_);
+      repaint();
     }
   }
 }
 
 void
 PlayField::stopMoving() {
-  QAbstractEventDispatcher::instance()->unregisterTimers(this);
+  killTimers();
   delete moveSequence_;
   moveSequence_ = 0;
   moveInProgress_ = false;
   updateStepsXpm();
   updatePushesXpm();
 
-  update(snumRect_.unite(pnumRect_));
-
+  repaint();
   pathFinder_.updatePossibleMoves();
 }
 
@@ -442,7 +382,7 @@ PlayField::startMoving(MoveSequence *ms) {
   assert(moveSequence_ == 0 && !moveInProgress_);
   moveSequence_ = ms;
   moveInProgress_ = true;
-  if (animDelay_) startTimer(delay[animDelay_]);
+  if (animDelay_) timers.append(startTimer(delay[animDelay_]));
   timerEvent(0);
 }
 
@@ -450,7 +390,7 @@ void
 PlayField::timerEvent(QTimerEvent *) {
   assert(moveInProgress_);
   if (moveSequence_ == 0) {
-    QAbstractEventDispatcher::instance()->unregisterTimers(this);
+    killTimers();
     moveInProgress_ = false;
     return;
   }
@@ -559,33 +499,33 @@ PlayField::keyPressEvent(QKeyEvent * e) {
 
   switch (e->key()) {
   case Qt::Key_Up:
-    if (e->state() & Qt::ControlModifier) step(x, 0);
-    else if (e->state() & Qt::ShiftModifier) push(x, 0);
+    if (e->modifiers() & Qt::ControlModifier) step(x, 0);
+    else if (e->modifiers() & Qt::ShiftModifier) push(x, 0);
     else push(x, y-1);
     break;
   case Qt::Key_Down:
-    if (e->state() & Qt::ControlModifier) step(x, MAX_Y);
-    else if (e->state() & Qt::ShiftModifier) push(x, MAX_Y);
+    if (e->modifiers() & Qt::ControlModifier) step(x, MAX_Y);
+    else if (e->modifiers() & Qt::ShiftModifier) push(x, MAX_Y);
     else push(x, y+1);
     break;
   case Qt::Key_Left:
-    if (e->state() & Qt::ControlModifier) step(0, y);
-    else if (e->state() & Qt::ShiftModifier) push(0, y);
+    if (e->modifiers() & Qt::ControlModifier) step(0, y);
+    else if (e->modifiers() & Qt::ShiftModifier) push(0, y);
     else push(x-1, y);
     break;
   case Qt::Key_Right:
-    if (e->state() & Qt::ControlModifier) step(MAX_X, y);
-    else if (e->state() & Qt::ShiftModifier) push(MAX_X, y);
+    if (e->modifiers() & Qt::ControlModifier) step(MAX_X, y);
+    else if (e->modifiers() & Qt::ShiftModifier) push(MAX_X, y);
     else push(x+1, y);
     break;
 
   case Qt::Key_Q:
-    KApplication::kApplication()->closeAllWindows();
+    qApp->closeAllWindows();
     break;
 
   case Qt::Key_Backspace:
   case Qt::Key_Delete:
-    if (e->state() & Qt::ControlModifier) redo();
+    if (e->modifiers() & Qt::ControlModifier) redo();
     else undo();
     break;
 
@@ -659,12 +599,10 @@ void
 PlayField::stopDrag() {
   if (!dragInProgress_) return;
 
-  unsetCursor();
+  changeCursor(0);
 
-  update(x2pixel(highlightX_), y2pixel(highlightY_), size_, size_);
-  update(x2pixel(dragX_), y2pixel(dragY_), size_, size_);
+  repaint();
   dragInProgress_ = false;
-
 }
 
 void
@@ -674,6 +612,7 @@ PlayField::dragObject(int xpixel, int ypixel) {
 
   if (x == highlightX_ && y == highlightY_) return;
 
+  printf("drag %d,%d to %d,%d\n", highlightX_, highlightY_, x, y);
   pathFinder_.drag(highlightX_, highlightY_, x, y);
   stopDrag();
 }
@@ -696,11 +635,9 @@ PlayField::mousePressEvent(QMouseEvent *e) {
     return;
 
   if (e->button() == Qt::LeftButton && pathFinder_.canDrag(x, y)) {
-    changeCursor(Qt::SizeAllCursor);
-
+    repaint();
     highlightX_ = x;
     highlightY_ = y;
-    update(x2pixel(x), y2pixel(y), size_, size_);
     pathFinder_.updatePossibleDestinations(x, y);
 
     dragX_ = x2pixel(x);
@@ -781,16 +718,31 @@ PlayField::setSize(int w, int h) {
   stxtRect_.setRect(snumRect_.x()-sbarStepsWidth, h-sbarHeight, sbarStepsWidth, sbarHeight);
   lnumRect_.setRect(stxtRect_.x()-sbarNumWidth, h-sbarHeight, sbarNumWidth, sbarHeight);
   ltxtRect_.setRect(lnumRect_.x()-sbarLevelWidth, h-sbarHeight, sbarLevelWidth, sbarHeight);
-  collRect_.setRect(0, h-sbarHeight, ltxtRect_.x() >= 0 ? ltxtRect_.x() : 0, sbarHeight);
+  collRect_.setRect(0, h-sbarHeight, ltxtRect_.x(), sbarHeight);
 
-  collXpm_ = QPixmap(collRect_.size());
-  ltxtXpm_ = QPixmap(ltxtRect_.size());
-  lnumXpm_ = QPixmap(lnumRect_.size());
-  stxtXpm_ = QPixmap(stxtRect_.size());
-  snumXpm_ = QPixmap(snumRect_.size());
-  ptxtXpm_ = QPixmap(ptxtRect_.size());
-  pnumXpm_ = QPixmap(pnumRect_.size());
-
+  //printf("collRect_:%d;%d;%d;%d\n",collRect_.x(), collRect_.y(), collRect_.width(), collRect_.height());
+  if(ltxtXpm_) 
+	delete ltxtXpm_;
+  if(lnumXpm_)
+	delete lnumXpm_;
+  if(stxtXpm_)
+    delete stxtXpm_;
+  if(snumXpm_)
+    delete snumXpm_;
+  if(ptxtXpm_)
+    delete ptxtXpm_;
+  if(pnumXpm_)
+    delete pnumXpm_;
+  if(collXpm_)
+    delete collXpm_;
+  ltxtXpm_ =  new QPixmap(ltxtRect_.size());	
+  lnumXpm_ =  new QPixmap(lnumRect_.size());
+  stxtXpm_ =  new QPixmap(stxtRect_.size());
+  snumXpm_ =  new QPixmap(snumRect_.size());
+  ptxtXpm_ =  new QPixmap(ptxtRect_.size());
+  pnumXpm_ =  new QPixmap(pnumRect_.size());
+  collXpm_ = new QPixmap(collRect_.size());
+  
   h -= sbarHeight;
 
   int cols = levelMap_->width();
@@ -835,7 +787,7 @@ this level yet."), this);
 
   level(levelMap_->level()+1);
   levelChange();
-  update();
+  repaint();
 }
 
 void
@@ -848,7 +800,7 @@ the current collection."), this);
   }
   level(levelMap_->level()-1);
   levelChange();
-  update();
+  repaint();
 }
 
 void
@@ -872,7 +824,7 @@ PlayField::restartLevel() {
   level(levelMap_->level());
   updateStepsXpm();
   updatePushesXpm();
-  update();
+  repaint();
 }
 
 void
@@ -881,14 +833,16 @@ PlayField::changeCollection(LevelCollection *collection) {
   levelMap_->changeCollection(collection);
   levelChange();
   //erase(collRect_);
-  update();
+  repaint();
 }
 
 void
 PlayField::updateCollectionXpm() {
-  if (collXpm_.isNull()) return;
-
-  QPainter paint(&collXpm_);
+  if (!collXpm_) return;
+  if (collXpm_->isNull()) return;
+  //printf("executing PlayField::updateCollectionXpm() w:%d, h:%d\n",collXpm_->width(), collXpm_->height());
+  
+  QPainter paint(collXpm_);
   paint.setBrushOrigin(- collRect_.x(), - collRect_.y());
   paint.fillRect(0, 0, collRect_.width(), collRect_.height(), background_);
 
@@ -900,11 +854,13 @@ PlayField::updateCollectionXpm() {
 
 void
 PlayField::updateTextXpm() {
-  if (ltxtXpm_.isNull()) return;
-
+  if (!ltxtXpm_) return;
+  if (ltxtXpm_->isNull()) return;
+  //printf("executing PlayField::updateTextXpm() w:%d, h:%d\n",ltxtXpm_->width(), ltxtXpm_->height());
+  
   QPainter paint;
 
-  paint.begin(&ltxtXpm_);
+  paint.begin(ltxtXpm_);
   paint.setBrushOrigin(- ltxtRect_.x(), - ltxtRect_.y());
   paint.fillRect(0, 0, ltxtRect_.width(), ltxtRect_.height(), background_);
   paint.setFont(statusFont_);
@@ -912,7 +868,7 @@ PlayField::updateTextXpm() {
   paint.drawText(0, 0, ltxtRect_.width(), ltxtRect_.height(), Qt::AlignLeft, levelText_);
   paint.end();
 
-  paint.begin(&stxtXpm_);
+  paint.begin(stxtXpm_);
   paint.setBrushOrigin(- stxtRect_.x(), - stxtRect_.y());
   paint.fillRect(0, 0, stxtRect_.width(), stxtRect_.height(), background_);
   paint.setFont(statusFont_);
@@ -920,7 +876,7 @@ PlayField::updateTextXpm() {
   paint.drawText(0, 0, stxtRect_.width(), stxtRect_.height(), Qt::AlignLeft, stepsText_);
   paint.end();
 
-  paint.begin(&ptxtXpm_);
+  paint.begin(ptxtXpm_);
   paint.setBrushOrigin(- ptxtRect_.x(), - ptxtRect_.y());
   paint.fillRect(0, 0, ptxtRect_.width(), ptxtRect_.height(), background_);
   paint.setFont(statusFont_);
@@ -931,9 +887,11 @@ PlayField::updateTextXpm() {
 
 void
 PlayField::updateLevelXpm() {
-  if (lnumXpm_.isNull()) return;
-
-  QPainter paint(&lnumXpm_);
+  if (!lnumXpm_) return;
+  if (lnumXpm_->isNull()) return;
+  //printf("executing PlayField::updateLevelXpm()\n");
+  
+  QPainter paint(lnumXpm_);
   paint.setBrushOrigin(- lnumRect_.x(), - lnumRect_.y());
   paint.fillRect(0, 0, lnumRect_.width(), lnumRect_.height(), background_);
 
@@ -946,9 +904,11 @@ PlayField::updateLevelXpm() {
 
 void
 PlayField::updateStepsXpm() {
-  if (snumXpm_.isNull()) return;
-
-  QPainter paint(&snumXpm_);
+  if (!snumXpm_) return;
+  if (snumXpm_->isNull()) return;
+  //printf("executing PlayField::updateStepsXpm()\n");
+  
+  QPainter paint(snumXpm_);
   paint.setBrushOrigin(- snumRect_.x(), - snumRect_.y());
   paint.fillRect(0, 0, snumRect_.width(), snumRect_.height(), background_);
 
@@ -961,9 +921,11 @@ PlayField::updateStepsXpm() {
 
 void
 PlayField::updatePushesXpm() {
-  if (pnumXpm_.isNull()) return;
-
-  QPainter paint(&pnumXpm_);
+  if (!pnumXpm_) return;
+  if (pnumXpm_->isNull()) return;
+  //printf("executing PlayField::updatePushesXpm()\n"); 
+  
+  QPainter paint(pnumXpm_);
   paint.setBrushOrigin(- pnumRect_.x(), - pnumRect_.y());
   paint.fillRect(0, 0, pnumRect_.width(), pnumRect_.height(), background_);
 
@@ -976,7 +938,7 @@ PlayField::updatePushesXpm() {
 
 
 void
-PlayField::setAnimationSpeed(int num)
+PlayField::changeAnim(int num)
 {
   assert(num >= 0 && num <= 3);
 
@@ -1006,12 +968,11 @@ void
 PlayField::goToBookmark(Bookmark *bm) {
   level(bm->level());
   levelChange();
-  if (!bm->goTo(levelMap_, history_))
-      kDebug()<<"Warning: bad bookmark"<<endl;
+  if (!bm->goTo(levelMap_, history_)) fprintf(stderr, "Warning: bad bookmark\n");
   //updateLevelXpm();
   updateStepsXpm();
   updatePushesXpm();
-  update();
+  repaint();
 }
 
 bool
@@ -1022,4 +983,12 @@ PlayField::canMoveNow() {
     return false;
   }
   return true;
+}
+
+void
+PlayField::killTimers() {
+  for(QList<int>::Iterator it=timers.begin(); it!=timers.end(); it++) {
+	killTimer(*it);
+  }
+  timers.clear();
 }

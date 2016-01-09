@@ -1,4 +1,7 @@
 -------------------------------------------------------------------------------
+version 0.5.0 Date 2012-07-22
+  - All aplication has been ported from Qt3/KDE3 to KDE4/Qt4
+
 version 0.3.0: Date 1999-07-13
 
 * Graphics:

@@ -17,16 +17,18 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include "ImageData.h"
-
 #include <assert.h>
-#include <qpainter.h>
-#include <qpixmap.h>
-#include <qimage.h>
+#include <QPainter>
+#include <QPixmap>
+#include <QImage>
 #include <QColor>
 
-ImageData::ImageData() : indexSize_(0), size_(0), halfSize_(0) {
+#include "ImageData.h"
+
+ImageData::ImageData() : floor_(10,10), indexSize_(0), size_(0), halfSize_(0) {
   random.setSeed(0);
+  QPainter paint(&floor_);
+  paint.fillRect(0,0,10,10, QColor(0x66,0x66,0x66, 255));
 }
 
 ImageData::~ImageData() {
@@ -56,28 +58,28 @@ const QPixmap &
 ImageData::upperLarge(int index) {
   assert(index >= 0);
   if (indexSize_ <= index) expandIndex(index);
-  return largeStone_xpm_[upperLargeIndex_[index]];
+  return largeStone_xpm_[(unsigned char)upperLargeIndex_[index]];
 }
 
 const QPixmap &
 ImageData::lowerLarge(int index) {
   assert(index >= 0);
   if (indexSize_ <= index) expandIndex(index);
-  return largeStone_xpm_[lowerLargeIndex_[index]];
+  return largeStone_xpm_[(unsigned char)lowerLargeIndex_[index]];
 }
 
 const QPixmap &
 ImageData::leftSmall(int index) {
   assert(index >= 0);
   if (indexSize_ <= index) expandIndex(index);
-  return smallStone_xpm_[leftSmallIndex_[index]];
+  return smallStone_xpm_[(unsigned char)leftSmallIndex_[index]];
 }
 
 const QPixmap &
 ImageData::rightSmall(int index) {
   assert(index >= 0);
   if (indexSize_ <= index) expandIndex(index);
-  return smallStone_xpm_[rightSmallIndex_[index]];
+  return smallStone_xpm_[(unsigned char)rightSmallIndex_[index]];
 }
 
 int
@@ -100,7 +102,7 @@ ImageData::resize(int size) {
   }
 
   objectImg_ = images_[SMALL_STONES+LARGE_STONES].scaled(size_, size_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-
+  
   // Use copy() because if the size is not changed, smoothScale is not
   // really a copy
   // Use {[Geometry] height=753 width=781} to test
@@ -122,7 +124,7 @@ ImageData::resize(int size) {
     image2pixmap(images_[SMALL_STONES+LARGE_STONES+i].scaled(size_, size_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation), otherPixmaps_[i]);
 //     otherPixmaps_[i].convertFromImage(images_[SMALL_STONES+LARGE_STONES+i].smoothScale(size_, size_), QPixmap::ColorOnly|QPixmap::OrderedDither|QPixmap::OrderedAlphaDither|QPixmap::AvoidDither);
   }
-
+  floor_ = floor_.scaled(size_, size_);
   return size_;
 }
 
@@ -132,10 +134,10 @@ ImageData::resize(int size) {
 void
 ImageData::image2pixmap(QImage img, QPixmap& xpm, bool diffuse) {
   xpm = QPixmap::fromImage(img,
-                           (diffuse ?
-                            (Qt::DiffuseDither|Qt::DiffuseAlphaDither) :
-                            (Qt::OrderedDither|Qt::OrderedAlphaDither))|
-                           Qt::ColorOnly|Qt::AvoidDither);
+		       (diffuse ?
+			(Qt::DiffuseDither|Qt::DiffuseAlphaDither) :
+			(Qt::OrderedDither|Qt::OrderedAlphaDither))|
+		       Qt::ColorOnly|Qt::AvoidDither);
 }
 
 void
@@ -174,7 +176,8 @@ ImageData::wall(QPainter &p, int x, int y, int index, bool left, bool right) {
 
 void
 ImageData::floor(QPainter &p, int x, int y) {
-  p.eraseRect(x, y, size_, size_);
+  //p.eraseRect(x, y, size_, size_);
+  p.drawPixmap(x, y, floor_);
 }
 
 void

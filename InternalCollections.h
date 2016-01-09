@@ -20,7 +20,10 @@
 #ifndef INTERNALCOLLECTIONS_H
 #define INTERNALCOLLECTIONS_H
 
-#include <QList>
+#include <assert.h>
+#include <QString>
+#include <QVector>
+
 #include "LevelCollection.h"
 
 class InternalCollections {
@@ -29,7 +32,7 @@ public:
   ~InternalCollections();
 
   static int toInternalId(int _id) {
-    if (_id < 10 || _id > 19) return 1000;
+    if (_id < 10 || _id > 14) return 1000;
     return _id - 10;
   }
 
@@ -43,7 +46,7 @@ private:
   static int realCollection2Config(int collection);
   static QString collectionName(int _level);
 
-  QList<LevelCollection*> collections_;
+  QVector<LevelCollection*> collections_;
   char *data_;
 
 };

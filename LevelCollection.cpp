@@ -1,29 +1,37 @@
-#include "LevelCollection.h"
-
-#include "Map.h"
-
-#include <QFile>
 #include <stdio.h>
-
 #include <assert.h>
 #include <unistd.h>
 #include <string.h>
-#include <ksharedconfig.h>
-#include <kglobal.h>
-#include <kconfiggroup.h>
 
-static inline unsigned
-forward(unsigned a, unsigned b, unsigned c, unsigned d)
+#include <QFile>
+#include <KSharedConfig>
+#include <KConfigGroup>
+#include "LevelCollection.h"
+
+#include "Map.h"
+#if 1
+#define GETUID() 501
+#else
+#ifndef WIN32
+#define GETUID() getuid()
+#else
+#define GETUID() 1000
+#endif
+#endif
+
+
+static inline unsigned long
+forward(unsigned long a, unsigned long b, unsigned long c, unsigned long d)
 {
-  unsigned x=(a^b)&0xffffffffu;
-  return (((x<<c)|(x>>((32u-c)&31u)))*d)&0xffffffffu;
+  unsigned long x=(a^b)&0xfffffffful;
+  return (((x<<c)|(x>>((32ul-c)&31ul)))*d)&0xfffffffful;
 }
 
-static inline unsigned
-backward(unsigned a, unsigned b, unsigned c, unsigned d)
+static inline unsigned long
+backward(unsigned long a, unsigned long b, unsigned long c, unsigned long d)
 {
-  unsigned x=(a*b)&0xffffffffu;
-  return (((x<<c)|(x>>((32u-c)&31u)))^d)&0xffffffffu;
+  unsigned long x=(a*b)&0xfffffffful;
+  return (((x<<c)|(x>>((32ul-c)&31ul)))^d)&0xfffffffful;
 }
 
 
@@ -144,28 +152,29 @@ LevelCollection::indexTextCollection() {
 void
 LevelCollection::loadPrefs() {
   if (id_ >= 0) {
-    KConfigGroup cg(KGlobal::config(), "settings");
+    KSharedConfigPtr cfg=KSharedConfig::openConfig();
+	KConfigGroup settingsGroup(cfg, "settings");
 
     QString key;
     key.sprintf("level%d", id_);
-    level_ = cg.readEntry(key, 0);
+    level_ = settingsGroup.readEntry(key, QString("0")).toInt();
 
     key.sprintf("status%d", id_);
-    unsigned x = cg.readEntry(key, QVariant::fromValue(unsigned(0))).toUInt();
+    unsigned long x = settingsGroup.readEntry(key, QString("0")).toULong();
 
-    x = backward(x, 0xc1136a15u, 0x12u, 0x80ff0b94u);
-    x = backward(x, 0xd38fd2ddu, 0x01u, 0xd4d657b4u);
-    x = backward(x, 0x59004eefu, 0x1eu, 0xf6c75e2cu);
-    x = backward(x, 0x366c3e25u, 0x0au, 0x61ebc208u);
-    x = backward(x, 0x20a784c9u, 0x15u, 0x207d488bu);
-    x = backward(x, 0xc02864abu, 0x09u, 0x709e62a3u);
-    x = backward(x, 0xe2a60f19u, 0x0eu, 0x8bb02c07u);
-    x = backward(x, 0x3b0e11f3u, 0x13u, 0x608aef3fu);
+    x = backward(x, 0xc1136a15ul, 0x12ul, 0x80ff0b94ul);
+    x = backward(x, 0xd38fd2ddul, 0x01ul, 0xd4d657b4ul);
+    x = backward(x, 0x59004eeful, 0x1eul, 0xf6c75e2cul);
+    x = backward(x, 0x366c3e25ul, 0x0aul, 0x61ebc208ul);
+    x = backward(x, 0x20a784c9ul, 0x15ul, 0x207d488bul);
+    x = backward(x, 0xc02864abul, 0x09ul, 0x709e62a3ul);
+    x = backward(x, 0xe2a60f19ul, 0x0eul, 0x8bb02c07ul);
+    x = backward(x, 0x3b0e11f3ul, 0x13ul, 0x608aef3ful);
 
     completedLevels_ = x>>16 & 0x3ff;
-    if (!cg.hasKey(key)) completedLevels_ = 0;
-    if (((x>>26) & 0x3fu) != static_cast<unsigned>(id_)) completedLevels_ = 0;
-    if ((x & 0xffffu) != static_cast<unsigned>(getuid())) completedLevels_ = 0;
+    if (!settingsGroup.hasKey(key)) completedLevels_ = 0;
+    if (((x>>26) & 0x3ful) != (unsigned long) id_) completedLevels_ = 0;
+    if ((x & 0xfffful) != (unsigned long) GETUID()) completedLevels_ = 0;
     if (completedLevels_ > noOfLevels_) completedLevels_ = 0;
 
     if (level_ > completedLevels_) level_ = completedLevels_;
@@ -178,21 +187,30 @@ LevelCollection::loadPrefs() {
 }
 
 void
-LevelCollection::addLevel(const QString& _level) {
+LevelCollection::addLevel(const char* _level) {
   index_.append(_level);
 }
 
 void
-LevelCollection::addSeparator() {
-  data_.append('\0');
+LevelCollection::addData(const char* _data, unsigned _len) {
+  unsigned pos = data_.size();
+  data_.resize(pos + _len);
+  memcpy(data_.data() + pos, _data, _len);
 }
 
-LevelCollection::LevelCollection(const QByteArray& _def,
+void
+LevelCollection::addSeparator() {
+  unsigned pos = data_.size();
+  data_.resize(pos + 1);
+  data_[pos] = '\0';
+}
+
+LevelCollection::LevelCollection(const char *_def, int _len,
 				 const QString &_name, int _id) :
   level_(0), completedLevels_(0), noOfLevels_(0),
   name_(_name), id_(_id) {
 
-  data_.append(_def);
+  addData(_def, _len);
   addSeparator();
 
   indexTextCollection();
@@ -205,13 +223,16 @@ LevelCollection::LevelCollection(const QByteArray& _def,
 LevelCollection::LevelCollection(const QString &_path, const QString &_name,
 				 int _id) :
   level_(0), completedLevels_(0), noOfLevels_(0),
-  name_(_name), path_(_path), id_(_id) 
-{
+  name_(_name), path_(_path), id_(_id) {
+
+  char buf[1024];
+  int len;
 
   QFile file(path_);
-  if (file.open(QIODevice::ReadOnly))
-  {
-    data_ = file.readAll();
+  if (file.open(QIODevice::ReadOnly)) {
+    while ((len = file.read(buf, 1024)) > 0) {
+      addData((const char *) buf, len);
+    }
     file.close();
     addSeparator();
   }
@@ -226,11 +247,12 @@ LevelCollection::LevelCollection(const QString &_path, const QString &_name,
 
 LevelCollection::~LevelCollection() {
   if (id_ >= 0) {
-    KConfigGroup cg(KGlobal::config(), "settings");
+    KSharedConfigPtr cfg=KSharedConfig::openConfig();
+    KConfigGroup settingsGroup(cfg,"settings");
 
     QString key;
     key.sprintf("level%d", id_);
-    cg.writeEntry(key, level_, KConfigBase::Normal);
+    settingsGroup.writeEntry(key, QString("%1").arg(level_));
   }
 }
 
@@ -240,24 +262,26 @@ LevelCollection::levelCompleted() {
   if (completedLevels_ < (level_+1)) completedLevels_ = level_+1;
 
   if (id_ >= 0) {
-    unsigned x=((static_cast<unsigned>(getuid())) & 0xffffu);
-    x |= (static_cast<unsigned>(id_))<<26;
-    x |= (static_cast<unsigned>(completedLevels_))<<16;
+    unsigned long x=(((unsigned long) GETUID()) & 0xfffful);
+    x |= ((unsigned long) id_)<<26;
+    x |= ((unsigned long) completedLevels_)<<16;
 
-    x = forward(x, 0x608aef3fu, 0x0du, 0xfb00ef3bu);
-    x = forward(x, 0x8bb02c07u, 0x12u, 0x2a37dd29u);
-    x = forward(x, 0x709e62a3u, 0x17u, 0x23607603u);
-    x = forward(x, 0x207d488bu, 0x0bu, 0xc31fd579u);
-    x = forward(x, 0x61ebc208u, 0x16u, 0xbcffadadu);
-    x = forward(x, 0xf6c75e2cu, 0x02u, 0xa2baa00fu);
-    x = forward(x, 0xd4d657b4u, 0x1fu, 0x7e129575u);
-    x = forward(x, 0x80ff0b94u, 0x0eu, 0x92fc153du);
+    x = forward(x, 0x608aef3ful, 0x0dul, 0xfb00ef3bul);
+    x = forward(x, 0x8bb02c07ul, 0x12ul, 0x2a37dd29ul);
+    x = forward(x, 0x709e62a3ul, 0x17ul, 0x23607603ul);
+    x = forward(x, 0x207d488bul, 0x0bul, 0xc31fd579ul);
+    x = forward(x, 0x61ebc208ul, 0x16ul, 0xbcffadadul);
+    x = forward(x, 0xf6c75e2cul, 0x02ul, 0xa2baa00ful);
+    x = forward(x, 0xd4d657b4ul, 0x1ful, 0x7e129575ul);
+    x = forward(x, 0x80ff0b94ul, 0x0eul, 0x92fc153dul);
 
     QString key;
     key.sprintf("status%d", id_);
 
-    KConfigGroup cg(KGlobal::config(), "settings");
-    cg.writeEntry(key, unsigned(x), KConfigBase::Normal);
+    KSharedConfigPtr cfg=KSharedConfig::openConfig();
+    KConfigGroup settingsGroup(cfg, "settings");
+    settingsGroup.writeEntry(key, QString("%1").arg(x));
+    cfg->sync();
   }
 }
 
@@ -273,25 +297,30 @@ LevelCollection::level(int _level) {
 }
 
 static int
-minX(const QString& def) {
+minX(const char *def) {
   int min_x = 10000;
 
   int x=0;
-  for (int pos=0; pos < def.length(); pos++) {
-    if(def[pos] == '\n')
+  for (int pos=0; def[pos]; pos++) {
+    switch(def[pos]) {
+    case '\n':
       x = 0;
-    else if(def[pos] == ' ')
+      break;
+
+    case ' ':
       x++;
-    else if(def[pos] == '\t')
+      break;
+
+    case '\t':
       x = (x+8) & ~7;
-    else if(def[pos] == '\r')
-    {
-        //no-op
-    }
-    else
-    {
-      if (x < min_x) 
-          min_x = x;
+      break;
+
+    case '\r':
+      break;
+
+    default:
+      if (x < min_x) min_x = x;
+      break;
     }
   }
 
@@ -303,7 +332,7 @@ bool
 LevelCollection::loadLevel(Map *_map) {
   _map->clearMap();
 
-  QString def = index_[level_];
+  const char *def = index_[level_];
   bool goodMap = true;
   int x=0, y=0, goalsLeft=0;
 
@@ -317,74 +346,74 @@ LevelCollection::loadLevel(Map *_map) {
   _map->xpos_ = -1;
   _map->ypos_ = -1;
 
-  for (int pos=0; pos<def.length(); pos++) {
-    if(def[pos] == '\n')
-    {
-        y++;
-        x = 0;
-    }
-    else if(def[pos] == ' ')
-    {
-        x++;
-    }
-    else if(def[pos] == '\t')
-    {
-        x = (x+8) & ~7;
-    }
-    else if(def[pos] == '@')
-    {
-        if (x-min_x > MAX_X || y > MAX_Y) goodMap = false;
-        else {
-            _map->xpos_ = x-min_x;
-            _map->ypos_ = y;
-        }
-        x++;
-    }
-    else if(def[pos] == '$')
-    {
-        if (x-min_x > MAX_X || y > MAX_Y) goodMap = false;
-        else _map->map(x-min_x, y, OBJECT);
-        x++;
-    }
-    else if(def[pos] == '.')
-    {
+  for (int pos=0; def[pos]; pos++) {
+    switch(def[pos]) {
+    case '\n':
+      y++;
+      x = 0;
+      break;
+
+    case ' ':
+      x++;
+      break;
+
+    case '\t':
+      x = (x+8) & ~7;
+      break;
+
+    case '@':
       if (x-min_x > MAX_X || y > MAX_Y) goodMap = false;
       else {
-          _map->map(x-min_x, y, GOAL);
-          goalsLeft++;
+	_map->xpos_ = x-min_x;
+	_map->ypos_ = y;
       }
       x++;
-    }
-    else if(def[pos] == '#')
-    {
-        if (x-min_x > MAX_X || y > MAX_Y) goodMap = false;
-        else _map->map(x-min_x, y, WALL);
-        x++;
-    }
-    else if(def[pos] == '+')
-    {
-        if (x-min_x > MAX_X || y > MAX_Y) goodMap = false;
-        else {
-            _map->xpos_ = x-min_x;
-            _map->ypos_ = y;
-            _map->map(x-min_x, y, GOAL);
-            goalsLeft++;
-        }
-        x++;
-    }
-    else if(def[pos] == '*')
-    {
-        if (x-min_x > MAX_X || y > MAX_Y) goodMap = false;
-        else _map->map(x-min_x, y, OBJECT|GOAL);
-        x++;
-    }
-    else if(def[pos] == '\r')
-    {
-        //no-op
-    }
-    else
-    {
-        goodMap = false;
+      break;
+
+    case '$':
+      if (x-min_x > MAX_X || y > MAX_Y) goodMap = false;
+      else _map->map(x-min_x, y, OBJECT);
+      x++;
+      break;
+
+    case '.':
+      if (x-min_x > MAX_X || y > MAX_Y) goodMap = false;
+      else {
+	_map->map(x-min_x, y, GOAL);
+	goalsLeft++;
+      }
+      x++;
+      break;
+
+    case '#':
+      if (x-min_x > MAX_X || y > MAX_Y) goodMap = false;
+      else _map->map(x-min_x, y, WALL);
+      x++;
+      break;
+
+    case '+':
+      if (x-min_x > MAX_X || y > MAX_Y) goodMap = false;
+      else {
+	_map->xpos_ = x-min_x;
+	_map->ypos_ = y;
+	_map->map(x-min_x, y, GOAL);
+	goalsLeft++;
+      }
+      x++;
+      break;
+
+    case '*':
+      if (x-min_x > MAX_X || y > MAX_Y) goodMap = false;
+      else _map->map(x-min_x, y, OBJECT|GOAL);
+      x++;
+      break;
+
+    case '\r':
+      break;
+
+    default:
+      goodMap = false;
+      break;
     }
   }
 

@@ -17,12 +17,10 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include "config-ksokoban.h"
-
 #include <assert.h>
 #include "StaticImage.h"
 
-#include "data.c"
+#include "images/data.c"
 
 const unsigned char *const
 imageData[NO_OF_IMAGES] = {
@@ -71,7 +69,7 @@ StaticImage::StaticImage () {
 					(uint) sizeof (starfield_data_));
 
   if (!valid) {
-    background_ = QPixmap(128, 128);
+    background_ = background_.copy(0, 0, 128, 128);
     background_.fill(Qt::black);
   }
 

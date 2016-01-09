@@ -17,66 +17,69 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-// #include <kuniqueapplication.h>
-#include <kapplication.h>
-#include <kimageio.h>
-#include <klocale.h>
-#include <kcmdlineargs.h>
-#include <kaboutdata.h>
+
+#include <KAboutData>
+#include <KAboutData>
+#include <QApplication>
+#include <QCommandLineParser>
+#include <QCommandLineOption>
 
 #include "MainWindow.h"
 
 
-static const char description[] = I18N_NOOP("The japanese warehouse keeper game");
-
-static const char version[] = "0.4.2";
-
+static const char version[] = "0.5.0";
 
 
 int
 main (int argc, char **argv)
 {
-  KAboutData aboutData("ksokoban", 0, ki18n("KSokoban"),
-		       version, ki18n(description), KAboutData::License_GPL,
-		       ki18n("(c) 1998-2001  Anders Widell"), KLocalizedString(),
-		       "http://hem.passagen.se/awl/ksokoban/");
-  aboutData.addAuthor(ki18n("Anders Widell"), KLocalizedString(),
-		      "awl@passagen.se",
-		      "http://hem.passagen.se/awl/");
-  aboutData.addCredit(ki18n("David W. Skinner"),
-		      ki18n("For contributing the Sokoban levels included in this game"),
+  QApplication app(argc, argv);
+
+  KAboutData aboutData("ksokoban", "ksokoban",
+		       version,
+		       "The japanese warehouse keeper game",
+		       KAboutLicense::GPL,
+		       "(c) 1998 Anders Widell <awl@hem.passagen.se>\n(c) 2012 Lukasz Kalamlacki",
+               QString(),
+               "http://www.shlomifish.org/open-source/projects/ksokoban/",
+               "shlomif@cpan.org"
+               );
+  aboutData.addAuthor("Shlomi Fish", "For porting to Qt5/KF5 and doing other cleanups",
+              "shlomif@cpan.org",
+              "http://www.shlomifish.org/");
+  aboutData.addAuthor("Lukasz Kalamlacki", "For rewriting the original ksokoban game from kde3 to kde4",
+		      "kalamlacki@gmail.com",
+		      "http://sf.net/projects/ksokoban");
+  aboutData.addAuthor("Anders Widell", "For writing the original ksokoban game",
+		      "awl@hem.passagen.se",
+		      "http://hem.passagen.se/awl/ksokoban/");
+  aboutData.addCredit("David W. Skinner",
+		      "For contributing the Sokoban levels included in this game",
 		      "sasquatch@bentonrea.com",
 		      "http://users.bentonrea.com/~sasquatch/");
-  KCmdLineArgs::init(argc, argv, &aboutData);
-
-  KCmdLineOptions options;
-  options.add("+[file]", ki18n("Level collection file to load"));
-  KCmdLineArgs::addCmdLineOptions(options);
-//   KUniqueApplication::addCmdLineOptions();
-
-//   if (!KUniqueApplication::start())
-//     return 0;
+    QCommandLineParser parser;
+    KAboutData::setApplicationData(aboutData);
+    parser.addVersionOption();
+    parser.addHelpOption();
+    aboutData.setupCommandLine(&parser);
+    parser.process(app);
+    aboutData.processCommandLine(&parser);
+  parser.addPositionalArgument(QLatin1String("[file]"), "Level collection file to load");
 
   QApplication::setColorSpec(QApplication::ManyColor);
 
-//   KUniqueApplication app;
-  KApplication app;
-//
+
 
   MainWindow *widget = new MainWindow();
   widget->show();
 
-  KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-  if (args->count() > 0) {
-    widget->openUrl(args->url(0));
+  if (parser.positionalArguments().count() > 0) {
+    widget->openURL(parser.positionalArguments().at(0));
   }
-  args->clear();
+
 
   QObject::connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
 
-  int rc = app.exec();
 
-//   delete widget;
-
-  return rc;
+  return app.exec();
 }
