@@ -78,3 +78,7 @@ target_link_libraries(ksokoban
     KF5::XmlGui
     KF5::KIOCore
 )
+
+add_subdirectory(data)
+
+install(TARGETS ksokoban ${INSTALL_TARGETS_DEFAULT_ARGS})
