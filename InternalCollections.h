@@ -1,5 +1,5 @@
 /*
- *  ksokoban - a Sokoban game for KDE
+ *  ksokoban - a Sokoban game by KDE
  *  Copyright (C) 1998-2000  Anders Widell  <awl@hem.passagen.se>
  *
  *  This program is free software; you can redistribute it and/or modify
