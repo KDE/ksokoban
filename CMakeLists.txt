@@ -1,10 +1,5 @@
 project (ksokoban)
 
-# find_package(KDE4 REQUIRED)
-# These statements were taken from the gwenview CMakeLists.txt - thanks.
-
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake )
-
 cmake_minimum_required (VERSION 2.8.12 FATAL_ERROR)
 set (QT_MIN_VERSION "5.2.0")
 
@@ -23,17 +18,14 @@ include(ECMAddAppIcon)
 include(GenerateExportHeader)
 include(FeatureSummary)
 
-find_package(Qt5 REQUIRED Core Gui Widgets)
+find_package(Qt5 ${QT_MIN_VERSION} REQUIRED Core Gui Widgets)
 
-find_package(KF5KIO 5.4 REQUIRED)
-
-find_package(KF5 REQUIRED COMPONENTS
-    # KDELibs4Support
+find_package(KF5 5.4 REQUIRED COMPONENTS
+    Config
     CoreAddons
-    KIO
-    IconThemes
     I18n
-    Activities
+    IconThemes
+    KIO
     WidgetsAddons
     XmlGui
 )
@@ -67,10 +59,8 @@ set(ksokoban_SRCS
 add_executable(ksokoban ${ksokoban_SRCS})
 # qt5_use_modules(ksokoban Core Gui Widgets)
 target_link_libraries(ksokoban
-    # KF5::KDELibs4Support
     KF5::IconThemes
     KF5::I18n
-    KF5::Activities
     Qt5::Widgets
     Qt5::Gui
     KF5::WidgetsAddons
