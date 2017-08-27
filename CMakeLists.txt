@@ -1,7 +1,8 @@
 project (ksokoban)
 
 cmake_minimum_required (VERSION 2.8.12 FATAL_ERROR)
-set (QT_MIN_VERSION "5.2.0")
+set(QT_MIN_VERSION "5.2.0")
+set(KF5_MIN_VERSION "5.7.0")
 
 find_package(ECM 1.7.0 REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
@@ -20,7 +21,7 @@ include(FeatureSummary)
 
 find_package(Qt5 ${QT_MIN_VERSION} REQUIRED Core Gui Widgets)
 
-find_package(KF5 5.4 REQUIRED COMPONENTS
+find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     Config
     CoreAddons
     I18n
@@ -31,8 +32,6 @@ find_package(KF5 5.4 REQUIRED COMPONENTS
 )
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
-
-find_package(KF5I18n NO_MODULE)
 
 set(ksokoban_SRCS
     Bookmark.cpp
