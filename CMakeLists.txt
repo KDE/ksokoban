@@ -34,30 +34,27 @@ feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAG
 
 find_package(KF5I18n NO_MODULE)
 
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
-
 set(ksokoban_SRCS
-	Bookmark.cpp
-	ImageData.cpp
-	LevelMap.cpp
+    Bookmark.cpp
+    ImageData.cpp
+    LevelMap.cpp
     Map.cpp
-	Move.cpp
-	PlayField.cpp
-	History.cpp
-	InternalCollections.cpp
-	main.cpp
-	MapDelta.cpp
+    Move.cpp
+    PlayField.cpp
+    History.cpp
+    InternalCollections.cpp
+    main.cpp
+    MapDelta.cpp
     MoveSequence.cpp
-	StaticImage.cpp
-	HtmlPrinter.cpp
-	LevelCollection.cpp
-	MainWindow.cpp
-	ModalLabel.cpp
-	PathFinder.cpp
+    StaticImage.cpp
+    HtmlPrinter.cpp
+    LevelCollection.cpp
+    MainWindow.cpp
+    ModalLabel.cpp
+    PathFinder.cpp
 )
-
+add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 add_executable(ksokoban ${ksokoban_SRCS})
-# qt5_use_modules(ksokoban Core Gui Widgets)
 target_link_libraries(ksokoban
     KF5::IconThemes
     KF5::I18n
