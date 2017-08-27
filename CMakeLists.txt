@@ -31,6 +31,8 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     XmlGui
 )
 
+find_package(KF5 ${KF5_MIN_VERSION} COMPONENTS DocTools)
+
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
 set(ksokoban_SRCS
@@ -66,5 +68,8 @@ target_link_libraries(ksokoban
 )
 
 add_subdirectory(data)
+if(KF5DocTools_FOUND)
+    add_subdirectory(doc)
+endif()
 
 install(TARGETS ksokoban ${INSTALL_TARGETS_DEFAULT_ARGS})
