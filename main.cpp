@@ -57,17 +57,15 @@ main (int argc, char **argv)
 		      "For contributing the Sokoban levels included in this game",
 		      "sasquatch@bentonrea.com",
 		      "http://users.bentonrea.com/~sasquatch/");
-    QCommandLineParser parser;
-    KAboutData::setApplicationData(aboutData);
-    parser.addVersionOption();
-    parser.addHelpOption();
-    aboutData.setupCommandLine(&parser);
-    parser.process(app);
-    aboutData.processCommandLine(&parser);
+  KAboutData::setApplicationData(aboutData);
+
+  QCommandLineParser parser;
+  parser.addVersionOption();
+  parser.addHelpOption();
   parser.addPositionalArgument(QLatin1String("[file]"), "Level collection file to load");
-
-  QApplication::setColorSpec(QApplication::ManyColor);
-
+  aboutData.setupCommandLine(&parser);
+  parser.process(app);
+  aboutData.processCommandLine(&parser);
 
 
   MainWindow *widget = new MainWindow();
