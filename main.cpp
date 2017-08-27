@@ -18,11 +18,12 @@
  */
 
 
-#include <KAboutData>
-#include <KAboutData>
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QCommandLineOption>
+
+#include <KAboutData>
+#include <KLocalizedString>
 
 #include "MainWindow.h"
 
@@ -34,27 +35,27 @@ int
 main (int argc, char **argv)
 {
   QApplication app(argc, argv);
+  KLocalizedString::setApplicationDomain("ksokoban");
 
-  KAboutData aboutData("ksokoban", "ksokoban",
+  KAboutData aboutData(QStringLiteral("ksokoban"), i18n("ksokoban"),
 		       version,
-		       "The japanese warehouse keeper game",
+		       i18n("The japanese warehouse keeper game"),
 		       KAboutLicense::GPL,
-		       "(c) 1998 Anders Widell <awl@hem.passagen.se>\n(c) 2012 Lukasz Kalamlacki",
+		       i18n("(c) 1998 Anders Widell <awl@hem.passagen.se>\n(c) 2012 Lukasz Kalamlacki"),
                QString(),
-               "http://www.shlomifish.org/open-source/projects/ksokoban/",
-               "shlomif@cpan.org"
+               QStringLiteral("http://www.shlomifish.org/open-source/projects/ksokoban/")
                );
-  aboutData.addAuthor("Shlomi Fish", "For porting to Qt5/KF5 and doing other cleanups",
+  aboutData.addAuthor(i18n("Shlomi Fish"), i18n("For porting to Qt5/KF5 and doing other cleanups"),
               "shlomif@cpan.org",
               "http://www.shlomifish.org/");
-  aboutData.addAuthor("Lukasz Kalamlacki", "For rewriting the original ksokoban game from kde3 to kde4",
+  aboutData.addAuthor(i18n("Lukasz Kalamlacki"), i18n("For rewriting the original ksokoban game from kde3 to kde4"),
 		      "kalamlacki@gmail.com",
 		      "http://sf.net/projects/ksokoban");
-  aboutData.addAuthor("Anders Widell", "For writing the original ksokoban game",
+  aboutData.addAuthor(i18n("Anders Widell"), i18n("For writing the original ksokoban game"),
 		      "awl@hem.passagen.se",
 		      "http://hem.passagen.se/awl/ksokoban/");
-  aboutData.addCredit("David W. Skinner",
-		      "For contributing the Sokoban levels included in this game",
+  aboutData.addCredit(i18n("David W. Skinner"),
+		      i18n("For contributing the Sokoban levels included in this game"),
 		      "sasquatch@bentonrea.com",
 		      "http://users.bentonrea.com/~sasquatch/");
   KAboutData::setApplicationData(aboutData);
@@ -62,7 +63,7 @@ main (int argc, char **argv)
   QCommandLineParser parser;
   parser.addVersionOption();
   parser.addHelpOption();
-  parser.addPositionalArgument(QLatin1String("[file]"), "Level collection file to load");
+  parser.addPositionalArgument(i18n("[file]"), i18n("Level collection file to load"));
   aboutData.setupCommandLine(&parser);
   parser.process(app);
   aboutData.processCommandLine(&parser);
