@@ -18,4 +18,4 @@ ecm_install_icons(
         hicolor
 )
 
-install(FILES ksokoban.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
+install(FILES org.kde.ksokoban.desktop DESTINATION ${KDE_INSTALL_APPDIR})

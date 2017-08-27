@@ -58,6 +58,10 @@ main (int argc, char **argv)
 		      i18n("For contributing the Sokoban levels included in this game"),
 		      "sasquatch@bentonrea.com",
 		      "http://users.bentonrea.com/~sasquatch/");
+
+  aboutData.setOrganizationDomain(QByteArray("kde.org"));
+  aboutData.setDesktopFileName(QStringLiteral("org.kde.ksokoban"));
+
   KAboutData::setApplicationData(aboutData);
 
   app.setWindowIcon(QIcon::fromTheme(QStringLiteral("ksokoban")));

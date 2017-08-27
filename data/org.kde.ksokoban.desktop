@@ -66,5 +66,4 @@ Icon=ksokoban
 Terminal=false
 Type=Application
 X-KDE-StartupNotify=true
-X-DCOP-ServiceType=Multi
 Categories=Qt;KDE;Game;StrategyGame;
