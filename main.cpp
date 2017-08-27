@@ -60,6 +60,8 @@ main (int argc, char **argv)
 		      "http://users.bentonrea.com/~sasquatch/");
   KAboutData::setApplicationData(aboutData);
 
+  app.setWindowIcon(QIcon::fromTheme(QStringLiteral("ksokoban")));
+
   QCommandLineParser parser;
   parser.addVersionOption();
   parser.addHelpOption();

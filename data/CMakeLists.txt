@@ -6,12 +6,12 @@
 
 ecm_install_icons(
     ICONS
-        16-mimetypes-application-x-ksokoban.png
-        22-mimetypes-application-x-ksokoban.png
-        32-mimetypes-application-x-ksokoban.png
-        48-mimetypes-application-x-ksokoban.png
-        64-mimetypes-application-x-ksokoban.png
-        128-mimetypes-application-x-ksokoban.png
+        16-apps-ksokoban.png
+        22-apps-ksokoban.png
+        32-apps-ksokoban.png
+        48-apps-ksokoban.png
+        64-apps-ksokoban.png
+        128-apps-ksokoban.png
     DESTINATION
         ${KDE_INSTALL_ICONDIR}
     THEME
