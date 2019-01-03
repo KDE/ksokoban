@@ -4,17 +4,18 @@
 
 ########### install files ###############
 
-install( FILES ksokoban.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
+ecm_install_icons(
+    ICONS
+        16-apps-ksokoban.png
+        22-apps-ksokoban.png
+        32-apps-ksokoban.png
+        48-apps-ksokoban.png
+        64-apps-ksokoban.png
+        128-apps-ksokoban.png
+    DESTINATION
+        ${KDE_INSTALL_ICONDIR}
+    THEME
+        hicolor
+)
 
-kde4_install_icons( ${ICON_INSTALL_DIR}   )
-
-
-
-
-#original Makefile.am contents follow:
-
-#
-#KDE_ICON = ksokoban
-#
-#xdg_apps_DATA = ksokoban.desktop
-#
+install(FILES org.kde.ksokoban.desktop DESTINATION ${KDE_INSTALL_APPDIR})

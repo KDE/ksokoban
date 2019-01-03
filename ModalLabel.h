@@ -1,5 +1,5 @@
 /*
- *  ksokoban - a Sokoban game for KDE
+ *  ksokoban - a Sokoban game by KDE
  *  Copyright (C) 1998  Anders Widell  <d95-awi@nada.kth.se>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -22,8 +22,6 @@
 
 #include <QLabel>
 
-class QTimerEvent;
-
 class ModalLabel : public QLabel {
   Q_OBJECT
 public:
@@ -34,7 +32,7 @@ public:
   bool completed_;
 
 protected:
-  ModalLabel (const QString &text, QWidget *parent, Qt::WFlags f=0);
+  ModalLabel (const QString &text, QWidget *parent, Qt::WindowFlags f=0);
 
 };
 

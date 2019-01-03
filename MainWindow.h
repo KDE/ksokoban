@@ -1,5 +1,5 @@
 /*
- *  ksokoban - a Sokoban game for KDE
+ *  ksokoban - a Sokoban game by KDE
  *  Copyright (C) 1998  Anders Widell  <d95-awi@nada.kth.se>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -20,53 +20,63 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <kxmlguiwindow.h>
-#include <kurl.h>
+#include <KMainWindow>
+#include <KHelpMenu>
+#include <QUrl>
 #include "Bookmark.h"
 #include "InternalCollections.h"
 
 class PlayField;
+class QMenu;
+class QAction;
 class QFocusEvent;
 class QDragEnterEvent;
 class QDropEvent;
 class LevelCollection;
-class KSelectAction;
 
-// NOTE: make this app-wide constant?
-// if so, then bookmarks menu can't be constructed in ksokobanui.rc -
-// will need to create it dynamically instead
-#define NUM_BOOKMARKS 10
-
-class MainWindow : public KXmlGuiWindow {
+class MainWindow : public KMainWindow {
   Q_OBJECT
 public:
   MainWindow();
   ~MainWindow();
 
-  void openUrl(KUrl _url);
+  void openURL(QUrl _url);
 
-private slots:
+public slots:
   void changeCollection(int id);
-  void slotAnimSpeedSelected(QAction*);
-  void slotSetBookmark(QAction* bm);
-  void slotGotoBookmark(QAction* bm);
+  void updateAnimMenu(int id);
+  void setBookmark(int id);
+  void goToBookmark(int id);
+
   void loadLevels();
 
 protected:
   void focusInEvent(QFocusEvent*);
-  void createCollectionMenu();
-  virtual void dragEnterEvent(QDragEnterEvent*);
+  void createCollectionMenu(QMenu* collection_);
+  //virtual void dragEnterEvent(QDragEnterEvent*);
   virtual void dropEvent(QDropEvent*);
 
 private:
-  void setupActions();
-  void updateBookmark(int num);
-
   InternalCollections internalCollections_;
   LevelCollection *externalCollection_;
+  QMenuBar        *menu_;
   PlayField       *playField_;
-  Bookmark        *bookmarks_[NUM_BOOKMARKS];
-  KSelectAction   *collectionsAct_;
+  Bookmark        *bookmarks_[10];
+  int              currentCollection_;
+
+  QMenu      *game_;
+  QMenu      *collection_;
+  QMenu      *animation_;
+  QMenu      *bookmarkMenu_;
+  QMenu      *setBM_;
+  QMenu      *goToBM_;
+  QAction    *qa_slow, *qa_medium, *qa_fast, *qa_off, *setBM_act[10], *goToBM_act[10], **level_act;
+  KHelpMenu        *help_;
+  int              checkedCollection_;
+  int              checkedAnim_;
+
+  void updateBookmark(int num);
+
 };
 
 #endif  /* MAINWINDOW_H */

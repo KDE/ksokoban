@@ -1,5 +1,5 @@
 /*
- *  ksokoban - a Sokoban game for KDE
+ *  ksokoban - a Sokoban game by KDE
  *  Copyright (C) 1998  Anders Widell  <awl@hem.passagen.se>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -17,24 +17,22 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include "ModalLabel.h"
-
 #include <QLabel>
 #include <QFont>
-#include <QTimerEvent>
-#include <kglobalsettings.h>
-#include <QWidget>
 #include <QApplication>
+#include <QWidgetList>
+#include <QString>
+#include <QFontDatabase>
+
+#include "ModalLabel.h"
 
 #include "ModalLabel.moc"
 
-ModalLabel::ModalLabel(const QString &text, QWidget *parent, Qt::WFlags f)
+ModalLabel::ModalLabel(const QString &text, QWidget *parent, Qt::WindowFlags f)
   : QLabel(text, parent, f) {
-  setAutoFillBackground(true);
-
-  QFont font(KGlobalSettings::generalFont().family(), 24, QFont::Bold);
+  QFont font(QFontDatabase::systemFont(QFontDatabase::GeneralFont).family(), 24, QFont::Bold);
   QFontMetrics fontMet(font);
-
+  setAutoFillBackground(true);
   QString currentLine;
   QRect bounds;
   int lineLen, width=0, height=0;
@@ -58,7 +56,7 @@ ModalLabel::ModalLabel(const QString &text, QWidget *parent, Qt::WFlags f)
   if (width < 300) width = 300;
   if (height < 75) height = 75;
 
-  setAlignment ( Qt::AlignCenter);
+  setAlignment (Qt::AlignCenter);
   setFrameStyle (QFrame::Panel | QFrame::Raised);
   setLineWidth (4);
   setFont (font);
@@ -66,9 +64,11 @@ ModalLabel::ModalLabel(const QString &text, QWidget *parent, Qt::WFlags f)
   resize (width, height);
   show ();
 
-  foreach (QWidget *widget, QApplication::allWidgets())
-       widget->installEventFilter (this);
-
+  QWidgetList list = QApplication::allWidgets();
+  for(QWidgetList::Iterator it=list.begin(); it!=list.end(); it++) {
+	(*it)->installEventFilter (this);
+  }
+  
   completed_ = false;
   startTimer (1000);
 }
@@ -87,14 +87,14 @@ ModalLabel::eventFilter (QObject *, QEvent *e) {
     case QEvent::MouseMove:
     case QEvent::KeyPress:
     case QEvent::KeyRelease:
-    case QEvent::Shortcut:
+      //case QEvent::Accel:
       //case QEvent::DragEnter:
     case QEvent::DragMove:
     case QEvent::DragLeave:
     case QEvent::Drop:
       //case QEvent::DragResponse:
 
-      //kDebug << "Ate event" << endl;
+      //kdDebug << "Ate event" << endl;
     return true;
     break;
   default:
@@ -104,7 +104,8 @@ ModalLabel::eventFilter (QObject *, QEvent *e) {
 
 void
 ModalLabel::message (const QString &text, QWidget *parent) {
+  QApplication *app = qApp;
   ModalLabel cl (text, parent);
 
-  while (!cl.completed_) qApp->processEvents (QEventLoop::WaitForMoreEvents);
+  while (!cl.completed_) app->processEvents ();
 }

@@ -1,5 +1,5 @@
 /*
- *  ksokoban - a Sokoban game for KDE
+ *  ksokoban - a Sokoban game by KDE
  *  Copyright (C) 1998  Anders Widell  <d95-awi@nada.kth.se>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -17,10 +17,6 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include "config-ksokoban.h"
-
-#include <kconfig.h>
-
 #include <unistd.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -28,9 +24,9 @@
 #include <stdio.h>
 #include <string.h>
 
-#ifdef USE_LIBZ
+#include <KConfig>
+
 #include <zlib.h>
-#endif
 
 #include "LevelMap.h"
 #include "LevelCollection.h"

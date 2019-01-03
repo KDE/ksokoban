@@ -1,7 +1,9 @@
 ------------------------------------------------------------------------
-ksokoban is written by:
+ksokoban original game was written by:
 
 Anders Widell <awl@hem.passagen.se>
+
+Porting to KDE4/Qt4 was made by Łukasz Kalamłacki <kalamlacki@gmail.com>
 
 ------------------------------------------------------------------------
 The levels were taken from:

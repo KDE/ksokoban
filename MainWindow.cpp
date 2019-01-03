@@ -1,5 +1,5 @@
 /*
- *  ksokoban - a Sokoban game for KDE
+ *  ksokoban - a Sokoban game by KDE
  *  Copyright (C) 1998  Anders Widell  <awl@hem.passagen.se>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -17,24 +17,34 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include <kstandardaction.h>
-#include <kaction.h>
-#include <kactioncollection.h>
-#include <ktoggleaction.h>
-#include <kselectaction.h>
-#include <klocale.h>
-#include <kconfig.h>
-#include <kio/netaccess.h>
-#include <kfiledialog.h>
-#include <kmessagebox.h>
-#include <kstandarddirs.h>
-#include <kicon.h>
+#include <stdio.h>
+#include <assert.h>
 
-#include <QPixmap>
+#include <QApplication>
+#include <KSharedConfig>
+#include <KConfigGroup>
+#include <QMenu>
+#include <QMenuBar>
+#include <QAction>
+#include <QKeyEvent>
+#include <QSignalMapper>
+
+#include <QString>
+#include <KUrlMimeData>
+#include <QFrame>
+#include <QTemporaryFile>
+#include <KMessageBox>
+// #include <KIO/KIO>
+#include <KIO/Job>
+#include <KIO/TransferJob>
+#include <KIconLoader>
 #include <QDragEnterEvent>
-#include <QFocusEvent>
-#include <QDropEvent>
-#include <kconfiggroup.h>
+//#include <qdragobject.h>
+//#include <kpopupmenu.h>
+//#include <kurldrag.h>
+#include <KStandardShortcut>
+#include <KLocalizedString>
+#include <QFileDialog>
 
 #include "MainWindow.h"
 #include "PlayField.h"
@@ -43,57 +53,181 @@
 #include "MainWindow.moc"
 
 void
-MainWindow::createCollectionMenu() {
-  collectionsAct_ = new KSelectAction( i18n("&Level Collection"), this );
-  actionCollection()->addAction( "collections", collectionsAct_ );
-  connect( collectionsAct_, SIGNAL(triggered(int)), this, SLOT(changeCollection(int)) );
-
+MainWindow::createCollectionMenu(QMenu* collection_) {
+  QSignalMapper *sigmap = new QSignalMapper(this);
+  level_act = new QAction*[internalCollections_.collections()];
   for (int i=0; i<internalCollections_.collections(); i++) {
-    collectionsAct_->addAction(internalCollections_[i]->name());
+    QAction *qact = new QAction(internalCollections_[i]->name(), this);
+	level_act[i] = qact;
+	qact->setCheckable(true);
+	connect(qact, SIGNAL(triggered()), sigmap, SLOT(map()));
+	sigmap->setMapping(qact, i); 
+	collection_->addAction(qact);
+  }
+  connect(sigmap, SIGNAL(mapped(int)), this, SLOT(changeCollection(int)));
+  checkedCollection_ = 0;
+
+  KSharedConfigPtr cfg=KSharedConfig::openConfig();
+  KConfigGroup settingsGroup(cfg, "settings");
+  int id = settingsGroup.readEntry("collection", "10").toInt();
+
+  currentCollection_ = 0;
+  for (int i=0; i<internalCollections_.collections(); i++) {
+    if (internalCollections_[i]->id() == id) currentCollection_ = i;
   }
 
-  KConfigGroup settings(KGlobal::config(), "settings");
-  int id = settings.readEntry("collection", 10);
-
-  int currentCollection = 0;
-  for (int i=0; i<internalCollections_.collections(); i++) {
-    if (internalCollections_[i]->id() == id) currentCollection = i;
-  }
-
-  changeCollection(currentCollection);
+  changeCollection(currentCollection_);
 }
 
 
-MainWindow::MainWindow() : KXmlGuiWindow(0), externalCollection_(0), collectionsAct_(0) {
-  KConfigGroup cfg(KGlobal::config(), "Geometry");
-  int width = cfg.readEntry("width", 750);
-  int height = cfg.readEntry("height", 562);
+MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
+  int i;
+  QPixmap pixmap;
+  QAction *qact;
+
+  //setEraseColor(QColor(0,0,0));
+
+  KSharedConfigPtr cfg=KSharedConfig::openConfig();
+  KConfigGroup geometryGroup(cfg, "Geometry");
+  int width = geometryGroup.readEntry("width", "750").toInt();
+  int height = geometryGroup.readEntry("height", "562").toInt();
   resize(width, height);
 
   playField_ = new PlayField(this);
-  playField_->setObjectName( "playfield" );
   setCentralWidget(playField_);
-  playField_->show();
+  //playField_->show();
 
-  setupActions();
+  menu_ = menuBar();//  new KMenuBar(this);
 
-  for (int i=1; i<=10; i++) {
+  game_ = menu_->addMenu(i18n("&Game")); 
+  
+  qact = new QAction(i18n("&Load Levels..."), this);
+  connect(qact, SIGNAL(triggered()), this, SLOT(loadLevels()));
+  game_->addAction(qact);
+  
+  qact = new QAction(i18n("&Next Level"), this);
+  qact->setShortcut(Qt::Key_N);
+  connect(qact, SIGNAL(triggered()), playField_, SLOT(nextLevel()));
+  game_->addAction(qact);
+  
+  qact = new QAction(i18n("&Previous Level"), this);
+  qact->setShortcut(Qt::Key_P);
+  connect(qact, SIGNAL(triggered()), playField_, SLOT(previousLevel()));
+  game_->addAction(qact);
+  
+  qact = new QAction(i18n("Re&start Level"), this);
+  qact->setShortcut(Qt::Key_Escape);
+  connect(qact, SIGNAL(triggered()), playField_, SLOT(restartLevel()));
+  game_->addAction(qact);
+
+  createCollectionMenu(game_->addMenu(i18n("&Level Collection")));
+  
+  qact = new QAction(i18n("&Undo"), this);
+  qact->setShortcut((KStandardShortcut::undo())[0]);
+  connect(qact, SIGNAL(triggered()), playField_, SLOT(undo()));
+  game_->addAction(qact);
+  
+  qact = new QAction(i18n("&Redo"), this);
+  qact->setShortcut((KStandardShortcut::redo())[0]);
+  connect(qact, SIGNAL(triggered()), playField_, SLOT(redo()));
+  game_->addAction(qact);
+ 
+  game_->addSeparator();
+ 
+  qact = new QAction(i18n("&Quit"), this);
+  qact->setShortcut((KStandardShortcut::quit())[0]);
+  connect(qact, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
+  game_->addAction(qact);
+ 
+  animation_ = menu_->addMenu(i18n("&Animation"));
+  qa_slow = new QAction(i18n("&Slow"), this);
+  qa_slow->setCheckable(true);
+  qa_medium = new QAction(i18n("&Medium"), this);
+  qa_medium->setCheckable(true);
+  qa_fast = new QAction(i18n("&Fast"), this);
+  qa_fast->setCheckable(true);
+  qa_off = new QAction(i18n("&Off"), this);
+  qa_off->setCheckable(true);
+  animation_->addAction(qa_slow);
+  animation_->addAction(qa_medium);
+  animation_->addAction(qa_fast);
+  animation_->addAction(qa_off);
+  QSignalMapper *sigmap = new QSignalMapper(this);
+  connect(qa_slow, SIGNAL(triggered()), sigmap, SLOT(map()));
+  sigmap->setMapping(qa_slow, 3);
+  connect(qa_medium, SIGNAL(triggered()), sigmap, SLOT(map())); 
+  sigmap->setMapping(qa_medium, 2);
+  connect(qa_fast, SIGNAL(triggered()), sigmap, SLOT(map())); 
+  sigmap->setMapping(qa_fast, 1);
+  connect(qa_off, SIGNAL(triggered()), sigmap, SLOT(map()));
+  sigmap->setMapping(qa_off, 0);
+  connect(sigmap, SIGNAL(mapped(int)), this, SLOT(updateAnimMenu(int)));
+  connect(sigmap, SIGNAL(mapped(int)), playField_, SLOT(changeAnim(int)));
+  
+  checkedAnim_ = playField_->animDelay();
+  updateAnimMenu(checkedAnim_);
+ 
+
+  
+  bookmarkMenu_ = menu_->addMenu(i18n("&Bookmarks"));
+  setBM_ = bookmarkMenu_->addMenu(i18n("&Set Bookmark"));
+  sigmap = new QSignalMapper(this);
+  setBM_act[0] = setBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::CTRL+Qt::Key_1);
+  setBM_act[1] = setBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::CTRL+Qt::Key_2);
+  setBM_act[2] = setBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::CTRL+Qt::Key_3);
+  setBM_act[3] = setBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::CTRL+Qt::Key_4);
+  setBM_act[4] = setBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::CTRL+Qt::Key_5);
+  setBM_act[5] = setBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::CTRL+Qt::Key_6);
+  setBM_act[6] = setBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::CTRL+Qt::Key_7);
+  setBM_act[7] = setBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::CTRL+Qt::Key_8);
+  setBM_act[8] = setBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::CTRL+Qt::Key_9);
+  setBM_act[9] = setBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::CTRL+Qt::Key_0);
+  for(i=0; i<10; i++) {
+	 sigmap->setMapping(setBM_act[i], i+1);
+  }
+  connect(sigmap, SIGNAL(mapped(int)), this,SLOT(setBookmark(int)));
+  
+  goToBM_ =  bookmarkMenu_->addMenu(i18n("&Go to Bookmark"));
+  sigmap = new QSignalMapper(this);
+  goToBM_act[0] = goToBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::Key_1);
+  goToBM_act[1] = goToBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::Key_2);
+  goToBM_act[2] = goToBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::Key_3);
+  goToBM_act[3] = goToBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::Key_4);
+  goToBM_act[4] = goToBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::Key_5);
+  goToBM_act[5] = goToBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::Key_6);
+  goToBM_act[6] = goToBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::Key_7);
+  goToBM_act[7] = goToBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::Key_8);
+  goToBM_act[8] = goToBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::Key_9);
+  goToBM_act[9] = goToBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::Key_0);
+  for(i=0; i<10; i++) {
+	 sigmap->setMapping(goToBM_act[i], i+1);
+  }
+  connect(sigmap, SIGNAL(mapped(int)), this,SLOT(goToBookmark(int)));
+
+  for (i=1; i<=10; i++) {
     bookmarks_[i-1] = new Bookmark(i);
     updateBookmark(i);
   }
+
+  help_ = new KHelpMenu(this, QString::null, false);
+  menu_->addSeparator();
+  menu_->addMenu( help_->menu() );
+
+  menu_->show();
+  playField_->show();
 
   setAcceptDrops(true);
 }
 
 MainWindow::~MainWindow()
 {
-  KConfigGroup cfg(KGlobal::config(), "Geometry");
+  KSharedConfigPtr cfg=KSharedConfig::openConfig();
+  KConfigGroup geometryGroup(cfg, "Geometry");
+  geometryGroup.writeEntry("width", QString("%1").arg(width()));
+  geometryGroup.writeEntry("height", QString("%1").arg(height()));
 
-  cfg.writeEntry("width", width());
-  cfg.writeEntry("height", height());
-
-  KConfigGroup settings(KGlobal::config(), "settings");
-  settings.writeEntry("collection", internalCollections_[collectionsAct_->currentItem()]->id());
+  KConfigGroup settingsGroup(cfg, "settings");
+  settingsGroup.writeEntry("collection", QString("%1").arg(internalCollections_[checkedCollection_]->id()));
 
   for (int i=1; i<=10; i++) {
     delete bookmarks_[i-1];
@@ -102,131 +236,57 @@ MainWindow::~MainWindow()
 
   delete externalCollection_;
 
+  // The following line segfaults when linked against qt 1.44
+  //delete help_;
+  //delete goToBM_;
+  //delete setBM_;
+  //delete bookmarkMenu_;
+  //delete animation_;
+  //delete collection_;
+  //delete game_;
+  //delete menu_;
+
   //delete playField_;
 }
 
-void
-MainWindow::setupActions() {
-  actionCollection()->addAction( KStandardAction::Open, "load_levels",
-                                 this, SLOT(loadLevels()) );
 
-  QAction* nextLevel = actionCollection()->addAction( "next_level" );
-  nextLevel->setIcon( KIcon("go-next") );
-  nextLevel->setText( i18n("&Next Level") );
-  nextLevel->setShortcut( Qt::Key_N );
-  connect( nextLevel, SIGNAL(triggered(bool)), playField_, SLOT(nextLevel()) );
-
-  QAction* prevLevel = actionCollection()->addAction( "prev_level" );
-  prevLevel->setIcon( KIcon("go-previous") );
-  prevLevel->setText( i18n("&Previous Level") );
-  prevLevel->setShortcut( Qt::Key_P );
-  connect( prevLevel, SIGNAL(triggered(bool)), playField_, SLOT(previousLevel()) );
-
-  QAction* reload = actionCollection()->addAction( "reload_level" );
-  reload->setIcon( KIcon("view-refresh") );
-  reload->setText( i18n("Re&start Level") );
-  reload->setShortcut( Qt::Key_Escape );
-  connect( reload, SIGNAL(triggered(bool)), playField_, SLOT(restartLevel()) );
-
-  createCollectionMenu();
-
-  actionCollection()->addAction( KStandardAction::Undo, "undo", playField_, SLOT(undo()) );
-  actionCollection()->addAction( KStandardAction::Redo, "redo", playField_, SLOT(redo()) );
-  actionCollection()->addAction( KStandardAction::Quit, "quit", this, SLOT(close()) );
-
-  QActionGroup* animGrp = new QActionGroup(this);
-  animGrp->setExclusive(true);
-  connect(animGrp, SIGNAL(triggered(QAction*)), SLOT(slotAnimSpeedSelected(QAction*)) );
-
-  // FIXME dimsuz: use QVariant setData() as with bookmarks?
-  KToggleAction* slow   = new KToggleAction( i18n("&Slow"), this );
-  actionCollection()->addAction( "anim_slow", slow );
-  slow->setActionGroup( animGrp );
-  KToggleAction* medium = new KToggleAction( i18n("&Medium"), this );
-  actionCollection()->addAction( "anim_medium", medium );
-  medium->setActionGroup( animGrp );
-  KToggleAction* fast   = new KToggleAction( i18n("&Fast"), this );
-  actionCollection()->addAction( "anim_fast", fast );
-  fast->setActionGroup( animGrp );
-  KToggleAction* off    = new KToggleAction( i18n("&Off"), this );
-  actionCollection()->addAction( "anim_off", off );
-  off->setActionGroup( animGrp );
-
-  int animDelay = playField_->animDelay();
-
-  // select saved animation speed
-  if( animDelay == 3 )
-      slow->setChecked( true );
-  else if( animDelay == 2 )
-      medium->setChecked( true );
-  else if( animDelay == 1 )
-      fast->setChecked( true );
-  else if( animDelay == 0 )
-      off->setChecked( true );
-
-
-  QAction* setBm[NUM_BOOKMARKS] = { 0 };
-  QActionGroup* setBmGrp = new QActionGroup(this);
-  setBmGrp->setExclusive(false);
-  for(int i=0; i<NUM_BOOKMARKS; i++)
-  {
-      setBm[i] = actionCollection()->addAction( QString("bm_add_%1").arg(i+1) );
-      setBm[i]->setIcon( KIcon("bookmark-new") );
-      setBm[i]->setText( i18n("(unused)") );
-      setBm[i]->setData( QVariant(i+1) );
-      setBmGrp->addAction( setBm[i] );
-  }
-
-  // uhhh... have to do this by hand...
-  // Or there is a way?
-  // If you know one, mail me: dimsuz@gmail.com ;)
-  setBm[0]->setShortcut( Qt::CTRL + Qt::Key_1 );
-  setBm[1]->setShortcut( Qt::CTRL + Qt::Key_2 );
-  setBm[2]->setShortcut( Qt::CTRL + Qt::Key_3 );
-  setBm[3]->setShortcut( Qt::CTRL + Qt::Key_4 );
-  setBm[4]->setShortcut( Qt::CTRL + Qt::Key_5 );
-  setBm[5]->setShortcut( Qt::CTRL + Qt::Key_6 );
-  setBm[6]->setShortcut( Qt::CTRL + Qt::Key_7 );
-  setBm[7]->setShortcut( Qt::CTRL + Qt::Key_8 );
-  setBm[8]->setShortcut( Qt::CTRL + Qt::Key_9 );
-  setBm[9]->setShortcut( Qt::CTRL + Qt::Key_0 );
-
-  connect(setBmGrp, SIGNAL(triggered(QAction*)), this, SLOT(slotSetBookmark(QAction*)));
-
-  QAction* gotoBm[NUM_BOOKMARKS] = { 0 };
-  QActionGroup* gotoBmGrp = new QActionGroup(this);
-  gotoBmGrp->setExclusive(false);
-  for(int i=0; i<NUM_BOOKMARKS; i++)
-  {
-      gotoBm[i] = actionCollection()->addAction( QString("bm_goto_%1").arg(i+1) );
-      gotoBm[i]->setIcon( KIcon("bookmark") );
-      gotoBm[i]->setText( i18n("(unused)") );
-      gotoBm[i]->setData( QVariant(i+1) );
-      gotoBmGrp->addAction( gotoBm[i] );
-  }
-
-  // uhhh... have to do this by hand...
-  // Or there is a way?
-  // If you know one, mail me: dimsuz@gmail.com ;)
-  gotoBm[0]->setShortcut( Qt::Key_1 );
-  gotoBm[1]->setShortcut( Qt::Key_2 );
-  gotoBm[2]->setShortcut( Qt::Key_3 );
-  gotoBm[3]->setShortcut( Qt::Key_4 );
-  gotoBm[4]->setShortcut( Qt::Key_5 );
-  gotoBm[5]->setShortcut( Qt::Key_6 );
-  gotoBm[6]->setShortcut( Qt::Key_7 );
-  gotoBm[7]->setShortcut( Qt::Key_8 );
-  gotoBm[8]->setShortcut( Qt::Key_9 );
-  gotoBm[9]->setShortcut( Qt::Key_0 );
-
-  connect(gotoBmGrp, SIGNAL(triggered(QAction*)), this, SLOT(slotGotoBookmark(QAction*)));
-
-  createGUI();
-}
 
 void
 MainWindow::focusInEvent(QFocusEvent *) {
   playField_->setFocus();
+}
+
+void
+MainWindow::updateAnimMenu(int id) {
+  switch(checkedAnim_) {
+	case 0:
+		qa_off->setChecked(false);
+		break;
+	case 1:
+	    qa_fast->setChecked(false);
+	    break;
+	case 2:
+	    qa_medium->setChecked(false);
+		break;
+	case 3:
+	    qa_slow->setChecked(false);
+	    break;
+  }
+  switch(id) {
+	case 0:
+		qa_off->setChecked(true);
+		break;
+	case 1:
+	    qa_fast->setChecked(true);
+	    break;
+	case 2:
+	    qa_medium->setChecked(true);
+		break;
+	case 3:
+	    qa_slow->setChecked(true);
+	    break;
+  }
+  checkedAnim_ = id;
 }
 
 void
@@ -248,21 +308,19 @@ MainWindow::updateBookmark(int num) {
   l.setNum(mov);
   name += " (" + l + ")";
 
-  actionCollection()->action( QString("bm_add_%1").arg(num) )->setText(name);
-  actionCollection()->action( QString("bm_goto_%1").arg(num) )->setText(name);
+  setBM_act[num-1]->setText(name);
+  goToBM_act[num-1]->setText(name);
 }
 
 void
-MainWindow::slotSetBookmark(QAction* bmAct) {
-  int id = bmAct->data().toInt();
+MainWindow::setBookmark(int id) {
   assert(id >= 1 && id <= 10);
   playField_->setBookmark(bookmarks_[id-1]);
   updateBookmark(id);
 }
 
 void
-MainWindow::slotGotoBookmark(QAction* bmAct) {
-  int id = bmAct->data().toInt();
+MainWindow::goToBookmark(int id) {
   assert(id >= 1 && id <= 10);
 
   Bookmark *bm = bookmarks_[id-1];
@@ -284,7 +342,9 @@ MainWindow::slotGotoBookmark(QAction* bmAct) {
 void
 MainWindow::changeCollection(int id)
 {
-  collectionsAct_->setCurrentItem(id);
+  level_act[checkedCollection_]->setChecked(false);
+  checkedCollection_ = id;
+  level_act[checkedCollection_]->setChecked(true);
 
   delete externalCollection_;
   externalCollection_ = 0;
@@ -293,46 +353,43 @@ MainWindow::changeCollection(int id)
 
 void
 MainWindow::loadLevels() {
-  KConfigGroup cfg(KGlobal::config(), "settings");
-  QString lastFile = cfg.readPathEntry("lastLevelFile");
+  KSharedConfigPtr cfg=KSharedConfig::openConfig();
+  KConfigGroup settingsGroup(cfg, "settings");
+  QString lastFile = settingsGroup.readPathEntry("lastLevelFile",QString(""));
 
-  KUrl result = KFileDialog::getOpenUrl(lastFile, "*", this, i18n("Load Levels From File"));
+  QUrl result = QFileDialog::getOpenFileUrl(this, i18n("Load Levels From File"), lastFile, "*");
   if (result.isEmpty()) return;
 
-  openUrl(result);
+  openURL(result);
 }
 
 void
-MainWindow::slotAnimSpeedSelected(QAction* speedAct)
-{
-    // FIXME dimsuz: attach data to each action and check it instead?
-    if(speedAct == actionCollection()->action("anim_slow"))
-        playField_->setAnimationSpeed(3);
-    else if(speedAct == actionCollection()->action("anim_medium"))
-        playField_->setAnimationSpeed(2);
-    else if(speedAct == actionCollection()->action("anim_fast"))
-        playField_->setAnimationSpeed(1);
-    else if(speedAct == actionCollection()->action("anim_off"))
-        playField_->setAnimationSpeed(0);
-}
+MainWindow::openURL(QUrl _url) {
+  KSharedConfigPtr cfg=KSharedConfig::openConfig();
 
-void
-MainWindow::openUrl(KUrl _url) {
 //   int namepos = _url.path().findRev('/') + 1; // NOTE: findRev can return -1
 //   QString levelName = _url.path().mid(namepos);
   QString levelName = _url.fileName();
 
   QString levelFile;
+  QTemporaryFile f;
   if (_url.isLocalFile()) {
     levelFile = _url.path();
   } else {
 //     levelFile = locateLocal("appdata", "levels/" + levelName);
-    if(!KIO::NetAccess::download( _url, levelFile, this ) )
-	  return;
+    KIO::TransferJob * job = KIO::get(_url);
+    job->exec();
+    if (job->error()) {
+      return;
+    }
+    f.open();
+    QByteArray data;
+    job->data(job, data);
+    f.write(data);
+    levelFile = f.fileName();
   }
 
   LevelCollection *tmpCollection = new LevelCollection(levelFile, levelName);
-  KIO::NetAccess::removeTempFile(levelFile );
 
   if (tmpCollection->noOfLevels() < 1) {
     KMessageBox::sorry(this, i18n("No levels found in file"));
@@ -340,30 +397,33 @@ MainWindow::openUrl(KUrl _url) {
     return;
   }
   if (_url.isLocalFile()) {
-    KConfigGroup cfg(KGlobal::config(), "settings");
-    cfg.writePathEntry("lastLevelFile", _url.path());
+    KConfigGroup settingsGroup(cfg,"settings");
+    settingsGroup.writePathEntry("lastLevelFile", _url.path());
   }
 
   delete externalCollection_;
   externalCollection_ = tmpCollection;
 
-  // FIXME dimsuz: is it ok to uncheck _selected_ action in KSelectAction?
-  collectionsAct_->currentAction()->setChecked(false);
-
+  level_act[checkedCollection_]->setChecked(false);
   playField_->changeCollection(externalCollection_);
-}
 
+
+}
+/*
 void
 MainWindow::dragEnterEvent(QDragEnterEvent* event) {
-  event->setAccepted(KUrl::List::canDecode(event->mimeData()));
+  event->accept(KURLDrag::canDecode(event));
 }
+*/
 
 void
 MainWindow::dropEvent(QDropEvent* event) {
-  KUrl::List urls = KUrl::List::fromMimeData(event->mimeData());
+  QList<QUrl> urls = KUrlMimeData::urlsFromMimeData(event->mimeData());
   if (!urls.isEmpty()) {
-//     kDebug() << "MainWindow:Handling QUriDrag..." << endl;
-         const KUrl &url = urls.first();
-         openUrl(url);
+//     kdDebug() << "MainWindow:Handling QUriDrag..." << endl;
+     if (urls.count() > 0) {
+         const QUrl &url = urls.first();
+         openURL(url);
+     }
   }
 }

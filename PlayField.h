@@ -1,5 +1,5 @@
 /*
- *  ksokoban - a Sokoban game for KDE
+ *  ksokoban - a Sokoban game by KDE
  *  Copyright (C) 1998  Anders Widell  <d95-awi@nada.kth.se>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -21,22 +21,12 @@
 #define PLAYFIELD_H
 
 #include <QWidget>
-
+#include <QString>
 #include <QFont>
-#include <qfontmetrics.h>
-#include <qpixmap.h>
-#include <qimage.h>
-#include <qbrush.h>
-#include <QCursor>
-//Added by qt3to4:
-#include <QWheelEvent>
-#include <QFocusEvent>
-#include <QPaintEvent>
-#include <QKeyEvent>
-#include <QEvent>
-#include <QTimerEvent>
-#include <QResizeEvent>
-#include <QMouseEvent>
+#include <QFontMetrics>
+#include <QPixmap>
+#include <QImage>
+#include <QBrush>
 
 #include "ImageData.h"
 #include "LevelMap.h"
@@ -49,11 +39,12 @@ class History;
 class Bookmark;
 class LevelCollection;
 class QPainter;
+class QCursor;
 
 class PlayField : public QWidget {
   Q_OBJECT
 public:
-  PlayField(QWidget *parent, Qt::WFlags f=0);
+  PlayField(QWidget *parent);
   ~PlayField ();
 
   bool canMoveNow();
@@ -76,7 +67,6 @@ public:
   void updateStepsXpm();
   void updatePushesXpm();
 
-  void setAnimationSpeed(int num);
 public slots:
   void nextLevel();
   void previousLevel();
@@ -84,6 +74,7 @@ public slots:
   void redo();
   void restartLevel();
   void changeCollection(LevelCollection *collection);
+  void changeAnim(int num);
 
 protected:
   ImageData *imageData_;
@@ -96,7 +87,7 @@ protected:
   bool       dragInProgress_;
   PathFinder pathFinder_;
   int        animDelay_;
-  QCursor    cursor_;
+  const QCursor* cursor_;
 
   void levelChange ();
   void paintSquare (int x, int y, QPainter &paint);
@@ -119,8 +110,7 @@ protected:
   void stopDrag();
   void dragObject(int xpixel, int ypixel);
   void highlight();
-  void changeCursor(const QCursor& c);
-  void unsetCursor();
+  void changeCursor(const QCursor* c);
   void eatKeyPressEvents();
 
 private:
@@ -130,7 +120,12 @@ private:
   int lastMouseXPos_, lastMouseYPos_;
   int mousePosX_, mousePosY_;
   int wheelDelta_;
-
+  int debug_counter;
+  
+  QList<int> timers;
+  void killTimers();
+  QCursor sizeAllCursor;
+  QCursor crossCursor; 
   int x2pixel (int x) const { return size_*x+xOffs_; }
   int y2pixel (int y) const { return size_*y+yOffs_; }
 
@@ -145,8 +140,8 @@ private:
   QRect collRect_;
 
   const QString levelText_, stepsText_, pushesText_;
-  QPixmap pnumXpm_, ptxtXpm_, snumXpm_, stxtXpm_, lnumXpm_, ltxtXpm_;
-  QPixmap collXpm_;
+  QPixmap *pnumXpm_, *ptxtXpm_, *snumXpm_, *stxtXpm_, *lnumXpm_, *ltxtXpm_;
+  QPixmap *collXpm_;
   QPixmap dragXpm_;
   QImage  dragImage_;
   QFont         statusFont_;

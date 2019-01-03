@@ -1,5 +1,5 @@
 /*
- *  ksokoban - a Sokoban game for KDE
+ *  ksokoban - a Sokoban game by KDE
  *  Copyright (C) 1998  Anders Widell  <awl@hem.passagen.se>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -21,6 +21,8 @@
 #define HISTORY_H
 
 #include <QList>
+#include <QString>
+
 #include "Move.h"
 class MoveSequence;
 
@@ -42,6 +44,7 @@ protected:
 
 public:
   History();
+  ~History();
   /**
    * Add a move to the history. Deletes all currently undone moves.
    */

@@ -1,5 +1,5 @@
 /*
- *  ksokoban - a Sokoban game for KDE
+ *  ksokoban - a Sokoban game by KDE
  *  Copyright (C) 1998  Anders Widell  <d95-awi@nada.kth.se>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -20,9 +20,10 @@
 #ifndef IMAGEDATA_H
 #define IMAGEDATA_H
 
-#include <qimage.h>
-#include <qpixmap.h>
-#include <krandomsequence.h>
+#include <QImage>
+#include <QPixmap>
+
+#include <KRandomSequence>
 
 class QPainter;
 
@@ -70,6 +71,7 @@ protected:
   QPixmap largeStone_xpm_[LARGE_STONES];
   QPixmap otherPixmaps_[OTHER_IMAGES];
   QPixmap background_, brightObject_, brightTreasure_;
+  QPixmap floor_;
   QImage  objectImg_;
   
   int indexSize_;
