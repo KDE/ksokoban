@@ -51,7 +51,7 @@ game <quote>sokoban</quote>.
 <para>
 The first sokoban game was created in 1982 by Hiroyuki Imabayashi at
 the Japanese company Thinking Rabbit, Inc.  <quote>Sokoban</quote> is
-japanese for <quote>warehouse keeper</quote>.  The idea is that you
+Japanese for <quote>warehouse keeper</quote>.  The idea is that you
 are a warehouse keeper trying to push crates to their proper locations
 in a warehouse.
 </para>
@@ -194,7 +194,7 @@ As an example, below is a text representation of the first level in the
 <para>This is a complete guide to the menus of &ksokoban;.</para>
 
 <sect1 id="game-menu">
-<title>The <guimenu>Game</guimenu> Menu</title>
+<title>The Game Menu</title>
 
 <variablelist>
 <varlistentry>
@@ -291,7 +291,7 @@ above.</action></para>
 </sect1>
 
 <sect1 id="animation-menu">
-<title>The <guimenu>Animation</guimenu> Menu</title>
+<title>The Animation Menu</title>
 
 <para>
 The <guimenu>Animation</guimenu> Menu allows you to specify the speed that movement replay animations are shown at.
@@ -343,7 +343,7 @@ The <guimenu>Animation</guimenu> Menu allows you to specify the speed that movem
 
 
 <sect1 id="bookmarks">
-<title>The <guimenu>Bookmarks</guimenu> Menu</title>
+<title>The Bookmarks Menu</title>
 
 <variablelist>
 <varlistentry>
@@ -376,7 +376,7 @@ bookmark</action>.</para>
 </sect1>
 
 <sect1 id="help-menu">
-<title>The <guimenu>Help</guimenu> Menu</title>
+<title>The Help Menu</title>
 
 &help.menu.documentation;
 
@@ -388,24 +388,23 @@ bookmark</action>.</para>
 
 <para>
 &ksokoban; is copyright &copy; 1998-2000 by &Anders.Widell;
-&Anders.Widell.mail;.  For
+&Anders.Widell.mail;.<!-- TODO: For
 the latest info on &ksokoban;, see the &ksokoban; home page at
 <ulink url="http://hem.passagen.se/awl/ksokoban/">
-http://hem.passagen.se/awl/ksokoban/</ulink>
+http://hem.passagen.se/awl/ksokoban/</ulink>-->
 </para>
 
 <para>
 The background graphics <quote>starfield</quote> was taken from the
-<ulink url="http://www.gimp.org/">Gimp</ulink>. All other graphics
+<ulink url="https://www.gimp.org/">Gimp</ulink>. All other graphics
 were created by &Anders.Widell; &Anders.Widell.mail; using
-the <ulink url="http://www.povray.org/">Povray</ulink> ray tracer.
+the <ulink url="https://www.povray.org/">Povray</ulink> ray tracer.
 </para>
 
 <para>
 All the currently included sokoban levels were created by David W.
-Skinner <email>sasquatch@bentonrea.com</email>. See his sokoban page
-at <ulink url="http://users.bentonrea.com/~sasquatch/sokoban/">
-http://users.bentonrea.com/~sasquatch/sokoban/</ulink>
+Skinner <email>sasquatch@bentonrea.com</email>. See
+<ulink url="https://www.sokobanonline.com/play/web-archive/david-w-skinner">his sokoban page</ulink>.
 </para>
 
 <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
