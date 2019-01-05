@@ -1,7 +1,8 @@
 [Desktop Entry]
 Name=KSokoban
-Name[ast]=KSokoban
 Name[bs]=KSokoban
+Name[ca]=KSokoban
+Name[ca@valencia]=KSokoban
 Name[cs]=KSokoban
 Name[de]=KSokoban
 Name[es]=KSokoban
@@ -23,6 +24,8 @@ Name[uk]=KSokoban
 Name[x-test]=xxKSokobanxx
 GenericName=Sokoban Game
 GenericName[bs]=Sokoban igra
+GenericName[ca]=Joc del Sokoban -encarregat del magatzem-
+GenericName[ca@valencia]=Joc del Sokoban -encarregat del magatzem-
 GenericName[cs]=Hra Sokoban
 GenericName[de]=„Sokoban“-Spiel
 GenericName[es]=Juego Sokoban
