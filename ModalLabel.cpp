@@ -35,7 +35,7 @@ ModalLabel::ModalLabel(const QString &text, QWidget *parent, Qt::WindowFlags f)
   QRect bounds;
   int lineLen, width=0, height=0;
 
-  for (int linePos=0; linePos < (int) text.length(); linePos += lineLen+1) {
+  for (int linePos=0; linePos < text.length(); linePos += lineLen+1) {
 
     lineLen = text.indexOf('\n', linePos);
     if (lineLen < 0) lineLen = text.length() - linePos;
@@ -94,7 +94,6 @@ ModalLabel::eventFilter (QObject *, QEvent *e) {
 
       //kdDebug << "Ate event" << endl;
     return true;
-    break;
   default:
     return false;
   }

@@ -101,34 +101,34 @@ MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
   game_ = menu_->addMenu(i18n("&Game")); 
   
   qact = new QAction(i18n("&Load Levels..."), this);
-  connect(qact, SIGNAL(triggered()), this, SLOT(loadLevels()));
+  connect(qact, &QAction::triggered, this, &MainWindow::loadLevels);
   game_->addAction(qact);
   
   qact = new QAction(i18n("&Next Level"), this);
   qact->setShortcut(Qt::Key_N);
-  connect(qact, SIGNAL(triggered()), playField_, SLOT(nextLevel()));
+  connect(qact, &QAction::triggered, playField_, &PlayField::nextLevel);
   game_->addAction(qact);
   
   qact = new QAction(i18n("&Previous Level"), this);
   qact->setShortcut(Qt::Key_P);
-  connect(qact, SIGNAL(triggered()), playField_, SLOT(previousLevel()));
+  connect(qact, &QAction::triggered, playField_, &PlayField::previousLevel);
   game_->addAction(qact);
   
   qact = new QAction(i18n("Re&start Level"), this);
   qact->setShortcut(Qt::Key_Escape);
-  connect(qact, SIGNAL(triggered()), playField_, SLOT(restartLevel()));
+  connect(qact, &QAction::triggered, playField_, &PlayField::restartLevel);
   game_->addAction(qact);
 
   createCollectionMenu(game_->addMenu(i18n("&Level Collection")));
   
   qact = new QAction(i18n("&Undo"), this);
   qact->setShortcut((KStandardShortcut::undo())[0]);
-  connect(qact, SIGNAL(triggered()), playField_, SLOT(undo()));
+  connect(qact, &QAction::triggered, playField_, &PlayField::undo);
   game_->addAction(qact);
   
   qact = new QAction(i18n("&Redo"), this);
   qact->setShortcut((KStandardShortcut::redo())[0]);
-  connect(qact, SIGNAL(triggered()), playField_, SLOT(redo()));
+  connect(qact, &QAction::triggered, playField_, &PlayField::redo);
   game_->addAction(qact);
  
   game_->addSeparator();
@@ -222,11 +222,11 @@ MainWindow::~MainWindow()
 {
   KSharedConfigPtr cfg=KSharedConfig::openConfig();
   KConfigGroup geometryGroup(cfg, "Geometry");
-  geometryGroup.writeEntry("width", QString("%1").arg(width()));
-  geometryGroup.writeEntry("height", QString("%1").arg(height()));
+  geometryGroup.writeEntry("width", QStringLiteral("%1").arg(width()));
+  geometryGroup.writeEntry("height", QStringLiteral("%1").arg(height()));
 
   KConfigGroup settingsGroup(cfg, "settings");
-  settingsGroup.writeEntry("collection", QString("%1").arg(internalCollections_[checkedCollection_]->id()));
+  settingsGroup.writeEntry("collection", QStringLiteral("%1").arg(internalCollections_[checkedCollection_]->id()));
 
   for (int i=1; i<=10; i++) {
     delete bookmarks_[i-1];

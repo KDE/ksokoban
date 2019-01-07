@@ -63,7 +63,7 @@ Move *
 PathFinder::search (Map *_map, int _x, int _y) {
   int xpos=_map->xpos ();
   int ypos=_map->ypos ();
-  if (xpos == _x && ypos == _y) return 0;
+  if (xpos == _x && ypos == _y) return nullptr;
 
   for (int y=0; y<=MAX_Y; y++) {
     for (int x=0; x<=MAX_X; x++) {
@@ -142,13 +142,13 @@ PathFinder::search (Map *_map, int _x, int _y) {
     }
 
     delete move;
-    return 0;
+    return nullptr;
   }
 }
 
 Move*
 PathFinder::drag(int /* x1 */, int /* y1 */, int /* x2 */, int /* y2 */) {
-  return 0;
+  return nullptr;
 }
 
 bool

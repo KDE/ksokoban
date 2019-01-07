@@ -252,7 +252,7 @@ LevelCollection::~LevelCollection() {
 
     QString key;
     key.sprintf("level%d", id_);
-    settingsGroup.writeEntry(key, QString("%1").arg(level_));
+    settingsGroup.writeEntry(key, QStringLiteral("%1").arg(level_));
   }
 }
 
@@ -280,7 +280,7 @@ LevelCollection::levelCompleted() {
 
     KSharedConfigPtr cfg=KSharedConfig::openConfig();
     KConfigGroup settingsGroup(cfg, "settings");
-    settingsGroup.writeEntry(key, QString("%1").arg(x));
+    settingsGroup.writeEntry(key, QStringLiteral("%1").arg(x));
     cfg->sync();
   }
 }

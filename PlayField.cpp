@@ -89,7 +89,7 @@ PlayField::PlayField(QWidget *parent)
 PlayField::~PlayField() {
   KSharedConfigPtr cfg = KSharedConfig::openConfig();
   KConfigGroup settingsGroup(cfg, "settings");
-  settingsGroup.writeEntry("animDelay", QString("%1").arg(animDelay_));
+  settingsGroup.writeEntry("animDelay", QStringLiteral("%1").arg(animDelay_));
 
   delete mapDelta_;
   delete history_;
@@ -116,32 +116,32 @@ PlayField::changeCursor(const QCursor* c) {
   if (cursor_ == c) return;
 
   cursor_ = c;
-  if (c == 0) unsetCursor();
+  if (c == nullptr) unsetCursor();
   else setCursor(*c);
 }
 
 int
 PlayField::level() const {
-  if (levelMap_ == 0) return 0;
+  if (levelMap_ == nullptr) return 0;
   return levelMap_->level();
 }
 
 const QString &
 PlayField::collectionName() {
   static QString error = "????";
-  if (levelMap_ == 0) return error;
+  if (levelMap_ == nullptr) return error;
   return levelMap_->collectionName();
 }
 
 int
 PlayField::totalMoves() const {
-  if (levelMap_ == 0) return 0;
+  if (levelMap_ == nullptr) return 0;
   return levelMap_->totalMoves();
 }
 
 int
 PlayField::totalPushes() const{
-  if (levelMap_ == 0) return 0;
+  if (levelMap_ == nullptr) return 0;
   return levelMap_->totalPushes();
 }
 
@@ -358,7 +358,7 @@ void
 PlayField::stopMoving() {
   killTimers();
   delete moveSequence_;
-  moveSequence_ = 0;
+  moveSequence_ = nullptr;
   moveInProgress_ = false;
   updateStepsXpm();
   updatePushesXpm();
@@ -387,7 +387,7 @@ PlayField::startMoving(MoveSequence *ms) {
 void
 PlayField::timerEvent(QTimerEvent *) {
   assert(moveInProgress_);
-  if (moveSequence_ == 0) {
+  if (moveSequence_ == nullptr) {
     killTimers();
     moveInProgress_ = false;
     return;
@@ -589,7 +589,6 @@ PlayField::keyPressEvent(QKeyEvent * e) {
   default:
     e->ignore();
     return;
-    break;
   }
 }
 
@@ -649,7 +648,7 @@ PlayField::mousePressEvent(QMouseEvent *e) {
   switch (e->button()) {
   case Qt::LeftButton:
     m = pathFinder_.search(levelMap_, x, y);
-    if (m != 0) {
+    if (m != nullptr) {
       history_->add(m);
 
       startMoving(m);
