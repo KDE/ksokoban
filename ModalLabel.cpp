@@ -26,8 +26,6 @@
 
 #include "ModalLabel.h"
 
-#include "ModalLabel.moc"
-
 ModalLabel::ModalLabel(const QString &text, QWidget *parent, Qt::WindowFlags f)
   : QLabel(text, parent, f) {
   QFont font(QFontDatabase::systemFont(QFontDatabase::GeneralFont).family(), 24, QFont::Bold);

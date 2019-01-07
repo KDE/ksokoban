@@ -50,7 +50,6 @@
 #include "PlayField.h"
 #include "LevelCollection.h"
 
-#include "MainWindow.moc"
 
 void
 MainWindow::createCollectionMenu(QMenu* collection_) {

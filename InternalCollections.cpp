@@ -72,16 +72,16 @@ InternalCollections::InternalCollections() {
 
 #ifdef USE_LIBZ
   data_ = (char *) malloc(BUFSIZE);
-  if (data_ == NULL) abort();
+  if (data_ == nullptr) abort();
 
   datasize = BUFSIZE;
   uncompress ((unsigned char *) data_, (long unsigned int *) &datasize, level_data_, sizeof (level_data_));
   data_ = (char *) realloc(data_, datasize);
-  if (data_ == NULL) abort ();
+  if (data_ == nullptr) abort ();
 #else
   datasize = sizeof (level_data_);
   data_ = (char *) malloc(datasize);
-  if (data_ == NULL) abort();
+  if (data_ == nullptr) abort();
   memcpy(data_, level_data_, datasize);
 #endif
 

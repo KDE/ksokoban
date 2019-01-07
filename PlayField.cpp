@@ -46,8 +46,6 @@
 #include "Bookmark.h"
 #include "LevelCollection.h"
 
-#include "PlayField.moc"
-
 PlayField::PlayField(QWidget *parent)
   : QWidget(parent), imageData_(0), lastLevel_(-1),
     moveSequence_(0), moveInProgress_(false), dragInProgress_(false),
@@ -56,8 +54,8 @@ PlayField::PlayField(QWidget *parent)
     sizeAllCursor(Qt::SizeAllCursor), crossCursor(Qt::CrossCursor),
     levelText_(i18n("Level:")), stepsText_(i18n("Steps:")),
     pushesText_(i18n("Pushes:")),
-	pnumXpm_(NULL), ptxtXpm_(NULL), snumXpm_(NULL), stxtXpm_(NULL),
-	lnumXpm_(NULL), ltxtXpm_(NULL), collXpm_(NULL),
+	pnumXpm_(nullptr), ptxtXpm_(nullptr), snumXpm_(nullptr), stxtXpm_(nullptr),
+	lnumXpm_(nullptr), ltxtXpm_(nullptr), collXpm_(nullptr),
     statusFont_(QFontDatabase::systemFont(QFontDatabase::GeneralFont).family(), 18, QFont::Bold),
     statusMetrics_(statusFont_) {
 

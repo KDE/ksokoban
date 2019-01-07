@@ -48,7 +48,7 @@ Bookmark::Bookmark(int _num) :
   fileName(p);
 
   FILE *file = fopen(p.toLatin1(), "r");
-  if (file == NULL) return;
+  if (file == nullptr) return;
 
   char buf[4096];
   buf[0] = '\0';
@@ -90,7 +90,7 @@ Bookmark::set(int _collection, int _level, int _moves, History *_h) {
   QString p;
   fileName(p);
   FILE *file = fopen(QFile::encodeName(p), "w");
-  if (file == NULL) return;
+  if (file == nullptr) return;
   fprintf(file, "%d %d %d\n", collection_, level_, moves_);
   fprintf(file, "%s\n", data_.toLatin1().constData());
   fclose(file);
