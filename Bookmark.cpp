@@ -42,7 +42,7 @@ Bookmark::fileName(QString &p) {
 }
 
 Bookmark::Bookmark(int _num) :
-  number_(_num), collection_(-1), level_(-1), moves_(0), data_("") {
+  number_(_num), collection_(-1), level_(-1), moves_(0), data_(QLatin1String("")) {
 
   QString p;
   fileName(p);
@@ -55,12 +55,12 @@ Bookmark::Bookmark(int _num) :
   fgets (buf, 4096, file);
   if (sscanf(buf, "%d %d %d", &collection_, &level_, &moves_) != 3) {
     collection_ = level_ = -1;
-    data_ = "";
+    data_ = QLatin1String("");
     fclose(file);
     return;
   }
 
-  data_ = "";
+  data_ = QLatin1String("");
   int len;
   while (!feof(file)) {
     len = fread(buf, 1, 4095, file);
@@ -84,7 +84,7 @@ Bookmark::set(int _collection, int _level, int _moves, History *_h) {
   level_ = _level;
   moves_ = _moves;
 
-  data_ = "";
+  data_ = QLatin1String("");
   _h->save(data_);
 
   QString p;

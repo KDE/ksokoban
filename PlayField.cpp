@@ -71,7 +71,7 @@ PlayField::PlayField(QWidget *parent)
   
   imageData_ = new StaticImage;
 
-  animDelay_ = settingsGroup.readEntry("animDelay", QString("2")).toInt();
+  animDelay_ = settingsGroup.readEntry("animDelay", QStringLiteral("2")).toInt();
   if (animDelay_ < 0 || animDelay_ > 3) animDelay_ = 2;
 
   history_ = new History;
@@ -128,7 +128,7 @@ PlayField::level() const {
 
 const QString &
 PlayField::collectionName() {
-  static QString error = "????";
+  static QString error = QStringLiteral("????");
   if (levelMap_ == nullptr) return error;
   return levelMap_->collectionName();
 }
@@ -704,7 +704,7 @@ PlayField::leaveEvent(QEvent *) {
 void
 PlayField::setSize(int w, int h) {
   int sbarHeight = statusMetrics_.height();
-  int sbarNumWidth = statusMetrics_.boundingRect("88888").width()+8;
+  int sbarNumWidth = statusMetrics_.boundingRect(QStringLiteral("88888")).width()+8;
   int sbarLevelWidth = statusMetrics_.boundingRect(levelText_).width()+8;
   int sbarStepsWidth = statusMetrics_.boundingRect(stepsText_).width()+8;
   int sbarPushesWidth = statusMetrics_.boundingRect(pushesText_).width()+8;

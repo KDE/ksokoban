@@ -354,16 +354,16 @@ void
 MainWindow::loadLevels() {
   KSharedConfigPtr cfg=KSharedConfig::openConfig();
   KConfigGroup settingsGroup(cfg, "settings");
-  QString lastFile = settingsGroup.readPathEntry("lastLevelFile",QString(""));
+  QString lastFile = settingsGroup.readPathEntry("lastLevelFile",QLatin1String(""));
 
-  QUrl result = QFileDialog::getOpenFileUrl(this, i18n("Load Levels From File"), lastFile, "*");
+  QUrl result = QFileDialog::getOpenFileUrl(this, i18n("Load Levels From File"), lastFile, QStringLiteral("*"));
   if (result.isEmpty()) return;
 
   openURL(result);
 }
 
 void
-MainWindow::openURL(QUrl _url) {
+MainWindow::openURL(const QUrl &_url) {
   KSharedConfigPtr cfg=KSharedConfig::openConfig();
 
 //   int namepos = _url.path().findRev('/') + 1; // NOTE: findRev can return -1

@@ -157,10 +157,10 @@ LevelCollection::loadPrefs() {
 
     QString key;
     key.sprintf("level%d", id_);
-    level_ = settingsGroup.readEntry(key, QString("0")).toInt();
+    level_ = settingsGroup.readEntry(key, QStringLiteral("0")).toInt();
 
     key.sprintf("status%d", id_);
-    unsigned long x = settingsGroup.readEntry(key, QString("0")).toULong();
+    unsigned long x = settingsGroup.readEntry(key, QStringLiteral("0")).toULong();
 
     x = backward(x, 0xc1136a15ul, 0x12ul, 0x80ff0b94ul);
     x = backward(x, 0xd38fd2ddul, 0x01ul, 0xd4d657b4ul);

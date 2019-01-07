@@ -46,18 +46,18 @@ main (int argc, char **argv)
                QStringLiteral("http://www.shlomifish.org/open-source/projects/ksokoban/")
                );
   aboutData.addAuthor(i18n("Shlomi Fish"), i18n("For porting to Qt5/KF5 and doing other cleanups"),
-              "shlomif@cpan.org",
-              "http://www.shlomifish.org/");
+              QStringLiteral("shlomif@cpan.org"),
+              QStringLiteral("http://www.shlomifish.org/"));
   aboutData.addAuthor(i18n("Lukasz Kalamlacki"), i18n("For rewriting the original ksokoban game from kde3 to kde4"),
-		      "kalamlacki@gmail.com",
-		      "http://sf.net/projects/ksokoban");
+		      QStringLiteral("kalamlacki@gmail.com"),
+		      QStringLiteral("http://sf.net/projects/ksokoban"));
   aboutData.addAuthor(i18n("Anders Widell"), i18n("For writing the original ksokoban game"),
-		      "awl@hem.passagen.se",
-		      "http://hem.passagen.se/awl/ksokoban/");
+		      QStringLiteral("awl@hem.passagen.se"),
+		      QStringLiteral("http://hem.passagen.se/awl/ksokoban/"));
   aboutData.addCredit(i18n("David W. Skinner"),
 		      i18n("For contributing the Sokoban levels included in this game"),
-		      "sasquatch@bentonrea.com",
-		      "http://users.bentonrea.com/~sasquatch/");
+		      QStringLiteral("sasquatch@bentonrea.com"),
+		      QStringLiteral("http://users.bentonrea.com/~sasquatch/"));
 
   aboutData.setOrganizationDomain(QByteArray("kde.org"));
   aboutData.setDesktopFileName(QStringLiteral("org.kde.ksokoban"));

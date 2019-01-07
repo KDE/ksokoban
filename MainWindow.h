@@ -40,7 +40,7 @@ public:
   MainWindow();
   ~MainWindow();
 
-  void openURL(QUrl _url);
+  void openURL(const QUrl &_url);
 
 public slots:
   void changeCollection(int id);
