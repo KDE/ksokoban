@@ -234,6 +234,7 @@ MainWindow::~MainWindow()
 
 
   delete externalCollection_;
+  delete[] level_act;
 
   // The following line segfaults when linked against qt 1.44
   //delete help_;
