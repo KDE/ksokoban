@@ -33,6 +33,11 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
 
 find_package(KF5 ${KF5_MIN_VERSION} COMPONENTS DocTools)
 
+if (${KF5Config_VERSION} STRGREATER "5.56.0")
+        add_definitions(-DQT_NO_FOREACH)
+        MESSAGE(STATUS "compile without foreach")
+endif()
+
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
 set(ksokoban_SRCS
