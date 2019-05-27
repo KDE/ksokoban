@@ -27,8 +27,8 @@ class ModalLabel : public QLabel {
 public:
   static void message (const QString &text, QWidget *parent);
 
-  void timerEvent (QTimerEvent *);
-  bool eventFilter (QObject *, QEvent *);
+  void timerEvent (QTimerEvent *) override;
+  bool eventFilter (QObject *, QEvent *) override;
   bool completed_;
 
 protected:

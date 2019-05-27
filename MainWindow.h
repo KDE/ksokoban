@@ -51,10 +51,10 @@ public slots:
   void loadLevels();
 
 protected:
-  void focusInEvent(QFocusEvent*);
+  void focusInEvent(QFocusEvent*) override;
   void createCollectionMenu(QMenu* collection_);
   //virtual void dragEnterEvent(QDragEnterEvent*);
-  virtual void dropEvent(QDropEvent*);
+  void dropEvent(QDropEvent*) override;
 
 private:
   InternalCollections internalCollections_;
