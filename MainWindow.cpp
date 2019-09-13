@@ -306,7 +306,7 @@ MainWindow::updateBookmark(int num) {
   l.setNum(lev+1);
   name += " #" + l;
   l.setNum(mov);
-  name += " (" + l + ")";
+  name += " (" + l + QLatin1Char(')');
 
   setBM_act[num-1]->setText(name);
   goToBM_act[num-1]->setText(name);
