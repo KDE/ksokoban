@@ -208,7 +208,7 @@ MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
     updateBookmark(i);
   }
 
-  help_ = new KHelpMenu(this, QString::null, false);
+  help_ = new KHelpMenu(this, QString(), false);
   menu_->addSeparator();
   menu_->addMenu( help_->menu() );
 

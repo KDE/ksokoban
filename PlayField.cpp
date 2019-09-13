@@ -669,7 +669,7 @@ PlayField::mousePressEvent(QMouseEvent *e) {
 
 void
 PlayField::wheelEvent(QWheelEvent *e) {
-  wheelDelta_ += e->delta();
+  wheelDelta_ += e->angleDelta().y();
 
   if (wheelDelta_ >= 120) {
     wheelDelta_ %= 120;
