@@ -155,7 +155,7 @@ ImageData::brighten(QImage& img) {
        // only modify redish pixels
 
        QColor col(r, g, b);
-       QColor lcol = col.light(130);
+       QColor lcol = col.lighter(130);
 
        img.setPixel(x, y, lcol.rgb());
       }
