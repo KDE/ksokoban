@@ -77,6 +77,7 @@ private:
 
   void updateBookmark(int num);
 
+  void updateAnim(int val);
 };
 
 #endif  /* MAINWINDOW_H */

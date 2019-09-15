@@ -34,14 +34,10 @@
 #include <QFrame>
 #include <QTemporaryFile>
 #include <KMessageBox>
-// #include <KIO/KIO>
 #include <KIO/Job>
 #include <KIO/TransferJob>
 #include <KIconLoader>
 #include <QDragEnterEvent>
-//#include <qdragobject.h>
-//#include <kpopupmenu.h>
-//#include <kurldrag.h>
 #include <KStandardShortcut>
 #include <KLocalizedString>
 #include <QFileDialog>
@@ -53,17 +49,14 @@
 
 void
 MainWindow::createCollectionMenu(QMenu* collection_) {
-  QSignalMapper *sigmap = new QSignalMapper(this);
   level_act = new QAction*[internalCollections_.collections()];
   for (int i=0; i<internalCollections_.collections(); i++) {
     QAction *qact = new QAction(internalCollections_[i]->name(), this);
 	level_act[i] = qact;
 	qact->setCheckable(true);
-	connect(qact, SIGNAL(triggered()), sigmap, SLOT(map()));
-	sigmap->setMapping(qact, i); 
+    	connect(qact, &QAction::triggered, this, [this,i ]() {changeCollection(i);});
 	collection_->addAction(qact);
   }
-  connect(sigmap, SIGNAL(mapped(int)), this, SLOT(changeCollection(int)));
   checkedCollection_ = 0;
 
   KSharedConfigPtr cfg=KSharedConfig::openConfig();
@@ -151,17 +144,10 @@ MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
   animation_->addAction(qa_medium);
   animation_->addAction(qa_fast);
   animation_->addAction(qa_off);
-  QSignalMapper *sigmap = new QSignalMapper(this);
-  connect(qa_slow, SIGNAL(triggered()), sigmap, SLOT(map()));
-  sigmap->setMapping(qa_slow, 3);
-  connect(qa_medium, SIGNAL(triggered()), sigmap, SLOT(map())); 
-  sigmap->setMapping(qa_medium, 2);
-  connect(qa_fast, SIGNAL(triggered()), sigmap, SLOT(map())); 
-  sigmap->setMapping(qa_fast, 1);
-  connect(qa_off, SIGNAL(triggered()), sigmap, SLOT(map()));
-  sigmap->setMapping(qa_off, 0);
-  connect(sigmap, SIGNAL(mapped(int)), this, SLOT(updateAnimMenu(int)));
-  connect(sigmap, SIGNAL(mapped(int)), playField_, SLOT(changeAnim(int)));
+  connect(qa_slow, &QAction::triggered, this, [this]() {updateAnim(3);});
+  connect(qa_medium, &QAction::triggered, this, [this]() {updateAnim(2);});
+  connect(qa_fast, &QAction::triggered, this, [this]() {updateAnim(1);});
+  connect(qa_off, &QAction::triggered, this, [this]() {updateAnim(0);});
   
   checkedAnim_ = playField_->animDelay();
   updateAnimMenu(checkedAnim_);
@@ -170,38 +156,69 @@ MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
   
   bookmarkMenu_ = menu_->addMenu(i18n("&Bookmarks"));
   setBM_ = bookmarkMenu_->addMenu(i18n("&Set Bookmark"));
-  sigmap = new QSignalMapper(this);
-  setBM_act[0] = setBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::CTRL+Qt::Key_1);
-  setBM_act[1] = setBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::CTRL+Qt::Key_2);
-  setBM_act[2] = setBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::CTRL+Qt::Key_3);
-  setBM_act[3] = setBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::CTRL+Qt::Key_4);
-  setBM_act[4] = setBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::CTRL+Qt::Key_5);
-  setBM_act[5] = setBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::CTRL+Qt::Key_6);
-  setBM_act[6] = setBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::CTRL+Qt::Key_7);
-  setBM_act[7] = setBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::CTRL+Qt::Key_8);
-  setBM_act[8] = setBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::CTRL+Qt::Key_9);
-  setBM_act[9] = setBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::CTRL+Qt::Key_0);
-  for(i=0; i<10; i++) {
-	 sigmap->setMapping(setBM_act[i], i+1);
-  }
-  connect(sigmap, SIGNAL(mapped(int)), this,SLOT(setBookmark(int)));
+  setBM_act[0] = setBM_->addAction(i18n("(unused)"));
+  setBM_act[0]->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_1));
+  connect(setBM_act[0], &QAction::triggered, [this]() {setBookmark(1);});
+  setBM_act[1] = setBM_->addAction(i18n("(unused)"));
+  setBM_act[1]->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_2));
+  connect(setBM_act[1], &QAction::triggered, [this]() {setBookmark(2);});
+  setBM_act[2] = setBM_->addAction(i18n("(unused)"));
+  setBM_act[2]->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_3));
+  connect(setBM_act[2], &QAction::triggered, [this]() {setBookmark(3);});
+  setBM_act[3] = setBM_->addAction(i18n("(unused)"));
+  setBM_act[3]->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_4));
+  connect(setBM_act[3], &QAction::triggered, [this]() {setBookmark(4);});
+  setBM_act[4] = setBM_->addAction(i18n("(unused)"));
+  setBM_act[4]->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_5));
+  connect(setBM_act[4], &QAction::triggered, [this]() {setBookmark(5);});
+  setBM_act[5] = setBM_->addAction(i18n("(unused)"));
+  setBM_act[5]->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_6));
+  connect(setBM_act[5], &QAction::triggered, [this]() {setBookmark(6);});
+  setBM_act[6] = setBM_->addAction(i18n("(unused)"));
+  setBM_act[6]->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_7));
+  connect(setBM_act[6], &QAction::triggered, [this]() {setBookmark(7);});
+  setBM_act[7] = setBM_->addAction(i18n("(unused)"));
+  setBM_act[7]->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_8));
+  connect(setBM_act[7], &QAction::triggered, [this]() {setBookmark(8);});
+  setBM_act[8] = setBM_->addAction(i18n("(unused)"));
+  setBM_act[8]->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_9));
+  connect(setBM_act[8], &QAction::triggered, [this]() {setBookmark(9);});
+  setBM_act[9] = setBM_->addAction(i18n("(unused)"));
+  setBM_act[9]->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_0));
+  connect(setBM_act[9], &QAction::triggered, [this]() {setBookmark(10);});
   
   goToBM_ =  bookmarkMenu_->addMenu(i18n("&Go to Bookmark"));
-  sigmap = new QSignalMapper(this);
-  goToBM_act[0] = goToBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::Key_1);
-  goToBM_act[1] = goToBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::Key_2);
-  goToBM_act[2] = goToBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::Key_3);
-  goToBM_act[3] = goToBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::Key_4);
-  goToBM_act[4] = goToBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::Key_5);
-  goToBM_act[5] = goToBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::Key_6);
-  goToBM_act[6] = goToBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::Key_7);
-  goToBM_act[7] = goToBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::Key_8);
-  goToBM_act[8] = goToBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::Key_9);
-  goToBM_act[9] = goToBM_->addAction(i18n("(unused)"), sigmap, SLOT(map()), Qt::Key_0);
-  for(i=0; i<10; i++) {
-	 sigmap->setMapping(goToBM_act[i], i+1);
-  }
-  connect(sigmap, SIGNAL(mapped(int)), this,SLOT(goToBookmark(int)));
+  goToBM_act[0] = goToBM_->addAction(i18n("(unused)"));
+  goToBM_act[0]->setShortcut(QKeySequence(Qt::Key_1));
+  connect(goToBM_act[0], &QAction::triggered, [this]() {goToBookmark(1);});
+
+  goToBM_act[1] = goToBM_->addAction(i18n("(unused)"));
+  goToBM_act[1]->setShortcut(QKeySequence(Qt::Key_2));
+  connect(goToBM_act[1], &QAction::triggered, [this]() {goToBookmark(2);});
+  goToBM_act[2] = goToBM_->addAction(i18n("(unused)"));
+  goToBM_act[2]->setShortcut(QKeySequence(Qt::Key_3));
+  connect(goToBM_act[2], &QAction::triggered, [this]() {goToBookmark(3);});
+  goToBM_act[3] = goToBM_->addAction(i18n("(unused)"));
+  goToBM_act[3]->setShortcut(QKeySequence(Qt::Key_4));
+  connect(goToBM_act[3], &QAction::triggered, [this]() {goToBookmark(4);});
+  goToBM_act[4] = goToBM_->addAction(i18n("(unused)"));
+  goToBM_act[4]->setShortcut(QKeySequence(Qt::Key_5));
+  connect(goToBM_act[4], &QAction::triggered, [this]() {goToBookmark(5);});
+  goToBM_act[5] = goToBM_->addAction(i18n("(unused)"));
+  goToBM_act[5]->setShortcut(QKeySequence(Qt::Key_6));
+  connect(goToBM_act[5], &QAction::triggered, [this]() {goToBookmark(6);});
+  goToBM_act[6] = goToBM_->addAction(i18n("(unused)"));
+  goToBM_act[6]->setShortcut(QKeySequence(Qt::Key_7));
+  connect(goToBM_act[6], &QAction::triggered, [this]() {goToBookmark(7);});
+  goToBM_act[7] = goToBM_->addAction(i18n("(unused)"));
+  goToBM_act[7]->setShortcut(QKeySequence(Qt::Key_8));
+  connect(goToBM_act[7], &QAction::triggered, [this]() {goToBookmark(8);});
+  goToBM_act[8] = goToBM_->addAction(i18n("(unused)"));
+  goToBM_act[8]->setShortcut(QKeySequence(Qt::Key_9));
+  connect(goToBM_act[8], &QAction::triggered, [this]() {goToBookmark(9);});
+  goToBM_act[9] = goToBM_->addAction(i18n("(unused)"));
+  goToBM_act[9]->setShortcut(QKeySequence(Qt::Key_0));
+  connect(goToBM_act[9], &QAction::triggered, [this]() {goToBookmark(10);});
 
   for (i=1; i<=10; i++) {
     bookmarks_[i-1] = new Bookmark(i);
@@ -250,6 +267,11 @@ MainWindow::~MainWindow()
 }
 
 
+void
+MainWindow::updateAnim(int val) {
+    updateAnimMenu(val);
+    playField_->changeAnim(val);
+}
 
 void
 MainWindow::focusInEvent(QFocusEvent *) {
