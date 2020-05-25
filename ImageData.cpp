@@ -132,7 +132,7 @@ ImageData::resize(int size) {
 // it gives spurious dots on the floor around them
 
 void
-ImageData::image2pixmap(QImage img, QPixmap& xpm, bool diffuse) {
+ImageData::image2pixmap(const QImage &img, QPixmap& xpm, bool diffuse) {
   xpm = QPixmap::fromImage(img,
 		       (diffuse ?
 			(Qt::DiffuseDither|Qt::DiffuseAlphaDither) :

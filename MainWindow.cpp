@@ -74,7 +74,6 @@ MainWindow::createCollectionMenu(QMenu* collection_) {
 
 MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
   int i;
-  QPixmap pixmap;
   QAction *qact;
 
   //setEraseColor(QColor(0,0,0));
@@ -158,67 +157,67 @@ MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
   setBM_ = bookmarkMenu_->addMenu(i18n("&Set Bookmark"));
   setBM_act[0] = setBM_->addAction(i18n("(unused)"));
   setBM_act[0]->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_1));
-  connect(setBM_act[0], &QAction::triggered, [this]() {setBookmark(1);});
+  connect(setBM_act[0], &QAction::triggered, this, [this]() {setBookmark(1);});
   setBM_act[1] = setBM_->addAction(i18n("(unused)"));
   setBM_act[1]->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_2));
-  connect(setBM_act[1], &QAction::triggered, [this]() {setBookmark(2);});
+  connect(setBM_act[1], &QAction::triggered, this, [this]() {setBookmark(2);});
   setBM_act[2] = setBM_->addAction(i18n("(unused)"));
   setBM_act[2]->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_3));
-  connect(setBM_act[2], &QAction::triggered, [this]() {setBookmark(3);});
+  connect(setBM_act[2], &QAction::triggered, this, [this]() {setBookmark(3);});
   setBM_act[3] = setBM_->addAction(i18n("(unused)"));
   setBM_act[3]->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_4));
-  connect(setBM_act[3], &QAction::triggered, [this]() {setBookmark(4);});
+  connect(setBM_act[3], &QAction::triggered, this, [this]() {setBookmark(4);});
   setBM_act[4] = setBM_->addAction(i18n("(unused)"));
   setBM_act[4]->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_5));
-  connect(setBM_act[4], &QAction::triggered, [this]() {setBookmark(5);});
+  connect(setBM_act[4], &QAction::triggered, this, [this]() {setBookmark(5);});
   setBM_act[5] = setBM_->addAction(i18n("(unused)"));
   setBM_act[5]->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_6));
-  connect(setBM_act[5], &QAction::triggered, [this]() {setBookmark(6);});
+  connect(setBM_act[5], &QAction::triggered, this, [this]() {setBookmark(6);});
   setBM_act[6] = setBM_->addAction(i18n("(unused)"));
   setBM_act[6]->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_7));
-  connect(setBM_act[6], &QAction::triggered, [this]() {setBookmark(7);});
+  connect(setBM_act[6], &QAction::triggered, this, [this]() {setBookmark(7);});
   setBM_act[7] = setBM_->addAction(i18n("(unused)"));
   setBM_act[7]->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_8));
-  connect(setBM_act[7], &QAction::triggered, [this]() {setBookmark(8);});
+  connect(setBM_act[7], &QAction::triggered, this, [this]() {setBookmark(8);});
   setBM_act[8] = setBM_->addAction(i18n("(unused)"));
   setBM_act[8]->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_9));
-  connect(setBM_act[8], &QAction::triggered, [this]() {setBookmark(9);});
+  connect(setBM_act[8], &QAction::triggered, this, [this]() {setBookmark(9);});
   setBM_act[9] = setBM_->addAction(i18n("(unused)"));
   setBM_act[9]->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_0));
-  connect(setBM_act[9], &QAction::triggered, [this]() {setBookmark(10);});
+  connect(setBM_act[9], &QAction::triggered, this, [this]() {setBookmark(10);});
   
   goToBM_ =  bookmarkMenu_->addMenu(i18n("&Go to Bookmark"));
   goToBM_act[0] = goToBM_->addAction(i18n("(unused)"));
   goToBM_act[0]->setShortcut(QKeySequence(Qt::Key_1));
-  connect(goToBM_act[0], &QAction::triggered, [this]() {goToBookmark(1);});
+  connect(goToBM_act[0], &QAction::triggered, this, [this]() {goToBookmark(1);});
 
   goToBM_act[1] = goToBM_->addAction(i18n("(unused)"));
   goToBM_act[1]->setShortcut(QKeySequence(Qt::Key_2));
-  connect(goToBM_act[1], &QAction::triggered, [this]() {goToBookmark(2);});
+  connect(goToBM_act[1], &QAction::triggered, this, [this]() {goToBookmark(2);});
   goToBM_act[2] = goToBM_->addAction(i18n("(unused)"));
   goToBM_act[2]->setShortcut(QKeySequence(Qt::Key_3));
-  connect(goToBM_act[2], &QAction::triggered, [this]() {goToBookmark(3);});
+  connect(goToBM_act[2], &QAction::triggered, this, [this]() {goToBookmark(3);});
   goToBM_act[3] = goToBM_->addAction(i18n("(unused)"));
   goToBM_act[3]->setShortcut(QKeySequence(Qt::Key_4));
-  connect(goToBM_act[3], &QAction::triggered, [this]() {goToBookmark(4);});
+  connect(goToBM_act[3], &QAction::triggered, this, [this]() {goToBookmark(4);});
   goToBM_act[4] = goToBM_->addAction(i18n("(unused)"));
   goToBM_act[4]->setShortcut(QKeySequence(Qt::Key_5));
-  connect(goToBM_act[4], &QAction::triggered, [this]() {goToBookmark(5);});
+  connect(goToBM_act[4], &QAction::triggered, this, [this]() {goToBookmark(5);});
   goToBM_act[5] = goToBM_->addAction(i18n("(unused)"));
   goToBM_act[5]->setShortcut(QKeySequence(Qt::Key_6));
-  connect(goToBM_act[5], &QAction::triggered, [this]() {goToBookmark(6);});
+  connect(goToBM_act[5], &QAction::triggered, this, [this]() {goToBookmark(6);});
   goToBM_act[6] = goToBM_->addAction(i18n("(unused)"));
   goToBM_act[6]->setShortcut(QKeySequence(Qt::Key_7));
-  connect(goToBM_act[6], &QAction::triggered, [this]() {goToBookmark(7);});
+  connect(goToBM_act[6], &QAction::triggered, this, [this]() {goToBookmark(7);});
   goToBM_act[7] = goToBM_->addAction(i18n("(unused)"));
   goToBM_act[7]->setShortcut(QKeySequence(Qt::Key_8));
-  connect(goToBM_act[7], &QAction::triggered, [this]() {goToBookmark(8);});
+  connect(goToBM_act[7], &QAction::triggered, this, [this]() {goToBookmark(8);});
   goToBM_act[8] = goToBM_->addAction(i18n("(unused)"));
   goToBM_act[8]->setShortcut(QKeySequence(Qt::Key_9));
-  connect(goToBM_act[8], &QAction::triggered, [this]() {goToBookmark(9);});
+  connect(goToBM_act[8], &QAction::triggered, this, [this]() {goToBookmark(9);});
   goToBM_act[9] = goToBM_->addAction(i18n("(unused)"));
   goToBM_act[9]->setShortcut(QKeySequence(Qt::Key_0));
-  connect(goToBM_act[9], &QAction::triggered, [this]() {goToBookmark(10);});
+  connect(goToBM_act[9], &QAction::triggered, this, [this]() {goToBookmark(10);});
 
   for (i=1; i<=10; i++) {
     bookmarks_[i-1] = new Bookmark(i);
@@ -406,7 +405,7 @@ MainWindow::openURL(const QUrl &_url) {
     }
     f.open();
     QByteArray data;
-    job->data(job, data);
+    Q_EMIT job->data(job, data);
     f.write(data);
     levelFile = f.fileName();
   }

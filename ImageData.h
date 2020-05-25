@@ -57,7 +57,7 @@ protected:
   ImageData();
 
   void expandIndex(int size);
-  void image2pixmap(QImage img, QPixmap& xpm, bool diffuse=true);
+  void image2pixmap(const QImage &img, QPixmap& xpm, bool diffuse=true);
   void brighten(QImage& img);
 
   const QPixmap &upperLarge(int index);
