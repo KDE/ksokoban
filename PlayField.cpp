@@ -892,11 +892,10 @@ PlayField::updateLevelXpm() {
   paint.setBrushOrigin(- lnumRect_.x(), - lnumRect_.y());
   paint.fillRect(0, 0, lnumRect_.width(), lnumRect_.height(), background_);
 
-  QString str;
   paint.setFont(statusFont_);
   paint.setPen(QColor(255,0,0));
   paint.drawText(0, 0, lnumRect_.width(), lnumRect_.height(),
-		 Qt::AlignLeft, str.sprintf("%05d", level()+1));
+                 Qt::AlignLeft, QString::asprintf("%05d", level()+1));
 }
 
 void
@@ -909,11 +908,10 @@ PlayField::updateStepsXpm() {
   paint.setBrushOrigin(- snumRect_.x(), - snumRect_.y());
   paint.fillRect(0, 0, snumRect_.width(), snumRect_.height(), background_);
 
-  QString str;
   paint.setFont(statusFont_);
   paint.setPen(QColor(255,0,0));
   paint.drawText(0, 0, snumRect_.width(), snumRect_.height(),
-		 Qt::AlignLeft, str.sprintf("%05d", totalMoves()));
+                 Qt::AlignLeft, QString::asprintf("%05d", totalMoves()));
 }
 
 void
@@ -926,11 +924,10 @@ PlayField::updatePushesXpm() {
   paint.setBrushOrigin(- pnumRect_.x(), - pnumRect_.y());
   paint.fillRect(0, 0, pnumRect_.width(), pnumRect_.height(), background_);
 
-  QString str;
   paint.setFont(statusFont_);
   paint.setPen(QColor(255,0,0));
   paint.drawText(0, 0, pnumRect_.width(), pnumRect_.height(),
-		 Qt::AlignLeft, str.sprintf("%05d", totalPushes()));
+                 Qt::AlignLeft, QString::asprintf("%05d", totalPushes()));
 }
 
 

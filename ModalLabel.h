@@ -32,7 +32,7 @@ public:
   bool completed_;
 
 protected:
-  ModalLabel (const QString &text, QWidget *parent, Qt::WindowFlags f=0);
+  ModalLabel (const QString &text, QWidget *parent, Qt::WindowFlags f={});
 
 };
 

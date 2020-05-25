@@ -155,11 +155,10 @@ LevelCollection::loadPrefs() {
     KSharedConfigPtr cfg=KSharedConfig::openConfig();
 	KConfigGroup settingsGroup(cfg, "settings");
 
-    QString key;
-    key.sprintf("level%d", id_);
+    QString key = QString::asprintf("level%d", id_);
     level_ = settingsGroup.readEntry(key, QStringLiteral("0")).toInt();
 
-    key.sprintf("status%d", id_);
+    key = QString::asprintf("status%d", id_);
     unsigned long x = settingsGroup.readEntry(key, QStringLiteral("0")).toULong();
 
     x = backward(x, 0xc1136a15ul, 0x12ul, 0x80ff0b94ul);
@@ -250,8 +249,7 @@ LevelCollection::~LevelCollection() {
     KSharedConfigPtr cfg=KSharedConfig::openConfig();
     KConfigGroup settingsGroup(cfg,"settings");
 
-    QString key;
-    key.sprintf("level%d", id_);
+    const QString key = QString::asprintf("level%d", id_);
     settingsGroup.writeEntry(key, QStringLiteral("%1").arg(level_));
   }
 }
@@ -275,8 +273,7 @@ LevelCollection::levelCompleted() {
     x = forward(x, 0xd4d657b4ul, 0x1ful, 0x7e129575ul);
     x = forward(x, 0x80ff0b94ul, 0x0eul, 0x92fc153dul);
 
-    QString key;
-    key.sprintf("status%d", id_);
+    const QString key = QString::asprintf("status%d", id_);
 
     KSharedConfigPtr cfg=KSharedConfig::openConfig();
     KConfigGroup settingsGroup(cfg, "settings");
