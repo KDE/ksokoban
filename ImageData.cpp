@@ -26,7 +26,7 @@
 #include "ImageData.h"
 
 ImageData::ImageData() : floor_(10,10), indexSize_(0), size_(0), halfSize_(0) {
-  random.setSeed(0);
+  random.seed(QRandomGenerator::global()->generate());
   QPainter paint(&floor_);
   paint.fillRect(0,0,10,10, QColor(0x66,0x66,0x66, 255));
 }
@@ -45,10 +45,10 @@ ImageData::expandIndex(int size) {
   rightSmallIndex_.resize(size);
 
   for (int i=indexSize_; i<size; i++) {
-    upperLargeIndex_[i] = random.getLong(LARGE_STONES);
-    lowerLargeIndex_[i] = random.getLong(LARGE_STONES);
-    leftSmallIndex_[i] = random.getLong(SMALL_STONES);
-    rightSmallIndex_[i] = random.getLong(SMALL_STONES);
+    upperLargeIndex_[i] = random.bounded(LARGE_STONES);
+    lowerLargeIndex_[i] = random.bounded(LARGE_STONES);
+    leftSmallIndex_[i] = random.bounded(SMALL_STONES);
+    rightSmallIndex_[i] = random.bounded(SMALL_STONES);
   }
 
   indexSize_ = size;
