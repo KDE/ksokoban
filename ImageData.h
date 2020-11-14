@@ -23,7 +23,7 @@
 #include <QImage>
 #include <QPixmap>
 
-#include <KRandomSequence>
+#include <QRandomGenerator>
 
 class QPainter;
 
@@ -81,7 +81,7 @@ protected:
   QByteArray rightSmallIndex_;
 
   int size_, halfSize_;
-  KRandomSequence random;
+  QRandomGenerator random;
 };
 
 #endif  /* IMAGEDATA_H */
