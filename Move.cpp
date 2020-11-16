@@ -132,21 +132,25 @@ Move::load (const char *s) {
     switch (tolower (c)) {
     case 'w':
       last = true;
+      /* Fall through */
     case 'l':
       x -= dist;
       break;
     case 'e':
       last = true;
+      /* Fall through */
     case 'r':
       x += dist;
       break;
     case 'n':
       last = true;
+      /* Fall through */
     case 'u':
       y -= dist;
       break;
     case 's':
       last = true;
+      /* Fall through */
     case 'd':
       y += dist;
       break;
