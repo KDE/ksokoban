@@ -111,7 +111,6 @@ protected:
   void dragObject(int xpixel, int ypixel);
   void highlight();
   void changeCursor(const QCursor* c);
-  void eatKeyPressEvents();
 
 private:
   int size_, xOffs_, yOffs_;
