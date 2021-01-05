@@ -654,7 +654,7 @@ PlayField::mousePressEvent(QMouseEvent *e) {
       startMoving(m);
     }
     break;
-  case Qt::MidButton:
+  case Qt::MiddleButton:
     undo();
     return;
     break;
