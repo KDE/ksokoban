@@ -45,7 +45,7 @@ class PlayField : public QWidget {
   Q_OBJECT
 public:
   PlayField(QWidget *parent);
-  ~PlayField ();
+  ~PlayField () override;
 
   bool canMoveNow();
   int animDelay() { return animDelay_; }

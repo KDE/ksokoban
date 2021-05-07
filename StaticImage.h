@@ -26,7 +26,7 @@ class
 StaticImage : public ImageData {
 public:
   StaticImage ();
-  virtual ~StaticImage ();
+  ~StaticImage () override;
 
 };
 

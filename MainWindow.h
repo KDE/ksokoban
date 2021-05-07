@@ -38,7 +38,7 @@ class MainWindow : public KMainWindow {
   Q_OBJECT
 public:
   MainWindow();
-  ~MainWindow();
+  ~MainWindow() override;
 
   void openURL(const QUrl &_url);
 
