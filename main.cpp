@@ -67,8 +67,6 @@ main (int argc, char **argv)
   app.setWindowIcon(QIcon::fromTheme(QStringLiteral("ksokoban")));
 
   QCommandLineParser parser;
-  parser.addVersionOption();
-  parser.addHelpOption();
   parser.addPositionalArgument(i18n("[file]"), i18n("Level collection file to load"));
   aboutData.setupCommandLine(&parser);
   parser.process(app);
