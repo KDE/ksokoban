@@ -158,14 +158,14 @@ Move::load (const char *s) {
     default:
       //printf ("2><>%s\n", s);
       //abort ();
-      return 0;
+      return nullptr;
     }
 
     if (x<=0 || x>=MAX_X || y<=0 || y>=MAX_Y) {
       //printf ("x: %d, y:%d ><>%s\n", x, y, s);
       //abort ();
 
-      return 0;
+      return nullptr;
     }
 
     if (isupper (c)) push (x, y);

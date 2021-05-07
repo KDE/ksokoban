@@ -72,7 +72,7 @@ MainWindow::createCollectionMenu(QMenu* collection_) {
 }
 
 
-MainWindow::MainWindow() : KMainWindow(0), externalCollection_(0) {
+MainWindow::MainWindow() : KMainWindow(nullptr), externalCollection_(nullptr) {
   int i;
   QAction *qact;
 
@@ -350,7 +350,7 @@ MainWindow::goToBookmark(int id) {
 
   if (collection < 0 || collection >= internalCollections_.collections()) return;
   LevelCollection* colPtr = internalCollections_[collection];
-  if (colPtr == 0) return;
+  if (colPtr == nullptr) return;
   if (level < 0 || level >= colPtr->noOfLevels()) return;
   if (level > colPtr->completedLevels()) return;
 
@@ -368,7 +368,7 @@ MainWindow::changeCollection(int id)
   level_act[checkedCollection_]->setChecked(true);
 
   delete externalCollection_;
-  externalCollection_ = 0;
+  externalCollection_ = nullptr;
   playField_->changeCollection(internalCollections_[id]);
 }
 

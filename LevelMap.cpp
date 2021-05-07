@@ -38,7 +38,7 @@ LevelMap::collectionName() {
   return collection_->name();
 }
 
-LevelMap::LevelMap () : collection_(0), totalMoves_(0), totalPushes_(0),
+LevelMap::LevelMap () : collection_(nullptr), totalMoves_(0), totalPushes_(0),
 			goodLevel_(false) {
 }
 
@@ -55,13 +55,13 @@ LevelMap::changeCollection (LevelCollection *_collection)
 
 int
 LevelMap::level () const {
-  if (collection_ == 0) return 0;
+  if (collection_ == nullptr) return 0;
   return collection_->level();
 }
 
 void
 LevelMap::level (int _level) {
-  assert(collection_ != 0);
+  assert(collection_ != nullptr);
 
   collection_->level(_level);
   goodLevel_ = collection_->loadLevel(this);
@@ -71,13 +71,13 @@ LevelMap::level (int _level) {
 
 int
 LevelMap::noOfLevels () const {
-  assert(collection_ != 0);
+  assert(collection_ != nullptr);
   return collection_->noOfLevels();
 }
 
 int
 LevelMap::completedLevels () const{
-  assert(collection_ != 0);
+  assert(collection_ != nullptr);
   return collection_->completedLevels();
 }
 

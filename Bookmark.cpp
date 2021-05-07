@@ -98,7 +98,7 @@ Bookmark::set(int _collection, int _level, int _moves, History *_h) {
 
 bool
 Bookmark::goTo(LevelMap *_map, History *_h) {
-  return _h->load(_map, data_.toLatin1()) != 0;
+  return _h->load(_map, data_.toLatin1()) != nullptr;
 }
 
 

@@ -72,23 +72,23 @@ History::load(LevelMap *map, const char *_str) {
   while (*_str != '\0' && *_str != '-') {
     m = new Move(x, y);
     _str = m->load(_str);
-    if (_str == 0) return 0;
+    if (_str == nullptr) return nullptr;
     x = m->finalX();
     y = m->finalY();
     past_.append(m);
     if (!m->redo(map)) {
       //printf("redo failed: %s\n", _str);
       //abort();
-      return 0;
+      return nullptr;
     }
   }
-  if (*_str != '-') return 0;
+  if (*_str != '-') return nullptr;
 
   _str++;
   while (*_str != '\0') {
     m = new Move(x, y);
     _str = m->load(_str);
-    if (_str == 0) return 0;
+    if (_str == nullptr) return nullptr;
     x = m->finalX();
     y = m->finalY();
     future_.append(m);
@@ -108,7 +108,7 @@ History::redo(LevelMap *map) {
 
 MoveSequence *
 History::deferRedo(LevelMap *map) {
-  if (future_.isEmpty()) return 0;
+  if (future_.isEmpty()) return nullptr;
 
   Move *m=future_.takeAt(0);
   past_.append(m);
@@ -126,7 +126,7 @@ History::undo(LevelMap *map) {
 
 MoveSequence *
 History::deferUndo(LevelMap *map) {
-  if (past_.isEmpty()) return 0;
+  if (past_.isEmpty()) return nullptr;
 
   Move *m = past_.takeAt(past_.count()-1);
   future_.insert(0, m);

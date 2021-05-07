@@ -47,8 +47,8 @@
 #include "LevelCollection.h"
 
 PlayField::PlayField(QWidget *parent)
-  : QWidget(parent), imageData_(0), lastLevel_(-1),
-    moveSequence_(0), moveInProgress_(false), dragInProgress_(false),
+  : QWidget(parent), imageData_(nullptr), lastLevel_(-1),
+    moveSequence_(nullptr), moveInProgress_(false), dragInProgress_(false),
     xOffs_(0), yOffs_(0),
     wheelDelta_(0), debug_counter(0),
     sizeAllCursor(Qt::SizeAllCursor), crossCursor(Qt::CrossCursor),
@@ -347,7 +347,7 @@ PlayField::highlight() {
     repaint();
   } else {
     if (pathFinder_.canWalkTo(x, y)) changeCursor(&crossCursor);
-    else changeCursor(0);
+    else changeCursor(nullptr);
     if (highlightX_ >= 0) {
       repaint();
     }
@@ -377,11 +377,11 @@ void
 PlayField::startMoving(MoveSequence *ms) {
   static const int delay[4] = {0, 15, 35, 60};
 
-  assert(moveSequence_ == 0 && !moveInProgress_);
+  assert(moveSequence_ == nullptr && !moveInProgress_);
   moveSequence_ = ms;
   moveInProgress_ = true;
   if (animDelay_) timers.append(startTimer(delay[animDelay_]));
-  timerEvent(0);
+  timerEvent(nullptr);
 }
 
 void
@@ -596,7 +596,7 @@ void
 PlayField::stopDrag() {
   if (!dragInProgress_) return;
 
-  changeCursor(0);
+  changeCursor(nullptr);
 
   repaint();
   dragInProgress_ = false;
