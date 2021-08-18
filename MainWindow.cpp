@@ -378,7 +378,7 @@ MainWindow::loadLevels() {
   KConfigGroup settingsGroup(cfg, "settings");
   QString lastFile = settingsGroup.readPathEntry("lastLevelFile",QLatin1String(""));
 
-  QUrl result = QFileDialog::getOpenFileUrl(this, i18n("Load Levels From File"), lastFile, QStringLiteral("*"));
+  QUrl result = QFileDialog::getOpenFileUrl(this, i18nc("@title:window", "Load Levels from a File"), lastFile, QStringLiteral("*"));
   if (result.isEmpty()) return;
 
   openURL(result);
