@@ -30,7 +30,7 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     XmlGui
 )
 
-find_package(KF5 ${KF5_MIN_VERSION} COMPONENTS DocTools)
+find_package(KF5DocTools ${KF5_MIN_VERSION})
 
 add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050C00)
 add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x052e00)
