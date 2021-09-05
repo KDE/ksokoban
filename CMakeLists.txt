@@ -25,7 +25,6 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     Config
     CoreAddons
     I18n
-    IconThemes
     KIO
     WidgetsAddons
     XmlGui
@@ -65,7 +64,6 @@ set(ksokoban_SRCS
 add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 add_executable(ksokoban ${ksokoban_SRCS})
 target_link_libraries(ksokoban
-    KF5::IconThemes
     KF5::I18n
     Qt5::Widgets
     Qt5::Gui

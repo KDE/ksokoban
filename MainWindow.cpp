@@ -36,7 +36,6 @@
 #include <KMessageBox>
 #include <KIO/Job>
 #include <KIO/TransferJob>
-#include <KIconLoader>
 #include <QDragEnterEvent>
 #include <KStandardShortcut>
 #include <KLocalizedString>
