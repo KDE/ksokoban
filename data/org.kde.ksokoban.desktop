@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=KSokoban
+Name[ar]=حارس المستودع
 Name[bs]=KSokoban
 Name[ca]=KSokoban
 Name[ca@valencia]=KSokoban
@@ -30,6 +31,7 @@ Name[uk]=KSokoban
 Name[x-test]=xxKSokobanxx
 Name[zh_TW]=KSokoban
 GenericName=Sokoban Game
+GenericName[ar]=لعبة حارس المستودع
 GenericName[bs]=Sokoban igra
 GenericName[ca]=Joc del Sokoban -encarregat del magatzem-
 GenericName[ca@valencia]=Joc del Sokoban -encarregat del magatzem-
