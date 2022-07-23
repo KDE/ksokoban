@@ -37,7 +37,7 @@ main (int argc, char **argv)
   QApplication app(argc, argv);
   KLocalizedString::setApplicationDomain("ksokoban");
 
-  KAboutData aboutData(QStringLiteral("ksokoban"), i18n("ksokoban"),
+  KAboutData aboutData(QStringLiteral("ksokoban"), i18n("KSokoban"),
 		       version,
 		       i18n("The japanese warehouse keeper game"),
 		       KAboutLicense::GPL,
