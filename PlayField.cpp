@@ -950,7 +950,7 @@ PlayField::setBookmark(Bookmark *bm) {
   if (!levelMap_->goodLevel()) return;
 
   if (collection()->id() < 0) {
-    KMessageBox::sorry(this, i18n("Sorry, bookmarks for external levels\n"
+    KMessageBox::error(this, i18n("Sorry, bookmarks for external levels\n"
 				  "is not implemented yet."));
     return;
   }
