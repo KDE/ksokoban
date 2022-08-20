@@ -27,7 +27,7 @@ main (int argc, char **argv)
 		       KAboutLicense::GPL,
 		       i18n("(c) 1998 Anders Widell <awl@hem.passagen.se>\n(c) 2012 Lukasz Kalamlacki"),
                QString(),
-               QStringLiteral("http://www.shlomifish.org/open-source/projects/ksokoban/")
+               QStringLiteral("https://apps.kde.org/ksokoban")
                );
   aboutData.addAuthor(i18n("Shlomi Fish"), i18n("For porting to Qt5/KF5 and doing other cleanups"),
               QStringLiteral("shlomif@cpan.org"),

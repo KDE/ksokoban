@@ -14,6 +14,7 @@
     </p>
   </description>
   <content_rating type="oars-1.1"/>
+  <url type="homepage">https://apps.kde.org/ksokoban</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=ksokoban</url>
   <url type="help">https://docs.kde.org/?application=ksokoban</url>
   <url type="donation">https://www.kde.org/community/donations/?app=ksokoban&amp;source=appdata</url>
