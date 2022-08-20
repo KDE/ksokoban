@@ -54,7 +54,7 @@ public:
   void updateStepsXpm();
   void updatePushesXpm();
 
-public slots:
+public Q_SLOTS:
   void nextLevel();
   void previousLevel();
   void undo();

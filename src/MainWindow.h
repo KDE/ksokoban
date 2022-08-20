@@ -29,7 +29,7 @@ public:
 
   void openURL(const QUrl &_url);
 
-public slots:
+public Q_SLOTS:
   void changeCollection(int id);
   void updateAnimMenu(int id);
   void setBookmark(int id);
