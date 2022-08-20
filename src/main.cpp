@@ -43,9 +43,6 @@ main (int argc, char **argv)
 		      QStringLiteral("sasquatch@bentonrea.com"),
 		      QStringLiteral("http://users.bentonrea.com/~sasquatch/"));
 
-  aboutData.setOrganizationDomain(QByteArray("kde.org"));
-  aboutData.setDesktopFileName(QStringLiteral("org.kde.ksokoban"));
-
   KAboutData::setApplicationData(aboutData);
 
   app.setWindowIcon(QIcon::fromTheme(QStringLiteral("ksokoban")));
