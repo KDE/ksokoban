@@ -1,9 +1,3 @@
-
-
-
-
-########### install files ###############
-
 ecm_install_icons(
     ICONS
         16-apps-ksokoban.png
