@@ -12,9 +12,7 @@
 #include <KLocalizedString>
 
 #include "MainWindow.h"
-
-
-static const char version[] = "0.5.0";
+#include "version.h"
 
 
 int
@@ -24,7 +22,7 @@ main (int argc, char **argv)
   KLocalizedString::setApplicationDomain("ksokoban");
 
   KAboutData aboutData(QStringLiteral("ksokoban"), i18n("KSokoban"),
-		       version,
+		       QStringLiteral(KSOKOBAN_VERSION_STRING),
 		       i18n("The japanese warehouse keeper game"),
 		       KAboutLicense::GPL,
 		       i18n("(c) 1998 Anders Widell <awl@hem.passagen.se>\n(c) 2012 Lukasz Kalamlacki"),

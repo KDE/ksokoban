@@ -1,3 +1,8 @@
+ecm_setup_version(${ksokoban_VERSION}
+    VARIABLE_PREFIX KSOKOBAN
+    VERSION_HEADER version.h
+)
+
 add_executable(ksokoban
     Bookmark.cpp
     ImageData.cpp
