@@ -21,7 +21,7 @@
 
 void
 Bookmark::fileName(QString &p) {
-  p = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+  p = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
 
   QString n;
   n.setNum(number_);
