@@ -64,9 +64,5 @@ main (int argc, char **argv)
     widget->openURL(parser.positionalArguments().at(0));
   }
 
-
-  QObject::connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
-
-
   return app.exec();
 }
