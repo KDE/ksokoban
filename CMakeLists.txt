@@ -13,6 +13,7 @@ include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
 
+include(ECMDeprecationSettings)
 include(ECMInstallIcons)
 include(ECMSetupVersion)
 include(FeatureSummary)
@@ -30,8 +31,10 @@ find_package(KF5 ${KF_MIN_VERSION} REQUIRED COMPONENTS
 
 find_package(KF5DocTools ${KF_MIN_VERSION})
 
-add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050C00)
-add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x052e00)
+ecm_set_disabled_deprecation_versions(
+    QT 5.15.2
+    KF 5.91
+)
 
 add_subdirectory(src)
 add_subdirectory(data)
