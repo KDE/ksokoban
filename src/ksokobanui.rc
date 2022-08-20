@@ -1,5 +1,6 @@
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui version="4" name="KSokoban" >
+<?xml version="1.0"?>
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
+<gui version="4" name="ksokoban" translationDomain="ksokoban">
 <MenuBar>
     <Menu name="game" >
         <text>&amp;Game</text>
@@ -52,4 +53,4 @@
         </Menu>
     </Menu>
 </MenuBar>
-</kpartgui>
+</gui>
