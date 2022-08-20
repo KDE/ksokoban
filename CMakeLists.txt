@@ -79,4 +79,4 @@ if(KF5DocTools_FOUND)
     add_subdirectory(doc)
 endif()
 
-install(TARGETS ksokoban ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS ksokoban ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
