@@ -7,7 +7,7 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include <assert.h>
+#include <cassert>
 
 #define MAX_X 49
 #define MAX_Y 49

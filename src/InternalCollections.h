@@ -7,7 +7,7 @@
 #ifndef INTERNALCOLLECTIONS_H
 #define INTERNALCOLLECTIONS_H
 
-#include <assert.h>
+#include <cassert>
 #include <QString>
 #include <QVector>
 

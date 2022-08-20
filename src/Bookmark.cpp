@@ -4,12 +4,13 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-#include <stdio.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <assert.h>
+
+#include <cstdio>
+#include <cassert>
 
 #include <QFile>
 #include <QStandardPaths>

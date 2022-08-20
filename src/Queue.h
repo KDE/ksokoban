@@ -7,7 +7,7 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-#include <assert.h>
+#include <cassert>
 
 template <class Type, int SizePow2>
 class Queue {

@@ -1,6 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cctype>
 
 #ifdef USE_LIBZ
 #include <zlib.h>

@@ -7,7 +7,7 @@
 #ifndef LEVELMAP_H
 #define LEVELMAP_H
 
-#include <assert.h>
+#include <cassert>
 #include <QString>
 
 #include "Map.h"

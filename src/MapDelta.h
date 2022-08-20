@@ -7,7 +7,7 @@
 #ifndef MAPDELTA_H
 #define MAPDELTA_H
 
-#include <assert.h>
+#include <cassert>
 
 #include "Map.h"
 

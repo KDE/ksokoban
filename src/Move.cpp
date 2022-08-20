@@ -4,9 +4,9 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-#include <assert.h>
-#include <string.h>
-#include <ctype.h>
+#include <cassert>
+#include <cstring>
+#include <cctype>
 
 #include "Move.h"
 #include "LevelMap.h"

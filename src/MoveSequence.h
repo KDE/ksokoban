@@ -7,7 +7,7 @@
 #ifndef MOVESEQUENCE_H
 #define MOVESEQUENCE_H
 
-#include <assert.h>
+#include <cassert>
 
 class Move;
 class LevelMap;

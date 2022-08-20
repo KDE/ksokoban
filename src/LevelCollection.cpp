@@ -1,7 +1,8 @@
-#include <stdio.h>
-#include <assert.h>
 #include <unistd.h>
-#include <string.h>
+
+#include <cstdio>
+#include <cassert>
+#include <cstring>
 
 #include <QFile>
 #include <KSharedConfig>

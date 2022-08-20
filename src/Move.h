@@ -7,7 +7,7 @@
 #ifndef MOVE_H
 #define MOVE_H
 
-#include <assert.h>
+#include <cassert>
 #include <QString>
 
 #include "Map.h"

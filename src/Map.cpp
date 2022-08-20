@@ -4,10 +4,10 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-#include <stdlib.h>
-#include <string.h>
-#include <assert.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstring>
+#include <cassert>
+#include <cstdio>
 
 #include "Map.h"
 

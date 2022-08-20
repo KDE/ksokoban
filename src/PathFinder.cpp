@@ -4,7 +4,7 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-//#include <stdio.h>
+//#include <cstdio>
 #include "PathFinder.h"
 #include "LevelMap.h"
 #include "Queue.h"
