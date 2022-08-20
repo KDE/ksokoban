@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component type="desktop-application">
+  <id>org.kde.ksokoban</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-2.0+</project_license>
+  <name>KSokoban</name>
+  <summary>Sokoban Game</summary>
+  <description>
+    <p>
+      KSokoban is a implementation of the Japanese warehouse keeper game “sokoban”.
+    </p>
+    <p>
+      The idea is that you are a warehouse keeper trying to push crates to their proper locations in a warehouse. The problem is that you cannot pull the crates or step over them. If you are not careful, some of the crates can get stuck in wrong places and/or block your way. 
+    </p>
+  </description>
+  <content_rating type="oars-1.1"/>
+  <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=ksokoban</url>
+  <url type="help">https://docs.kde.org/?application=ksokoban</url>
+  <url type="donation">https://www.kde.org/community/donations/?app=ksokoban&amp;source=appdata</url>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://cdn.kde.org/screenshots/ksokoban/ksokoban.png</image>
+    </screenshot>
+  </screenshots>
+  <categories>
+    <category>Game</category>
+    <category>StrategyGame</category>
+  </categories>
+  <project_group>KDE</project_group>
+  <provides>
+    <binary>ksokoban</binary>
+  </provides>
+  <launchable type="desktop-id">org.kde.ksokoban.desktop</launchable>
+</component>
