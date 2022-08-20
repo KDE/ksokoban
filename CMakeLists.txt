@@ -1,11 +1,12 @@
-cmake_minimum_required (VERSION 3.5 FATAL_ERROR)
+cmake_minimum_required (VERSION 3.16 FATAL_ERROR)
 
 project(ksokoban VERSION "0.5.0")
 
-set(QT_MIN_VERSION "5.11.0")
-set(KF5_MIN_VERSION "5.46.0")
+set(QT_MIN_VERSION "5.15.2")
+set(KF_MIN_VERSION "5.91.0")
+set(KDE_COMPILERSETTINGS_LEVEL "5.84.0")
 
-find_package(ECM ${KF5_MIN_VERSION} REQUIRED NO_MODULE)
+find_package(ECM ${KF_MIN_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} )
 
 include(KDEInstallDirs)
@@ -18,7 +19,7 @@ include(FeatureSummary)
 
 find_package(Qt5 ${QT_MIN_VERSION} REQUIRED Core Gui Widgets)
 
-find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
+find_package(KF5 ${KF_MIN_VERSION} REQUIRED COMPONENTS
     Config
     CoreAddons
     I18n
@@ -27,15 +28,10 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     XmlGui
 )
 
-find_package(KF5DocTools ${KF5_MIN_VERSION})
+find_package(KF5DocTools ${KF_MIN_VERSION})
 
 add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050C00)
 add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x052e00)
-
-if (${KF5Config_VERSION} STRGREATER "5.56.0")
-        add_definitions(-DQT_NO_FOREACH)
-        MESSAGE(STATUS "compile without foreach")
-endif()
 
 add_subdirectory(src)
 add_subdirectory(data)
