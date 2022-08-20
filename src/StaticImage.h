@@ -9,12 +9,11 @@
 
 #include "ImageData.h"
 
-class
-StaticImage : public ImageData {
+class StaticImage : public ImageData
+{
 public:
-  StaticImage ();
-  ~StaticImage () override;
-
+    StaticImage();
+    ~StaticImage() override;
 };
 
-#endif  /* STATICIMAGE_H */
+#endif /* STATICIMAGE_H */

@@ -4,21 +4,21 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-#include <cstring>
-
 #include "MapDelta.h"
 
+#include <cstring>
 
-MapDelta::MapDelta (Map *m) {
-  source_ = m;
-  ended_ = true;
-  start ();
+MapDelta::MapDelta(Map *m)
+{
+    source_ = m;
+    ended_ = true;
+    start();
 }
 
-void
-MapDelta::start () {
-  assert (ended_);
-  ((Map &) *this) = *source_;
+void MapDelta::start()
+{
+    assert(ended_);
+    ((Map &)*this) = *source_;
 
 #if 0
   memcpy (map_, source_->currentMap_, (MAX_Y+3)*(MAX_X+3)*sizeof (int));
@@ -31,20 +31,20 @@ MapDelta::start () {
   ypos_ = source_->ypos_;
 #endif
 
-  ended_ = false;
+    ended_ = false;
 }
 
-void
-MapDelta::end () {
-  assert (!ended_);
-  for (int y=0; y<=MAX_Y; y++) {
-    for (int x=0; x<=MAX_X; x++) {
-      map (x, y, map (x, y) != source_->map (x, y));
+void MapDelta::end()
+{
+    assert(!ended_);
+    for (int y = 0; y <= MAX_Y; y++) {
+        for (int x = 0; x <= MAX_X; x++) {
+            map(x, y, map(x, y) != source_->map(x, y));
+        }
     }
-  }
-  if (xpos_ != source_->xpos_ || ypos_ != source_->ypos_) {
-    map (xpos_, ypos_, 1);
-    map (source_->xpos_, source_->ypos_, 1);
-  }
-  ended_ = true;
+    if (xpos_ != source_->xpos_ || ypos_ != source_->ypos_) {
+        map(xpos_, ypos_, 1);
+        map(source_->xpos_, source_->ypos_, 1);
+    }
+    ended_ = true;
 }

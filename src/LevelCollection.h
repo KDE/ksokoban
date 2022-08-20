@@ -7,47 +7,62 @@
 #ifndef LEVELCOLLECTION_H
 #define LEVELCOLLECTION_H
 
-#include <QString>
 #include <QByteArray>
+#include <QString>
 #include <QVector>
 
 class Map;
 
-class LevelCollection {
+class LevelCollection
+{
 public:
-  LevelCollection(const char *_def, int _len, const QString &_name, int _id=-1);
-  LevelCollection(const QString &_path, const QString &_name, int _id=-1);
-  ~LevelCollection();
+    LevelCollection(const char *_def, int _len, const QString &_name, int _id = -1);
+    LevelCollection(const QString &_path, const QString &_name, int _id = -1);
+    ~LevelCollection();
 
-  const QString &name() const { return name_; }
-  int id() const { return id_; }
-  int level() const { return level_; }
-  void level(int _level);
-  void levelCompleted();
-  int completedLevels() const { return completedLevels_; }
-  int noOfLevels() const { return noOfLevels_; }
-  bool loadLevel(Map *_map);
+    const QString &name() const
+    {
+        return name_;
+    }
+    int id() const
+    {
+        return id_;
+    }
+    int level() const
+    {
+        return level_;
+    }
+    void level(int _level);
+    void levelCompleted();
+    int completedLevels() const
+    {
+        return completedLevels_;
+    }
+    int noOfLevels() const
+    {
+        return noOfLevels_;
+    }
+    bool loadLevel(Map *_map);
 
 protected:
-  void indexTextCollection();
-  void loadPrefs();
-
+    void indexTextCollection();
+    void loadPrefs();
 
 private:
-  void addLevel(const char* _level);
-  void addData(const char* _data, unsigned _len);
-  void addSeparator();
+    void addLevel(const char *_level);
+    void addData(const char *_data, unsigned _len);
+    void addSeparator();
 
-  QVector<const char*> index_;
-  QByteArray    data_;
-  //int    dataLen_;
+    QVector<const char *> index_;
+    QByteArray data_;
+    // int    dataLen_;
 
-  int      level_;
-  int      completedLevels_;
-  int      noOfLevels_;
-  QString  name_;
-  QString  path_;
-  int      id_;
+    int level_;
+    int completedLevels_;
+    int noOfLevels_;
+    QString name_;
+    QString path_;
+    int id_;
 };
 
-#endif  /* LEVELCOLLECTION_H */
+#endif /* LEVELCOLLECTION_H */

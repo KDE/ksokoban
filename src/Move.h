@@ -7,10 +7,12 @@
 #ifndef MOVE_H
 #define MOVE_H
 
-#include <cassert>
+#include "Map.h"
+
 #include <QString>
 
-#include "Map.h"
+#include <cassert>
+
 class LevelMap;
 
 /**
@@ -28,75 +30,89 @@ class LevelMap;
  * @see     History
  */
 
-class Move {
-  friend class MoveSequence;
+class Move
+{
+    friend class MoveSequence;
+
 private:
-  unsigned short *moves_;
-  int moveIndex_;
-  bool finished_;
+    unsigned short *moves_;
+    int moveIndex_;
+    bool finished_;
 
 #ifndef NDEBUG
-  int lastX_, lastY_;
+    int lastX_, lastY_;
 #endif
-
 
 public:
-  Move (int _startX, int _startY);
-  ~Move ();
+    Move(int _startX, int _startY);
+    ~Move();
 
-  /**
-   * Add an atomic move.
-   * NOTE: either (x != (previous x)) or (y != (previous y))
-   * must be true (but not both).
-   *
-   * @see LevelMap#move
-   *
-   * @param x  x position of destination
-   * @param y  y position of destination
-   */
-  void step (int _x, int _y) {
+    /**
+     * Add an atomic move.
+     * NOTE: either (x != (previous x)) or (y != (previous y))
+     * must be true (but not both).
+     *
+     * @see LevelMap#move
+     *
+     * @param x  x position of destination
+     * @param y  y position of destination
+     */
+    void step(int _x, int _y)
+    {
 #ifndef NDEBUG
-    assert (!finished_);
-    assert (_x>=0 && _x<=MAX_X && _y>=0 && _y<=MAX_Y);
-    assert (moveIndex_ < 400);
-    assert ((_x!=lastX_ && _y==lastY_) || (_x==lastX_ && _y!=lastY_));
-    lastX_ = _x;
-    lastY_ = _y;
+        assert(!finished_);
+        assert(_x >= 0 && _x <= MAX_X && _y >= 0 && _y <= MAX_Y);
+        assert(moveIndex_ < 400);
+        assert((_x != lastX_ && _y == lastY_) || (_x == lastX_ && _y != lastY_));
+        lastX_ = _x;
+        lastY_ = _y;
 #endif
 
-    moves_[moveIndex_++] = _x | (_y<<8);
-  }
+        moves_[moveIndex_++] = _x | (_y << 8);
+    }
 
-  /**
-   * Same as move above, but used when an object is pushed.
-   *
-   * @see LevelMap#push
-   */
-  void push (int _x, int _y) {
+    /**
+     * Same as move above, but used when an object is pushed.
+     *
+     * @see LevelMap#push
+     */
+    void push(int _x, int _y)
+    {
 #ifndef NDEBUG
-    assert (!finished_);
-    assert (_x>=0 && _x<=MAX_X && _y>=0 && _y<=MAX_Y);
-    assert (moveIndex_ < 400);
-    assert ((_x!=lastX_ && _y==lastY_) || (_x==lastX_ && _y!=lastY_));
-    lastX_ = _x;
-    lastY_ = _y;
+        assert(!finished_);
+        assert(_x >= 0 && _x <= MAX_X && _y >= 0 && _y <= MAX_Y);
+        assert(moveIndex_ < 400);
+        assert((_x != lastX_ && _y == lastY_) || (_x == lastX_ && _y != lastY_));
+        lastX_ = _x;
+        lastY_ = _y;
 #endif
 
-    moves_[moveIndex_++] = _x | (_y<<8) | 0x80;
-  }
+        moves_[moveIndex_++] = _x | (_y << 8) | 0x80;
+    }
 
-  void finish ();
+    void finish();
 
-  int startX () const { return moves_[0]&0x7f; }
-  int startY () const { return (moves_[0]>>8)&0x7f; }
-  int finalX () const { return moves_[moveIndex_-1]&0x7f; }
-  int finalY () const { return (moves_[moveIndex_-1]>>8)&0x7f; }
+    int startX() const
+    {
+        return moves_[0] & 0x7f;
+    }
+    int startY() const
+    {
+        return (moves_[0] >> 8) & 0x7f;
+    }
+    int finalX() const
+    {
+        return moves_[moveIndex_ - 1] & 0x7f;
+    }
+    int finalY() const
+    {
+        return (moves_[moveIndex_ - 1] >> 8) & 0x7f;
+    }
 
-
-  void save (QString &_str);
-  const char *load (const char *_str);
-  bool redo (LevelMap *map);
-  bool undo (LevelMap *map);
+    void save(QString &_str);
+    const char *load(const char *_str);
+    bool redo(LevelMap *map);
+    bool undo(LevelMap *map);
 };
 
-#endif  /* MOVE_H */
+#endif /* MOVE_H */

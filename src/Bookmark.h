@@ -7,32 +7,42 @@
 #ifndef BOOKMARK_H
 #define BOOKMARK_H
 
+#include <QString>
+
 class History;
 class LevelMap;
 
-#include <QString>
-
-class Bookmark {
+class Bookmark
+{
 public:
-  Bookmark(int _num);
+    Bookmark(int _num);
 
-  int collection() const { return collection_; }
-  int level() const { return level_; }
-  int moves() const { return moves_; }
-  //int pushes() { return pushes_; }
+    int collection() const
+    {
+        return collection_;
+    }
+    int level() const
+    {
+        return level_;
+    }
+    int moves() const
+    {
+        return moves_;
+    }
+    // int pushes() { return pushes_; }
 
-  void set(int _collection, int _level, int _moves, History *_h);
-  bool goTo(LevelMap *_map, History *_h);
+    void set(int _collection, int _level, int _moves, History *_h);
+    bool goTo(LevelMap *_map, History *_h);
 
 private:
-  void fileName(QString &p);
+    void fileName(QString &p);
 
-  int     number_;
-  int     collection_;
-  int     level_;
-  int     moves_;
-  //int     pushes_;
-  QString data_;
+    int number_;
+    int collection_;
+    int level_;
+    int moves_;
+    // int     pushes_;
+    QString data_;
 };
 
-#endif  /* BOOKMARK_H */
+#endif /* BOOKMARK_H */

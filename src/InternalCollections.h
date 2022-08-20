@@ -7,35 +7,38 @@
 #ifndef INTERNALCOLLECTIONS_H
 #define INTERNALCOLLECTIONS_H
 
-#include <cassert>
+#include "LevelCollection.h"
+
 #include <QString>
 #include <QVector>
 
-#include "LevelCollection.h"
+#include <cassert>
 
-class InternalCollections {
+class InternalCollections
+{
 public:
-  InternalCollections();
-  ~InternalCollections();
+    InternalCollections();
+    ~InternalCollections();
 
-  static int toInternalId(int _id) {
-    if (_id < 10 || _id > 14) return 1000;
-    return _id - 10;
-  }
+    static int toInternalId(int _id)
+    {
+        if (_id < 10 || _id > 14)
+            return 1000;
+        return _id - 10;
+    }
 
-  int collections();
-  LevelCollection *operator[](int n);
+    int collections();
+    LevelCollection *operator[](int n);
 
 private:
-  void add(LevelCollection* c);
+    void add(LevelCollection *c);
 
-  static int configCollection2Real(int collection);
-  static int realCollection2Config(int collection);
-  static QString collectionName(int _level);
+    static int configCollection2Real(int collection);
+    static int realCollection2Config(int collection);
+    static QString collectionName(int _level);
 
-  QVector<LevelCollection*> collections_;
-  char *data_;
-
+    QVector<LevelCollection *> collections_;
+    char *data_;
 };
 
-#endif  /* INTERNALCOLLECTIONS_H */
+#endif /* INTERNALCOLLECTIONS_H */

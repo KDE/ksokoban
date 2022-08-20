@@ -3,133 +3,143 @@
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
+#include "LevelMap.h"
 
-#include <unistd.h>
-
-#include <cstdlib>
-#include <cctype>
-#include <cassert>
-#include <cstdio>
-#include <cstring>
+#include "LevelCollection.h"
 
 #include <KConfig>
 
 #include <zlib.h>
 
-#include "LevelMap.h"
-#include "LevelCollection.h"
+#include <unistd.h>
 
-#define BUFSIZE (128*1024)
+#include <cassert>
+#include <cctype>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
-const QString &
-LevelMap::collectionName() {
-  return collection_->name();
-}
+#define BUFSIZE (128 * 1024)
 
-LevelMap::LevelMap () : collection_(nullptr), totalMoves_(0), totalPushes_(0),
-			goodLevel_(false) {
-}
-
-LevelMap::~LevelMap () {
-}
-
-void
-LevelMap::changeCollection (LevelCollection *_collection)
+const QString &LevelMap::collectionName()
 {
-  collection_ = _collection;
-  goodLevel_ = collection_->loadLevel(this);
-  totalMoves_ = totalPushes_ = 0;
+    return collection_->name();
 }
 
-int
-LevelMap::level () const {
-  if (collection_ == nullptr) return 0;
-  return collection_->level();
+LevelMap::LevelMap()
+    : collection_(nullptr)
+    , totalMoves_(0)
+    , totalPushes_(0)
+    , goodLevel_(false)
+{
 }
 
-void
-LevelMap::level (int _level) {
-  assert(collection_ != nullptr);
-
-  collection_->level(_level);
-  goodLevel_ = collection_->loadLevel(this);
-
-  totalMoves_ = totalPushes_ = 0;
+LevelMap::~LevelMap()
+{
 }
 
-int
-LevelMap::noOfLevels () const {
-  assert(collection_ != nullptr);
-  return collection_->noOfLevels();
+void LevelMap::changeCollection(LevelCollection *_collection)
+{
+    collection_ = _collection;
+    goodLevel_ = collection_->loadLevel(this);
+    totalMoves_ = totalPushes_ = 0;
 }
 
-int
-LevelMap::completedLevels () const{
-  assert(collection_ != nullptr);
-  return collection_->completedLevels();
+int LevelMap::level() const
+{
+    if (collection_ == nullptr)
+        return 0;
+    return collection_->level();
 }
 
-int
-LevelMap::distance (int x1, int y1, int x2, int y2) {
-  int d;
+void LevelMap::level(int _level)
+{
+    assert(collection_ != nullptr);
 
-  if (x2 > x1) d = x2-x1;
-  else d = x1-x2;
+    collection_->level(_level);
+    goodLevel_ = collection_->loadLevel(this);
 
-  if (y2 > y1) d += y2-y1;
-  else d += y1-y2;
-
-  return d;
+    totalMoves_ = totalPushes_ = 0;
 }
 
-bool
-LevelMap::step (int _x, int _y) {
-  int oldX=xpos_, oldY=ypos_;
-
-  bool success = Map::step (_x, _y);
-
-  totalMoves_ += distance (oldX, oldY, xpos_, ypos_);
-
-  return success;
+int LevelMap::noOfLevels() const
+{
+    assert(collection_ != nullptr);
+    return collection_->noOfLevels();
 }
 
-bool
-LevelMap::push (int _x, int _y) {
-  int oldX=xpos_, oldY=ypos_;
-
-  bool success = Map::push (_x, _y);
-
-  int d = distance (oldX, oldY, xpos_, ypos_);
-  totalMoves_ += d;
-  totalPushes_ += d;
-
-  if (completed ()) collection_->levelCompleted();
-
-  return success;
+int LevelMap::completedLevels() const
+{
+    assert(collection_ != nullptr);
+    return collection_->completedLevels();
 }
 
-bool
-LevelMap::unstep (int _x, int _y) {
-  int oldX=xpos_, oldY=ypos_;
+int LevelMap::distance(int x1, int y1, int x2, int y2)
+{
+    int d;
 
-  bool success = Map::unstep (_x, _y);
+    if (x2 > x1)
+        d = x2 - x1;
+    else
+        d = x1 - x2;
 
-  totalMoves_ -= distance (oldX, oldY, xpos_, ypos_);
+    if (y2 > y1)
+        d += y2 - y1;
+    else
+        d += y1 - y2;
 
-  return success;
+    return d;
 }
 
-bool
-LevelMap::unpush (int _x, int _y) {
-  int oldX=xpos_, oldY=ypos_;
+bool LevelMap::step(int _x, int _y)
+{
+    int oldX = xpos_, oldY = ypos_;
 
-  bool success = Map::unpush (_x, _y);
+    bool success = Map::step(_x, _y);
 
-  int d = distance (oldX, oldY, xpos_, ypos_);
-  totalMoves_ -= d;
-  totalPushes_ -= d;
+    totalMoves_ += distance(oldX, oldY, xpos_, ypos_);
 
-  return success;
+    return success;
+}
+
+bool LevelMap::push(int _x, int _y)
+{
+    int oldX = xpos_, oldY = ypos_;
+
+    bool success = Map::push(_x, _y);
+
+    int d = distance(oldX, oldY, xpos_, ypos_);
+    totalMoves_ += d;
+    totalPushes_ += d;
+
+    if (completed())
+        collection_->levelCompleted();
+
+    return success;
+}
+
+bool LevelMap::unstep(int _x, int _y)
+{
+    int oldX = xpos_, oldY = ypos_;
+
+    bool success = Map::unstep(_x, _y);
+
+    totalMoves_ -= distance(oldX, oldY, xpos_, ypos_);
+
+    return success;
+}
+
+bool LevelMap::unpush(int _x, int _y)
+{
+    int oldX = xpos_, oldY = ypos_;
+
+    bool success = Map::unpush(_x, _y);
+
+    int d = distance(oldX, oldY, xpos_, ypos_);
+    totalMoves_ -= d;
+    totalPushes_ -= d;
+
+    return success;
 }
 
 #if 0

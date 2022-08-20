@@ -4,62 +4,68 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-//#include <cstdio>
 #include "PathFinder.h"
+
 #include "LevelMap.h"
-#include "Queue.h"
 #include "Move.h"
+#include "Queue.h"
 
-void
-PathFinder::BFS (int _x, int _y) {
-  Queue<int, 10> xq;
-  Queue<int, 10> yq;
-  Queue<int, 10> dq;
-  int x, y, d;
+//#include <cstdio>
 
-  xq.enqueue (_x);
-  yq.enqueue (_y);
-  dq.enqueue (1);
+void PathFinder::BFS(int _x, int _y)
+{
+    Queue<int, 10> xq;
+    Queue<int, 10> yq;
+    Queue<int, 10> dq;
+    int x, y, d;
 
-  while (!xq.empty ()) {
-    x = xq.dequeue ();
-    y = yq.dequeue ();
-    d = dq.dequeue ();
+    xq.enqueue(_x);
+    yq.enqueue(_y);
+    dq.enqueue(1);
 
-    if (x<0 || x>MAX_X || y<0 || y>MAX_Y || dist[y][x]) continue;
-    dist[y][x] = d;
+    while (!xq.empty()) {
+        x = xq.dequeue();
+        y = yq.dequeue();
+        d = dq.dequeue();
 
-    xq.enqueue (x);
-    xq.enqueue (x);
-    xq.enqueue (x-1);
-    xq.enqueue (x+1);
+        if (x < 0 || x > MAX_X || y < 0 || y > MAX_Y || dist[y][x])
+            continue;
+        dist[y][x] = d;
 
-    yq.enqueue (y-1);
-    yq.enqueue (y+1);
-    yq.enqueue (y);
-    yq.enqueue (y);
+        xq.enqueue(x);
+        xq.enqueue(x);
+        xq.enqueue(x - 1);
+        xq.enqueue(x + 1);
 
-    dq.enqueue (d+1);
-    dq.enqueue (d+1);
-    dq.enqueue (d+1);
-    dq.enqueue (d+1);
-  }
+        yq.enqueue(y - 1);
+        yq.enqueue(y + 1);
+        yq.enqueue(y);
+        yq.enqueue(y);
+
+        dq.enqueue(d + 1);
+        dq.enqueue(d + 1);
+        dq.enqueue(d + 1);
+        dq.enqueue(d + 1);
+    }
 }
 
-Move *
-PathFinder::search (Map *_map, int _x, int _y) {
-  int xpos=_map->xpos ();
-  int ypos=_map->ypos ();
-  if (xpos == _x && ypos == _y) return nullptr;
+Move *PathFinder::search(Map *_map, int _x, int _y)
+{
+    int xpos = _map->xpos();
+    int ypos = _map->ypos();
+    if (xpos == _x && ypos == _y)
+        return nullptr;
 
-  for (int y=0; y<=MAX_Y; y++) {
-    for (int x=0; x<=MAX_X; x++) {
-      if (_map->empty (x, y)) dist[y][x] = 0;
-      else dist[y][x] = PATH_WALL;
+    for (int y = 0; y <= MAX_Y; y++) {
+        for (int x = 0; x <= MAX_X; x++) {
+            if (_map->empty(x, y))
+                dist[y][x] = 0;
+            else
+                dist[y][x] = PATH_WALL;
+        }
     }
-  }
 
-  BFS (_x, _y);
+    BFS(_x, _y);
 
 #if 0
   for (int y=0; y<=MAX_Y; y++) {
@@ -73,91 +79,90 @@ PathFinder::search (Map *_map, int _x, int _y) {
   }
 #endif
 
-  int d;
-  Move *move=new Move (xpos, ypos);
-  int oldX, oldY;
-  for (;;) {
-    oldX = xpos;
-    oldY = ypos;
+    int d;
+    Move *move = new Move(xpos, ypos);
+    int oldX, oldY;
+    for (;;) {
+        oldX = xpos;
+        oldY = ypos;
 
-    if (xpos == _x && ypos == _y) {
-      move->finish ();
-      //printf ("move->finish ()\n");
-      return move;
-    }
+        if (xpos == _x && ypos == _y) {
+            move->finish();
+            // printf ("move->finish ()\n");
+            return move;
+        }
 
-    d = dist[ypos][xpos];
+        d = dist[ypos][xpos];
 
-    while (ypos-1 >= 0 && dist[ypos-1][xpos] < d) {
-      ypos--;
-      d = dist[ypos][xpos];
-    }
-    if (oldY != ypos) {
-      move->step (xpos, ypos);
-      //printf ("step (%d, %d)\n", xpos, ypos);
-      continue;
-    }
+        while (ypos - 1 >= 0 && dist[ypos - 1][xpos] < d) {
+            ypos--;
+            d = dist[ypos][xpos];
+        }
+        if (oldY != ypos) {
+            move->step(xpos, ypos);
+            // printf ("step (%d, %d)\n", xpos, ypos);
+            continue;
+        }
 
-    while (ypos+1 <= MAX_Y && dist[ypos+1][xpos] < d) {
-      ypos++;
-      d = dist[ypos][xpos];
-    }
-    if (oldY != ypos) {
-      move->step (xpos, ypos);
-      //printf ("step (%d, %d)\n", xpos, ypos);
-      continue;
-    }
+        while (ypos + 1 <= MAX_Y && dist[ypos + 1][xpos] < d) {
+            ypos++;
+            d = dist[ypos][xpos];
+        }
+        if (oldY != ypos) {
+            move->step(xpos, ypos);
+            // printf ("step (%d, %d)\n", xpos, ypos);
+            continue;
+        }
 
-    while (xpos-1 >= 0 && dist[ypos][xpos-1] < d) {
-      xpos--;
-      d = dist[ypos][xpos];
-    }
-    if (oldX != xpos) {
-      move->step (xpos, ypos);
-      //printf ("step (%d, %d)\n", xpos, ypos);
-      continue;
-    }
+        while (xpos - 1 >= 0 && dist[ypos][xpos - 1] < d) {
+            xpos--;
+            d = dist[ypos][xpos];
+        }
+        if (oldX != xpos) {
+            move->step(xpos, ypos);
+            // printf ("step (%d, %d)\n", xpos, ypos);
+            continue;
+        }
 
-    while (xpos+1 <= MAX_X && dist[ypos][xpos+1] < d) {
-      xpos++;
-      d = dist[ypos][xpos];
-    }
-    if (oldX != xpos) {
-      move->step (xpos, ypos);
-      //printf ("step (%d, %d)\n", xpos, ypos);
-      continue;
-    }
+        while (xpos + 1 <= MAX_X && dist[ypos][xpos + 1] < d) {
+            xpos++;
+            d = dist[ypos][xpos];
+        }
+        if (oldX != xpos) {
+            move->step(xpos, ypos);
+            // printf ("step (%d, %d)\n", xpos, ypos);
+            continue;
+        }
 
-    delete move;
+        delete move;
+        return nullptr;
+    }
+}
+
+Move *PathFinder::drag(int /* x1 */, int /* y1 */, int /* x2 */, int /* y2 */)
+{
     return nullptr;
-  }
 }
 
-Move*
-PathFinder::drag(int /* x1 */, int /* y1 */, int /* x2 */, int /* y2 */) {
-  return nullptr;
+bool PathFinder::canDrag(int /* x */, int /* y */) const
+{
+    return false;
 }
 
-bool
-PathFinder::canDrag(int /* x */, int /* y */) const {
-  return false;
+bool PathFinder::canWalkTo(int /* x */, int /* y */) const
+{
+    return false;
 }
 
-bool
-PathFinder::canWalkTo(int /* x */, int /* y */) const {
-  return false;
+bool PathFinder::canDragTo(int /* x */, int /* y */) const
+{
+    return false;
 }
 
-bool
-PathFinder::canDragTo(int /* x */, int /* y */) const {
-  return false;
+void PathFinder::updatePossibleMoves()
+{
 }
 
-void
-PathFinder::updatePossibleMoves() {
+void PathFinder::updatePossibleDestinations(int /* x */, int /* y */)
+{
 }
-
-void
-PathFinder::updatePossibleDestinations(int /* x */, int /* y */) {
-}
-

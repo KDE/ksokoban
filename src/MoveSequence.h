@@ -12,21 +12,21 @@
 class Move;
 class LevelMap;
 
-class MoveSequence {
+class MoveSequence
+{
 public:
-  MoveSequence (Move *_move, LevelMap *_map, bool _undo=false);
+    MoveSequence(Move *_move, LevelMap *_map, bool _undo = false);
 
-  bool newStep ();
-  bool next ();
+    bool newStep();
+    bool next();
 
 private:
-  LevelMap *map_;
-  Move     *move_;
-  int       pos_;
-  int       x_, xDest_, y_, yDest_, xd_, yd_;
-  bool      push_;
-  bool      undo_;
-
+    LevelMap *map_;
+    Move *move_;
+    int pos_;
+    int x_, xDest_, y_, yDest_, xd_, yd_;
+    bool push_;
+    bool undo_;
 };
 
-#endif  /* MOVESEQUENCE_H */
+#endif /* MOVESEQUENCE_H */

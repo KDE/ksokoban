@@ -9,18 +9,18 @@
 
 #include <QLabel>
 
-class ModalLabel : public QLabel {
-  Q_OBJECT
+class ModalLabel : public QLabel
+{
+    Q_OBJECT
 public:
-  static void message (const QString &text, QWidget *parent);
+    static void message(const QString &text, QWidget *parent);
 
-  void timerEvent (QTimerEvent *) override;
-  bool eventFilter (QObject *, QEvent *) override;
-  bool completed_;
+    void timerEvent(QTimerEvent *) override;
+    bool eventFilter(QObject *, QEvent *) override;
+    bool completed_;
 
 protected:
-  ModalLabel (const QString &text, QWidget *parent, Qt::WindowFlags f={});
-
+    ModalLabel(const QString &text, QWidget *parent, Qt::WindowFlags f = {});
 };
 
-#endif  /* MODALLABEL_H */
+#endif /* MODALLABEL_H */

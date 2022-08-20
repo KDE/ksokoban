@@ -7,25 +7,27 @@
 #ifndef MAPDELTA_H
 #define MAPDELTA_H
 
-#include <cassert>
-
 #include "Map.h"
 
-class MapDelta : private Map {
+#include <cassert>
+
+class MapDelta : private Map
+{
 public:
-  MapDelta (Map *m);
+    MapDelta(Map *m);
 
-  void start ();
-  void end ();
+    void start();
+    void end();
 
-  bool hasChanged (int x, int y) {
-    assert (ended_);
-    return map (x, y) == 1;
-  }
+    bool hasChanged(int x, int y)
+    {
+        assert(ended_);
+        return map(x, y) == 1;
+    }
 
 private:
-  Map      *source_;
-  bool      ended_;
+    Map *source_;
+    bool ended_;
 };
 
-#endif  /* MAPDELTA_H */
+#endif /* MAPDELTA_H */

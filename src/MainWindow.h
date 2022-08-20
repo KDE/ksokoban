@@ -7,11 +7,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <KMainWindow>
-#include <KHelpMenu>
-#include <QUrl>
 #include "Bookmark.h"
 #include "InternalCollections.h"
+
+#include <KHelpMenu>
+#include <KMainWindow>
+
+#include <QUrl>
 
 class PlayField;
 class QMenu;
@@ -21,50 +23,51 @@ class QDragEnterEvent;
 class QDropEvent;
 class LevelCollection;
 
-class MainWindow : public KMainWindow {
-  Q_OBJECT
+class MainWindow : public KMainWindow
+{
+    Q_OBJECT
 public:
-  MainWindow();
-  ~MainWindow() override;
+    MainWindow();
+    ~MainWindow() override;
 
-  void openURL(const QUrl &_url);
+    void openURL(const QUrl &_url);
 
 public Q_SLOTS:
-  void changeCollection(int id);
-  void updateAnimMenu(int id);
-  void setBookmark(int id);
-  void goToBookmark(int id);
+    void changeCollection(int id);
+    void updateAnimMenu(int id);
+    void setBookmark(int id);
+    void goToBookmark(int id);
 
-  void loadLevels();
+    void loadLevels();
 
 protected:
-  void focusInEvent(QFocusEvent*) override;
-  void createCollectionMenu(QMenu* collection_);
-  //virtual void dragEnterEvent(QDragEnterEvent*);
-  void dropEvent(QDropEvent*) override;
+    void focusInEvent(QFocusEvent *) override;
+    void createCollectionMenu(QMenu *collection_);
+    // virtual void dragEnterEvent(QDragEnterEvent*);
+    void dropEvent(QDropEvent *) override;
 
 private:
-  InternalCollections internalCollections_;
-  LevelCollection *externalCollection_;
-  QMenuBar        *menu_;
-  PlayField       *playField_;
-  Bookmark        *bookmarks_[10];
-  int              currentCollection_;
+    InternalCollections internalCollections_;
+    LevelCollection *externalCollection_;
+    QMenuBar *menu_;
+    PlayField *playField_;
+    Bookmark *bookmarks_[10];
+    int currentCollection_;
 
-  QMenu      *game_;
-  QMenu      *collection_;
-  QMenu      *animation_;
-  QMenu      *bookmarkMenu_;
-  QMenu      *setBM_;
-  QMenu      *goToBM_;
-  QAction    *qa_slow, *qa_medium, *qa_fast, *qa_off, *setBM_act[10], *goToBM_act[10], **level_act;
-  KHelpMenu        *help_;
-  int              checkedCollection_;
-  int              checkedAnim_;
+    QMenu *game_;
+    QMenu *collection_;
+    QMenu *animation_;
+    QMenu *bookmarkMenu_;
+    QMenu *setBM_;
+    QMenu *goToBM_;
+    QAction *qa_slow, *qa_medium, *qa_fast, *qa_off, *setBM_act[10], *goToBM_act[10], **level_act;
+    KHelpMenu *help_;
+    int checkedCollection_;
+    int checkedAnim_;
 
-  void updateBookmark(int num);
+    void updateBookmark(int num);
 
-  void updateAnim(int val);
+    void updateAnim(int val);
 };
 
-#endif  /* MAINWINDOW_H */
+#endif /* MAINWINDOW_H */
