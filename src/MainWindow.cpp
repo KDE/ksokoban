@@ -25,6 +25,7 @@
 #include <QDragEnterEvent>
 #include <QFileDialog>
 #include <QKeyEvent>
+#include <QMimeData>
 #include <QString>
 #include <QTemporaryFile>
 
@@ -341,12 +342,15 @@ void MainWindow::openURL(const QUrl &_url)
 
     playField_->changeCollection(externalCollection_);
 }
-/*
-void
-MainWindow::dragEnterEvent(QDragEnterEvent* event) {
-  event->accept(KURLDrag::canDecode(event));
+
+void MainWindow::dragEnterEvent(QDragEnterEvent *event)
+{
+    if (event->mimeData()->hasUrls()) {
+        event->accept();
+    } else {
+        event->ignore();
+    }
 }
-*/
 
 void MainWindow::dropEvent(QDropEvent *event)
 {

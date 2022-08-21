@@ -40,10 +40,10 @@ public Q_SLOTS:
 
 protected:
     void focusInEvent(QFocusEvent *) override;
+    void dragEnterEvent(QDragEnterEvent *) override;
     void dropEvent(QDropEvent *) override;
 
     void createCollectionMenu();
-    // virtual void dragEnterEvent(QDragEnterEvent*);
 
 private:
     void updateBookmark(int num);
