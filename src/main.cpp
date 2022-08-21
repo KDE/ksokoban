@@ -30,11 +30,11 @@ int main(int argc, char **argv)
     aboutData.addAuthor(i18n("Shlomi Fish"),
                         i18n("For porting to Qt5/KF5 and doing other cleanups"),
                         QStringLiteral("shlomif@cpan.org"),
-                        QStringLiteral("http://www.shlomifish.org/"));
+                        QStringLiteral("https://www.shlomifish.org/"));
     aboutData.addAuthor(i18n("Lukasz Kalamlacki"),
                         i18n("For rewriting the original ksokoban game from kde3 to kde4"),
                         QStringLiteral("kalamlacki@gmail.com"),
-                        QStringLiteral("http://sf.net/projects/ksokoban"));
+                        QStringLiteral("https://sourceforge.net/projects/ksokoban/"));
     aboutData.addAuthor(i18n("Anders Widell"),
                         i18n("For writing the original ksokoban game"),
                         QStringLiteral("awl@hem.passagen.se"),
