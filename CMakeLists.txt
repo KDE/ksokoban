@@ -17,7 +17,7 @@ include(ECMInstallIcons)
 include(ECMSetupVersion)
 include(FeatureSummary)
 
-find_package(Qt5 ${QT_MIN_VERSION} REQUIRED Core Gui Widgets)
+find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} REQUIRED Core Gui Widgets)
 
 find_package(KF5 ${KF_MIN_VERSION} REQUIRED COMPONENTS
     Config
