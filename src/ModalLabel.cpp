@@ -24,7 +24,7 @@ ModalLabel::ModalLabel(const QString &text, QWidget *parent, Qt::WindowFlags f)
     int lineLen, width = 0, height = 0;
 
     for (int linePos = 0; linePos < text.length(); linePos += lineLen + 1) {
-        lineLen = text.indexOf('\n', linePos);
+        lineLen = text.indexOf(QLatin1Char('\n'), linePos);
         if (lineLen < 0)
             lineLen = text.length() - linePos;
         else

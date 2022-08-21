@@ -121,9 +121,9 @@ void MainWindow::setupActions()
 
     createCollectionMenu();
 
-    ac->addAction(KStandardAction::Undo, "undo", playField_, &PlayField::undo);
-    ac->addAction(KStandardAction::Redo, "redo", playField_, &PlayField::redo);
-    ac->addAction(KStandardAction::Quit, "quit", this, &MainWindow::close);
+    ac->addAction(KStandardAction::Undo, QStringLiteral("undo"), playField_, &PlayField::undo);
+    ac->addAction(KStandardAction::Redo, QStringLiteral("redo"), playField_, &PlayField::redo);
+    ac->addAction(KStandardAction::Quit, QStringLiteral("quit"), this, &MainWindow::close);
 
     auto *animGrp = new QActionGroup(this);
     connect(animGrp, &QActionGroup::triggered, this, &MainWindow::handleAnimSpeedSelected);
@@ -237,9 +237,9 @@ void MainWindow::updateBookmark(int num)
         name = i18n("(invalid)");
     QString l;
     l.setNum(lev + 1);
-    name += " #" + l;
+    name += QLatin1String(" #") + l;
     l.setNum(mov);
-    name += " (" + l + QLatin1Char(')');
+    name += QLatin1String(" (") + l + QLatin1Char(')');
 
     setBM_act[num - 1]->setText(name);
     goToBM_act[num - 1]->setText(name);

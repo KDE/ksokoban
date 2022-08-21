@@ -23,11 +23,7 @@
 
 void Bookmark::fileName(QString &p)
 {
-    p = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-
-    QString n;
-    n.setNum(number_);
-    p += "/bookmark" + n;
+    p = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/bookmark%1").arg(number_);
 }
 
 Bookmark::Bookmark(int _num)
@@ -35,12 +31,11 @@ Bookmark::Bookmark(int _num)
     , collection_(-1)
     , level_(-1)
     , moves_(0)
-    , data_(QLatin1String(""))
+    , data_()
 {
     QString p;
     fileName(p);
-
-    FILE *file = fopen(p.toLatin1(), "r");
+    FILE *file = fopen(QFile::encodeName(p), "r");
     if (file == nullptr)
         return;
 
@@ -49,19 +44,19 @@ Bookmark::Bookmark(int _num)
     fgets(buf, 4096, file);
     if (sscanf(buf, "%d %d %d", &collection_, &level_, &moves_) != 3) {
         collection_ = level_ = -1;
-        data_ = QLatin1String("");
+        data_ = QString();
         fclose(file);
         return;
     }
 
-    data_ = QLatin1String("");
+    data_ = QString();
     int len;
     while (!feof(file)) {
         len = fread(buf, 1, 4095, file);
         if (ferror(file))
             break;
         buf[len] = '\0';
-        data_ += buf;
+        data_ += QString::fromLatin1(buf);
     }
     fclose(file);
 
@@ -78,7 +73,7 @@ void Bookmark::set(int _collection, int _level, int _moves, History *_h)
     level_ = _level;
     moves_ = _moves;
 
-    data_ = QLatin1String("");
+    data_ = QString();
     _h->save(data_);
 
     // ensure folder exists

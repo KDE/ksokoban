@@ -42,7 +42,7 @@ void History::save(QString &_str)
     for (QList<Move *>::Iterator iterator = past_.begin(); iterator != past_.end(); ++iterator) {
         (*iterator)->save(_str);
     }
-    _str += '-';
+    _str += QLatin1Char('-');
 
     for (QList<Move *>::Iterator iterator = future_.begin(); iterator != future_.end(); ++iterator) {
         (*iterator)->save(_str);

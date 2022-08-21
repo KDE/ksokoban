@@ -62,7 +62,7 @@ void Move::save(QString &s)
     bool push = false;
     while (pos < moveIndex_) {
         if (dir >= 0)
-            s += push ? push1[dir] : move1[dir];
+            s += QLatin1Char(push ? push1[dir] : move1[dir]);
 
         x2 = moves_[pos] & 0x7f;
         y2 = (moves_[pos] >> 8) & 0x7f;
@@ -98,7 +98,7 @@ void Move::save(QString &s)
     }
 
     if (dir >= 0)
-        s += push ? push2[dir] : move2[dir];
+        s += QLatin1Char(push ? push2[dir] : move2[dir]);
 }
 
 const char *Move::load(const char *s)

@@ -36,7 +36,6 @@ ecm_set_disabled_deprecation_versions(
 )
 # added by KDE_COMPILERSETTINGS_LEVEL 5.85
 remove_definitions(
-    -DQT_NO_CAST_FROM_ASCII
     -DQT_NO_CAST_FROM_BYTEARRAY
 )
 
