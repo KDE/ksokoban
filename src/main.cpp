@@ -13,6 +13,7 @@
 #include <QApplication>
 #include <QCommandLineOption>
 #include <QCommandLineParser>
+#include <QDir>
 
 int main(int argc, char **argv)
 {
@@ -49,7 +50,7 @@ int main(int argc, char **argv)
     app.setWindowIcon(QIcon::fromTheme(QStringLiteral("ksokoban")));
 
     QCommandLineParser parser;
-    parser.addPositionalArgument(i18n("[file]"), i18n("Level collection file to load"));
+    parser.addPositionalArgument(QStringLiteral("URL"), i18n("Level collection file to load."), QStringLiteral("[URL}"));
     aboutData.setupCommandLine(&parser);
     parser.process(app);
     aboutData.processCommandLine(&parser);
@@ -57,8 +58,11 @@ int main(int argc, char **argv)
     MainWindow *widget = new MainWindow();
     widget->show();
 
-    if (parser.positionalArguments().count() > 0) {
-        widget->openURL(parser.positionalArguments().at(0));
+    const QStringList positionalArguments = parser.positionalArguments();
+    if (!positionalArguments.isEmpty()) {
+        const QString currentPath = QDir::currentPath();
+        const QUrl levelFileUrl = QUrl::fromUserInput(positionalArguments.first(), currentPath, QUrl::AssumeLocalFile);
+        widget->openURL(levelFileUrl);
     }
 
     return app.exec();

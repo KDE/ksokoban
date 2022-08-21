@@ -11,8 +11,7 @@
 
 #include <KActionCollection>
 #include <KConfigGroup>
-#include <KIO/Job>
-#include <KIO/TransferJob>
+#include <KIO/FileCopyJob>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KSelectAction>
@@ -290,7 +289,7 @@ void MainWindow::loadLevels()
 {
     KSharedConfigPtr cfg = KSharedConfig::openConfig();
     KConfigGroup settingsGroup(cfg, "settings");
-    QString lastFile = settingsGroup.readPathEntry("lastLevelFile", QLatin1String(""));
+    const QUrl lastFile = QUrl::fromLocalFile(settingsGroup.readPathEntry("lastLevelFile", QString()));
 
     QUrl result = QFileDialog::getOpenFileUrl(this, i18nc("@title:window", "Load Levels from a File"), lastFile, QStringLiteral("*"));
     if (result.isEmpty())
@@ -310,18 +309,17 @@ void MainWindow::openURL(const QUrl &_url)
     QString levelFile;
     QTemporaryFile f;
     if (_url.isLocalFile()) {
-        levelFile = _url.path();
+        levelFile = _url.toLocalFile();
     } else {
         //     levelFile = locateLocal("appdata", "levels/" + levelName);
-        KIO::TransferJob *job = KIO::get(_url);
+        // download file into temporary one
+        f.open();
+        KIO::FileCopyJob *job = KIO::file_copy(_url, QUrl::fromLocalFile(f.fileName()), -1, KIO::Overwrite);
+
         job->exec();
         if (job->error()) {
             return;
         }
-        f.open();
-        QByteArray data;
-        Q_EMIT job->data(job, data);
-        f.write(data);
         levelFile = f.fileName();
     }
 
@@ -334,7 +332,7 @@ void MainWindow::openURL(const QUrl &_url)
     }
     if (_url.isLocalFile()) {
         KConfigGroup settingsGroup(cfg, "settings");
-        settingsGroup.writePathEntry("lastLevelFile", _url.path());
+        settingsGroup.writePathEntry("lastLevelFile", _url.toLocalFile());
     }
 
     delete externalCollection_;
