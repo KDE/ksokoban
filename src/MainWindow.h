@@ -10,20 +10,19 @@
 #include "Bookmark.h"
 #include "InternalCollections.h"
 
-#include <KHelpMenu>
-#include <KMainWindow>
+#include <KXmlGuiWindow>
 
 #include <QUrl>
 
 class PlayField;
-class QMenu;
+class LevelCollection;
+class KSelectAction;
 class QAction;
 class QFocusEvent;
 class QDragEnterEvent;
 class QDropEvent;
-class LevelCollection;
 
-class MainWindow : public KMainWindow
+class MainWindow : public KXmlGuiWindow
 {
     Q_OBJECT
 public:
@@ -34,9 +33,8 @@ public:
 
 public Q_SLOTS:
     void changeCollection(int id);
-    void updateAnimMenu(int id);
-    void setBookmark(int id);
-    void goToBookmark(int id);
+    void setBookmark(QAction *action);
+    void goToBookmark(QAction *action);
 
     void loadLevels();
 
@@ -44,31 +42,22 @@ protected:
     void focusInEvent(QFocusEvent *) override;
     void dropEvent(QDropEvent *) override;
 
-    void createCollectionMenu(QMenu *collection_);
+    void createCollectionMenu();
     // virtual void dragEnterEvent(QDragEnterEvent*);
 
 private:
     void updateBookmark(int num);
-    void updateAnim(int val);
+    void handleAnimSpeedSelected(QAction *action);
+    void setupActions();
 
 private:
     InternalCollections internalCollections_;
     LevelCollection *externalCollection_;
-    QMenuBar *menu_;
     PlayField *playField_;
     Bookmark *bookmarks_[10];
-    int currentCollection_;
 
-    QMenu *game_;
-    QMenu *collection_;
-    QMenu *animation_;
-    QMenu *bookmarkMenu_;
-    QMenu *setBM_;
-    QMenu *goToBM_;
-    QAction *qa_slow, *qa_medium, *qa_fast, *qa_off, *setBM_act[10], *goToBM_act[10], **level_act;
-    KHelpMenu *help_;
-    int checkedCollection_;
-    int checkedAnim_;
+    QAction *qa_slow, *qa_medium, *qa_fast, *qa_off, *setBM_act[10], *goToBM_act[10];
+    KSelectAction *collectionsAct_;
 };
 
 #endif /* MAINWINDOW_H */

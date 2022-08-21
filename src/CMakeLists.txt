@@ -21,6 +21,8 @@ add_executable(ksokoban
     MainWindow.cpp
     ModalLabel.cpp
     PathFinder.cpp
+
+    ksokoban.qrc
 )
 
 target_link_libraries(ksokoban

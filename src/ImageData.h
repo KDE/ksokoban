@@ -7,9 +7,9 @@
 #ifndef IMAGEDATA_H
 #define IMAGEDATA_H
 
-#include <QRandomGenerator>
 #include <QImage>
 #include <QPixmap>
+#include <QRandomGenerator>
 
 class QPainter;
 
