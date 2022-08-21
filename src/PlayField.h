@@ -33,7 +33,7 @@ class PlayField : public QWidget
 {
     Q_OBJECT
 public:
-    PlayField(QWidget *parent);
+    explicit PlayField(QWidget *parent);
     ~PlayField() override;
 
     bool canMoveNow();
@@ -75,18 +75,6 @@ public Q_SLOTS:
     void changeAnim(int num);
 
 protected:
-    ImageData *imageData_;
-    LevelMap *levelMap_;
-    History *history_;
-    int lastLevel_;
-    MoveSequence *moveSequence_;
-    MapDelta *mapDelta_;
-    bool moveInProgress_;
-    bool dragInProgress_;
-    PathFinder pathFinder_;
-    int animDelay_;
-    const QCursor *cursor_;
-
     void levelChange();
     void paintSquare(int x, int y, QPainter &paint);
     void paintDelta();
@@ -110,19 +98,20 @@ protected:
     void highlight();
     void changeCursor(const QCursor *c);
 
-private:
-    int size_, xOffs_, yOffs_;
-    int highlightX_, highlightY_;
-    int dragX_, dragY_;
-    int lastMouseXPos_, lastMouseYPos_;
-    int mousePosX_, mousePosY_;
-    int wheelDelta_;
-    int debug_counter;
+protected:
+    ImageData *imageData_;
+    LevelMap *levelMap_;
+    History *history_;
+    int lastLevel_;
+    MoveSequence *moveSequence_;
+    MapDelta *mapDelta_;
+    bool moveInProgress_;
+    bool dragInProgress_;
+    PathFinder pathFinder_;
+    int animDelay_;
+    const QCursor *cursor_;
 
-    QList<int> timers;
-    void killTimers();
-    QCursor sizeAllCursor;
-    QCursor crossCursor;
+private:
     int x2pixel(int x) const
     {
         return size_ * x + xOffs_;
@@ -144,6 +133,20 @@ private:
     void startMoving(Move *m);
     void startMoving(MoveSequence *ms);
     void stopMoving();
+
+private:
+    int size_, xOffs_, yOffs_;
+    int highlightX_, highlightY_;
+    int dragX_, dragY_;
+    int lastMouseXPos_, lastMouseYPos_;
+    int mousePosX_, mousePosY_;
+    int wheelDelta_;
+    int debug_counter;
+
+    QList<int> timers;
+    void killTimers();
+    QCursor sizeAllCursor;
+    QCursor crossCursor;
 
     QRect pnumRect_, ptxtRect_, snumRect_, stxtRect_, lnumRect_, ltxtRect_;
     QRect collRect_;

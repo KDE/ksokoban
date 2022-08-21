@@ -53,6 +53,7 @@ private:
     void addData(const char *_data, unsigned _len);
     void addSeparator();
 
+private:
     QVector<const char *> index_;
     QByteArray data_;
     // int    dataLen_;

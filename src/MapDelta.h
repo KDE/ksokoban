@@ -14,7 +14,7 @@
 class MapDelta : private Map
 {
 public:
-    MapDelta(Map *m);
+    explicit MapDelta(Map *m);
 
     void start();
     void end();

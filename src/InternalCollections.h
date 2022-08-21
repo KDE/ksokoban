@@ -37,6 +37,7 @@ private:
     static int realCollection2Config(int collection);
     static QString collectionName(int _level);
 
+private:
     QVector<LevelCollection *> collections_;
     char *data_;
 };

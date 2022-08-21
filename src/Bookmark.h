@@ -15,7 +15,7 @@ class LevelMap;
 class Bookmark
 {
 public:
-    Bookmark(int _num);
+    explicit Bookmark(int _num);
 
     int collection() const
     {
@@ -37,6 +37,7 @@ public:
 private:
     void fileName(QString &p);
 
+private:
     int number_;
     int collection_;
     int level_;

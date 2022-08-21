@@ -129,6 +129,7 @@ protected:
         return objectsLeft_;
     }
 
+protected:
     int xpos_, ypos_;
 
 private:

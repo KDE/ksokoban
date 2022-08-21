@@ -42,9 +42,14 @@ public Q_SLOTS:
 
 protected:
     void focusInEvent(QFocusEvent *) override;
+    void dropEvent(QDropEvent *) override;
+
     void createCollectionMenu(QMenu *collection_);
     // virtual void dragEnterEvent(QDragEnterEvent*);
-    void dropEvent(QDropEvent *) override;
+
+private:
+    void updateBookmark(int num);
+    void updateAnim(int val);
 
 private:
     InternalCollections internalCollections_;
@@ -64,10 +69,6 @@ private:
     KHelpMenu *help_;
     int checkedCollection_;
     int checkedAnim_;
-
-    void updateBookmark(int num);
-
-    void updateAnim(int val);
 };
 
 #endif /* MAINWINDOW_H */

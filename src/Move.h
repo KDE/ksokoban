@@ -29,19 +29,9 @@ class LevelMap;
  * @version 0.1
  * @see     History
  */
-
 class Move
 {
     friend class MoveSequence;
-
-private:
-    unsigned short *moves_;
-    int moveIndex_;
-    bool finished_;
-
-#ifndef NDEBUG
-    int lastX_, lastY_;
-#endif
 
 public:
     Move(int _startX, int _startY);
@@ -113,6 +103,15 @@ public:
     const char *load(const char *_str);
     bool redo(LevelMap *map);
     bool undo(LevelMap *map);
+
+private:
+    unsigned short *moves_;
+    int moveIndex_;
+    bool finished_;
+
+#ifndef NDEBUG
+    int lastX_, lastY_;
+#endif
 };
 
 #endif /* MOVE_H */

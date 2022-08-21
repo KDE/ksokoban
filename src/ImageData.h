@@ -60,6 +60,7 @@ protected:
     const QPixmap &leftSmall(int index);
     const QPixmap &rightSmall(int index);
 
+protected:
     QImage images_[NO_OF_IMAGES];
 
     QPixmap smallStone_xpm_[SMALL_STONES];

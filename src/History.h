@@ -22,17 +22,12 @@ class MoveSequence;
  * @version 0.1
  * @see     PlayField
  */
-
 class History
 {
-private:
-    QList<Move *> past_;
-    QList<Move *> future_;
-
-protected:
 public:
     History();
     ~History();
+
     /**
      * Add a move to the history. Deletes all currently undone moves.
      */
@@ -48,6 +43,10 @@ public:
     MoveSequence *deferRedo(LevelMap *map);
     bool undo(LevelMap *map);
     MoveSequence *deferUndo(LevelMap *map);
+
+private:
+    QList<Move *> past_;
+    QList<Move *> future_;
 };
 
 #endif /* HISTORY_H */

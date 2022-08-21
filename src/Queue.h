@@ -12,11 +12,17 @@
 template<class Type, int SizePow2>
 class Queue
 {
-private:
-    Type *queue_;
-    long head_, tail_;
-
 public:
+    Queue()
+    {
+        queue_ = new Type[1l << SizePow2];
+        clear();
+    }
+    ~Queue()
+    {
+        delete[] queue_;
+    }
+
     void clear()
     {
         head_ = tail_ = 0;
@@ -28,16 +34,6 @@ public:
     bool full()
     {
         return ((tail_ + 1) & ((1l << SizePow2) - 1)) == head_;
-    }
-
-    Queue()
-    {
-        queue_ = new Type[1l << SizePow2];
-        clear();
-    }
-    ~Queue()
-    {
-        delete[] queue_;
     }
 
     void enqueue(Type _x)
@@ -54,6 +50,10 @@ public:
         head_ = (head_ + 1) & ((1l << SizePow2) - 1);
         return x;
     }
+
+private:
+    Type *queue_;
+    long head_, tail_;
 };
 
 #endif /* QUEUE_H */

@@ -57,11 +57,12 @@ protected:
     LevelCollection *collection_;
 
 private:
+    static int distance(int x1, int y1, int x2, int y2);
+
+private:
     int totalMoves_;
     int totalPushes_;
     bool goodLevel_;
-
-    static int distance(int x1, int y1, int x2, int y2);
 };
 
 #endif /* LEVELMAP_H */
