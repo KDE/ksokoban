@@ -9,8 +9,6 @@
 
 #include <KConfig>
 
-#include <zlib.h>
-
 #include <unistd.h>
 
 #include <cassert>
