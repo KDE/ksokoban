@@ -87,10 +87,10 @@ void Move::save(QString &s)
 
         if (dist > 1) {
             if (dist >= 10) {
-                s += '0' + (dist / 10);
+                s += QLatin1Char('0' + (dist / 10));
                 dist %= 10;
             }
-            s += '0' + dist;
+            s += QLatin1Char('0' + dist);
         }
 
         x = x2;
