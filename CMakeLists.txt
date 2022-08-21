@@ -34,10 +34,6 @@ ecm_set_disabled_deprecation_versions(
     QT 5.15.2
     KF 5.91
 )
-# added by KDE_COMPILERSETTINGS_LEVEL 5.85
-remove_definitions(
-    -DQT_NO_CAST_FROM_BYTEARRAY
-)
 
 add_subdirectory(src)
 add_subdirectory(data)
