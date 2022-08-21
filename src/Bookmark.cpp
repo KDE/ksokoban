@@ -9,6 +9,7 @@
 #include "History.h"
 #include "LevelMap.h"
 
+#include <QDir>
 #include <QFile>
 #include <QStandardPaths>
 
@@ -80,6 +81,11 @@ void Bookmark::set(int _collection, int _level, int _moves, History *_h)
     data_ = QLatin1String("");
     _h->save(data_);
 
+    // ensure folder exists
+    QDir bookmarksDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
+    if (!bookmarksDir.mkpath(QStringLiteral("."))) {
+        return;
+    }
     QString p;
     fileName(p);
     FILE *file = fopen(QFile::encodeName(p), "w");
