@@ -100,6 +100,7 @@ void MainWindow::setupActions()
     KActionCollection *ac = actionCollection();
 
     QAction *qact = ac->addAction(QStringLiteral("load_levels"), this, &MainWindow::loadLevels);
+    qact->setIcon(QIcon::fromTheme(QStringLiteral("document-open")));
     qact->setText(i18n("&Load Levels..."));
 
     QAction *nextLevel = ac->addAction(QStringLiteral("next_level"), playField_, &PlayField::nextLevel);
