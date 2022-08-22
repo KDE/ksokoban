@@ -1,5 +1,5 @@
 // Pov-ray image source for ksokoban
-// copyright (c) 1998-1999  Anders Widell  <awl@hem.passagen.se>
+// SPDX-FileCopyrightText: 1998-1999  Anders Widell <awl@hem.passagen.se>
 
 #declare FloorColour = <114/255, 114/255, 114/255>;
 
