@@ -24,17 +24,9 @@ const QString &LevelMap::collectionName() const
     return collection_->name();
 }
 
-LevelMap::LevelMap()
-    : collection_(nullptr)
-    , totalMoves_(0)
-    , totalPushes_(0)
-    , goodLevel_(false)
-{
-}
+LevelMap::LevelMap() = default;
 
-LevelMap::~LevelMap()
-{
-}
+LevelMap::~LevelMap() = default;
 
 void LevelMap::changeCollection(LevelCollection *_collection)
 {

@@ -131,14 +131,14 @@ protected:
     }
 
 protected:
-    int xpos_;
-    int ypos_;
+    int xpos_ = -1;
+    int ypos_ = -1;
 
 private:
     char currentMap_[MAX_Y + 3][MAX_X + 3];
-    int width_;
-    int height_;
-    int objectsLeft_;
+    int width_ = 0;
+    int height_ = 0;
+    int objectsLeft_ = -1;
 };
 
 #endif /* MAP_H */

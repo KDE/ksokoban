@@ -66,6 +66,4 @@ StaticImage::StaticImage()
     // resize(32,32);
 }
 
-StaticImage::~StaticImage()
-{
-}
+StaticImage::~StaticImage() = default;

@@ -59,9 +59,9 @@ private:
     QByteArray data_;
     // int    dataLen_;
 
-    int level_;
-    int completedLevels_;
-    int noOfLevels_;
+    int level_ = 0;
+    int completedLevels_ = 0;
+    int noOfLevels_ = 0;
     QString name_;
     QString path_;
     int id_;

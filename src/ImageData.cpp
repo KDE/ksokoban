@@ -15,18 +15,13 @@
 
 ImageData::ImageData()
     : floor_(10, 10)
-    , indexSize_(0)
-    , size_(0)
-    , halfSize_(0)
 {
     random.seed(QRandomGenerator::global()->generate());
     QPainter paint(&floor_);
     paint.fillRect(0, 0, 10, 10, QColor(0x66, 0x66, 0x66, 255));
 }
 
-ImageData::~ImageData()
-{
-}
+ImageData::~ImageData() = default;
 
 void ImageData::expandIndex(int size)
 {

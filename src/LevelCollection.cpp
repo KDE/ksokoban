@@ -237,10 +237,7 @@ void LevelCollection::addSeparator()
 }
 
 LevelCollection::LevelCollection(const char *_def, int _len, const QString &_name, int _id)
-    : level_(0)
-    , completedLevels_(0)
-    , noOfLevels_(0)
-    , name_(_name)
+    : name_(_name)
     , id_(_id)
 {
     addData(_def, _len);
@@ -254,10 +251,7 @@ LevelCollection::LevelCollection(const char *_def, int _len, const QString &_nam
 }
 
 LevelCollection::LevelCollection(const QString &_path, const QString &_name, int _id)
-    : level_(0)
-    , completedLevels_(0)
-    , noOfLevels_(0)
-    , name_(_name)
+    : name_(_name)
     , path_(_path)
     , id_(_id)
 {

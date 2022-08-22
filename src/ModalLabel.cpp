@@ -59,7 +59,6 @@ ModalLabel::ModalLabel(const QString &text, QWidget *parent, Qt::WindowFlags f)
         widget->installEventFilter(this);
     }
 
-    completed_ = false;
     startTimer(1000);
 }
 

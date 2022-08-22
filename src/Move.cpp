@@ -18,8 +18,6 @@ Move::Move(int _startX, int _startY)
 
     moves_ = new unsigned short[400];
     moves_[0] = _startX | (_startY << 8);
-    moveIndex_ = 1;
-    finished_ = false;
 
 #ifndef NDEBUG
     lastX_ = _startX;

@@ -28,10 +28,6 @@ void Bookmark::fileName(QString &p) const
 
 Bookmark::Bookmark(int _num)
     : number_(_num)
-    , collection_(-1)
-    , level_(-1)
-    , moves_(0)
-    , data_()
 {
     QString p;
     fileName(p);

@@ -50,7 +50,7 @@ private:
 
 private:
     InternalCollections internalCollections_;
-    LevelCollection *externalCollection_;
+    LevelCollection *externalCollection_ = nullptr;
     PlayField *playField_;
     Bookmark *bookmarks_[10];
 

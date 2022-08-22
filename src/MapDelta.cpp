@@ -11,7 +11,6 @@
 MapDelta::MapDelta(Map *m)
 {
     source_ = m;
-    ended_ = true;
     start();
 }
 

@@ -24,7 +24,7 @@ protected:
     ModalLabel(const QString &text, QWidget *parent, Qt::WindowFlags f = {});
 
 private:
-    bool completed_;
+    bool completed_ = false;
 };
 
 #endif /* MODALLABEL_H */

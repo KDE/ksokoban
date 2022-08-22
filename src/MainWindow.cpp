@@ -57,7 +57,6 @@ void MainWindow::createCollectionMenu()
 
 MainWindow::MainWindow()
     : KXmlGuiWindow()
-    , externalCollection_(nullptr)
 {
     // setEraseColor(QColor(0,0,0));
 

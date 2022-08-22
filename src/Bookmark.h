@@ -40,9 +40,9 @@ private:
 
 private:
     int number_;
-    int collection_;
-    int level_;
-    int moves_;
+    int collection_ = -1;
+    int level_ = -1;
+    int moves_ = 0;
     // int     pushes_;
     QString data_;
 };

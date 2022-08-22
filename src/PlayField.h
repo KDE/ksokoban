@@ -103,14 +103,14 @@ protected:
     void changeCursor(const QCursor *c);
 
 protected:
-    ImageData *imageData_;
+    ImageData *imageData_ = nullptr;
     LevelMap *levelMap_;
     History *history_;
-    int lastLevel_;
-    MoveSequence *moveSequence_;
+    int lastLevel_ = -1;
+    MoveSequence *moveSequence_ = nullptr;
     MapDelta *mapDelta_;
-    bool moveInProgress_;
-    bool dragInProgress_;
+    bool moveInProgress_ = false;
+    bool dragInProgress_ = false;
     PathFinder pathFinder_;
     int animDelay_;
     const QCursor *cursor_;
@@ -142,8 +142,8 @@ private:
 
 private:
     int size_;
-    int xOffs_;
-    int yOffs_;
+    int xOffs_ = 0;
+    int yOffs_ = 0;
     int highlightX_;
     int highlightY_;
     int dragX_;
@@ -152,11 +152,10 @@ private:
     int lastMouseYPos_;
     int mousePosX_;
     int mousePosY_;
-    int wheelDelta_;
-    int debug_counter;
+    int wheelDelta_ = 0;
+    int debug_counter = 0;
 
     QList<int> timers;
-    QCursor sizeAllCursor;
     QCursor crossCursor;
 
     QRect pnumRect_;
@@ -170,15 +169,13 @@ private:
     const QString levelText_;
     const QString stepsText_;
     const QString  pushesText_;
-    QPixmap *pnumXpm_;
-    QPixmap *ptxtXpm_;
-    QPixmap *snumXpm_;
-    QPixmap *stxtXpm_;
-    QPixmap *lnumXpm_;
-    QPixmap *ltxtXpm_;
-    QPixmap *collXpm_;
-    QPixmap dragXpm_;
-    QImage dragImage_;
+    QPixmap *pnumXpm_ = nullptr;
+    QPixmap *ptxtXpm_ = nullptr;
+    QPixmap *snumXpm_ = nullptr;
+    QPixmap *stxtXpm_ = nullptr;
+    QPixmap *lnumXpm_ = nullptr;
+    QPixmap *ltxtXpm_ = nullptr;
+    QPixmap *collXpm_ = nullptr;
     QFont statusFont_;
     QFontMetrics statusMetrics_;
     QBrush background_;

@@ -107,8 +107,8 @@ public:
 
 private:
     unsigned short *moves_;
-    int moveIndex_;
-    bool finished_;
+    int moveIndex_ = 1;
+    bool finished_ = false;
 
 #ifndef NDEBUG
     int lastX_, lastY_;

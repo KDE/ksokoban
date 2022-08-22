@@ -55,15 +55,15 @@ public:
     // void random();
 
 protected:
-    LevelCollection *collection_;
+    LevelCollection *collection_ = nullptr;
 
 private:
     static int distance(int x1, int y1, int x2, int y2);
 
 private:
-    int totalMoves_;
-    int totalPushes_;
-    bool goodLevel_;
+    int totalMoves_ = 0;
+    int totalPushes_ = 0;
+    bool goodLevel_ = false;
 };
 
 #endif /* LEVELMAP_H */

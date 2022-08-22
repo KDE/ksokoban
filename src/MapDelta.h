@@ -28,7 +28,7 @@ public:
 
 private:
     Map *source_;
-    bool ended_;
+    bool ended_ = true;
 };
 
 #endif /* MAPDELTA_H */

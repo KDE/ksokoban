@@ -73,13 +73,14 @@ protected:
     QPixmap floor_;
     QImage objectImg_;
 
-    int indexSize_;
+    int indexSize_ = 0;
     QByteArray upperLargeIndex_;
     QByteArray lowerLargeIndex_;
     QByteArray leftSmallIndex_;
     QByteArray rightSmallIndex_;
 
-    int size_, halfSize_;
+    int size_ = 0;
+    int halfSize_  = 0;
     QRandomGenerator random;
 };
 
