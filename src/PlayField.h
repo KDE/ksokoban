@@ -102,19 +102,6 @@ protected:
     void highlight();
     void changeCursor(const QCursor *c);
 
-protected:
-    ImageData *imageData_ = nullptr;
-    LevelMap *levelMap_;
-    History *history_;
-    int lastLevel_ = -1;
-    MoveSequence *moveSequence_ = nullptr;
-    MapDelta *mapDelta_;
-    bool moveInProgress_ = false;
-    bool dragInProgress_ = false;
-    PathFinder pathFinder_;
-    int animDelay_;
-    const QCursor *cursor_;
-
 private:
     int x2pixel(int x) const
     {
@@ -141,6 +128,18 @@ private:
     void killTimers();
 
 private:
+    ImageData *imageData_ = nullptr;
+    LevelMap *levelMap_;
+    History *history_;
+    int lastLevel_ = -1;
+    MoveSequence *moveSequence_ = nullptr;
+    MapDelta *mapDelta_;
+    bool moveInProgress_ = false;
+    bool dragInProgress_ = false;
+    PathFinder pathFinder_;
+    int animDelay_;
+    const QCursor *cursor_;
+
     int size_;
     int xOffs_ = 0;
     int yOffs_ = 0;
