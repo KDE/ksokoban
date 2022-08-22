@@ -1,3 +1,6 @@
+add_subdirectory(images)
+add_subdirectory(levels)
+
 ecm_setup_version(${ksokoban_VERSION}
     VARIABLE_PREFIX KSOKOBAN
     VERSION_HEADER version.h

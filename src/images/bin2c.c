@@ -12,11 +12,11 @@
  *
  */
 
-#include "../../config.h"
+// #include "../../config.h"
 
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #ifdef USE_LIBZ
 #include <zlib.h>
