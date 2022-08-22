@@ -23,11 +23,12 @@ public:
     LevelMap();
     ~LevelMap();
 
+public:
     LevelCollection *collection() const
     {
         return collection_;
     }
-    const QString &collectionName();
+    const QString &collectionName() const;
     void changeCollection(LevelCollection *_collection);
     int totalMoves() const
     {

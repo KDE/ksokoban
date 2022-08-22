@@ -37,6 +37,7 @@ public:
     Move(int _startX, int _startY);
     ~Move();
 
+public:
     /**
      * Add an atomic move.
      * NOTE: either (x != (previous x)) or (y != (previous y))

@@ -18,17 +18,16 @@ class PlayField;
 class LevelCollection;
 class KSelectAction;
 class QAction;
-class QFocusEvent;
-class QDragEnterEvent;
-class QDropEvent;
 
 class MainWindow : public KXmlGuiWindow
 {
     Q_OBJECT
+
 public:
     MainWindow();
     ~MainWindow() override;
 
+public:
     void openURL(const QUrl &_url);
 
 public Q_SLOTS:
@@ -43,12 +42,11 @@ protected:
     void dragEnterEvent(QDragEnterEvent *) override;
     void dropEvent(QDropEvent *) override;
 
-    void createCollectionMenu();
-
 private:
     void updateBookmark(int num);
     void handleAnimSpeedSelected(QAction *action);
     void setupActions();
+    void createCollectionMenu();
 
 private:
     InternalCollections internalCollections_;
@@ -56,7 +54,12 @@ private:
     PlayField *playField_;
     Bookmark *bookmarks_[10];
 
-    QAction *qa_slow, *qa_medium, *qa_fast, *qa_off, *setBM_act[10], *goToBM_act[10];
+    QAction *qa_slow;
+    QAction *qa_medium;
+    QAction *qa_fast;
+    QAction *qa_off;
+    QAction *setBM_act[10];
+    QAction *goToBM_act[10];
     KSelectAction *collectionsAct_;
 };
 

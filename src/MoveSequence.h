@@ -17,6 +17,7 @@ class MoveSequence
 public:
     MoveSequence(Move *_move, LevelMap *_map, bool _undo = false);
 
+public:
     bool newStep();
     bool next();
 
@@ -24,7 +25,12 @@ private:
     LevelMap *map_;
     Move *move_;
     int pos_;
-    int x_, xDest_, y_, yDest_, xd_, yd_;
+    int x_;
+    int xDest_;
+    int y_;
+    int yDest_;
+    int xd_;
+    int yd_;
     bool push_;
     bool undo_;
 };

@@ -12,15 +12,19 @@
 class ModalLabel : public QLabel
 {
     Q_OBJECT
+
 public:
     static void message(const QString &text, QWidget *parent);
 
+protected:
     void timerEvent(QTimerEvent *) override;
     bool eventFilter(QObject *, QEvent *) override;
-    bool completed_;
 
 protected:
     ModalLabel(const QString &text, QWidget *parent, Qt::WindowFlags f = {});
+
+private:
+    bool completed_;
 };
 
 #endif /* MODALLABEL_H */

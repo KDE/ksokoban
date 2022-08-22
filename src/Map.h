@@ -25,6 +25,7 @@ class Map
 public:
     Map();
 
+public:
     bool completed() const
     {
         return objectsLeft_ <= 0;
@@ -113,7 +114,7 @@ public:
     }
 
 protected:
-    int map(int x, int y)
+    int map(int x, int y) const
     {
         assert(x >= 0 && x <= MAX_X && y >= 0 && y <= MAX_Y);
         return currentMap_[y + 1][x + 1];
@@ -130,11 +131,13 @@ protected:
     }
 
 protected:
-    int xpos_, ypos_;
+    int xpos_;
+    int ypos_;
 
 private:
     char currentMap_[MAX_Y + 3][MAX_X + 3];
-    int width_, height_;
+    int width_;
+    int height_;
     int objectsLeft_;
 };
 

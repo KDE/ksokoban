@@ -134,7 +134,7 @@ int PlayField::level() const
     return levelMap_->level();
 }
 
-const QString &PlayField::collectionName()
+const QString &PlayField::collectionName() const
 {
     static QString error = QStringLiteral("????");
     if (levelMap_ == nullptr)

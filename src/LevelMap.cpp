@@ -19,7 +19,7 @@
 
 #define BUFSIZE (128 * 1024)
 
-const QString &LevelMap::collectionName()
+const QString &LevelMap::collectionName() const
 {
     return collection_->name();
 }

@@ -28,6 +28,7 @@ public:
     History();
     ~History();
 
+public:
     /**
      * Add a move to the history. Deletes all currently undone moves.
      */

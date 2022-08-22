@@ -16,10 +16,11 @@ class MapDelta : private Map
 public:
     explicit MapDelta(Map *m);
 
+public:
     void start();
     void end();
 
-    bool hasChanged(int x, int y)
+    bool hasChanged(int x, int y) const
     {
         assert(ended_);
         return map(x, y) == 1;

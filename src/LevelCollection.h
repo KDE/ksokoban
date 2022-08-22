@@ -20,6 +20,7 @@ public:
     LevelCollection(const QString &_path, const QString &_name, int _id = -1);
     ~LevelCollection();
 
+public:
     const QString &name() const
     {
         return name_;

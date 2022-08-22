@@ -21,7 +21,7 @@
 #include <cassert>
 #include <cstdio>
 
-void Bookmark::fileName(QString &p)
+void Bookmark::fileName(QString &p) const
 {
     p = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/bookmark%1").arg(number_);
 }

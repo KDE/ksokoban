@@ -32,12 +32,14 @@ class QCursor;
 class PlayField : public QWidget
 {
     Q_OBJECT
+
 public:
     explicit PlayField(QWidget *parent);
     ~PlayField() override;
 
+public:
     bool canMoveNow();
-    int animDelay()
+    int animDelay() const
     {
         return animDelay_;
     }
@@ -55,7 +57,7 @@ public:
     void goToBookmark(Bookmark *bm);
 
     int level() const;
-    const QString &collectionName();
+    const QString &collectionName() const;
     int totalMoves() const;
     int totalPushes() const;
 
@@ -75,24 +77,26 @@ public Q_SLOTS:
     void changeAnim(int num);
 
 protected:
+    void paintEvent(QPaintEvent *e) override;
+    void resizeEvent(QResizeEvent *e) override;
+    void focusInEvent(QFocusEvent *) override;
+    void focusOutEvent(QFocusEvent *) override;
+    void keyPressEvent(QKeyEvent *) override;
+    void mouseMoveEvent(QMouseEvent *e) override;
+    void leaveEvent(QEvent *) override;
+    void mousePressEvent(QMouseEvent *) override;
+    void mouseReleaseEvent(QMouseEvent *) override;
+    void wheelEvent(QWheelEvent *) override;
+    void timerEvent(QTimerEvent *) override;
+
+protected:
     void levelChange();
     void paintSquare(int x, int y, QPainter &paint);
     void paintDelta();
-    void paintEvent(QPaintEvent *e) override;
     void paintPainterClip(QPainter &paint, int x, int y, int w, int h);
     void paintPainter(QPainter &paint, const QRect &rect);
-    void resizeEvent(QResizeEvent *e) override;
-    void mouseMoveEvent(QMouseEvent *e) override;
-    void keyPressEvent(QKeyEvent *) override;
-    void focusInEvent(QFocusEvent *) override;
-    void focusOutEvent(QFocusEvent *) override;
-    void mousePressEvent(QMouseEvent *) override;
-    void mouseReleaseEvent(QMouseEvent *) override;
-    void leaveEvent(QEvent *) override;
-    void wheelEvent(QWheelEvent *) override;
     void step(int _x, int _y);
     void push(int _x, int _y);
-    void timerEvent(QTimerEvent *) override;
     void stopDrag();
     void dragObject(int xpixel, int ypixel);
     void highlight();
@@ -134,25 +138,44 @@ private:
     void startMoving(MoveSequence *ms);
     void stopMoving();
 
+    void killTimers();
+
 private:
-    int size_, xOffs_, yOffs_;
-    int highlightX_, highlightY_;
-    int dragX_, dragY_;
-    int lastMouseXPos_, lastMouseYPos_;
-    int mousePosX_, mousePosY_;
+    int size_;
+    int xOffs_;
+    int yOffs_;
+    int highlightX_;
+    int highlightY_;
+    int dragX_;
+    int dragY_;
+    int lastMouseXPos_;
+    int lastMouseYPos_;
+    int mousePosX_;
+    int mousePosY_;
     int wheelDelta_;
     int debug_counter;
 
     QList<int> timers;
-    void killTimers();
     QCursor sizeAllCursor;
     QCursor crossCursor;
 
-    QRect pnumRect_, ptxtRect_, snumRect_, stxtRect_, lnumRect_, ltxtRect_;
+    QRect pnumRect_;
+    QRect ptxtRect_;
+    QRect snumRect_;
+    QRect stxtRect_;
+    QRect lnumRect_;
+    QRect ltxtRect_;
     QRect collRect_;
 
-    const QString levelText_, stepsText_, pushesText_;
-    QPixmap *pnumXpm_, *ptxtXpm_, *snumXpm_, *stxtXpm_, *lnumXpm_, *ltxtXpm_;
+    const QString levelText_;
+    const QString stepsText_;
+    const QString  pushesText_;
+    QPixmap *pnumXpm_;
+    QPixmap *ptxtXpm_;
+    QPixmap *snumXpm_;
+    QPixmap *stxtXpm_;
+    QPixmap *lnumXpm_;
+    QPixmap *ltxtXpm_;
     QPixmap *collXpm_;
     QPixmap dragXpm_;
     QImage dragImage_;

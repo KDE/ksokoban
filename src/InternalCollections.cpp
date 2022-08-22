@@ -139,12 +139,12 @@ InternalCollections::~InternalCollections()
     free(data_);
 }
 
-int InternalCollections::collections()
+int InternalCollections::collections() const
 {
     return collections_.size();
 }
 
-LevelCollection *InternalCollections::operator[](int n)
+LevelCollection *InternalCollections::operator[](int n) const
 {
     return collections_[n];
 }

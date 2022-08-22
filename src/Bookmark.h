@@ -17,6 +17,7 @@ class Bookmark
 public:
     explicit Bookmark(int _num);
 
+public:
     int collection() const
     {
         return collection_;
@@ -35,7 +36,7 @@ public:
     bool goTo(LevelMap *_map, History *_h);
 
 private:
-    void fileName(QString &p);
+    void fileName(QString &p) const;
 
 private:
     int number_;

@@ -20,6 +20,7 @@ public:
     InternalCollections();
     ~InternalCollections();
 
+public:
     static int toInternalId(int _id)
     {
         if (_id < 10 || _id > 14)
@@ -27,8 +28,8 @@ public:
         return _id - 10;
     }
 
-    int collections();
-    LevelCollection *operator[](int n);
+    int collections() const;
+    LevelCollection *operator[](int n) const;
 
 private:
     void add(LevelCollection *c);

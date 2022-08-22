@@ -23,8 +23,9 @@ class ImageData
 public:
     virtual ~ImageData();
 
+public:
     int resize(int size);
-    int size()
+    int size() const
     {
         return size_;
     }
@@ -39,7 +40,7 @@ public:
     void brightObject(QPainter &p, int x, int y);
     void brightTreasure(QPainter &p, int x, int y);
 
-    const QPixmap &background()
+    const QPixmap &background() const
     {
         return background_;
     }
@@ -66,7 +67,9 @@ protected:
     QPixmap smallStone_xpm_[SMALL_STONES];
     QPixmap largeStone_xpm_[LARGE_STONES];
     QPixmap otherPixmaps_[OTHER_IMAGES];
-    QPixmap background_, brightObject_, brightTreasure_;
+    QPixmap background_;
+    QPixmap brightObject_;
+    QPixmap brightTreasure_;
     QPixmap floor_;
     QImage objectImg_;
 

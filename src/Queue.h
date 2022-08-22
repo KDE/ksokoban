@@ -23,15 +23,16 @@ public:
         delete[] queue_;
     }
 
+public:
     void clear()
     {
         head_ = tail_ = 0;
     }
-    bool empty()
+    bool empty() const
     {
         return head_ == tail_;
     }
-    bool full()
+    bool full() const
     {
         return ((tail_ + 1) & ((1l << SizePow2) - 1)) == head_;
     }
@@ -53,7 +54,8 @@ public:
 
 private:
     Type *queue_;
-    long head_, tail_;
+    long head_;
+    long tail_;
 };
 
 #endif /* QUEUE_H */
