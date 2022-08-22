@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Friedrich W. H. Kossebau <kossebau@kde.org>
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 add_executable(bin2c bin2c.c)
 
 # target_link_libraries(bin2c

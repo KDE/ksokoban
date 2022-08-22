@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Friedrich W. H. Kossebau <kossebau@kde.org>
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 add_subdirectory(images)
 add_subdirectory(levels)
 
