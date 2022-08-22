@@ -37,6 +37,9 @@ public Q_SLOTS:
 
     void loadLevels();
 
+public:
+    QSize sizeHint() const override;
+
 protected:
     void focusInEvent(QFocusEvent *) override;
     void dragEnterEvent(QDragEnterEvent *) override;

@@ -60,12 +60,6 @@ MainWindow::MainWindow()
 {
     // setEraseColor(QColor(0,0,0));
 
-    KSharedConfigPtr cfg = KSharedConfig::openConfig();
-    KConfigGroup geometryGroup(cfg, "Geometry");
-    int width = geometryGroup.readEntry("width", "750").toInt();
-    int height = geometryGroup.readEntry("height", "562").toInt();
-    resize(width, height);
-
     playField_ = new PlayField(this);
     setCentralWidget(playField_);
 
@@ -78,9 +72,6 @@ MainWindow::MainWindow()
 MainWindow::~MainWindow()
 {
     KSharedConfigPtr cfg = KSharedConfig::openConfig();
-    KConfigGroup geometryGroup(cfg, "Geometry");
-    geometryGroup.writeEntry("width", QStringLiteral("%1").arg(width()));
-    geometryGroup.writeEntry("height", QStringLiteral("%1").arg(height()));
 
     KConfigGroup settingsGroup(cfg, "settings");
     settingsGroup.writeEntry("collection", QStringLiteral("%1").arg(internalCollections_[collectionsAct_->currentItem()]->id()));
@@ -340,6 +331,11 @@ void MainWindow::openURL(const QUrl &_url)
     externalCollection_ = tmpCollection;
 
     playField_->changeCollection(externalCollection_);
+}
+
+QSize MainWindow::sizeHint() const
+{
+    return KXmlGuiWindow::sizeHint().expandedTo(QSize(750, 562));
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *event)
