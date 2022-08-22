@@ -4,14 +4,42 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>KSokoban</name>
+  <name xml:lang="ca">KSokoban</name>
+  <name xml:lang="ca-valencia">KSokoban</name>
+  <name xml:lang="nl">KSokoban</name>
+  <name xml:lang="pt">KSokoban</name>
+  <name xml:lang="tr">KSokoban</name>
+  <name xml:lang="uk">KSokoban</name>
+  <name xml:lang="x-test">xxKSokobanxx</name>
   <summary>Sokoban Game</summary>
+  <summary xml:lang="ca">Joc del Sokoban</summary>
+  <summary xml:lang="ca-valencia">Joc de Sokoban</summary>
+  <summary xml:lang="nl">Sokoban-spel</summary>
+  <summary xml:lang="pt">Jogo Sokoban</summary>
+  <summary xml:lang="tr">Sokoban Oyunu</summary>
+  <summary xml:lang="uk">Гра «Сокобан»</summary>
+  <summary xml:lang="x-test">xxSokoban Gamexx</summary>
   <description>
     <p>
       KSokoban is a implementation of the Japanese warehouse keeper game “sokoban”.
     </p>
+    <p xml:lang="ca">El KSokoban és una implementació del joc japonès «Sokoban» de l'encarregat de magatzem.</p>
+    <p xml:lang="ca-valencia">KSokoban és una implementació del joc japonés «Sokoban» de l'encarregat de magatzem.</p>
+    <p xml:lang="nl">KSokoban is een implementatie van het Japanse magazijn-beheerder-spel “sokoban”.</p>
+    <p xml:lang="pt">O KSokoban é uma implementação do jogo japonês de arrumação de armazéns “sokoban”.</p>
+    <p xml:lang="tr">KSokoban, Japon depo bekçisi oyunu "Sokoban"ın bir uyarlamasıdır.</p>
+    <p xml:lang="uk">KSokoban — реалізація японської гри у комірника, «сокобан».</p>
+    <p xml:lang="x-test">xxKSokoban is a implementation of the Japanese warehouse keeper game “sokoban”.xx</p>
     <p>
       The idea is that you are a warehouse keeper trying to push crates to their proper locations in a warehouse. The problem is that you cannot pull the crates or step over them. If you are not careful, some of the crates can get stuck in wrong places and/or block your way. 
     </p>
+    <p xml:lang="ca">La idea és que sou un encarregat de magatzem que intenta empènyer caixes a les seves ubicacions apropiades en un magatzem. El problema és que no podeu estirar les caixes ni trepitjar-les. Si no teniu cura, algunes de les caixes podrien quedar atrapades en llocs equivocats o bloquejar el camí.</p>
+    <p xml:lang="ca-valencia">La idea és que sou un encarregat de magatzem que intenta empényer caixes a les seues ubicacions apropiades en un magatzem. El problema és que no podeu estirar les caixes ni trepitjar-les. Si no teniu cura, algunes de les caixes podrien quedar atrapades en llocs equivocats o bloquejar el camí.</p>
+    <p xml:lang="nl">Het idee is dat u een magazijnbeheerder bent die kratten op hun juiste locaties in een magazijn plaatst. Het probleem is dat u niet aan de kratten kan trekken of erover kan stappen. Als u niet voorzichtig bent, dan kunnen kratten in de verkeerde plaats vast komen te zitten en/of uw weg blokkeren.</p>
+    <p xml:lang="pt">A ideia é que você é um arrumador de armazéns que tenta empurrar os caixotes para o seu local correcto num armazém. O problema é que não pode puxar os caixotes ou passar por cima deles. Se não tiver cuidado, alguns dos caixotes podem ficar presos em lugares errados e/ou bloquear a sua passagem.</p>
+    <p xml:lang="tr">Buradaki fikir, kasaları bir depodaki uygun yerlerine itmeye çalışan bir depo bekçisi olmanızdır. Sorun şu ki, kasaları çekemiyor veya üzerinden geçemezsiniz. Dikkatli olmazsanız bazı sandıklar yanlış yerlere takılabilir ve/veya yolunuzu kapatabilir.</p>
+    <p xml:lang="uk">Ви граєте за комірника, якому треба перетягти скриньки на складі у відповідні їм місця. Проблема полягає у тому, що ви не можете тягнути скриньки або переступати через них. Якщо ви не будете обережними, деякі скриньки може бути заблоковано у невідповідних місцях і/або вони можуть заблокувати вам дорогу.</p>
+    <p xml:lang="x-test">xxThe idea is that you are a warehouse keeper trying to push crates to their proper locations in a warehouse. The problem is that you cannot pull the crates or step over them. If you are not careful, some of the crates can get stuck in wrong places and/or block your way.xx</p>
   </description>
   <content_rating type="oars-1.1"/>
   <url type="homepage">https://apps.kde.org/ksokoban</url>
