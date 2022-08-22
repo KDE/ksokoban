@@ -88,7 +88,7 @@ int ImageData::resize(int size)
 
     const qreal dpr = qApp->devicePixelRatio();
     const int deviceSize_ = size_ * dpr;
-    const int halfdeviceSize_ = deviceSize_ / 2;
+    halfdeviceSize_ = deviceSize_ / 2;
 
     for (int i = 0; i < SMALL_STONES; i++) {
         image2pixmap(images_[i].scaled(halfdeviceSize_, halfdeviceSize_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation), smallStone_xpm_[i], dpr);
@@ -128,7 +128,8 @@ int ImageData::resize(int size)
         //     otherPixmaps_[i].convertFromImage(images_[SMALL_STONES+LARGE_STONES+i].smoothScale(size_, size_),
         //     QPixmap::ColorOnly|QPixmap::OrderedDither|QPixmap::OrderedAlphaDither|QPixmap::AvoidDither);
     }
-    floor_ = floor_.scaled(size_, size_);
+    floor_ = floor_.scaled(deviceSize_, deviceSize_);
+    floor_.setDevicePixelRatio(dpr);
     return size_;
 }
 
@@ -169,12 +170,12 @@ void ImageData::brighten(QImage &img)
 void ImageData::wall(QPainter &p, int x, int y, int index, bool left, bool right)
 {
     if (left)
-        p.drawPixmap(x, y, upperLarge(index - 1), halfSize_, 0, -1, -1);
+        p.drawPixmap(x, y, upperLarge(index - 1), halfdeviceSize_, 0, -1, -1);
     else
         p.drawPixmap(x, y, leftSmall(index));
 
     if (right)
-        p.drawPixmap(x + halfSize_, y, upperLarge(index), 0, 0, halfSize_, -1);
+        p.drawPixmap(x + halfSize_, y, upperLarge(index), 0, 0, halfdeviceSize_, -1);
     else
         p.drawPixmap(x + halfSize_, y, rightSmall(index));
 

@@ -81,6 +81,7 @@ protected:
 
     int size_ = 0;
     int halfSize_  = 0;
+    int halfdeviceSize_ = 0;
     QRandomGenerator random;
 };
 
