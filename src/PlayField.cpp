@@ -82,20 +82,13 @@ PlayField::~PlayField()
     delete history_;
     delete levelMap_;
     delete imageData_;
-    if (ltxtXpm_)
-        delete ltxtXpm_;
-    if (lnumXpm_)
-        delete lnumXpm_;
-    if (stxtXpm_)
-        delete stxtXpm_;
-    if (snumXpm_)
-        delete snumXpm_;
-    if (ptxtXpm_)
-        delete ptxtXpm_;
-    if (pnumXpm_)
-        delete pnumXpm_;
-    if (collXpm_)
-        delete collXpm_;
+    delete ltxtXpm_;
+    delete lnumXpm_;
+    delete stxtXpm_;
+    delete snumXpm_;
+    delete ptxtXpm_;
+    delete pnumXpm_;
+    delete collXpm_;
 }
 
 void PlayField::changeCursor(const QCursor *c)
@@ -755,20 +748,14 @@ void PlayField::setSize(int w, int h)
     collRect_.setRect(0, h - sbarHeight, ltxtRect_.x(), sbarHeight);
 
     // printf("collRect_:%d;%d;%d;%d\n",collRect_.x(), collRect_.y(), collRect_.width(), collRect_.height());
-    if (ltxtXpm_)
-        delete ltxtXpm_;
-    if (lnumXpm_)
-        delete lnumXpm_;
-    if (stxtXpm_)
-        delete stxtXpm_;
-    if (snumXpm_)
-        delete snumXpm_;
-    if (ptxtXpm_)
-        delete ptxtXpm_;
-    if (pnumXpm_)
-        delete pnumXpm_;
-    if (collXpm_)
-        delete collXpm_;
+
+    delete ltxtXpm_;
+    delete lnumXpm_;
+    delete stxtXpm_;
+    delete snumXpm_;
+    delete ptxtXpm_;
+    delete pnumXpm_;
+    delete collXpm_;
     ltxtXpm_ = new QPixmap(ltxtRect_.size());
     lnumXpm_ = new QPixmap(lnumRect_.size());
     stxtXpm_ = new QPixmap(stxtRect_.size());
