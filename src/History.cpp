@@ -12,25 +12,25 @@
 
 #include <QList>
 
-History::History()
-{
-    // past_.setAutoDelete(true);
-    // future_.setAutoDelete(true);
-}
+History::History() = default;
+
 History::~History()
 {
-    qDeleteAll(past_);
-    qDeleteAll(future_);
+    clear();
 }
 
 void History::add(Move *_m)
 {
+    qDeleteAll(future_);
     future_.clear();
+
     past_.append(_m);
 }
 
 void History::clear()
 {
+    qDeleteAll(past_);
+    qDeleteAll(future_);
     past_.clear();
     future_.clear();
 }
@@ -49,16 +49,17 @@ void History::save(QString &_str) const
 
 const char *History::load(LevelMap *map, const char *_str)
 {
-    Move *m;
     int x = map->xpos();
     int y = map->ypos();
 
     clear();
     while (*_str != '\0' && *_str != '-') {
-        m = new Move(x, y);
+        auto *m = new Move(x, y);
         _str = m->load(_str);
-        if (_str == nullptr)
+        if (_str == nullptr) {
+            delete m;
             return nullptr;
+        }
         x = m->finalX();
         y = m->finalY();
         past_.append(m);
@@ -73,10 +74,12 @@ const char *History::load(LevelMap *map, const char *_str)
 
     _str++;
     while (*_str != '\0') {
-        m = new Move(x, y);
+        auto *m = new Move(x, y);
         _str = m->load(_str);
-        if (_str == nullptr)
+        if (_str == nullptr) {
+            delete m;
             return nullptr;
+        }
         x = m->finalX();
         y = m->finalY();
         future_.append(m);
