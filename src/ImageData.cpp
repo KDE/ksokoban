@@ -7,6 +7,7 @@
 #include "ImageData.h"
 
 #include <QColor>
+#include <QGuiApplication>
 #include <QImage>
 #include <QPainter>
 #include <QPixmap>
@@ -85,41 +86,45 @@ int ImageData::resize(int size)
     size_ = size;
     halfSize_ = size / 2;
 
+    const qreal dpr = qApp->devicePixelRatio();
+    const int deviceSize_ = size_ * dpr;
+    const int halfdeviceSize_ = deviceSize_ / 2;
+
     for (int i = 0; i < SMALL_STONES; i++) {
-        image2pixmap(images_[i].scaled(halfSize_, halfSize_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation), smallStone_xpm_[i]);
+        image2pixmap(images_[i].scaled(halfdeviceSize_, halfdeviceSize_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation), smallStone_xpm_[i], dpr);
         //     smallStone_xpm_[i].convertFromImage(images_[i].smoothScale(halfSize_, halfSize_),
         //     QPixmap::ColorOnly|QPixmap::DiffuseDither|QPixmap::DiffuseAlphaDither|QPixmap::AvoidDither);
     }
 
     for (int i = 0; i < LARGE_STONES; i++) {
-        image2pixmap(images_[SMALL_STONES + i].scaled(size_, halfSize_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation), largeStone_xpm_[i]);
+        image2pixmap(images_[SMALL_STONES + i].scaled(deviceSize_, halfdeviceSize_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation), largeStone_xpm_[i], dpr);
         //     largeStone_xpm_[i].convertFromImage(images_[SMALL_STONES+i].smoothScale(size_, halfSize_) ,
         //     QPixmap::ColorOnly|QPixmap::DiffuseDither|QPixmap::DiffuseAlphaDither|QPixmap::AvoidDither);
     }
 
-    objectImg_ = images_[SMALL_STONES + LARGE_STONES].scaled(size_, size_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    objectImg_ = images_[SMALL_STONES + LARGE_STONES].scaled(deviceSize_, deviceSize_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 
     // Use copy() because if the size is not changed, smoothScale is not
     // really a copy
     // Use {[Geometry] height=753 width=781} to test
 
-    if (objectImg_.width() == size_)
+    if (objectImg_.width() == deviceSize_)
         objectImg_ = objectImg_.copy();
 
-    image2pixmap(objectImg_, otherPixmaps_[0], false);
+    image2pixmap(objectImg_, otherPixmaps_[0], dpr, false);
     brighten(objectImg_);
-    image2pixmap(objectImg_, brightObject_, false);
+    image2pixmap(objectImg_, brightObject_, dpr, false);
 
-    QImage img = images_[SMALL_STONES + LARGE_STONES + 1].scaled(size_, size_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-    if (img.width() == size_)
+    QImage img = images_[SMALL_STONES + LARGE_STONES + 1].scaled(deviceSize_, deviceSize_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    if (img.width() == deviceSize_)
         img = img.copy();
 
-    image2pixmap(img, otherPixmaps_[1], false);
+    image2pixmap(img, otherPixmaps_[1], dpr, false);
     brighten(img);
-    image2pixmap(img, brightTreasure_, false);
+    image2pixmap(img, brightTreasure_, dpr, false);
 
     for (int i = 2; i < OTHER_IMAGES; i++) {
-        image2pixmap(images_[SMALL_STONES + LARGE_STONES + i].scaled(size_, size_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation), otherPixmaps_[i]);
+        image2pixmap(images_[SMALL_STONES + LARGE_STONES + i].scaled(deviceSize_, deviceSize_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation), otherPixmaps_[i], dpr);
         //     otherPixmaps_[i].convertFromImage(images_[SMALL_STONES+LARGE_STONES+i].smoothScale(size_, size_),
         //     QPixmap::ColorOnly|QPixmap::OrderedDither|QPixmap::OrderedAlphaDither|QPixmap::AvoidDither);
     }
@@ -130,11 +135,12 @@ int ImageData::resize(int size)
 // Don't use DiffuseDither for the objects on the "floor" since
 // it gives spurious dots on the floor around them
 
-void ImageData::image2pixmap(const QImage &img, QPixmap &xpm, bool diffuse)
+void ImageData::image2pixmap(const QImage &img, QPixmap &xpm, qreal dpr, bool diffuse)
 {
     xpm = QPixmap::fromImage(img,
                              (diffuse ? (Qt::DiffuseDither | Qt::DiffuseAlphaDither) : (Qt::OrderedDither | Qt::OrderedAlphaDither)) | Qt::ColorOnly
                                  | Qt::AvoidDither);
+    xpm.setDevicePixelRatio(dpr);
 }
 
 void ImageData::brighten(QImage &img)
