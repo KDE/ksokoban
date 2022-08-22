@@ -54,9 +54,9 @@ ModalLabel::ModalLabel(const QString &text, QWidget *parent, Qt::WindowFlags f)
     resize(width, height);
     show();
 
-    QWidgetList list = QApplication::allWidgets();
-    for (QWidgetList::Iterator it = list.begin(); it != list.end(); it++) {
-        (*it)->installEventFilter(this);
+    const QWidgetList widgets = QApplication::allWidgets();
+    for (QWidget *widget : widgets) {
+        widget->installEventFilter(this);
     }
 
     completed_ = false;

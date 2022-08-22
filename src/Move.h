@@ -100,7 +100,7 @@ public:
         return (moves_[moveIndex_ - 1] >> 8) & 0x7f;
     }
 
-    void save(QString &_str);
+    void save(QString &_str) const;
     const char *load(const char *_str);
     bool redo(LevelMap *map);
     bool undo(LevelMap *map);

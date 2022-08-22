@@ -45,7 +45,7 @@ void Move::finish()
     finished_ = true;
 }
 
-void Move::save(QString &s)
+void Move::save(QString &s) const
 {
     static const char move1[] = "lrud";
     static const char push1[] = "LRUD";

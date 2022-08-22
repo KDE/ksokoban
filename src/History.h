@@ -38,7 +38,7 @@ public:
      */
     void clear();
 
-    void save(QString &_str);
+    void save(QString &_str) const;
     const char *load(LevelMap *map, const char *_str);
     bool redo(LevelMap *map);
     MoveSequence *deferRedo(LevelMap *map);

@@ -19,10 +19,8 @@ History::History()
 }
 History::~History()
 {
-    for (QList<Move *>::iterator it = past_.begin(); it != past_.end(); it++)
-        delete *it;
-    for (QList<Move *>::iterator it = future_.begin(); it != future_.end(); it++)
-        delete *it;
+    qDeleteAll(past_);
+    qDeleteAll(future_);
 }
 
 void History::add(Move *_m)
@@ -37,15 +35,15 @@ void History::clear()
     future_.clear();
 }
 
-void History::save(QString &_str)
+void History::save(QString &_str) const
 {
-    for (QList<Move *>::Iterator iterator = past_.begin(); iterator != past_.end(); ++iterator) {
-        (*iterator)->save(_str);
+    for (Move *move : past_) {
+        move->save(_str);
     }
     _str += QLatin1Char('-');
 
-    for (QList<Move *>::Iterator iterator = future_.begin(); iterator != future_.end(); ++iterator) {
-        (*iterator)->save(_str);
+    for (Move *move : future_) {
+        move->save(_str);
     }
 }
 

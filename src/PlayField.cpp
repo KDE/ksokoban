@@ -1051,8 +1051,8 @@ bool PlayField::canMoveNow()
 
 void PlayField::killTimers()
 {
-    for (QList<int>::Iterator it = timers.begin(); it != timers.end(); it++) {
-        killTimer(*it);
+    for (int timerId : std::as_const(timers)) {
+        killTimer(timerId);
     }
     timers.clear();
 }

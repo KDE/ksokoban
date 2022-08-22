@@ -132,9 +132,7 @@ InternalCollections::InternalCollections()
 
 InternalCollections::~InternalCollections()
 {
-    for (int i = 0; i < collections_.size(); i++) {
-        delete collections_[i];
-    }
+    qDeleteAll(collections_);
 
     free(data_);
 }
