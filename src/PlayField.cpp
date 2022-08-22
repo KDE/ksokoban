@@ -749,6 +749,8 @@ void PlayField::setSize(int w, int h)
 
     // printf("collRect_:%d;%d;%d;%d\n",collRect_.x(), collRect_.y(), collRect_.width(), collRect_.height());
 
+    const qreal dpr = qApp->devicePixelRatio();
+
     delete ltxtXpm_;
     delete lnumXpm_;
     delete stxtXpm_;
@@ -756,13 +758,20 @@ void PlayField::setSize(int w, int h)
     delete ptxtXpm_;
     delete pnumXpm_;
     delete collXpm_;
-    ltxtXpm_ = new QPixmap(ltxtRect_.size());
-    lnumXpm_ = new QPixmap(lnumRect_.size());
-    stxtXpm_ = new QPixmap(stxtRect_.size());
-    snumXpm_ = new QPixmap(snumRect_.size());
-    ptxtXpm_ = new QPixmap(ptxtRect_.size());
-    pnumXpm_ = new QPixmap(pnumRect_.size());
-    collXpm_ = new QPixmap(collRect_.size());
+    ltxtXpm_ = new QPixmap(ltxtRect_.size() * dpr);
+    ltxtXpm_->setDevicePixelRatio(dpr);
+    lnumXpm_ = new QPixmap(lnumRect_.size() * dpr);
+    lnumXpm_->setDevicePixelRatio(dpr);
+    stxtXpm_ = new QPixmap(stxtRect_.size() * dpr);
+    stxtXpm_->setDevicePixelRatio(dpr);
+    snumXpm_ = new QPixmap(snumRect_.size() * dpr);
+    snumXpm_->setDevicePixelRatio(dpr);
+    ptxtXpm_ = new QPixmap(ptxtRect_.size() * dpr);
+    ptxtXpm_->setDevicePixelRatio(dpr);
+    pnumXpm_ = new QPixmap(pnumRect_.size() * dpr);
+    pnumXpm_->setDevicePixelRatio(dpr);
+    collXpm_ = new QPixmap(collRect_.size() * dpr);
+    collXpm_->setDevicePixelRatio(dpr);
 
     h -= sbarHeight;
 
