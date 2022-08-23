@@ -63,7 +63,6 @@ PlayField::PlayField(QWidget *parent)
     history_ = new History;
 
     background_.setTexture(imageData_->background());
-    // floor_ = QColor(0x66,0x66,0x66, 255);
 
     levelMap_ = new LevelMap;
     mapDelta_ = new MapDelta(levelMap_);
@@ -154,9 +153,7 @@ void PlayField::paintSquare(int x, int y, QPainter &paint)
             if (levelMap_->goal(x, y))
                 imageData_->goal(paint, x2pixel(x), y2pixel(y));
             else {
-                // paint.fillRect(x2pixel(x), y2pixel(y), size_, size_, floor_);
                 imageData_->floor(paint, x2pixel(x), y2pixel(y));
-                // printf("executing paint.fillRect(): %d; %d,%d,%d,%d\n",++debug_counter, x2pixel(x), y2pixel(y), size_, size_);
             }
         } else {
             paint.fillRect(x2pixel(x), y2pixel(y), size_, size_, background_);

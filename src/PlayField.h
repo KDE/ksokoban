@@ -178,7 +178,6 @@ private:
     QFont statusFont_;
     QFontMetrics statusMetrics_;
     QBrush background_;
-    QBrush floor_;
 };
 
 #endif /* PLAYFIELD_H */
