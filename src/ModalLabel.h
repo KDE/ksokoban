@@ -21,7 +21,7 @@ protected:
     bool eventFilter(QObject *, QEvent *) override;
 
 protected:
-    ModalLabel(const QString &text, QWidget *parent, Qt::WindowFlags f = {});
+    ModalLabel(const QString &text, QWidget *parent);
 
 private:
     bool completed_ = false;

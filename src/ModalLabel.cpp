@@ -13,8 +13,8 @@
 #include <QString>
 #include <QWidgetList>
 
-ModalLabel::ModalLabel(const QString &text, QWidget *parent, Qt::WindowFlags f)
-    : QLabel(text, parent, f)
+ModalLabel::ModalLabel(const QString &text, QWidget *parent)
+    : QLabel(text, parent)
 {
     QFont font(QFontDatabase::systemFont(QFontDatabase::GeneralFont).family(), 24, QFont::Bold);
     QFontMetrics fontMet(font);
