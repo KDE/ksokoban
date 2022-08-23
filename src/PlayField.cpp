@@ -82,13 +82,6 @@ PlayField::~PlayField()
     delete history_;
     delete levelMap_;
     delete imageData_;
-    delete ltxtXpm_;
-    delete lnumXpm_;
-    delete stxtXpm_;
-    delete snumXpm_;
-    delete ptxtXpm_;
-    delete pnumXpm_;
-    delete collXpm_;
 }
 
 void PlayField::changeCursor(const QCursor *c)
@@ -269,20 +262,20 @@ void PlayField::paintPainter(QPainter &paint, const QRect &rect)
         }
     }
 
-    if (collRect_.intersects(rect) && collXpm_)
-        paint.drawPixmap(collRect_.x(), collRect_.y(), *collXpm_);
-    if (ltxtRect_.intersects(rect) && ltxtXpm_)
-        paint.drawPixmap(ltxtRect_.x(), ltxtRect_.y(), *ltxtXpm_);
-    if (lnumRect_.intersects(rect) && lnumXpm_)
-        paint.drawPixmap(lnumRect_.x(), lnumRect_.y(), *lnumXpm_);
-    if (stxtRect_.intersects(rect) && stxtXpm_)
-        paint.drawPixmap(stxtRect_.x(), stxtRect_.y(), *stxtXpm_);
-    if (snumRect_.intersects(rect) && snumXpm_)
-        paint.drawPixmap(snumRect_.x(), snumRect_.y(), *snumXpm_);
-    if (ptxtRect_.intersects(rect) && ptxtXpm_)
-        paint.drawPixmap(ptxtRect_.x(), ptxtRect_.y(), *ptxtXpm_);
-    if (pnumRect_.intersects(rect) && pnumXpm_)
-        paint.drawPixmap(pnumRect_.x(), pnumRect_.y(), *pnumXpm_);
+    if (collRect_.intersects(rect))
+        paint.drawPixmap(collRect_.x(), collRect_.y(), collXpm_);
+    if (ltxtRect_.intersects(rect))
+        paint.drawPixmap(ltxtRect_.x(), ltxtRect_.y(), ltxtXpm_);
+    if (lnumRect_.intersects(rect))
+        paint.drawPixmap(lnumRect_.x(), lnumRect_.y(), lnumXpm_);
+    if (stxtRect_.intersects(rect))
+        paint.drawPixmap(stxtRect_.x(), stxtRect_.y(), stxtXpm_);
+    if (snumRect_.intersects(rect))
+        paint.drawPixmap(snumRect_.x(), snumRect_.y(), snumXpm_);
+    if (ptxtRect_.intersects(rect))
+        paint.drawPixmap(ptxtRect_.x(), ptxtRect_.y(), ptxtXpm_);
+    if (pnumRect_.intersects(rect))
+        paint.drawPixmap(pnumRect_.x(), pnumRect_.y(), pnumXpm_);
 }
 
 void PlayField::resizeEvent(QResizeEvent *e)
@@ -751,27 +744,20 @@ void PlayField::setSize(int w, int h)
 
     const qreal dpr = qApp->devicePixelRatio();
 
-    delete ltxtXpm_;
-    delete lnumXpm_;
-    delete stxtXpm_;
-    delete snumXpm_;
-    delete ptxtXpm_;
-    delete pnumXpm_;
-    delete collXpm_;
-    ltxtXpm_ = new QPixmap(ltxtRect_.size() * dpr);
-    ltxtXpm_->setDevicePixelRatio(dpr);
-    lnumXpm_ = new QPixmap(lnumRect_.size() * dpr);
-    lnumXpm_->setDevicePixelRatio(dpr);
-    stxtXpm_ = new QPixmap(stxtRect_.size() * dpr);
-    stxtXpm_->setDevicePixelRatio(dpr);
-    snumXpm_ = new QPixmap(snumRect_.size() * dpr);
-    snumXpm_->setDevicePixelRatio(dpr);
-    ptxtXpm_ = new QPixmap(ptxtRect_.size() * dpr);
-    ptxtXpm_->setDevicePixelRatio(dpr);
-    pnumXpm_ = new QPixmap(pnumRect_.size() * dpr);
-    pnumXpm_->setDevicePixelRatio(dpr);
-    collXpm_ = new QPixmap(collRect_.size() * dpr);
-    collXpm_->setDevicePixelRatio(dpr);
+    ltxtXpm_ = QPixmap(ltxtRect_.size() * dpr);
+    ltxtXpm_.setDevicePixelRatio(dpr);
+    lnumXpm_ = QPixmap(lnumRect_.size() * dpr);
+    lnumXpm_.setDevicePixelRatio(dpr);
+    stxtXpm_ = QPixmap(stxtRect_.size() * dpr);
+    stxtXpm_.setDevicePixelRatio(dpr);
+    snumXpm_ = QPixmap(snumRect_.size() * dpr);
+    snumXpm_.setDevicePixelRatio(dpr);
+    ptxtXpm_ = QPixmap(ptxtRect_.size() * dpr);
+    ptxtXpm_.setDevicePixelRatio(dpr);
+    pnumXpm_ = QPixmap(pnumRect_.size() * dpr);
+    pnumXpm_.setDevicePixelRatio(dpr);
+    collXpm_ = QPixmap(collRect_.size() * dpr);
+    collXpm_.setDevicePixelRatio(dpr);
 
     h -= sbarHeight;
 
@@ -876,13 +862,11 @@ void PlayField::changeCollection(LevelCollection *collection)
 
 void PlayField::updateCollectionXpm()
 {
-    if (!collXpm_)
-        return;
-    if (collXpm_->isNull())
+    if (collXpm_.isNull())
         return;
     // printf("executing PlayField::updateCollectionXpm() w:%d, h:%d\n",collXpm_->width(), collXpm_->height());
 
-    QPainter paint(collXpm_);
+    QPainter paint(&collXpm_);
     paint.setBrushOrigin(-collRect_.x(), -collRect_.y());
     paint.fillRect(0, 0, collRect_.width(), collRect_.height(), background_);
 
@@ -893,15 +877,13 @@ void PlayField::updateCollectionXpm()
 
 void PlayField::updateTextXpm()
 {
-    if (!ltxtXpm_)
-        return;
-    if (ltxtXpm_->isNull())
+    if (ltxtXpm_.isNull())
         return;
     // printf("executing PlayField::updateTextXpm() w:%d, h:%d\n",ltxtXpm_->width(), ltxtXpm_->height());
 
     QPainter paint;
 
-    paint.begin(ltxtXpm_);
+    paint.begin(&ltxtXpm_);
     paint.setBrushOrigin(-ltxtRect_.x(), -ltxtRect_.y());
     paint.fillRect(0, 0, ltxtRect_.width(), ltxtRect_.height(), background_);
     paint.setFont(statusFont_);
@@ -909,7 +891,7 @@ void PlayField::updateTextXpm()
     paint.drawText(0, 0, ltxtRect_.width(), ltxtRect_.height(), Qt::AlignLeft, levelText_);
     paint.end();
 
-    paint.begin(stxtXpm_);
+    paint.begin(&stxtXpm_);
     paint.setBrushOrigin(-stxtRect_.x(), -stxtRect_.y());
     paint.fillRect(0, 0, stxtRect_.width(), stxtRect_.height(), background_);
     paint.setFont(statusFont_);
@@ -917,7 +899,7 @@ void PlayField::updateTextXpm()
     paint.drawText(0, 0, stxtRect_.width(), stxtRect_.height(), Qt::AlignLeft, stepsText_);
     paint.end();
 
-    paint.begin(ptxtXpm_);
+    paint.begin(&ptxtXpm_);
     paint.setBrushOrigin(-ptxtRect_.x(), -ptxtRect_.y());
     paint.fillRect(0, 0, ptxtRect_.width(), ptxtRect_.height(), background_);
     paint.setFont(statusFont_);
@@ -928,13 +910,11 @@ void PlayField::updateTextXpm()
 
 void PlayField::updateLevelXpm()
 {
-    if (!lnumXpm_)
-        return;
-    if (lnumXpm_->isNull())
+    if (lnumXpm_.isNull())
         return;
     // printf("executing PlayField::updateLevelXpm()\n");
 
-    QPainter paint(lnumXpm_);
+    QPainter paint(&lnumXpm_);
     paint.setBrushOrigin(-lnumRect_.x(), -lnumRect_.y());
     paint.fillRect(0, 0, lnumRect_.width(), lnumRect_.height(), background_);
 
@@ -945,13 +925,11 @@ void PlayField::updateLevelXpm()
 
 void PlayField::updateStepsXpm()
 {
-    if (!snumXpm_)
-        return;
-    if (snumXpm_->isNull())
+    if (snumXpm_.isNull())
         return;
     // printf("executing PlayField::updateStepsXpm()\n");
 
-    QPainter paint(snumXpm_);
+    QPainter paint(&snumXpm_);
     paint.setBrushOrigin(-snumRect_.x(), -snumRect_.y());
     paint.fillRect(0, 0, snumRect_.width(), snumRect_.height(), background_);
 
@@ -962,13 +940,11 @@ void PlayField::updateStepsXpm()
 
 void PlayField::updatePushesXpm()
 {
-    if (!pnumXpm_)
-        return;
-    if (pnumXpm_->isNull())
+    if (pnumXpm_.isNull())
         return;
     // printf("executing PlayField::updatePushesXpm()\n");
 
-    QPainter paint(pnumXpm_);
+    QPainter paint(&pnumXpm_);
     paint.setBrushOrigin(-pnumRect_.x(), -pnumRect_.y());
     paint.fillRect(0, 0, pnumRect_.width(), pnumRect_.height(), background_);
 
