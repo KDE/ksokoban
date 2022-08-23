@@ -12,6 +12,8 @@
 
 //#include <cstdio>
 
+static constexpr int PATH_WALL = 32767;
+
 void PathFinder::BFS(int _x, int _y)
 {
     Queue<int, 10> xq;

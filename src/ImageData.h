@@ -13,11 +13,6 @@
 
 class QPainter;
 
-#define SMALL_STONES 4
-#define LARGE_STONES 6
-#define OTHER_IMAGES 5
-#define NO_OF_IMAGES (SMALL_STONES + LARGE_STONES + OTHER_IMAGES)
-
 class ImageData
 {
 public:
@@ -62,6 +57,11 @@ protected:
     const QPixmap &rightSmall(int index);
 
 protected:
+    static constexpr int SMALL_STONES = 4;
+    static constexpr int LARGE_STONES = 6;
+    static constexpr int OTHER_IMAGES = 5;
+    static constexpr int NO_OF_IMAGES = (SMALL_STONES + LARGE_STONES + OTHER_IMAGES);
+
     QImage images_[NO_OF_IMAGES];
 
     QPixmap smallStone_xpm_[SMALL_STONES];

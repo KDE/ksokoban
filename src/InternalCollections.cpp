@@ -1,9 +1,6 @@
 #include "InternalCollections.h"
 
-#ifndef LEVELS_INCLUDED
-#define LEVELS_INCLUDED 1
 #include "levels/data.c"
-#endif
 
 #include <KLocalizedString>
 
@@ -15,7 +12,7 @@
 #include <cstdio>
 #include <cstdlib>
 
-#define BUFSIZE (128 * 1024)
+static constexpr int BUFSIZE = (128 * 1024);
 
 // static const int collection_save_id[] = {
 //   0, 1, 3, 5, 9, 6, 7, 8, 2, 4

@@ -17,8 +17,6 @@
 #include <cstdlib>
 #include <cstring>
 
-#define BUFSIZE (128 * 1024)
-
 const QString &LevelMap::collectionName() const
 {
     return collection_->name();

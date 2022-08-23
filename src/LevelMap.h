@@ -15,8 +15,6 @@
 
 class LevelCollection;
 
-//#define EXTERNAL_LEVEL 100
-
 class LevelMap : public Map
 {
 public:

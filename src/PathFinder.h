@@ -11,8 +11,6 @@
 
 class Move;
 
-#define PATH_WALL 32767
-
 class PathFinder
 {
 public:
@@ -25,8 +23,6 @@ public:
     void updatePossibleDestinations(int x, int y);
 
 protected:
-    // static const int PATH_WALL=32767;
-
     int dist[MAX_Y + 1][MAX_X + 1];
 
     void BFS(int _x, int _y);
