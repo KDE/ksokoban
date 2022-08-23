@@ -82,7 +82,7 @@ Move *PathFinder::search(Map *_map, int _x, int _y)
 #endif
 
     int d;
-    Move *move = new Move(xpos, ypos);
+    auto *move = new Move(xpos, ypos);
     int oldX, oldY;
     for (;;) {
         oldX = xpos;

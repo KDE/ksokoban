@@ -315,7 +315,7 @@ void MainWindow::openURL(const QUrl &_url)
         levelFile = f.fileName();
     }
 
-    LevelCollection *tmpCollection = new LevelCollection(levelFile, levelName);
+    auto *tmpCollection = new LevelCollection(levelFile, levelName);
 
     if (tmpCollection->noOfLevels() < 1) {
         KMessageBox::error(this, i18n("No levels found in file"));

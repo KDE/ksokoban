@@ -58,7 +58,7 @@ int main(int argc, char **argv)
     parser.process(app);
     aboutData.processCommandLine(&parser);
 
-    MainWindow *widget = new MainWindow();
+    auto *widget = new MainWindow();
     widget->show();
 
     const QStringList positionalArguments = parser.positionalArguments();

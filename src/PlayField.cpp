@@ -433,7 +433,7 @@ void PlayField::step(int _x, int _y)
     }
 
     if (x != oldX || y != oldY) {
-        Move *m = new Move(oldX, oldY);
+        auto *m = new Move(oldX, oldY);
         m->step(x, y);
         m->finish();
         history_->add(m);
@@ -473,7 +473,7 @@ void PlayField::push(int _x, int _y)
     }
 
     if (x != oldX || y != oldY) {
-        Move *m = new Move(oldX, oldY);
+        auto *m = new Move(oldX, oldY);
 
         if (objX != oldX || objY != oldY)
             m->step(objX, objY);

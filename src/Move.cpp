@@ -35,7 +35,7 @@ void Move::finish()
     assert(!finished_);
     assert(moveIndex_ > 1);
 
-    unsigned short *newMoves = new unsigned short[moveIndex_];
+    auto *newMoves = new unsigned short[moveIndex_];
     memcpy(newMoves, moves_, moveIndex_ * sizeof(unsigned short));
     delete[] moves_;
     moves_ = newMoves;
