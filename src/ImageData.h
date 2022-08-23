@@ -70,7 +70,6 @@ protected:
     QPixmap background_;
     QPixmap brightObject_;
     QPixmap brightTreasure_;
-    QPixmap floor_;
     QImage objectImg_;
 
     int indexSize_ = 0;

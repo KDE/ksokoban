@@ -15,11 +15,8 @@
 #include <cassert>
 
 ImageData::ImageData()
-    : floor_(10, 10)
 {
     random.seed(QRandomGenerator::global()->generate());
-    QPainter paint(&floor_);
-    paint.fillRect(0, 0, 10, 10, QColor(0x66, 0x66, 0x66, 255));
 }
 
 ImageData::~ImageData() = default;
@@ -128,8 +125,6 @@ int ImageData::resize(int size)
         //     otherPixmaps_[i].convertFromImage(images_[SMALL_STONES+LARGE_STONES+i].smoothScale(size_, size_),
         //     QPixmap::ColorOnly|QPixmap::OrderedDither|QPixmap::OrderedAlphaDither|QPixmap::AvoidDither);
     }
-    floor_ = floor_.scaled(deviceSize_, deviceSize_);
-    floor_.setDevicePixelRatio(dpr);
     return size_;
 }
 
@@ -184,8 +179,7 @@ void ImageData::wall(QPainter &p, int x, int y, int index, bool left, bool right
 
 void ImageData::floor(QPainter &p, int x, int y)
 {
-    // p.eraseRect(x, y, size_, size_);
-    p.drawPixmap(x, y, floor_);
+    p.fillRect(x, y, size_, size_, QColor(0x66, 0x66, 0x66, 255));
 }
 
 void ImageData::goal(QPainter &p, int x, int y)
