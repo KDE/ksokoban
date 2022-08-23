@@ -8,16 +8,12 @@
 
 #include <QColor>
 #include <QGuiApplication>
-#include <QImage>
 #include <QPainter>
-#include <QPixmap>
+#include <QRandomGenerator>
 
 #include <cassert>
 
-ImageData::ImageData()
-{
-    random.seed(QRandomGenerator::global()->generate());
-}
+ImageData::ImageData() = default;
 
 ImageData::~ImageData() = default;
 
@@ -31,11 +27,13 @@ void ImageData::expandIndex(int size)
     leftSmallIndex_.resize(size);
     rightSmallIndex_.resize(size);
 
+    QRandomGenerator *random = QRandomGenerator::global();
+
     for (int i = indexSize_; i < size; i++) {
-        upperLargeIndex_[i] = random.bounded(LARGE_STONES);
-        lowerLargeIndex_[i] = random.bounded(LARGE_STONES);
-        leftSmallIndex_[i] = random.bounded(SMALL_STONES);
-        rightSmallIndex_[i] = random.bounded(SMALL_STONES);
+        upperLargeIndex_[i] = random->bounded(LARGE_STONES);
+        lowerLargeIndex_[i] = random->bounded(LARGE_STONES);
+        leftSmallIndex_[i] = random->bounded(SMALL_STONES);
+        rightSmallIndex_[i] = random->bounded(SMALL_STONES);
     }
 
     indexSize_ = size;
