@@ -55,7 +55,7 @@ StaticImage::StaticImage()
     bool valid = background_.loadFromData((const uchar *)starfield_data_, (uint)sizeof(starfield_data_));
 
     if (!valid) {
-        background_ = background_.copy(0, 0, 128, 128);
+        background_ = QPixmap(128, 128);
         background_.fill(Qt::black);
     }
 
