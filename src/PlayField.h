@@ -38,34 +38,17 @@ public:
     ~PlayField() override;
 
 public:
-    bool canMoveNow();
     int animDelay() const
     {
         return animDelay_;
     }
 
-    void setSize(int w, int h);
-    void level(int _l)
-    {
-        levelMap_->level(_l);
-    }
-    LevelCollection *collection() const
-    {
-        return levelMap_->collection();
-    }
     void setBookmark(Bookmark *bm);
     void goToBookmark(Bookmark *bm);
 
-    int level() const;
-    const QString &collectionName() const;
-    int totalMoves() const;
-    int totalPushes() const;
+    void changeAnim(int num);
+    void changeCollection(LevelCollection *collection);
 
-    void updateCollectionXpm();
-    void updateTextXpm();
-    void updateLevelXpm();
-    void updateStepsXpm();
-    void updatePushesXpm();
 
 public Q_SLOTS:
     void nextLevel();
@@ -73,8 +56,6 @@ public Q_SLOTS:
     void undo();
     void redo();
     void restartLevel();
-    void changeCollection(LevelCollection *collection);
-    void changeAnim(int num);
 
 protected:
     void paintEvent(QPaintEvent *e) override;
@@ -89,7 +70,29 @@ protected:
     void wheelEvent(QWheelEvent *) override;
     void timerEvent(QTimerEvent *) override;
 
-protected:
+private:
+    bool canMoveNow();
+    void setSize(int w, int h);
+    void level(int _l)
+    {
+        levelMap_->level(_l);
+    }
+    LevelCollection *collection() const
+    {
+        return levelMap_->collection();
+    }
+
+    int level() const;
+    const QString &collectionName() const;
+    int totalMoves() const;
+    int totalPushes() const;
+
+    void updateCollectionXpm();
+    void updateTextXpm();
+    void updateLevelXpm();
+    void updateStepsXpm();
+    void updatePushesXpm();
+
     void levelChange();
     void paintSquare(int x, int y, QPainter &paint);
     void paintDelta();
@@ -102,7 +105,6 @@ protected:
     void highlight();
     void changeCursor(const QCursor *c);
 
-private:
     int x2pixel(int x) const
     {
         return size_ * x + xOffs_;
