@@ -179,7 +179,7 @@ void ImageData::wall(QPainter &p, int x, int y, int index, bool left, bool right
 
 void ImageData::floor(QPainter &p, int x, int y)
 {
-    p.fillRect(x, y, size_, size_, QColor(0x66, 0x66, 0x66, 255));
+    p.fillRect(x, y, size_, size_, QColor(0x67, 0x67, 0x67, 255));
 }
 
 void ImageData::goal(QPainter &p, int x, int y)
