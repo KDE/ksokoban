@@ -12,15 +12,18 @@
 #define MAX_X 49
 #define MAX_Y 49
 
-#define WALL 1
-#define GOAL 2
-#define OBJECT 4
-#define FLOOR 8
-
 class Map
 {
     friend class MapDelta;
     friend class LevelCollection;
+
+public:
+    enum {
+        WALL = 1,
+        GOAL = 2,
+        OBJECT = 4,
+        FLOOR = 8,
+    };
 
 public:
     Map();

@@ -404,7 +404,7 @@ bool LevelCollection::loadLevel(Map *_map)
             if (x - min_x > MAX_X || y > MAX_Y)
                 goodMap = false;
             else
-                _map->map(x - min_x, y, OBJECT);
+                _map->map(x - min_x, y, Map::OBJECT);
             x++;
             break;
 
@@ -412,7 +412,7 @@ bool LevelCollection::loadLevel(Map *_map)
             if (x - min_x > MAX_X || y > MAX_Y)
                 goodMap = false;
             else {
-                _map->map(x - min_x, y, GOAL);
+                _map->map(x - min_x, y, Map::GOAL);
                 goalsLeft++;
             }
             x++;
@@ -422,7 +422,7 @@ bool LevelCollection::loadLevel(Map *_map)
             if (x - min_x > MAX_X || y > MAX_Y)
                 goodMap = false;
             else
-                _map->map(x - min_x, y, WALL);
+                _map->map(x - min_x, y, Map::WALL);
             x++;
             break;
 
@@ -432,7 +432,7 @@ bool LevelCollection::loadLevel(Map *_map)
             else {
                 _map->xpos_ = x - min_x;
                 _map->ypos_ = y;
-                _map->map(x - min_x, y, GOAL);
+                _map->map(x - min_x, y, Map::GOAL);
                 goalsLeft++;
             }
             x++;
@@ -442,7 +442,7 @@ bool LevelCollection::loadLevel(Map *_map)
             if (x - min_x > MAX_X || y > MAX_Y)
                 goodMap = false;
             else
-                _map->map(x - min_x, y, OBJECT | GOAL);
+                _map->map(x - min_x, y, Map::OBJECT | Map::GOAL);
             x++;
             break;
 
