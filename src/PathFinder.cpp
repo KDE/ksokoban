@@ -30,7 +30,7 @@ void PathFinder::BFS(int _x, int _y)
         y = yq.dequeue();
         d = dq.dequeue();
 
-        if (x < 0 || x > MAX_X || y < 0 || y > MAX_Y || dist[y][x])
+        if (x < 0 || x > Map::MAX_X || y < 0 || y > Map::MAX_Y || dist[y][x])
             continue;
         dist[y][x] = d;
 
@@ -58,8 +58,8 @@ Move *PathFinder::search(Map *_map, int _x, int _y)
     if (xpos == _x && ypos == _y)
         return nullptr;
 
-    for (int y = 0; y <= MAX_Y; y++) {
-        for (int x = 0; x <= MAX_X; x++) {
+    for (int y = 0; y <= Map::MAX_Y; y++) {
+        for (int x = 0; x <= Map::MAX_X; x++) {
             if (_map->empty(x, y))
                 dist[y][x] = 0;
             else
@@ -70,8 +70,8 @@ Move *PathFinder::search(Map *_map, int _x, int _y)
     BFS(_x, _y);
 
 #if 0
-  for (int y=0; y<=MAX_Y; y++) {
-    for (int x=0; x<=MAX_X; x++) {
+  for (int y=0; y<=Map::MAX_Y; y++) {
+    for (int x=0; x<=Map::MAX_X; x++) {
       //if (x==_x && y==_y) {printf ("++ "); continue;}
       //if (x==xpos && y==ypos) {printf ("@@ "); continue;}
       if (dist[y][x] == PATH_WALL) {printf ("## "); continue;}
@@ -106,7 +106,7 @@ Move *PathFinder::search(Map *_map, int _x, int _y)
             continue;
         }
 
-        while (ypos + 1 <= MAX_Y && dist[ypos + 1][xpos] < d) {
+        while (ypos + 1 <= Map::MAX_Y && dist[ypos + 1][xpos] < d) {
             ypos++;
             d = dist[ypos][xpos];
         }
@@ -126,7 +126,7 @@ Move *PathFinder::search(Map *_map, int _x, int _y)
             continue;
         }
 
-        while (xpos + 1 <= MAX_X && dist[ypos][xpos + 1] < d) {
+        while (xpos + 1 <= Map::MAX_X && dist[ypos][xpos + 1] < d) {
             xpos++;
             d = dist[ypos][xpos];
         }

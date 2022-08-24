@@ -161,7 +161,7 @@ void PlayField::paintSquare(int x, int y, QPainter &paint)
         return;
     }
     if (levelMap_->wall(x, y)) {
-        imageData_->wall(paint, x2pixel(x), y2pixel(y), x + y * (MAX_X + 1), levelMap_->wallLeft(x, y), levelMap_->wallRight(x, y));
+        imageData_->wall(paint, x2pixel(x), y2pixel(y), x + y * (Map::MAX_X + 1), levelMap_->wallLeft(x, y), levelMap_->wallRight(x, y));
         return;
     }
 
@@ -509,9 +509,9 @@ void PlayField::keyPressEvent(QKeyEvent *e)
         break;
     case Qt::Key_Down:
         if (e->modifiers() & Qt::ControlModifier)
-            step(x, MAX_Y);
+            step(x, Map::MAX_Y);
         else if (e->modifiers() & Qt::ShiftModifier)
-            push(x, MAX_Y);
+            push(x, Map::MAX_Y);
         else
             push(x, y + 1);
         break;
@@ -525,9 +525,9 @@ void PlayField::keyPressEvent(QKeyEvent *e)
         break;
     case Qt::Key_Right:
         if (e->modifiers() & Qt::ControlModifier)
-            step(MAX_X, y);
+            step(Map::MAX_X, y);
         else if (e->modifiers() & Qt::ShiftModifier)
-            push(MAX_X, y);
+            push(Map::MAX_X, y);
         else
             push(x + 1, y);
         break;

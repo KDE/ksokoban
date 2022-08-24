@@ -52,7 +52,7 @@ public:
     {
 #ifndef NDEBUG
         assert(!finished_);
-        assert(_x >= 0 && _x <= MAX_X && _y >= 0 && _y <= MAX_Y);
+        assert(_x >= 0 && _x <= Map::MAX_X && _y >= 0 && _y <= Map::MAX_Y);
         assert(moveIndex_ < 400);
         assert((_x != lastX_ && _y == lastY_) || (_x == lastX_ && _y != lastY_));
         lastX_ = _x;
@@ -71,7 +71,7 @@ public:
     {
 #ifndef NDEBUG
         assert(!finished_);
-        assert(_x >= 0 && _x <= MAX_X && _y >= 0 && _y <= MAX_Y);
+        assert(_x >= 0 && _x <= Map::MAX_X && _y >= 0 && _y <= Map::MAX_Y);
         assert(moveIndex_ < 400);
         assert((_x != lastX_ && _y == lastY_) || (_x == lastX_ && _y != lastY_));
         lastX_ = _x;

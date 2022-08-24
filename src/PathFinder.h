@@ -23,7 +23,7 @@ public:
     void updatePossibleDestinations(int x, int y);
 
 protected:
-    int dist[MAX_Y + 1][MAX_X + 1];
+    int dist[Map::MAX_Y + 1][Map::MAX_X + 1];
 
     void BFS(int _x, int _y);
 };

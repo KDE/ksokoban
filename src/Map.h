@@ -9,9 +9,6 @@
 
 #include <cassert>
 
-#define MAX_X 49
-#define MAX_Y 49
-
 class Map
 {
     friend class MapDelta;
@@ -24,6 +21,9 @@ public:
         OBJECT = 4,
         FLOOR = 8,
     };
+
+    constexpr static int MAX_X = 49;
+    constexpr static int MAX_Y = 49;
 
 public:
     Map();

@@ -391,7 +391,7 @@ bool LevelCollection::loadLevel(Map *_map)
             break;
 
         case '@':
-            if (x - min_x > MAX_X || y > MAX_Y)
+            if (x - min_x > Map::MAX_X || y > Map::MAX_Y)
                 goodMap = false;
             else {
                 _map->xpos_ = x - min_x;
@@ -401,7 +401,7 @@ bool LevelCollection::loadLevel(Map *_map)
             break;
 
         case '$':
-            if (x - min_x > MAX_X || y > MAX_Y)
+            if (x - min_x > Map::MAX_X || y > Map::MAX_Y)
                 goodMap = false;
             else
                 _map->map(x - min_x, y, Map::OBJECT);
@@ -409,7 +409,7 @@ bool LevelCollection::loadLevel(Map *_map)
             break;
 
         case '.':
-            if (x - min_x > MAX_X || y > MAX_Y)
+            if (x - min_x > Map::MAX_X || y > Map::MAX_Y)
                 goodMap = false;
             else {
                 _map->map(x - min_x, y, Map::GOAL);
@@ -419,7 +419,7 @@ bool LevelCollection::loadLevel(Map *_map)
             break;
 
         case '#':
-            if (x - min_x > MAX_X || y > MAX_Y)
+            if (x - min_x > Map::MAX_X || y > Map::MAX_Y)
                 goodMap = false;
             else
                 _map->map(x - min_x, y, Map::WALL);
@@ -427,7 +427,7 @@ bool LevelCollection::loadLevel(Map *_map)
             break;
 
         case '+':
-            if (x - min_x > MAX_X || y > MAX_Y)
+            if (x - min_x > Map::MAX_X || y > Map::MAX_Y)
                 goodMap = false;
             else {
                 _map->xpos_ = x - min_x;
@@ -439,7 +439,7 @@ bool LevelCollection::loadLevel(Map *_map)
             break;
 
         case '*':
-            if (x - min_x > MAX_X || y > MAX_Y)
+            if (x - min_x > Map::MAX_X || y > Map::MAX_Y)
                 goodMap = false;
             else
                 _map->map(x - min_x, y, Map::OBJECT | Map::GOAL);

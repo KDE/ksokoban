@@ -14,7 +14,7 @@
 
 Move::Move(int _startX, int _startY)
 {
-    assert(_startX >= 0 && _startX <= MAX_X && _startY >= 0 && _startY <= MAX_Y);
+    assert(_startX >= 0 && _startX <= Map::MAX_X && _startY >= 0 && _startY <= Map::MAX_Y);
 
     moves_ = new unsigned short[400];
     moves_[0] = _startX | (_startY << 8);
@@ -151,7 +151,7 @@ const char *Move::load(const char *s)
             return nullptr;
         }
 
-        if (x <= 0 || x >= MAX_X || y <= 0 || y >= MAX_Y) {
+        if (x <= 0 || x >= Map::MAX_X || y <= 0 || y >= Map::MAX_Y) {
             // printf ("x: %d, y:%d ><>%s\n", x, y, s);
             // abort ();
 
