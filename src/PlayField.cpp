@@ -533,7 +533,7 @@ void PlayField::keyPressEvent(QKeyEvent *e)
         break;
 
     case Qt::Key_Q:
-        qApp->closeAllWindows();
+        qApp->quit();
         break;
 
     case Qt::Key_Backspace:
