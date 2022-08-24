@@ -4,9 +4,11 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>KSokoban</name>
+  <name xml:lang="ar">أمين المستودع</name>
   <name xml:lang="ca">KSokoban</name>
   <name xml:lang="ca-valencia">KSokoban</name>
   <name xml:lang="en-GB">KSokoban</name>
+  <name xml:lang="es">KSokoban</name>
   <name xml:lang="fr">KSokoban</name>
   <name xml:lang="nl">KSokoban</name>
   <name xml:lang="pt">KSokoban</name>
@@ -15,9 +17,11 @@
   <name xml:lang="uk">KSokoban</name>
   <name xml:lang="x-test">xxKSokobanxx</name>
   <summary>Sokoban Game</summary>
+  <summary xml:lang="ar">لعبة أمين المستودع</summary>
   <summary xml:lang="ca">Joc del Sokoban</summary>
   <summary xml:lang="ca-valencia">Joc de Sokoban</summary>
   <summary xml:lang="en-GB">Sokoban Game</summary>
+  <summary xml:lang="es">Juego Sokoban</summary>
   <summary xml:lang="fr">Jeu Sokoban</summary>
   <summary xml:lang="nl">Sokoban-spel</summary>
   <summary xml:lang="pt">Jogo Sokoban</summary>
@@ -29,9 +33,11 @@
     <p>
       KSokoban is a implementation of the Japanese warehouse keeper game “sokoban”.
     </p>
+    <p xml:lang="ar">لعبة أمين المستودع هي تنفيذ للعبة اليابانية أمين المستودع المسماة "سوكوبان"</p>
     <p xml:lang="ca">El KSokoban és una implementació del joc japonès «Sokoban» de l'encarregat de magatzem.</p>
     <p xml:lang="ca-valencia">KSokoban és una implementació del joc japonés «Sokoban» de l'encarregat de magatzem.</p>
     <p xml:lang="en-GB">KSokoban is a implementation of the Japanese warehouse keeper game “sokoban”.</p>
+    <p xml:lang="es">KSokoban es una implementación del juego japonés del encargado de almacén «sokoban».</p>
     <p xml:lang="fr">KSokoban est une implémentation du jeu japonais « sokoban » de gardien d'entrepôt .</p>
     <p xml:lang="nl">KSokoban is een implementatie van het Japanse magazijn-beheerder-spel “sokoban”.</p>
     <p xml:lang="pt">O KSokoban é uma implementação do jogo japonês de arrumação de armazéns “sokoban”.</p>
@@ -42,9 +48,11 @@
     <p>
       The idea is that you are a warehouse keeper trying to push crates to their proper locations in a warehouse. The problem is that you cannot pull the crates or step over them. If you are not careful, some of the crates can get stuck in wrong places and/or block your way. 
     </p>
+    <p xml:lang="ar">الفكرة هي أنك أمين مستودع تحاول دفع الصناديق إلى مواقعها الصحيحة في المستودع. التحدي أنه لا يمكنك سحب الصناديق أو تخطيها. إذا لم تكن حريصًا؛ فقد تعلق بعض الصناديق في أماكن خاطئة و/أو تسد طريقك.</p>
     <p xml:lang="ca">La idea és que sou un encarregat de magatzem que intenta empènyer caixes a les seves ubicacions apropiades en un magatzem. El problema és que no podeu estirar les caixes ni trepitjar-les. Si no teniu cura, algunes de les caixes podrien quedar atrapades en llocs equivocats o bloquejar el camí.</p>
     <p xml:lang="ca-valencia">La idea és que sou un encarregat de magatzem que intenta empényer caixes a les seues ubicacions apropiades en un magatzem. El problema és que no podeu estirar les caixes ni trepitjar-les. Si no teniu cura, algunes de les caixes podrien quedar atrapades en llocs equivocats o bloquejar el camí.</p>
     <p xml:lang="en-GB">The idea is that you are a warehouse keeper trying to push crates to their proper locations in a warehouse. The problem is that you cannot pull the crates or step over them. If you are not careful, some of the crates can get stuck in wrong places and/or block your way.</p>
+    <p xml:lang="es">La idea es que usted es el encargado de un almacén que trata de empujar las cajas al lugar adecuado dentro del almacén. El problema es que no puede tirar de las cajas ni pasar por encima de ellas. Si no tiene cuidado, algunas de las cajas pueden atascarse en lugares equivocados bloqueando su camino.</p>
     <p xml:lang="fr">L'idée est que vous êtes un magasinier d'entrepôt, essayant de pousser des caisses à leurs emplacements corrects dans un entrepôt. Le problème est que vous ne pouvez pas tirer les caisses ni les enjamber. Si vous ne faites pas attention, certaines caisses peuvent se coincer au mauvais endroit et / ou vous bloquer le passage.</p>
     <p xml:lang="nl">Het idee is dat u een magazijnbeheerder bent die kratten op hun juiste locaties in een magazijn plaatst. Het probleem is dat u niet aan de kratten kan trekken of erover kan stappen. Als u niet voorzichtig bent, dan kunnen kratten in de verkeerde plaats vast komen te zitten en/of uw weg blokkeren.</p>
     <p xml:lang="pt">A ideia é que você é um arrumador de armazéns que tenta empurrar os caixotes para o seu local correcto num armazém. O problema é que não pode puxar os caixotes ou passar por cima deles. Se não tiver cuidado, alguns dos caixotes podem ficar presos em lugares errados e/ou bloquear a sua passagem.</p>
