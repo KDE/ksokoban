@@ -45,11 +45,10 @@ public:
     }
     bool loadLevel(Map *_map);
 
-protected:
+private:
     void indexTextCollection();
     void loadPrefs();
 
-private:
     void addLevel(const char *_level);
     void addData(const char *_data, unsigned _len);
     void addSeparator();

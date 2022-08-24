@@ -8,7 +8,7 @@ class HtmlPrinter
 public:
     static void printHtml(LevelMap *lm);
 
-protected:
+private:
     static void wall(bool up, bool down, bool left, bool right);
     static void image(const char *name);
     static void empty();

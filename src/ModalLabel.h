@@ -20,7 +20,7 @@ protected:
     void timerEvent(QTimerEvent *) override;
     bool eventFilter(QObject *, QEvent *) override;
 
-protected:
+private:
     ModalLabel(const QString &text, QWidget *parent);
 
 private:

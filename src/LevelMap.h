@@ -50,15 +50,12 @@ public:
     bool unstep(int _x, int _y);
     bool unpush(int _x, int _y);
 
-    // void random();
-
-protected:
-    LevelCollection *collection_ = nullptr;
-
 private:
     static int distance(int x1, int y1, int x2, int y2);
 
 private:
+    LevelCollection *collection_ = nullptr;
+
     int totalMoves_ = 0;
     int totalPushes_ = 0;
     bool goodLevel_ = false;
