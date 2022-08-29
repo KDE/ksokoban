@@ -17,6 +17,7 @@ add_executable(ksokoban
     Map.cpp
     Move.cpp
     PlayField.cpp
+    PlayFieldView.cpp
     History.cpp
     InternalCollections.cpp
     main.cpp

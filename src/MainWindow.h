@@ -14,6 +14,7 @@
 
 #include <QUrl>
 
+class PlayFieldView;
 class PlayField;
 class LevelCollection;
 class KSelectAction;
@@ -57,6 +58,7 @@ private:
     PlayField *playField_;
     Bookmark *bookmarks_[10];
 
+    PlayFieldView *playFieldView_;
     QAction *qa_slow;
     QAction *qa_medium;
     QAction *qa_fast;

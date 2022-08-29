@@ -7,33 +7,33 @@
 #ifndef PLAYFIELD_H
 #define PLAYFIELD_H
 
-#include "ImageData.h"
 #include "LevelMap.h"
 #include "PathFinder.h"
 
 #include <QBrush>
+#include <QCursor>
 #include <QFont>
 #include <QFontMetrics>
 #include <QImage>
 #include <QPixmap>
 #include <QString>
-#include <QWidget>
+#include <QGraphicsScene>
 
+class ImageData;
 class MoveSequence;
 class Move;
+class LevelMap;
 
 class History;
 class Bookmark;
 class LevelCollection;
-class QPainter;
-class QCursor;
 
-class PlayField : public QWidget
+class PlayField : public QGraphicsScene
 {
     Q_OBJECT
 
 public:
-    explicit PlayField(QWidget *parent);
+    explicit PlayField(QObject *parent);
     ~PlayField() override;
 
 public:
@@ -48,6 +48,7 @@ public:
     void changeAnim(int num);
     void changeCollection(LevelCollection *collection);
 
+    void setSize(int w, int h);
 
 public Q_SLOTS:
     void nextLevel();
@@ -57,19 +58,19 @@ public Q_SLOTS:
     void restartLevel();
 
 protected:
-    void paintEvent(QPaintEvent *e) override;
-    void resizeEvent(QResizeEvent *e) override;
+    void drawForeground( QPainter*, const QRectF& ) override;
+
     void keyPressEvent(QKeyEvent *) override;
-    void mouseMoveEvent(QMouseEvent *e) override;
-    void leaveEvent(QEvent *) override;
-    void mousePressEvent(QMouseEvent *) override;
-    void mouseReleaseEvent(QMouseEvent *) override;
-    void wheelEvent(QWheelEvent *) override;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *e) override;
+    void mousePressEvent(QGraphicsSceneMouseEvent *) override;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *) override;
+    void wheelEvent(QGraphicsSceneWheelEvent *) override;
     void timerEvent(QTimerEvent *) override;
 
 private:
+    void updateBackground();
+
     bool canMoveNow();
-    void setSize(int w, int h);
     void level(int _l)
     {
         levelMap_->level(_l);
@@ -172,7 +173,6 @@ private:
     QPixmap collXpm_;
     QFont statusFont_;
     QFontMetrics statusMetrics_;
-    QBrush background_;
 };
 
 #endif /* PLAYFIELD_H */

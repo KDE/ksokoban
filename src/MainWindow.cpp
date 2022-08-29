@@ -8,6 +8,7 @@
 
 #include "LevelCollection.h"
 #include "PlayField.h"
+#include "PlayFieldView.h"
 
 #include <KActionCollection>
 #include <KConfigGroup>
@@ -61,7 +62,8 @@ MainWindow::MainWindow()
     // setEraseColor(QColor(0,0,0));
 
     playField_ = new PlayField(this);
-    setCentralWidget(playField_);
+    playFieldView_ = new PlayFieldView (playField_, this);
+    setCentralWidget(playFieldView_);
 
     setupActions();
     setupGUI(Keys | Save | Create);
@@ -208,7 +210,7 @@ void MainWindow::handleAnimSpeedSelected(QAction *action)
 
 void MainWindow::focusInEvent(QFocusEvent *)
 {
-    playField_->setFocus();
+    playFieldView_->setFocus();
 }
 
 void MainWindow::updateBookmark(int num)
@@ -262,9 +264,9 @@ void MainWindow::goToBookmark(QAction *action)
     if (level > colPtr->completedLevels())
         return;
 
-    playField_->setUpdatesEnabled(false);
+    playFieldView_->setUpdatesEnabled(false);
     changeCollection(collection);
-    playField_->setUpdatesEnabled(true);
+    playFieldView_->setUpdatesEnabled(true);
     playField_->goToBookmark(bookmarks_[id - 1]);
 }
 
