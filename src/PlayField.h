@@ -60,8 +60,6 @@ public Q_SLOTS:
 protected:
     void paintEvent(QPaintEvent *e) override;
     void resizeEvent(QResizeEvent *e) override;
-    void focusInEvent(QFocusEvent *) override;
-    void focusOutEvent(QFocusEvent *) override;
     void keyPressEvent(QKeyEvent *) override;
     void mouseMoveEvent(QMouseEvent *e) override;
     void leaveEvent(QEvent *) override;

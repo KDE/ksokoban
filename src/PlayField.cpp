@@ -697,16 +697,6 @@ void PlayField::mouseReleaseEvent(QMouseEvent *e)
         dragObject(e->x(), e->y());
 }
 
-void PlayField::focusInEvent(QFocusEvent *)
-{
-    // printf("PlayField::focusInEvent\n");
-}
-
-void PlayField::focusOutEvent(QFocusEvent *)
-{
-    // printf("PlayField::focusOutEvent\n");
-}
-
 void PlayField::leaveEvent(QEvent *)
 {
     stopDrag();
