@@ -201,15 +201,6 @@ void PlayField::paintEvent(QPaintEvent *e)
     paint.end();
 }
 
-void PlayField::paintPainterClip(QPainter &paint, int x, int y, int w, int h)
-{
-    QRect rect(x, y, w, h);
-
-    paint.setClipRect(rect);
-    paint.setClipping(true);
-    paintPainter(paint, rect);
-}
-
 void PlayField::paintPainter(QPainter &paint, const QRect &rect)
 {
     if (size_ <= 0)
