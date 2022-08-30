@@ -12,6 +12,7 @@ Dependencies:
     'frameworks/kio': '@stable'
     'frameworks/kwidgetsaddons': '@stable'
     'frameworks/kxmlgui': '@stable'
+    'games/libkdegames': '@same'
 
 - 'on': ['Linux/Qt6', 'FreeBSD/Qt6']
   'require':
@@ -23,3 +24,4 @@ Dependencies:
     'frameworks/kio': '@latest-kf6'
     'frameworks/kwidgetsaddons': '@latest-kf6'
     'frameworks/kxmlgui': '@latest-kf6'
+    'games/libkdegames': '@latest-kf6'

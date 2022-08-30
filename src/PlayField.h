@@ -28,6 +28,8 @@ class History;
 class Bookmark;
 class LevelCollection;
 
+class KGamePopupItem;
+
 class PlayField : public QGraphicsScene
 {
     Q_OBJECT
@@ -50,6 +52,8 @@ public:
 
     void setSize(int w, int h);
 
+    void showMessage(const QString &message);
+
 public Q_SLOTS:
     void nextLevel();
     void previousLevel();
@@ -58,7 +62,7 @@ public Q_SLOTS:
     void restartLevel();
 
 protected:
-    void drawForeground( QPainter*, const QRectF& ) override;
+    void drawBackground(QPainter *painter, const QRectF &rect) override;
 
     void keyPressEvent(QKeyEvent *) override;
     void mouseMoveEvent(QGraphicsSceneMouseEvent *e) override;
@@ -152,6 +156,8 @@ private:
 
     QList<int> timers;
     QCursor crossCursor;
+
+    KGamePopupItem *m_messageItem;
 
     QRect pnumRect_;
     QRect ptxtRect_;

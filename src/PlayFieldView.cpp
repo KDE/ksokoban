@@ -21,7 +21,8 @@ PlayFieldView::PlayFieldView(PlayField *playField, QWidget *parent)
     setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
     setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
     setFrameStyle(QFrame::NoFrame);
-    setCacheMode(QGraphicsView::CacheBackground);
+    // diable for now while everything is drawn on the background
+    // setCacheMode(QGraphicsView::CacheBackground);
 
     setOptimizationFlags(QGraphicsView::DontSavePainterState | QGraphicsView::DontAdjustForAntialiasing );
 }

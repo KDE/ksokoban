@@ -26,11 +26,16 @@ add_executable(ksokoban
     HtmlPrinter.cpp
     LevelCollection.cpp
     MainWindow.cpp
-    ModalLabel.cpp
     PathFinder.cpp
 
     ksokoban.qrc
 )
+
+if (QT_MAJOR_VERSION STREQUAL "6")
+    target_link_libraries(ksokoban KDEGames6)
+else()
+    target_link_libraries(ksokoban KF5KDEGames)
+endif()
 
 target_link_libraries(ksokoban
     KF${KF_MAJOR_VERSION}::I18n

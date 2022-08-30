@@ -11,12 +11,13 @@
 #include "HtmlPrinter.h"
 #include "LevelCollection.h"
 #include "LevelMap.h"
-#include "ModalLabel.h"
 #include "Move.h"
 #include "MoveSequence.h"
 #include "PathFinder.h"
 #include "PlayField.h"
 #include "StaticImage.h"
+
+#include <KGamePopupItem>
 
 #include <KConfigGroup>
 #include <KLocalizedString>
@@ -61,6 +62,9 @@ PlayField::PlayField(QObject *parent)
 
     levelChange();
 
+    m_messageItem = new KGamePopupItem();
+    addItem(m_messageItem);
+
     updateBackground();
 }
 
@@ -78,6 +82,12 @@ PlayField::~PlayField()
 void PlayField::updateBackground()
 {
     setBackgroundBrush(imageData_->background());
+}
+
+void PlayField::showMessage(const QString &message)
+{
+    m_messageItem->setMessageTimeout(4000);
+    m_messageItem->showMessage(message, KGamePopupItem::Center);
 }
 
 void PlayField::changeCursor(const QCursor *c)
@@ -178,8 +188,9 @@ void PlayField::paintSquare(int x, int y, QPainter &paint)
     }
 }
 
-void PlayField::drawForeground( QPainter *painter, const QRectF &rect)
+void PlayField::drawBackground(QPainter *painter, const QRectF &rect)
 {
+    QGraphicsScene::drawBackground(painter, rect);
     paintPainter(*painter, rect.toRect());
 }
 
@@ -341,7 +352,7 @@ void PlayField::timerEvent(QTimerEvent *)
         update();
         if (levelMap_->completed()) {
             stopMoving();
-            ModalLabel::message(i18n("Level completed"), views().at(0));
+            showMessage(i18n("Level completed"));
             nextLevel();
             return;
         }
@@ -726,17 +737,15 @@ void PlayField::setSize(int w, int h)
 void PlayField::nextLevel()
 {
     if (levelMap_->level() + 1 >= levelMap_->noOfLevels()) {
-        ModalLabel::message(i18n("\
+        showMessage(i18n("\
 This is the last level in\n\
-the current collection."),
-                            views().at(0));
+the current collection."));
         return;
     }
     if (levelMap_->level() >= levelMap_->completedLevels()) {
-        ModalLabel::message(i18n("\
+        showMessage(i18n("\
 You have not completed\n\
-this level yet."),
-                            views().at(0));
+this level yet."));
         return;
     }
 
@@ -748,10 +757,9 @@ this level yet."),
 void PlayField::previousLevel()
 {
     if (levelMap_->level() <= 0) {
-        ModalLabel::message(i18n("\
+        showMessage(i18n("\
 This is the first level in\n\
-the current collection."),
-                            views().at(0));
+the current collection."));
         return;
     }
     level(levelMap_->level() - 1);
@@ -931,7 +939,7 @@ bool PlayField::canMoveNow()
     if (moveInProgress_)
         return false;
     if (!levelMap_->goodLevel()) {
-        ModalLabel::message(i18n("This level is broken"), views().at(0));
+        showMessage(i18n("This level is broken"));
         return false;
     }
     return true;
