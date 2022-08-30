@@ -53,7 +53,6 @@ add_data_code(images_data_code
         stone_5.png
         stone_6.png
         treasure.png
-        starfield.png
 )
 
 find_package(POVRay)

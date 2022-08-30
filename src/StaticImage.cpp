@@ -52,13 +52,6 @@ StaticImage::StaticImage()
         sizeof saveman_data_,
     };
 
-    bool valid = background_.loadFromData((const uchar *)starfield_data_, (uint)sizeof(starfield_data_));
-
-    if (!valid) {
-        background_ = QPixmap(128, 128);
-        background_.fill(Qt::black);
-    }
-
     for (int i = 0; i < NO_OF_IMAGES; i++) {
         images_[i].loadFromData((const uchar *)imageData[i], (uint)imageSize[i]);
     }

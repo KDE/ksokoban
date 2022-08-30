@@ -51,6 +51,7 @@ ecm_set_disabled_deprecation_versions(
 
 add_subdirectory(src)
 add_subdirectory(icons)
+add_subdirectory(themes)
 if(KF${KF_MAJOR_VERSION}DocTools_FOUND)
     add_subdirectory(doc)
     kdoctools_install(po)

@@ -10,6 +10,8 @@
 #include "LevelMap.h"
 #include "PathFinder.h"
 
+#include <KGameRenderer>
+
 #include <QBrush>
 #include <QCursor>
 #include <QFont>
@@ -158,6 +160,7 @@ private:
     QCursor crossCursor;
 
     KGamePopupItem *m_messageItem;
+    KGameRenderer m_renderer;
 
     QRect pnumRect_;
     QRect ptxtRect_;

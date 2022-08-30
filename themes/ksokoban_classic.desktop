@@ -1,0 +1,9 @@
+[KGameTheme]
+Name=Classic
+Description=Classic theme
+VersionFormat=1
+Author=Anders Widell
+AuthorEmail=awl@hem.passagen.se
+Type=SVG
+FileName=ksokoban_classic.svg
+Preview=ksokoban_classic_preview.png

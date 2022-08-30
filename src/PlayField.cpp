@@ -18,6 +18,7 @@
 #include "StaticImage.h"
 
 #include <KGamePopupItem>
+#include <KgTheme>
 
 #include <KConfigGroup>
 #include <KLocalizedString>
@@ -32,13 +33,23 @@
 #include <QGraphicsSceneWheelEvent>
 #include <QPainter>
 #include <QPixmap>
+#include <QStandardPaths>
 
 #include <cassert>
 #include <cstdio>
 
+static KgTheme* createClassicTheme()
+{
+    auto *theme = new KgTheme("themes/ksokoban_classic.desktop");
+    theme->setGraphicsPath(QStandardPaths::locate(QStandardPaths::AppDataLocation, QStringLiteral("themes/ksokoban_classic.svg")));
+    return theme;
+}
+
+
 PlayField::PlayField(QObject *parent)
     : QGraphicsScene(parent)
     , crossCursor(Qt::CrossCursor)
+    , m_renderer(createClassicTheme())
     , levelText_(i18n("Level:"))
     , stepsText_(i18n("Steps:"))
     , pushesText_(i18n("Pushes:"))
@@ -81,7 +92,9 @@ PlayField::~PlayField()
 
 void PlayField::updateBackground()
 {
-    setBackgroundBrush(imageData_->background());
+    const QString backgroundId = QStringLiteral("background");
+    const QSize backgroundSize = m_renderer.boundsOnSprite(backgroundId).size().toSize();
+    setBackgroundBrush(m_renderer.spritePixmap(backgroundId, backgroundSize));
 }
 
 void PlayField::showMessage(const QString &message)

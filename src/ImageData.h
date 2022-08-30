@@ -34,10 +34,6 @@ public:
     void brightObject(QPainter &p, int x, int y);
     void brightTreasure(QPainter &p, int x, int y);
 
-    const QPixmap &background() const
-    {
-        return background_;
-    }
     const QImage &objectImg() const
     {
         return objectImg_;
@@ -66,7 +62,6 @@ protected:
     QPixmap smallStone_xpm_[SMALL_STONES];
     QPixmap largeStone_xpm_[LARGE_STONES];
     QPixmap otherPixmaps_[OTHER_IMAGES];
-    QPixmap background_;
     QPixmap brightObject_;
     QPixmap brightTreasure_;
     QImage objectImg_;
