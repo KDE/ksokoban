@@ -11,6 +11,3 @@ ecm_install_icons(
     THEME
         hicolor
 )
-
-install(FILES org.kde.ksokoban.desktop DESTINATION ${KDE_INSTALL_APPDIR})
-install(FILES org.kde.ksokoban.metainfo.xml DESTINATION ${KDE_INSTALL_METAINFODIR})

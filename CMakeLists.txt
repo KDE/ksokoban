@@ -36,7 +36,7 @@ ecm_set_disabled_deprecation_versions(
 )
 
 add_subdirectory(src)
-add_subdirectory(data)
+add_subdirectory(icons)
 if(KF5DocTools_FOUND)
     add_subdirectory(doc)
 endif()

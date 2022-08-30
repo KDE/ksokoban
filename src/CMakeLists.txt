@@ -40,3 +40,6 @@ target_link_libraries(ksokoban
 )
 
 install(TARGETS ksokoban ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+
+install(FILES org.kde.ksokoban.desktop DESTINATION ${KDE_INSTALL_APPDIR})
+install(FILES org.kde.ksokoban.metainfo.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
