@@ -161,44 +161,53 @@ void PlayField::levelChange()
 
 void PlayField::paintSquare(int x, int y, QPainter &paint)
 {
-    if (levelMap_->xpos() == x && levelMap_->ypos() == y) {
-        if (levelMap_->goal(x, y))
-            imageData_->saveman(paint, x2pixel(x), y2pixel(y));
-        else {
-            imageData_->man(paint, x2pixel(x), y2pixel(y));
-            // printf("imageData_->man() %d; %d\n",x2pixel(x), y2pixel(y));
-        }
-        return;
-    }
-    if (levelMap_->empty(x, y)) {
-        if (levelMap_->floor(x, y)) {
-            if (levelMap_->goal(x, y))
-                imageData_->goal(paint, x2pixel(x), y2pixel(y));
-            else {
-                imageData_->floor(paint, x2pixel(x), y2pixel(y));
-            }
-        }
-        return;
-    }
     if (levelMap_->wall(x, y)) {
         imageData_->wall(paint, x2pixel(x), y2pixel(y), x + y * (Map::MAX_X + 1), levelMap_->wallLeft(x, y), levelMap_->wallRight(x, y));
         return;
     }
 
-    if (levelMap_->object(x, y)) {
+    QString spriteName;
+    if (levelMap_->xpos() == x && levelMap_->ypos() == y) {
+        if (levelMap_->goal(x, y))
+            spriteName = QStringLiteral("saveman");
+        else {
+            spriteName = QStringLiteral("man");
+        }
+    } else if (levelMap_->empty(x, y)) {
+        if (levelMap_->floor(x, y)) {
+            if (levelMap_->goal(x, y))
+                spriteName = QStringLiteral("goal");
+            else {
+                // shortcut for now, replace with theme pixmap (or color property)
+                paint.fillRect(x2pixel(x), y2pixel(y), size_, size_, QColor(0x67, 0x67, 0x67, 255));
+                return;
+            }
+        }
+    } else if (levelMap_->object(x, y)) {
+        // TODO: add highlighting & other states to KGameRenderer
+#if 0
         if (highlightX_ == x && highlightY_ == y) {
             if (levelMap_->goal(x, y))
                 imageData_->brightTreasure(paint, x2pixel(x), y2pixel(y));
             else
                 imageData_->brightObject(paint, x2pixel(x), y2pixel(y));
-        } else {
+            return;
+        } else
+#endif
+        {
             if (levelMap_->goal(x, y))
-                imageData_->treasure(paint, x2pixel(x), y2pixel(y));
+                spriteName = QStringLiteral("treasure");
             else
-                imageData_->object(paint, x2pixel(x), y2pixel(y));
+                spriteName = QStringLiteral("object");
         }
+    }
+
+    if (spriteName.isEmpty()) {
         return;
     }
+
+    const QPixmap pixmap = m_renderer.spritePixmap(spriteName, QSize(size_, size_));
+    paint.drawPixmap(x2pixel(x), y2pixel(y), pixmap);
 }
 
 void PlayField::drawBackground(QPainter *painter, const QRectF &rect)

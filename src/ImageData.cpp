@@ -97,32 +97,6 @@ int ImageData::resize(int size)
         //     QPixmap::ColorOnly|QPixmap::DiffuseDither|QPixmap::DiffuseAlphaDither|QPixmap::AvoidDither);
     }
 
-    objectImg_ = images_[SMALL_STONES + LARGE_STONES].scaled(deviceSize_, deviceSize_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-
-    // Use copy() because if the size is not changed, smoothScale is not
-    // really a copy
-    // Use {[Geometry] height=753 width=781} to test
-
-    if (objectImg_.width() == deviceSize_)
-        objectImg_ = objectImg_.copy();
-
-    image2pixmap(objectImg_, otherPixmaps_[0], dpr, false);
-    brighten(objectImg_);
-    image2pixmap(objectImg_, brightObject_, dpr, false);
-
-    QImage img = images_[SMALL_STONES + LARGE_STONES + 1].scaled(deviceSize_, deviceSize_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-    if (img.width() == deviceSize_)
-        img = img.copy();
-
-    image2pixmap(img, otherPixmaps_[1], dpr, false);
-    brighten(img);
-    image2pixmap(img, brightTreasure_, dpr, false);
-
-    for (int i = 2; i < OTHER_IMAGES; i++) {
-        image2pixmap(images_[SMALL_STONES + LARGE_STONES + i].scaled(deviceSize_, deviceSize_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation), otherPixmaps_[i], dpr);
-        //     otherPixmaps_[i].convertFromImage(images_[SMALL_STONES+LARGE_STONES+i].smoothScale(size_, size_),
-        //     QPixmap::ColorOnly|QPixmap::OrderedDither|QPixmap::OrderedAlphaDither|QPixmap::AvoidDither);
-    }
     return size_;
 }
 
@@ -135,29 +109,6 @@ void ImageData::image2pixmap(const QImage &img, QPixmap &xpm, qreal dpr, bool di
                              (diffuse ? (Qt::DiffuseDither | Qt::DiffuseAlphaDither) : (Qt::OrderedDither | Qt::OrderedAlphaDither)) | Qt::ColorOnly
                                  | Qt::AvoidDither);
     xpm.setDevicePixelRatio(dpr);
-}
-
-void ImageData::brighten(QImage &img)
-{
-    assert(img.depth() == 32);
-
-    for (int y = 0; y < img.height(); y++) {
-        for (int x = 0; x < img.width(); x++) {
-            QRgb rgb = img.pixel(x, y);
-            int r = qRed(rgb);
-            int g = qGreen(rgb);
-            int b = qBlue(rgb);
-
-            if (r > g && r > b) {
-                // only modify redish pixels
-
-                QColor col(r, g, b);
-                QColor lcol = col.lighter(130);
-
-                img.setPixel(x, y, lcol.rgb());
-            }
-        }
-    }
 }
 
 void ImageData::wall(QPainter &p, int x, int y, int index, bool left, bool right)
@@ -173,44 +124,4 @@ void ImageData::wall(QPainter &p, int x, int y, int index, bool left, bool right
         p.drawPixmap(x + halfSize_, y, rightSmall(index));
 
     p.drawPixmap(x, y + halfSize_, lowerLarge(index));
-}
-
-void ImageData::floor(QPainter &p, int x, int y)
-{
-    p.fillRect(x, y, size_, size_, QColor(0x67, 0x67, 0x67, 255));
-}
-
-void ImageData::goal(QPainter &p, int x, int y)
-{
-    p.drawPixmap(x, y, otherPixmaps_[2]);
-}
-
-void ImageData::man(QPainter &p, int x, int y)
-{
-    p.drawPixmap(x, y, otherPixmaps_[3]);
-}
-
-void ImageData::object(QPainter &p, int x, int y)
-{
-    p.drawPixmap(x, y, otherPixmaps_[0]);
-}
-
-void ImageData::saveman(QPainter &p, int x, int y)
-{
-    p.drawPixmap(x, y, otherPixmaps_[4]);
-}
-
-void ImageData::treasure(QPainter &p, int x, int y)
-{
-    p.drawPixmap(x, y, otherPixmaps_[1]);
-}
-
-void ImageData::brightObject(QPainter &p, int x, int y)
-{
-    p.drawPixmap(x, y, brightObject_);
-}
-
-void ImageData::brightTreasure(QPainter &p, int x, int y)
-{
-    p.drawPixmap(x, y, brightTreasure_);
 }

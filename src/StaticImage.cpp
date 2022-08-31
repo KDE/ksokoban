@@ -24,12 +24,6 @@ StaticImage::StaticImage()
         stone_4_data_,
         stone_5_data_,
         stone_6_data_,
-
-        object_data_,
-        treasure_data_,
-        goal_data_,
-        man_data_,
-        saveman_data_,
     };
 
     const unsigned imageSize[NO_OF_IMAGES] = {
@@ -44,12 +38,6 @@ StaticImage::StaticImage()
         sizeof stone_4_data_,
         sizeof stone_5_data_,
         sizeof stone_6_data_,
-
-        sizeof object_data_,
-        sizeof treasure_data_,
-        sizeof goal_data_,
-        sizeof man_data_,
-        sizeof saveman_data_,
     };
 
     for (int i = 0; i < NO_OF_IMAGES; i++) {
