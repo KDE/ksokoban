@@ -35,21 +35,6 @@ function(add_data_code _target_name)
     )
 endfunction()
 
-add_data_code(images_data_code
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
-    SOURCES
-        halfstone_1.png
-        halfstone_2.png
-        halfstone_3.png
-        halfstone_4.png
-        stone_1.png
-        stone_2.png
-        stone_3.png
-        stone_4.png
-        stone_5.png
-        stone_6.png
-)
-
 find_package(POVRay)
 set_package_properties(POVRay PROPERTIES
     TYPE OPTIONAL

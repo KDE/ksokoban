@@ -25,5 +25,15 @@ install_classic_sprite_image(
         object.png
         saveman.png
         treasure.png
+        halfstone_1.png
+        halfstone_2.png
+        halfstone_3.png
+        halfstone_4.png
+        stone_1.png
+        stone_2.png
+        stone_3.png
+        stone_4.png
+        stone_5.png
+        stone_6.png
         starfield.png
 )

@@ -15,7 +15,6 @@
 #include "MoveSequence.h"
 #include "PathFinder.h"
 #include "PlayField.h"
-#include "StaticImage.h"
 
 #include <KGamePopupItem>
 #include <KgTheme>
@@ -45,6 +44,9 @@ static KgTheme* createClassicTheme()
     return theme;
 }
 
+// hardcoded for now, featch from theme
+static constexpr int SMALL_STONES = 4;
+static constexpr int LARGE_STONES = 6;
 
 PlayField::PlayField(QObject *parent)
     : QGraphicsScene(parent)
@@ -57,11 +59,10 @@ PlayField::PlayField(QObject *parent)
     , statusMetrics_(statusFont_)
 {
     highlightX_ = highlightY_ = 0;
+    stoneIndex_.setStoneCount(LARGE_STONES, SMALL_STONES);
 
     KSharedConfigPtr cfg = KSharedConfig::openConfig();
     KConfigGroup settingsGroup(cfg, "settings");
-
-    imageData_ = new StaticImage;
 
     animDelay_ = settingsGroup.readEntry("animDelay", QStringLiteral("2")).toInt();
     if (animDelay_ < 0 || animDelay_ > 3)
@@ -87,7 +88,6 @@ PlayField::~PlayField()
 
     delete history_;
     delete levelMap_;
-    delete imageData_;
 }
 
 void PlayField::updateBackground()
@@ -159,10 +159,51 @@ void PlayField::levelChange()
     highlight();
 }
 
+QPixmap PlayField::stonePixmap(int stoneIndex) const
+{
+    const QString spriteName = QStringLiteral("stone_%1").arg(stoneIndex);
+
+    return m_renderer.spritePixmap(spriteName, QSize(size_, halfSize_));
+}
+
+QPixmap PlayField::halfStonePixmap(int stoneIndex) const
+{
+    const QString spriteName = QStringLiteral("halfstone_%1").arg(stoneIndex);
+
+    return m_renderer.spritePixmap(spriteName, QSize(halfSize_, halfSize_));
+}
+
+void PlayField::paintWall(int x, int y, QPainter &paint)
+{
+    const bool left = levelMap_->wallLeft(x, y);
+    const bool right = levelMap_->wallRight(x, y);
+    const int pixelX = x2pixel(x);
+    const int pixelY = y2pixel(y);
+    const int stoneIndex = x + y * (Map::MAX_X + 1);
+
+    const qreal dpr = qApp->devicePixelRatio();
+    const int deviceSize_ = size_ * dpr;
+    const int halfdeviceSize_ = deviceSize_ / 2;
+
+    if (left)
+        paint.drawPixmap(pixelX, pixelY, stonePixmap(stoneIndex_.upperLarge(stoneIndex - 1)),
+                         halfdeviceSize_, 0, -1, -1);
+    else
+        paint.drawPixmap(pixelX, pixelY, halfStonePixmap(stoneIndex_.leftSmall(stoneIndex)));
+
+    if (right)
+        paint.drawPixmap(pixelX + halfSize_, pixelY, stonePixmap(stoneIndex_.upperLarge(stoneIndex)),
+                         0, 0, halfdeviceSize_, -1);
+    else
+        paint.drawPixmap(pixelX + halfSize_, pixelY, halfStonePixmap(stoneIndex_.rightSmall(stoneIndex)));
+
+    paint.drawPixmap(pixelX, pixelY + halfSize_, stonePixmap(stoneIndex_.lowerLarge(stoneIndex)));
+}
+
 void PlayField::paintSquare(int x, int y, QPainter &paint)
 {
     if (levelMap_->wall(x, y)) {
-        imageData_->wall(paint, x2pixel(x), y2pixel(y), x + y * (Map::MAX_X + 1), levelMap_->wallLeft(x, y), levelMap_->wallRight(x, y));
+        paintWall(x, y, paint);
         return;
     }
 
@@ -742,7 +783,8 @@ void PlayField::setSize(int w, int h)
     if (ysize < 8)
         ysize = 8;
 
-    size_ = imageData_->resize(xsize > ysize ? ysize : xsize);
+    size_ = (xsize > ysize ? ysize : xsize);
+    halfSize_ = size_ / 2;
 
     xOffs_ = (w - cols * size_) / 2;
     yOffs_ = (h - rows * size_) / 2;

@@ -9,6 +9,7 @@
 
 #include "LevelMap.h"
 #include "PathFinder.h"
+#include "StoneIndex.h"
 
 #include <KGameRenderer>
 
@@ -21,7 +22,6 @@
 #include <QString>
 #include <QGraphicsScene>
 
-class ImageData;
 class MoveSequence;
 class Move;
 class LevelMap;
@@ -99,6 +99,7 @@ private:
 
     void levelChange();
     void paintSquare(int x, int y, QPainter &paint);
+    void paintWall(int x, int y, QPainter &paint);
     void paintPainter(QPainter &paint, const QRect &rect);
     void step(int _x, int _y);
     void push(int _x, int _y);
@@ -131,8 +132,11 @@ private:
 
     void killTimers();
 
+    QPixmap stonePixmap(int stoneIndex) const;
+    QPixmap halfStonePixmap(int stoneIndex) const;
+
 private:
-    ImageData *imageData_ = nullptr;
+    StoneIndex stoneIndex_;
     LevelMap *levelMap_;
     History *history_;
     int lastLevel_ = -1;
@@ -144,6 +148,7 @@ private:
     const QCursor *cursor_;
 
     int size_;
+    int halfSize_ = 0;
     int xOffs_ = 0;
     int yOffs_ = 0;
     int highlightX_;

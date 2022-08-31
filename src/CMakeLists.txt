@@ -12,7 +12,6 @@ ecm_setup_version(${ksokoban_VERSION}
 
 add_executable(ksokoban
     Bookmark.cpp
-    ImageData.cpp
     LevelMap.cpp
     Map.cpp
     Move.cpp
@@ -22,7 +21,6 @@ add_executable(ksokoban
     InternalCollections.cpp
     main.cpp
     MoveSequence.cpp
-    StaticImage.cpp
     HtmlPrinter.cpp
     LevelCollection.cpp
     MainWindow.cpp
