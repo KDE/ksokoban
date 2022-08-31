@@ -27,6 +27,7 @@ add_executable(ksokoban
     LevelCollection.cpp
     MainWindow.cpp
     PathFinder.cpp
+    StoneIndex.cpp
 
     ksokoban.qrc
 )

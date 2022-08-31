@@ -7,6 +7,8 @@
 #ifndef IMAGEDATA_H
 #define IMAGEDATA_H
 
+#include "StoneIndex.h"
+
 #include <QImage>
 #include <QPixmap>
 
@@ -29,7 +31,6 @@ public:
 protected:
     ImageData();
 
-    void expandIndex(int size);
     void image2pixmap(const QImage &img, QPixmap &xpm, qreal dpr, bool diffuse = true);
 
     const QPixmap &upperLarge(int index);
@@ -47,11 +48,7 @@ protected:
     QPixmap smallStone_xpm_[SMALL_STONES];
     QPixmap largeStone_xpm_[LARGE_STONES];
 
-    int indexSize_ = 0;
-    QByteArray upperLargeIndex_;
-    QByteArray lowerLargeIndex_;
-    QByteArray leftSmallIndex_;
-    QByteArray rightSmallIndex_;
+    StoneIndex stoneIndex_;
 
     int size_ = 0;
     int halfSize_  = 0;

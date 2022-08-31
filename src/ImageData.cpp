@@ -9,66 +9,38 @@
 #include <QColor>
 #include <QGuiApplication>
 #include <QPainter>
-#include <QRandomGenerator>
 
 #include <cassert>
 
-ImageData::ImageData() = default;
+ImageData::ImageData()
+{
+    stoneIndex_.setStoneCount(LARGE_STONES, SMALL_STONES);
+}
 
 ImageData::~ImageData() = default;
-
-void ImageData::expandIndex(int size)
-{
-    size++;
-    assert(size < 2500);
-
-    upperLargeIndex_.resize(size);
-    lowerLargeIndex_.resize(size);
-    leftSmallIndex_.resize(size);
-    rightSmallIndex_.resize(size);
-
-    QRandomGenerator *random = QRandomGenerator::global();
-
-    for (int i = indexSize_; i < size; i++) {
-        upperLargeIndex_[i] = random->bounded(LARGE_STONES);
-        lowerLargeIndex_[i] = random->bounded(LARGE_STONES);
-        leftSmallIndex_[i] = random->bounded(SMALL_STONES);
-        rightSmallIndex_[i] = random->bounded(SMALL_STONES);
-    }
-
-    indexSize_ = size;
-}
 
 const QPixmap &ImageData::upperLarge(int index)
 {
     assert(index >= 0);
-    if (indexSize_ <= index)
-        expandIndex(index);
-    return largeStone_xpm_[(unsigned char)upperLargeIndex_[index]];
+    return largeStone_xpm_[stoneIndex_.upperLarge(index)];
 }
 
 const QPixmap &ImageData::lowerLarge(int index)
 {
     assert(index >= 0);
-    if (indexSize_ <= index)
-        expandIndex(index);
-    return largeStone_xpm_[(unsigned char)lowerLargeIndex_[index]];
+    return largeStone_xpm_[stoneIndex_.lowerLarge(index)];
 }
 
 const QPixmap &ImageData::leftSmall(int index)
 {
     assert(index >= 0);
-    if (indexSize_ <= index)
-        expandIndex(index);
-    return smallStone_xpm_[(unsigned char)leftSmallIndex_[index]];
+    return smallStone_xpm_[stoneIndex_.leftSmall(index)];
 }
 
 const QPixmap &ImageData::rightSmall(int index)
 {
     assert(index >= 0);
-    if (indexSize_ <= index)
-        expandIndex(index);
-    return smallStone_xpm_[(unsigned char)rightSmallIndex_[index]];
+    return smallStone_xpm_[stoneIndex_.rightSmall(index)];
 }
 
 int ImageData::resize(int size)
