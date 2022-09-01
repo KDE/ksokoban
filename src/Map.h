@@ -11,7 +11,6 @@
 
 class Map
 {
-    friend class MapDelta;
     friend class LevelCollection;
 
 public:

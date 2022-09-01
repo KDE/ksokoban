@@ -19,7 +19,6 @@
 #include <QString>
 #include <QWidget>
 
-class MapDelta;
 class MoveSequence;
 class Move;
 
@@ -132,7 +131,6 @@ private:
     History *history_;
     int lastLevel_ = -1;
     MoveSequence *moveSequence_ = nullptr;
-    MapDelta *mapDelta_;
     bool moveInProgress_ = false;
     bool dragInProgress_ = false;
     PathFinder pathFinder_;

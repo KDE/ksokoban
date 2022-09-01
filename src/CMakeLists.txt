@@ -20,7 +20,6 @@ add_executable(ksokoban
     History.cpp
     InternalCollections.cpp
     main.cpp
-    MapDelta.cpp
     MoveSequence.cpp
     StaticImage.cpp
     HtmlPrinter.cpp

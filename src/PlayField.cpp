@@ -11,7 +11,6 @@
 #include "HtmlPrinter.h"
 #include "LevelCollection.h"
 #include "LevelMap.h"
-#include "MapDelta.h"
 #include "ModalLabel.h"
 #include "Move.h"
 #include "MoveSequence.h"
@@ -65,8 +64,6 @@ PlayField::PlayField(QWidget *parent)
     background_.setTexture(imageData_->background());
 
     levelMap_ = new LevelMap;
-    mapDelta_ = new MapDelta(levelMap_);
-    mapDelta_->end();
 
     levelChange();
 }
@@ -77,7 +74,6 @@ PlayField::~PlayField()
     KConfigGroup settingsGroup(cfg, "settings");
     settingsGroup.writeEntry("animDelay", QStringLiteral("%1").arg(animDelay_));
 
-    delete mapDelta_;
     delete history_;
     delete levelMap_;
     delete imageData_;
@@ -375,7 +371,6 @@ void PlayField::timerEvent(QTimerEvent *)
 
     bool more = false;
 
-    mapDelta_->start();
     if (animDelay_)
         more = moveSequence_->next();
     else {
@@ -385,7 +380,6 @@ void PlayField::timerEvent(QTimerEvent *)
         more = true; // FIXME: clean this up
         stopMoving();
     }
-    mapDelta_->end();
 
     if (more) {
         paintDelta();
