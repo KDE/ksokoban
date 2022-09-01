@@ -92,7 +92,6 @@ private:
 
     void levelChange();
     void paintSquare(int x, int y, QPainter &paint);
-    void paintDelta();
     void paintPainter(QPainter &paint, const QRect &rect);
     void step(int _x, int _y);
     void push(int _x, int _y);

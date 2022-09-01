@@ -177,11 +177,6 @@ void PlayField::paintSquare(int x, int y, QPainter &paint)
     }
 }
 
-void PlayField::paintDelta()
-{
-    repaint();
-}
-
 void PlayField::paintEvent(QPaintEvent *e)
 {
     QPainter paint;
@@ -382,7 +377,7 @@ void PlayField::timerEvent(QTimerEvent *)
     }
 
     if (more) {
-        paintDelta();
+        repaint();
         if (levelMap_->completed()) {
             stopMoving();
             ModalLabel::message(i18n("Level completed"), this);
