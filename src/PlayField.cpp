@@ -27,6 +27,7 @@
 
 #include <QApplication>
 #include <QGraphicsView>
+#include <QGraphicsSimpleTextItem>
 #include <QFontDatabase>
 #include <QKeyEvent>
 #include <QGraphicsSceneMouseEvent>
@@ -49,9 +50,6 @@ PlayField::PlayField(QObject *parent)
     : QGraphicsScene(parent)
     , crossCursor(Qt::CrossCursor)
     , m_renderer(createClassicTheme())
-    , levelText_(i18n("Level:"))
-    , stepsText_(i18n("Steps:"))
-    , pushesText_(i18n("Pushes:"))
     , statusFont_(QFontDatabase::systemFont(QFontDatabase::GeneralFont).family(), 18, QFont::Bold)
     , statusMetrics_(statusFont_)
 {
@@ -70,6 +68,39 @@ PlayField::PlayField(QObject *parent)
 
     m_groundItem = new GroundItem(levelMap_, &m_renderer);
     addItem(m_groundItem);
+
+    m_collectionName = new QGraphicsSimpleTextItem();
+    m_collectionName->setBrush(QColor(0, 255, 0));
+    m_collectionName->setFont(statusFont_);
+    addItem(m_collectionName);
+
+    m_levelLabel = new QGraphicsSimpleTextItem(i18n("Level:"));
+    m_levelLabel->setFont(statusFont_);
+    m_levelLabel->setBrush(QColor(128, 128, 128));
+    m_levelNumber = new QGraphicsSimpleTextItem();
+    m_levelNumber->setFont(statusFont_);
+    m_levelNumber->setBrush(QColor(255, 0, 0));
+    addItem(m_levelLabel);
+    addItem(m_levelNumber);
+
+    m_stepsLabel = new QGraphicsSimpleTextItem(i18n("Steps:"));
+    m_stepsLabel->setFont(statusFont_);
+    m_stepsLabel->setBrush(QColor(128, 128, 128));
+    m_stepsNumber = new QGraphicsSimpleTextItem();
+    m_stepsNumber->setFont(statusFont_);
+    m_stepsNumber->setBrush(QColor(255, 0, 0));
+    addItem(m_stepsLabel);
+    addItem(m_stepsNumber);
+
+    m_pushesLabel = new QGraphicsSimpleTextItem(i18n("Pushes:"));
+    m_pushesLabel->setFont(statusFont_);
+    m_pushesLabel->setBrush(QColor(128, 128, 128));
+    m_pushesNumber = new QGraphicsSimpleTextItem();
+    m_pushesNumber->setFont(statusFont_);
+    m_pushesNumber->setBrush(QColor(255, 0, 0));
+    addItem(m_pushesLabel);
+    addItem(m_pushesNumber);
+
     levelChange();
 
     m_messageItem = new KGamePopupItem();
@@ -150,39 +181,13 @@ void PlayField::levelChange()
     stopMoving();
     stopDrag();
     history_->clear();
+
+    m_levelNumber->setText(QString::asprintf("%05d", level() + 1));
+    updateStepsDisplay();
+    updatePushesDisplay();
+
     setSize(width(), height());
-
-    updateLevelXpm();
-    updateStepsXpm();
-    updatePushesXpm();
     highlight();
-}
-
-void PlayField::drawBackground(QPainter *painter, const QRectF &rect)
-{
-    QGraphicsScene::drawBackground(painter, rect);
-    paintPainter(*painter, rect.toRect());
-}
-
-void PlayField::paintPainter(QPainter &paint, const QRect &rect)
-{
-    if (size_ <= 0)
-        return;
-
-    if (collRect_.intersects(rect))
-        paint.drawPixmap(collRect_.x(), collRect_.y(), collXpm_);
-    if (ltxtRect_.intersects(rect))
-        paint.drawPixmap(ltxtRect_.x(), ltxtRect_.y(), ltxtXpm_);
-    if (lnumRect_.intersects(rect))
-        paint.drawPixmap(lnumRect_.x(), lnumRect_.y(), lnumXpm_);
-    if (stxtRect_.intersects(rect))
-        paint.drawPixmap(stxtRect_.x(), stxtRect_.y(), stxtXpm_);
-    if (snumRect_.intersects(rect))
-        paint.drawPixmap(snumRect_.x(), snumRect_.y(), snumXpm_);
-    if (ptxtRect_.intersects(rect))
-        paint.drawPixmap(ptxtRect_.x(), ptxtRect_.y(), ptxtXpm_);
-    if (pnumRect_.intersects(rect))
-        paint.drawPixmap(pnumRect_.x(), pnumRect_.y(), pnumXpm_);
 }
 
 void PlayField::mouseMoveEvent(QGraphicsSceneMouseEvent *e)
@@ -254,8 +259,8 @@ void PlayField::stopMoving()
     delete moveSequence_;
     moveSequence_ = nullptr;
     moveInProgress_ = false;
-    updateStepsXpm();
-    updatePushesXpm();
+    updateStepsDisplay();
+    updatePushesDisplay();
 
     update();
     pathFinder_.updatePossibleMoves();
@@ -494,8 +499,8 @@ void PlayField::keyPressEvent(QKeyEvent *e)
       //scanf("%s", buf);
       history_->load(levelMap_, buf);
     }
-    updateStepsXpm();
-    updatePushesXpm();
+    updateStepsDisplay();
+    updatePushesDisplay();
     repaint(false);
     return;
     break;
@@ -622,37 +627,22 @@ void PlayField::setSize(int w, int h)
     setSceneRect(0, 0, w, h);
 
     int sbarHeight = statusMetrics_.height();
+
+    // TODO: ellide if overlapping with the other items
+    m_collectionName->setPos(0, h - sbarHeight);
+
     int sbarNumWidth = statusMetrics_.boundingRect(QStringLiteral("88888")).width() + 8;
-    int sbarLevelWidth = statusMetrics_.boundingRect(levelText_).width() + 8;
-    int sbarStepsWidth = statusMetrics_.boundingRect(stepsText_).width() + 8;
-    int sbarPushesWidth = statusMetrics_.boundingRect(pushesText_).width() + 8;
+    int sbarLevelWidth = m_levelLabel->boundingRect().width() + 8;
+    int sbarStepsWidth = m_stepsLabel->boundingRect().width() + 8;
+    int sbarPushesWidth = m_pushesLabel->boundingRect().width() + 8;
 
-    pnumRect_.setRect(w - sbarNumWidth, h - sbarHeight, sbarNumWidth, sbarHeight);
-    ptxtRect_.setRect(pnumRect_.x() - sbarPushesWidth, h - sbarHeight, sbarPushesWidth, sbarHeight);
-    snumRect_.setRect(ptxtRect_.x() - sbarNumWidth, h - sbarHeight, sbarNumWidth, sbarHeight);
-    stxtRect_.setRect(snumRect_.x() - sbarStepsWidth, h - sbarHeight, sbarStepsWidth, sbarHeight);
-    lnumRect_.setRect(stxtRect_.x() - sbarNumWidth, h - sbarHeight, sbarNumWidth, sbarHeight);
-    ltxtRect_.setRect(lnumRect_.x() - sbarLevelWidth, h - sbarHeight, sbarLevelWidth, sbarHeight);
-    collRect_.setRect(0, h - sbarHeight, ltxtRect_.x(), sbarHeight);
-
-    // printf("collRect_:%d;%d;%d;%d\n",collRect_.x(), collRect_.y(), collRect_.width(), collRect_.height());
-
-    const qreal dpr = qApp->devicePixelRatio();
-
-    ltxtXpm_ = QPixmap(ltxtRect_.size() * dpr);
-    ltxtXpm_.setDevicePixelRatio(dpr);
-    lnumXpm_ = QPixmap(lnumRect_.size() * dpr);
-    lnumXpm_.setDevicePixelRatio(dpr);
-    stxtXpm_ = QPixmap(stxtRect_.size() * dpr);
-    stxtXpm_.setDevicePixelRatio(dpr);
-    snumXpm_ = QPixmap(snumRect_.size() * dpr);
-    snumXpm_.setDevicePixelRatio(dpr);
-    ptxtXpm_ = QPixmap(ptxtRect_.size() * dpr);
-    ptxtXpm_.setDevicePixelRatio(dpr);
-    pnumXpm_ = QPixmap(pnumRect_.size() * dpr);
-    pnumXpm_.setDevicePixelRatio(dpr);
-    collXpm_ = QPixmap(collRect_.size() * dpr);
-    collXpm_.setDevicePixelRatio(dpr);
+    // from right to left
+    m_pushesNumber->setPos(w - sbarNumWidth, h - sbarHeight);
+    m_pushesLabel->setPos(m_pushesNumber->x() - sbarPushesWidth, h - sbarHeight);
+    m_stepsNumber->setPos(m_pushesLabel->x() - sbarNumWidth, h - sbarHeight);
+    m_stepsLabel->setPos(m_stepsNumber->x() - sbarStepsWidth, h - sbarHeight);
+    m_levelNumber->setPos(m_stepsLabel->x() - sbarNumWidth, h - sbarHeight);
+    m_levelLabel->setPos(m_levelNumber->x() - sbarLevelWidth, h - sbarHeight);
 
     h -= sbarHeight;
 
@@ -678,11 +668,8 @@ void PlayField::setSize(int w, int h)
     m_groundItem->setPos(xOffs_, yOffs_);
     m_groundItem->setSize(size_);
 
-    updateCollectionXpm();
-    updateTextXpm();
-    updateLevelXpm();
-    updateStepsXpm();
-    updatePushesXpm();
+    updateStepsDisplay();
+    updatePushesDisplay();
 
     updateBackground();
 }
@@ -741,8 +728,8 @@ void PlayField::restartLevel()
     stopMoving();
     history_->clear();
     level(levelMap_->level());
-    updateStepsXpm();
-    updatePushesXpm();
+    updateStepsDisplay();
+    updatePushesDisplay();
     update();
 }
 
@@ -751,100 +738,21 @@ void PlayField::changeCollection(LevelCollection *collection)
     if (levelMap_->collection() == collection)
         return;
     levelMap_->changeCollection(collection);
+
+    m_collectionName->setText(collectionName());
     levelChange();
-    // erase(collRect_);
+
     update();
 }
 
-void PlayField::updateCollectionXpm()
+void PlayField::updateStepsDisplay()
 {
-    if (collXpm_.isNull())
-        return;
-    // printf("executing PlayField::updateCollectionXpm() w:%d, h:%d\n",collXpm_->width(), collXpm_->height());
-
-    collXpm_.fill(QColor(0, 0, 0, 0));
-
-    QPainter paint(&collXpm_);
-
-    paint.setFont(statusFont_);
-    paint.setPen(QColor(0, 255, 0));
-    paint.drawText(0, 0, collRect_.width(), collRect_.height(), Qt::AlignLeft, collectionName());
+    m_stepsNumber->setText(QString::asprintf("%05d", totalMoves()));
 }
 
-void PlayField::updateTextXpm()
+void PlayField::updatePushesDisplay()
 {
-    if (ltxtXpm_.isNull())
-        return;
-    // printf("executing PlayField::updateTextXpm() w:%d, h:%d\n",ltxtXpm_->width(), ltxtXpm_->height());
-
-    ltxtXpm_.fill(QColor(0, 0, 0, 0));
-    stxtXpm_.fill(QColor(0, 0, 0, 0));
-    ptxtXpm_.fill(QColor(0, 0, 0, 0));
-
-    QPainter paint;
-
-    paint.begin(&ltxtXpm_);
-    paint.setFont(statusFont_);
-    paint.setPen(QColor(128, 128, 128));
-    paint.drawText(0, 0, ltxtRect_.width(), ltxtRect_.height(), Qt::AlignLeft, levelText_);
-    paint.end();
-
-    paint.begin(&stxtXpm_);
-    paint.setFont(statusFont_);
-    paint.setPen(QColor(128, 128, 128));
-    paint.drawText(0, 0, stxtRect_.width(), stxtRect_.height(), Qt::AlignLeft, stepsText_);
-    paint.end();
-
-    paint.begin(&ptxtXpm_);
-    paint.setFont(statusFont_);
-    paint.setPen(QColor(128, 128, 128));
-    paint.drawText(0, 0, ptxtRect_.width(), ptxtRect_.height(), Qt::AlignLeft, pushesText_);
-    paint.end();
-}
-
-void PlayField::updateLevelXpm()
-{
-    if (lnumXpm_.isNull())
-        return;
-    // printf("executing PlayField::updateLevelXpm()\n");
-
-    lnumXpm_.fill(QColor(0, 0, 0, 0));
-
-    QPainter paint(&lnumXpm_);
-
-    paint.setFont(statusFont_);
-    paint.setPen(QColor(255, 0, 0));
-    paint.drawText(0, 0, lnumRect_.width(), lnumRect_.height(), Qt::AlignLeft, QString::asprintf("%05d", level() + 1));
-}
-
-void PlayField::updateStepsXpm()
-{
-    if (snumXpm_.isNull())
-        return;
-    // printf("executing PlayField::updateStepsXpm()\n");
-
-    snumXpm_.fill(QColor(0, 0, 0, 0));
-
-    QPainter paint(&snumXpm_);
-
-    paint.setFont(statusFont_);
-    paint.setPen(QColor(255, 0, 0));
-    paint.drawText(0, 0, snumRect_.width(), snumRect_.height(), Qt::AlignLeft, QString::asprintf("%05d", totalMoves()));
-}
-
-void PlayField::updatePushesXpm()
-{
-    if (pnumXpm_.isNull())
-        return;
-    // printf("executing PlayField::updatePushesXpm()\n");
-
-    pnumXpm_.fill(QColor(0, 0, 0, 0));
-
-    QPainter paint(&pnumXpm_);
-
-    paint.setFont(statusFont_);
-    paint.setPen(QColor(255, 0, 0));
-    paint.drawText(0, 0, pnumRect_.width(), pnumRect_.height(), Qt::AlignLeft, QString::asprintf("%05d", totalPushes()));
+    m_pushesNumber->setText(QString::asprintf("%05d", totalPushes()));
 }
 
 void PlayField::changeAnim(int num)
@@ -881,9 +789,9 @@ void PlayField::goToBookmark(Bookmark *bm)
     levelChange();
     if (!bm->goTo(levelMap_, history_))
         fprintf(stderr, "Warning: bad bookmark\n");
-    // updateLevelXpm();
-    updateStepsXpm();
-    updatePushesXpm();
+
+    updateStepsDisplay();
+    updatePushesDisplay();
     update();
 }
 

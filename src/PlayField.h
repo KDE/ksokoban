@@ -12,13 +12,9 @@
 
 #include <KGameRenderer>
 
-#include <QBrush>
 #include <QCursor>
 #include <QFont>
 #include <QFontMetrics>
-#include <QImage>
-#include <QPixmap>
-#include <QString>
 #include <QGraphicsScene>
 
 class MoveSequence;
@@ -31,6 +27,8 @@ class LevelCollection;
 class GroundItem;
 
 class KGamePopupItem;
+
+class QGraphicsSimpleTextItem;
 
 class PlayField : public QGraphicsScene
 {
@@ -64,8 +62,6 @@ public Q_SLOTS:
     void restartLevel();
 
 protected:
-    void drawBackground(QPainter *painter, const QRectF &rect) override;
-
     void keyPressEvent(QKeyEvent *) override;
     void mouseMoveEvent(QGraphicsSceneMouseEvent *e) override;
     void mousePressEvent(QGraphicsSceneMouseEvent *) override;
@@ -91,14 +87,10 @@ private:
     int totalMoves() const;
     int totalPushes() const;
 
-    void updateCollectionXpm();
-    void updateTextXpm();
-    void updateLevelXpm();
-    void updateStepsXpm();
-    void updatePushesXpm();
+    void updateStepsDisplay();
+    void updatePushesDisplay();
 
     void levelChange();
-    void paintPainter(QPainter &paint, const QRect &rect);
     void step(int _x, int _y);
     void push(int _x, int _y);
     void stopDrag();
@@ -160,25 +152,14 @@ private:
     KGamePopupItem *m_messageItem;
     KGameRenderer m_renderer;
     GroundItem *m_groundItem;
+    QGraphicsSimpleTextItem *m_collectionName;
+    QGraphicsSimpleTextItem *m_levelLabel;
+    QGraphicsSimpleTextItem *m_levelNumber;
+    QGraphicsSimpleTextItem *m_stepsLabel;
+    QGraphicsSimpleTextItem *m_stepsNumber;
+    QGraphicsSimpleTextItem *m_pushesLabel;
+    QGraphicsSimpleTextItem *m_pushesNumber;
 
-    QRect pnumRect_;
-    QRect ptxtRect_;
-    QRect snumRect_;
-    QRect stxtRect_;
-    QRect lnumRect_;
-    QRect ltxtRect_;
-    QRect collRect_;
-
-    const QString levelText_;
-    const QString stepsText_;
-    const QString  pushesText_;
-    QPixmap pnumXpm_;
-    QPixmap ptxtXpm_;
-    QPixmap snumXpm_;
-    QPixmap stxtXpm_;
-    QPixmap lnumXpm_;
-    QPixmap ltxtXpm_;
-    QPixmap collXpm_;
     QFont statusFont_;
     QFontMetrics statusMetrics_;
 };
