@@ -7,6 +7,7 @@
 #include "PlayField.h"
 
 #include "Bookmark.h"
+#include "GroundItem.h"
 #include "History.h"
 #include "HtmlPrinter.h"
 #include "LevelCollection.h"
@@ -44,10 +45,6 @@ static KgTheme* createClassicTheme()
     return theme;
 }
 
-// hardcoded for now, featch from theme
-static constexpr int SMALL_STONES = 4;
-static constexpr int LARGE_STONES = 6;
-
 PlayField::PlayField(QObject *parent)
     : QGraphicsScene(parent)
     , crossCursor(Qt::CrossCursor)
@@ -59,7 +56,6 @@ PlayField::PlayField(QObject *parent)
     , statusMetrics_(statusFont_)
 {
     highlightX_ = highlightY_ = 0;
-    stoneIndex_.setStoneCount(LARGE_STONES, SMALL_STONES);
 
     KSharedConfigPtr cfg = KSharedConfig::openConfig();
     KConfigGroup settingsGroup(cfg, "settings");
@@ -72,6 +68,8 @@ PlayField::PlayField(QObject *parent)
 
     levelMap_ = new LevelMap;
 
+    m_groundItem = new GroundItem(levelMap_, &m_renderer);
+    addItem(m_groundItem);
     levelChange();
 
     m_messageItem = new KGamePopupItem();
@@ -95,6 +93,7 @@ void PlayField::updateBackground()
     const QString backgroundId = QStringLiteral("background");
     const QSize backgroundSize = m_renderer.boundsOnSprite(backgroundId).size().toSize();
     setBackgroundBrush(m_renderer.spritePixmap(backgroundId, backgroundSize));
+//     setBackgroundBrush(m_renderer.spritePixmap(backgroundId, sceneRect().size()));
 }
 
 void PlayField::showMessage(const QString &message)
@@ -159,98 +158,6 @@ void PlayField::levelChange()
     highlight();
 }
 
-QPixmap PlayField::stonePixmap(int stoneIndex) const
-{
-    const QString spriteName = QStringLiteral("stone_%1").arg(stoneIndex);
-
-    return m_renderer.spritePixmap(spriteName, QSize(size_, halfSize_));
-}
-
-QPixmap PlayField::halfStonePixmap(int stoneIndex) const
-{
-    const QString spriteName = QStringLiteral("halfstone_%1").arg(stoneIndex);
-
-    return m_renderer.spritePixmap(spriteName, QSize(halfSize_, halfSize_));
-}
-
-void PlayField::paintWall(int x, int y, QPainter &paint)
-{
-    const bool left = levelMap_->wallLeft(x, y);
-    const bool right = levelMap_->wallRight(x, y);
-    const int pixelX = x2pixel(x);
-    const int pixelY = y2pixel(y);
-    const int stoneIndex = x + y * (Map::MAX_X + 1);
-
-    const qreal dpr = qApp->devicePixelRatio();
-    const int deviceSize_ = size_ * dpr;
-    const int halfdeviceSize_ = deviceSize_ / 2;
-
-    if (left)
-        paint.drawPixmap(pixelX, pixelY, stonePixmap(stoneIndex_.upperLarge(stoneIndex - 1)),
-                         halfdeviceSize_, 0, -1, -1);
-    else
-        paint.drawPixmap(pixelX, pixelY, halfStonePixmap(stoneIndex_.leftSmall(stoneIndex)));
-
-    if (right)
-        paint.drawPixmap(pixelX + halfSize_, pixelY, stonePixmap(stoneIndex_.upperLarge(stoneIndex)),
-                         0, 0, halfdeviceSize_, -1);
-    else
-        paint.drawPixmap(pixelX + halfSize_, pixelY, halfStonePixmap(stoneIndex_.rightSmall(stoneIndex)));
-
-    paint.drawPixmap(pixelX, pixelY + halfSize_, stonePixmap(stoneIndex_.lowerLarge(stoneIndex)));
-}
-
-void PlayField::paintSquare(int x, int y, QPainter &paint)
-{
-    if (levelMap_->wall(x, y)) {
-        paintWall(x, y, paint);
-        return;
-    }
-
-    QString spriteName;
-    if (levelMap_->xpos() == x && levelMap_->ypos() == y) {
-        if (levelMap_->goal(x, y))
-            spriteName = QStringLiteral("saveman");
-        else {
-            spriteName = QStringLiteral("man");
-        }
-    } else if (levelMap_->empty(x, y)) {
-        if (levelMap_->floor(x, y)) {
-            if (levelMap_->goal(x, y))
-                spriteName = QStringLiteral("goal");
-            else {
-                // shortcut for now, replace with theme pixmap (or color property)
-                paint.fillRect(x2pixel(x), y2pixel(y), size_, size_, QColor(0x67, 0x67, 0x67, 255));
-                return;
-            }
-        }
-    } else if (levelMap_->object(x, y)) {
-        // TODO: add highlighting & other states to KGameRenderer
-#if 0
-        if (highlightX_ == x && highlightY_ == y) {
-            if (levelMap_->goal(x, y))
-                imageData_->brightTreasure(paint, x2pixel(x), y2pixel(y));
-            else
-                imageData_->brightObject(paint, x2pixel(x), y2pixel(y));
-            return;
-        } else
-#endif
-        {
-            if (levelMap_->goal(x, y))
-                spriteName = QStringLiteral("treasure");
-            else
-                spriteName = QStringLiteral("object");
-        }
-    }
-
-    if (spriteName.isEmpty()) {
-        return;
-    }
-
-    const QPixmap pixmap = m_renderer.spritePixmap(spriteName, QSize(size_, size_));
-    paint.drawPixmap(x2pixel(x), y2pixel(y), pixmap);
-}
-
 void PlayField::drawBackground(QPainter *painter, const QRectF &rect)
 {
     QGraphicsScene::drawBackground(painter, rect);
@@ -261,25 +168,6 @@ void PlayField::paintPainter(QPainter &paint, const QRect &rect)
 {
     if (size_ <= 0)
         return;
-    int minx = pixel2x(rect.x());
-    int miny = pixel2y(rect.y());
-    int maxx = pixel2x(rect.x() + rect.width() - 1);
-    int maxy = pixel2y(rect.y() + rect.height() - 1);
-
-    if (minx < 0)
-        minx = 0;
-    if (miny < 0)
-        miny = 0;
-    if (maxx >= levelMap_->width())
-        maxx = levelMap_->width() - 1;
-    if (maxy >= levelMap_->height())
-        maxy = levelMap_->height() - 1;
-
-    for (int y = miny; y <= maxy; y++) {
-        for (int x = minx; x <= maxx; x++) {
-            paintSquare(x, y, paint);
-        }
-    }
 
     if (collRect_.intersects(rect))
         paint.drawPixmap(collRect_.x(), collRect_.y(), collXpm_);
@@ -784,10 +672,11 @@ void PlayField::setSize(int w, int h)
         ysize = 8;
 
     size_ = (xsize > ysize ? ysize : xsize);
-    halfSize_ = size_ / 2;
 
     xOffs_ = (w - cols * size_) / 2;
     yOffs_ = (h - rows * size_) / 2;
+    m_groundItem->setPos(xOffs_, yOffs_);
+    m_groundItem->setSize(size_);
 
     updateCollectionXpm();
     updateTextXpm();

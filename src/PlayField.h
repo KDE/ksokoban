@@ -9,7 +9,6 @@
 
 #include "LevelMap.h"
 #include "PathFinder.h"
-#include "StoneIndex.h"
 
 #include <KGameRenderer>
 
@@ -29,6 +28,7 @@ class LevelMap;
 class History;
 class Bookmark;
 class LevelCollection;
+class GroundItem;
 
 class KGamePopupItem;
 
@@ -98,8 +98,6 @@ private:
     void updatePushesXpm();
 
     void levelChange();
-    void paintSquare(int x, int y, QPainter &paint);
-    void paintWall(int x, int y, QPainter &paint);
     void paintPainter(QPainter &paint, const QRect &rect);
     void step(int _x, int _y);
     void push(int _x, int _y);
@@ -132,11 +130,7 @@ private:
 
     void killTimers();
 
-    QPixmap stonePixmap(int stoneIndex) const;
-    QPixmap halfStonePixmap(int stoneIndex) const;
-
 private:
-    StoneIndex stoneIndex_;
     LevelMap *levelMap_;
     History *history_;
     int lastLevel_ = -1;
@@ -148,7 +142,6 @@ private:
     const QCursor *cursor_;
 
     int size_;
-    int halfSize_ = 0;
     int xOffs_ = 0;
     int yOffs_ = 0;
     int highlightX_;
@@ -166,6 +159,7 @@ private:
 
     KGamePopupItem *m_messageItem;
     KGameRenderer m_renderer;
+    GroundItem *m_groundItem;
 
     QRect pnumRect_;
     QRect ptxtRect_;
