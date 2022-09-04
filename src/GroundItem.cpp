@@ -29,8 +29,8 @@ QRectF GroundItem::boundingRect() const
     int cols = m_map->width();
     int rows = m_map->height();
 
-    const int width = m_size * cols;
-    const int height = m_size * rows;
+    const int width = m_squareSize * cols;
+    const int height = m_squareSize * rows;
 
     return QRectF(0, 0, width, height);
 }
@@ -39,15 +39,15 @@ void GroundItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
 {
     Q_UNUSED(widget);
 
-    if (m_size <= 0)
+    if (m_squareSize <= 0)
         return;
 
     const QRectF &rect = option->exposedRect;
 
-    int minx = pixel2x(rect.x());
-    int miny = pixel2y(rect.y());
-    int maxx = pixel2x(rect.x() + rect.width() - 1);
-    int maxy = pixel2y(rect.y() + rect.height() - 1);
+    int minx = squareX(rect.x());
+    int miny = squareY(rect.y());
+    int maxx = squareX(rect.x() + rect.width() - 1);
+    int maxy = squareY(rect.y() + rect.height() - 1);
 
     if (minx < 0)
         minx = 0;
@@ -69,24 +69,24 @@ QPixmap GroundItem::stonePixmap(int stoneIndex) const
 {
     const QString spriteName = QStringLiteral("stone_%1").arg(stoneIndex);
 
-    return m_renderer->spritePixmap(spriteName, QSize(m_size, m_halfSize));
+    return m_renderer->spritePixmap(spriteName, QSize(m_squareSize, m_halfSquareSize));
 }
 
 QPixmap GroundItem::halfStonePixmap(int stoneIndex) const
 {
     const QString spriteName = QStringLiteral("halfstone_%1").arg(stoneIndex);
 
-    return m_renderer->spritePixmap(spriteName, QSize(m_halfSize, m_halfSize));
+    return m_renderer->spritePixmap(spriteName, QSize(m_halfSquareSize, m_halfSquareSize));
 }
 
 void GroundItem::paintWall(int x, int y, QPainter *painter)
 {
-    const int pixelX = x2pixel(x);
-    const int pixelY = y2pixel(y);
+    const int pixelX = squareToX(x);
+    const int pixelY = squareToY(y);
     const int stoneIndex = x + y * (Map::MAX_X + 1);
 
     const qreal dpr = qApp->devicePixelRatio();
-    const int deviceSize_ = m_size * dpr;
+    const int deviceSize_ = m_squareSize * dpr;
     const int halfdeviceSize_ = deviceSize_ / 2;
 
     if (m_map->wallLeft(x, y)) {
@@ -97,13 +97,13 @@ void GroundItem::paintWall(int x, int y, QPainter *painter)
     }
 
     if (m_map->wallRight(x, y)) {
-        painter->drawPixmap(pixelX + m_halfSize, pixelY, stonePixmap(m_stoneIndex.upperLarge(stoneIndex)),
+        painter->drawPixmap(pixelX + m_halfSquareSize, pixelY, stonePixmap(m_stoneIndex.upperLarge(stoneIndex)),
                          0, 0, halfdeviceSize_, -1);
     } else {
-        painter->drawPixmap(pixelX + m_halfSize, pixelY, halfStonePixmap(m_stoneIndex.rightSmall(stoneIndex)));
+        painter->drawPixmap(pixelX + m_halfSquareSize, pixelY, halfStonePixmap(m_stoneIndex.rightSmall(stoneIndex)));
     }
 
-    painter->drawPixmap(pixelX, pixelY + m_halfSize, stonePixmap(m_stoneIndex.lowerLarge(stoneIndex)));
+    painter->drawPixmap(pixelX, pixelY + m_halfSquareSize, stonePixmap(m_stoneIndex.lowerLarge(stoneIndex)));
 }
 
 void GroundItem::paintSquare(int x, int y, QPainter *painter)
@@ -126,7 +126,7 @@ void GroundItem::paintSquare(int x, int y, QPainter *painter)
                 spriteName = QStringLiteral("goal");
             else {
                 // shortcut for now, replace with theme pixmap (or color property)
-                painter->fillRect(x2pixel(x), y2pixel(y), m_size, m_size, QColor(0x67, 0x67, 0x67, 255));
+                painter->fillRect(squareToX(x), squareToY(y), m_squareSize, m_squareSize, QColor(0x67, 0x67, 0x67, 255));
                 return;
             }
         }
@@ -135,9 +135,9 @@ void GroundItem::paintSquare(int x, int y, QPainter *painter)
 #if 0
         if (highlightX_ == x && highlightY_ == y) {
             if (m_map->goal(x, y))
-                imageData_->brightTreasure(paint, x2pixel(x), y2pixel(y));
+                imageData_->brightTreasure(paint, squareToX(x), squareToY(y));
             else
-                imageData_->brightObject(paint, x2pixel(x), y2pixel(y));
+                imageData_->brightObject(paint, squareToX(x), squareToY(y));
             return;
         } else
 #endif
@@ -153,6 +153,6 @@ void GroundItem::paintSquare(int x, int y, QPainter *painter)
         return;
     }
 
-    const QPixmap pixmap = m_renderer->spritePixmap(spriteName, QSize(m_size, m_size));
-    painter->drawPixmap(x2pixel(x), y2pixel(y), pixmap);
+    const QPixmap pixmap = m_renderer->spritePixmap(spriteName, QSize(m_squareSize, m_squareSize));
+    painter->drawPixmap(squareToX(x), squareToY(y), pixmap);
 }

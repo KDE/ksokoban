@@ -203,16 +203,21 @@ void PlayField::mouseMoveEvent(QGraphicsSceneMouseEvent *e)
     dragX_ = lastMouseXPos_ - mousePosX_;
     dragY_ = lastMouseYPos_ - mousePosY_;
 
+    const int suqareSize = m_groundItem->squareSize();
     {
-        int x = pixel2x(dragX_ + size_ / 2);
-        int y = pixel2y(dragY_ + size_ / 2);
+        // TODO: this logic seems broken, dragx/Y is relative
+        const QPoint square = m_groundItem->squareFromScene({dragX_ + suqareSize / 2, dragY_ + suqareSize / 2});
+        int x = square.x();
+        int y = square.y();
         if (x >= 0 && x < levelMap_->width() && y >= 0 && y < levelMap_->height() && pathFinder_.canDragTo(x, y)) {
-            x = x2pixel(x);
-            y = y2pixel(y);
+            const QPointF dragScenePos = m_groundItem->squareToScene({x, y});
+            const qreal dragX =  dragScenePos.x();
+            const qreal dragY =  dragScenePos.y();
 
-            if (dragX_ >= x - size_ / 4 && dragX_ < x + size_ / 4 && dragY_ >= y - size_ / 4 && dragY_ < y + size_ / 4) {
-                dragX_ = x;
-                dragY_ = y;
+            if (dragX_ >= dragX - suqareSize / 4 && dragX_ < dragX + suqareSize / 4 &&
+                dragY_ >= dragY - suqareSize / 4 && dragY_ < dragY + suqareSize / 4) {
+                dragX_ = dragX;
+                dragY_ = dragY;
             }
         }
     }
@@ -226,11 +231,12 @@ void PlayField::mouseMoveEvent(QGraphicsSceneMouseEvent *e)
 void PlayField::highlight()
 {
     // FIXME: the line below should not be needed
-    if (size_ == 0)
+    if (m_groundItem->squareSize() == 0)
         return;
 
-    int x = pixel2x(lastMouseXPos_);
-    int y = pixel2y(lastMouseYPos_);
+    const QPoint square = m_groundItem->squareFromScene({lastMouseXPos_, lastMouseYPos_});
+    const int x = square.x();
+    const int y = square.y();
 
     if (x < 0 || y < 0 || x >= levelMap_->width() || y >= levelMap_->height())
         return;
@@ -529,8 +535,11 @@ void PlayField::stopDrag()
 
 void PlayField::dragObject(int xpixel, int ypixel)
 {
-    int x = pixel2x(xpixel - mousePosX_ + size_ / 2);
-    int y = pixel2y(ypixel - mousePosY_ + size_ / 2);
+    const int squareSize = m_groundItem->squareSize();
+    const QPoint square = m_groundItem->squareFromScene({xpixel - mousePosX_ + squareSize / 2,
+                                                         ypixel - mousePosY_ + squareSize / 2});
+    const int x = square.x();
+    const int y = square.y();
 
     if (x == highlightX_ && y == highlightY_)
         return;
@@ -553,8 +562,9 @@ void PlayField::mousePressEvent(QGraphicsSceneMouseEvent *e)
         return;
     }
 
-    int x = pixel2x(e->scenePos().x());
-    int y = pixel2y(e->scenePos().y());
+    const QPoint square = m_groundItem->squareFromScene(e->scenePos());
+    const int x = square.x();
+    const int y = square.y();
     if (x < 0 || y < 0 || x >= levelMap_->width() || y >= levelMap_->height())
         return;
 
@@ -564,8 +574,9 @@ void PlayField::mousePressEvent(QGraphicsSceneMouseEvent *e)
         highlightY_ = y;
         pathFinder_.updatePossibleDestinations(x, y);
 
-        dragX_ = x2pixel(x);
-        dragY_ = y2pixel(y);
+        const QPointF dragScenePos = m_groundItem->squareToScene({x, y});
+        dragX_ = dragScenePos.x();
+        dragY_ = dragScenePos.y();
         mousePosX_ = e->scenePos().x() - dragX_;
         mousePosY_ = e->scenePos().y() - dragY_;
         dragInProgress_ = true;
@@ -661,12 +672,12 @@ void PlayField::setSize(int w, int h)
     if (ysize < 8)
         ysize = 8;
 
-    size_ = (xsize > ysize ? ysize : xsize);
+    const int suqareSize = (xsize > ysize ? ysize : xsize);
 
-    xOffs_ = (w - cols * size_) / 2;
-    yOffs_ = (h - rows * size_) / 2;
-    m_groundItem->setPos(xOffs_, yOffs_);
-    m_groundItem->setSize(size_);
+    const qreal groundX = (w - cols * suqareSize) / 2;
+    const qreal groundY = (h - rows * suqareSize) / 2;
+    m_groundItem->setPos(groundX, groundY);
+    m_groundItem->setSquareSize(suqareSize);
 
     updateStepsDisplay();
     updatePushesDisplay();

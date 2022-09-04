@@ -98,24 +98,6 @@ private:
     void highlight();
     void changeCursor(const QCursor *c);
 
-    int x2pixel(int x) const
-    {
-        return size_ * x + xOffs_;
-    }
-    int y2pixel(int y) const
-    {
-        return size_ * y + yOffs_;
-    }
-
-    int pixel2x(int x) const
-    {
-        return (x - xOffs_) / size_;
-    }
-    int pixel2y(int y) const
-    {
-        return (y - yOffs_) / size_;
-    }
-
     void startMoving(Move *m);
     void startMoving(MoveSequence *ms);
     void stopMoving();
@@ -133,9 +115,6 @@ private:
     int animDelay_;
     const QCursor *cursor_;
 
-    int size_;
-    int xOffs_ = 0;
-    int yOffs_ = 0;
     int highlightX_;
     int highlightY_;
     qreal dragX_;
