@@ -148,7 +148,6 @@ private:
     int mousePosX_;
     int mousePosY_;
     int wheelDelta_ = 0;
-    int debug_counter = 0;
 
     QList<int> timers;
     QCursor crossCursor;
