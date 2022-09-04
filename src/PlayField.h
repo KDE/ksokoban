@@ -141,12 +141,12 @@ private:
     int yOffs_ = 0;
     int highlightX_;
     int highlightY_;
-    int dragX_;
-    int dragY_;
-    int lastMouseXPos_;
-    int lastMouseYPos_;
-    int mousePosX_;
-    int mousePosY_;
+    qreal dragX_;
+    qreal dragY_;
+    qreal lastMouseXPos_;
+    qreal lastMouseYPos_;
+    qreal mousePosX_;
+    qreal mousePosY_;
     int wheelDelta_ = 0;
 
     QList<int> timers;
