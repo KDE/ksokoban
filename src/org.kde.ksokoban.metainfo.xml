@@ -16,6 +16,7 @@
   <name xml:lang="pt">KSokoban</name>
   <name xml:lang="sk">KSokoban</name>
   <name xml:lang="sl">KSokoban</name>
+  <name xml:lang="sv">Ksokoban</name>
   <name xml:lang="tr">KSokoban</name>
   <name xml:lang="uk">KSokoban</name>
   <name xml:lang="x-test">xxKSokobanxx</name>
@@ -32,6 +33,7 @@
   <summary xml:lang="pt">Jogo Sokoban</summary>
   <summary xml:lang="sk">Hra Sokoban</summary>
   <summary xml:lang="sl">Igra Sokoban</summary>
+  <summary xml:lang="sv">Sokoban-spel</summary>
   <summary xml:lang="tr">Sokoban Oyunu</summary>
   <summary xml:lang="uk">Гра «Сокобан»</summary>
   <summary xml:lang="x-test">xxSokoban Gamexx</summary>
@@ -50,6 +52,7 @@
     <p xml:lang="nn">KSokoban er ei utgåve av det japanske lagersjef­spelet «sokoban».</p>
     <p xml:lang="pt">O KSokoban é uma implementação do jogo japonês de arrumação de armazéns “sokoban”.</p>
     <p xml:lang="sl">KSokoban je izvedba japonske igre skrbnika skladišča "sokoban".</p>
+    <p xml:lang="sv">Ksokoban är en implementering av det japanska lagerarbetarspelet "sokoban”.</p>
     <p xml:lang="tr">KSokoban, Japon depo bekçisi oyunu "Sokoban"ın bir uyarlamasıdır.</p>
     <p xml:lang="uk">KSokoban — реалізація японської гри у комірника, «сокобан».</p>
     <p xml:lang="x-test">xxKSokoban is a implementation of the Japanese warehouse keeper game “sokoban”.xx</p>
@@ -67,6 +70,7 @@
     <p xml:lang="nn">Du spelar ein lagersjef som må flytta kassar til rett plass ved å skubba dei. Men du kan ikkje hala dei eller klatra over dei, så viss du ikkje passar på, kan dei verta setjande fast på feil stad, eller dei kan verta ståande og sperra vegen for deg.</p>
     <p xml:lang="pt">A ideia é que você é um arrumador de armazéns que tenta empurrar os caixotes para o seu local correcto num armazém. O problema é que não pode puxar os caixotes ou passar por cima deles. Se não tiver cuidado, alguns dos caixotes podem ficar presos em lugares errados e/ou bloquear a sua passagem.</p>
     <p xml:lang="sl">Ideja je, da ste skrbnik skladišča, ki poskuša potiskati zaboje na ustrezne lokacije v skladišču. Težava je v tem, da ne morete zabojev vleči ali stopati čez njih. Če niste previdni, lahko nekateri zaboji obtičijo na napačnih mestih in/ali blokirajo vašo pot.</p>
+    <p xml:lang="sv">Idén är att du är en lagerarbetare som försöker knuffa lådor till sina riktiga platser i en lagerbyggnad. Problemet är att du inte kan dra lådorna eller kliva över dem. Om du inte är försiktig kan några av lådorna fastna på fel platser och/eller blockera vägen för dig.</p>
     <p xml:lang="tr">Buradaki fikir, kasaları bir depodaki uygun yerlerine itmeye çalışan bir depo bekçisi olmanızdır. Sorun şu ki, kasaları çekemiyor veya üzerinden geçemezsiniz. Dikkatli olmazsanız bazı sandıklar yanlış yerlere takılabilir ve/veya yolunuzu kapatabilir.</p>
     <p xml:lang="uk">Ви граєте за комірника, якому треба перетягти скриньки на складі у відповідні їм місця. Проблема полягає у тому, що ви не можете тягнути скриньки або переступати через них. Якщо ви не будете обережними, деякі скриньки може бути заблоковано у невідповідних місцях і/або вони можуть заблокувати вам дорогу.</p>
     <p xml:lang="x-test">xxThe idea is that you are a warehouse keeper trying to push crates to their proper locations in a warehouse. The problem is that you cannot pull the crates or step over them. If you are not careful, some of the crates can get stuck in wrong places and/or block your way.xx</p>
