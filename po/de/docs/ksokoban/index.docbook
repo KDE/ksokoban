@@ -1,0 +1,692 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % German "INCLUDE"
+> <!-- change language only here -->
+  <!ENTITY % addindex "IGNORE">
+]>
+	
+<book lang="&language;">
+<bookinfo>
+<title
+>Das Handbuch zu &ksokoban;</title>
+
+<authorgroup>
+<author
+><firstname
+>Anders</firstname
+> <surname
+>Widell</surname
+> <affiliation
+> <address
+>&Anders.Widell.mail;</address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Maren</firstname
+><surname
+>Pakura</surname
+><affiliation
+><address
+><email
+>maren@kde.org</email
+></address
+></affiliation
+><contrib
+>Deutsche Übersetzung</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2000</year>
+<holder
+>&Anders.Widell;</holder>
+</copyright>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2006-06-19</date>
+<releaseinfo
+>0.4.2</releaseinfo>
+
+<abstract>
+<para
+>&ksokoban; ist Umsetzung des japanischen Warenhausarbeiter-Spiels <quote
+>Sokoban</quote
+> für &kde;. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdegames</keyword>
+<keyword
+>Spiel</keyword>
+<keyword
+>Sokoban</keyword>
+<keyword
+>KSokoban</keyword>
+</keywordset>
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Einleitung</title>
+
+<para
+>Dieses Spiel wurde ursprünglich 1982 von Hiroyuki Imabayashi in der japanischen Firma Thinking Rabbit, Inc. erfunden. <quote
+>Sokoban</quote
+> ist Japanisch und bedeutet <quote
+>Lagerverwalter</quote
+>. Die Idee ist, dass Sie Verwalter des Warenlagers sind, der versucht Kisten an die richtigen Stellen im Warenlager zu schieben. </para>
+
+<para
+>Das Problem dabei ist; Sie können die Kisten nicht ziehen oder darüber gehen. Wenn Sie nicht vorsichtig genug sind, können einige der Kisten an den falschen Stellen stecken bleiben oder Ihren Weg versperren. </para>
+
+<para
+>Es kann ganz schön schwierig werden, einen Raum zu lösen. Aber wenn man den Schwierigkeitsgrad steigern will, kann man dies mit einer Minimierung der Anzahl der benötigten Bewegungen und/oder Verschiebungen versuchen, die man zur Beendigung braucht. </para>
+
+<para
+>Damit das Spiel kleinen Kindern (jünger als 10) mehr Spaß macht, sind einige Sammlungen mit einfacheren Räumen bei &ksokoban; enthalten. Diese sind im Menü Raum-Sammlung mit <emphasis
+>(leicht)</emphasis
+> markiert. Natürlich können diese Räume auch Erwachsenen Spaß machen, &eg; wenn Sie sich nicht zuviel geistiger Anstrengung aussetzen wollen. </para>
+</chapter>
+
+<chapter id="how-to-play">
+<title
+>Spielanleitung</title>
+
+<para
+>Ziel des Spieles ist, alle roten Edelsteine in die Zielfelder zu schieben. Diese enthalten grüne, runde Flächen. </para>
+
+<para
+>Benutzen Sie die Pfeiltasten oder die Maus um sich zu bewegen. Wenn Sie mit den Pfeiltasten oder der &MMBn; gegen einen Edelstein kommen und nichts auf der Gegenseite blockiert, verschieben Sie den Edelstein. Es ist nicht möglich, die Edelsteine zu ziehen. Daraus folgt, wenn Sie einen Edelstein in eine Ecke schieben, bleibt er dort stecken. Sie können die Edelsteine nicht überspringen. Somit können Sie sich auch in einen Teil des Labyrinths einsperren, wenn Sie Ihren Weg mit Edelsteinen blockieren. Bitte beachten Sie auch, dass es nicht möglich ist, mehr als einen Edelstein zur gleichen Zeit zu verschieben. </para>
+
+<para
+>Wenn Sie bemerken, dass Sie die Edelsteine so verschoben haben, dass der Raum nicht mehr zu lösen ist, können Sie immer noch die Rückgängig-Funktion verwenden, um zu einem Zug zurückzukehren, in dem Sie den Fehler noch nicht gemacht hatten. Sie können auch den Raum neu starten. </para>
+
+<sect1 id="controls">
+<title
+>Steuerung</title>
+
+<para>
+<informaltable>
+<tgroup cols="2">
+<thead>
+<row
+><entry
+>Taste</entry
+><entry
+>Aktion</entry
+></row>
+</thead>
+
+<tbody>
+<row
+><entry
+>Pfeiltasten </entry
+><entry
+>Geht einen Schritt in eine Richtung. </entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Pfeiltasten</keycap
+></keycombo
+> </entry
+><entry
+>Gehe so weit wie möglich in eine Richtung, ohne einen Stein zu bewegen. </entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Shift;<keycap
+>Pfeiltasten</keycap
+></keycombo
+> </entry
+><entry
+>Gehe so weit wie möglich in eine Richtung, bewege jeden Stein, der im Weg ist. </entry
+></row>
+<row
+><entry
+>&LMB; </entry
+><entry
+>Gehe zu einem Ort im Labyrinth, der ohne Bewegen von Steinen erreicht werden kann. </entry
+></row>
+<row
+><entry
+>&MMB; oder <keycombo action="simul"
+>&Ctrl;<keycap
+>Z</keycap
+></keycombo
+></entry
+><entry
+>Macht die letzte Aktion rückgängig. </entry
+></row>
+<row
+><entry
+>&RMB; </entry
+><entry
+>Hoch/Runter/Links/Rechts in einer geraden Linie, bewege jeden Stein, der im Weg ist. </entry
+></row>
+<row
+><entry
+><mousebutton
+>Mausrad</mousebutton
+></entry
+><entry
+>Den Verlauf durchsuchen. </entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>Z</keycap
+></keycombo
+></entry
+><entry
+>Stellt die zuletzt rückgängig gemachte Aktion wieder her. </entry
+></row>
+<row
+><entry
+><keycap
+>N</keycap
+> </entry
+><entry
+>Gehe in den nächsten Raum der aktuellen Raum-Sammlung. </entry
+></row>
+<row
+><entry
+><keycap
+>P</keycap
+> </entry
+><entry
+>Gehe in den vorherigen Raum der aktuellen Raum-Sammlung. </entry
+></row>
+<row
+><entry
+>&Esc; </entry
+><entry
+>Startet den Raum neu. </entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+></entry
+><entry
+>Beendet das Spiel. </entry
+></row>
+</tbody>
+</tgroup>
+</informaltable>
+</para>
+</sect1>
+
+<sect1 id="loading-external-levels">
+<title
+>Laden von externen Räumen</title>
+
+<para
+>&ksokoban; hat die Fähigkeit, externe Räume aus Text-Dateien zu lesen. Diese Räume können mit <menuchoice
+> <guimenu
+>Spiel</guimenu
+> <guimenuitem
+>Räume laden ...</guimenuitem
+> </menuchoice
+> geladen werden oder durch Angabe der &URL; des Raumes als Befehlszeilenargument, wenn &ksokoban; aus der Shell gestartet wird. </para>
+
+<para
+>Die externen Räume müssen mit den Standardzeichen geschrieben sein, die in der nachfolgenden Tabelle dargestellt sind. Wenn eine Datei mehr als einen Raum enthält, sollten sie durch leere Zeilen getrennt sein. Die Datei kann auch Text zwischen den Räumen enthalten. </para>
+
+<informaltable>
+<tgroup cols="2">
+<thead>
+<row
+><entry
+>Zeichen</entry
+><entry
+>Bedeutung</entry
+></row>
+</thead>
+
+<tbody>
+<row
+><entry
+><literal
+>#</literal
+></entry
+><entry
+>Mauer</entry
+></row>
+<row
+><entry
+><emphasis
+>(Leerzeichen)</emphasis
+></entry
+><entry
+>Leeres Feld</entry
+></row>
+<row
+><entry
+><literal
+>.</literal
+></entry
+><entry
+>Zielfeld</entry
+></row>
+<row
+><entry
+><literal
+>$</literal
+></entry
+><entry
+>Edelstein auf leerem Feld</entry
+></row>
+<row
+><entry
+><literal
+>*</literal
+></entry
+><entry
+>Edelstein auf Zielfeld</entry
+></row>
+<row
+><entry
+><literal
+>@</literal
+></entry
+><entry
+>Startposition auf leerem Feld</entry
+></row>
+<row
+><entry
+><literal
+>+</literal
+></entry
+><entry
+>Startposition auf Zielfeld</entry
+></row>
+</tbody>
+</tgroup>
+</informaltable>
+
+<para
+>Unten ist der erste Raum in der <emphasis
+>Microban</emphasis
+>Raum-Sammlung als Text dargestellt: </para>
+
+<para>
+<screen
+>####
+# .#
+#  ###
+#*@  #
+#  $ #
+#  ###
+####
+</screen>
+</para>
+</sect1>
+</chapter>
+
+<chapter id="menu-reference">
+<title
+>Menü-Referenz</title>
+
+<para
+>Es folgt eine vollständige Beschreibung der Menüs von &ksokoban;.</para>
+
+<sect1 id="game-menu">
+<title
+>Das Menü Spiel</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Spiel</guimenu
+> <guimenuitem
+>Räume laden ...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Lädt eine externe Spielstufe.</action
+> Siehe den Abschnitt <link linkend="loading-external-levels"
+>Externe Spielstufen laden</link
+> für genauere Informationen.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>N</keycap
+></shortcut
+> <guimenu
+>Spiel</guimenu
+> <guimenuitem
+>Nächster Raum</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Lädt den nächsten Raum.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>P</keycap
+></shortcut
+> <guimenu
+>Spiel</guimenu
+> <guimenuitem
+>Vorheriger Raum</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Geht zurück zum vorherigen Raum.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+>&Esc;</shortcut
+> <guimenu
+>Spiel</guimenu
+> <guimenuitem
+>Raum neu starten</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Startet den Raum neu.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Spiel</guimenu
+> <guisubmenu
+>Raum-Sammlung</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Wechselt zu einer anderen Zusammenstellung von Räumen.</action
+> &ksokoban; bringt verschiedene Raumsammlungen mit. Weitere Sammlungen finden Sie im Internet.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Z</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Spiel</guimenu
+> <guimenuitem
+>Rückgängig</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Macht die letzte Aktion rückgängig.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>Z</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Spiel</guimenu
+> <guimenuitem
+>Wiederherstellen</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Stellt den letzten Spielzug wieder her, der mit dem vorigen Menüpunkt rückgängig gemacht wurde.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Spiel</guimenu
+> <guimenuitem
+>Beenden</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Beendet</action
+> &ksokoban;.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="animation-menu">
+<title
+>Das Menü Animation</title>
+
+<para
+>Im Menü <guimenu
+>Animation</guimenu
+> können Sie die Geschwindigkeit der angezeigten Animation einstellen.  </para>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Animation</guimenu
+> <guisubmenu
+>Langsam</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Spielt die Animation langsam ab</action
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Animation</guimenu
+> <guisubmenu
+>Mittel</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Dies ist die Standardeinstellung und <action
+>spielt die Animation mit etwas höherer Geschwindigkeit ab</action
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Animation</guimenu
+> <guisubmenu
+>Schnell</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Spielt die Animation schnell ab</action
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Animation</guimenu
+> <guisubmenu
+>Aus</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Zeigt keine Animation an</action
+>.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+
+<sect1 id="bookmarks">
+<title
+>Das Menü Lesezeichen</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Lesezeichen</guimenu
+><guisubmenu
+>Lesezeichen setzen</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>&ksokoban; kann <action
+>Lesezeichen in einem bestimmten Raum in einem bestimmten Zustand setzen.</action
+> Damit können Sie vermeiden, dieselben Anfangsschritte häufig wiederholen zu müssen.</para>
+<para
+>Sie können bis zu zehn Lesezeichen gleichzeitig verwenden. Diese werden über <keycombo action="simul"
+>&Ctrl;<keycap
+><replaceable
+>X</replaceable
+></keycap
+></keycombo
+> aufgerufen, wobei das <replaceable
+>X</replaceable
+> für eine Ziffer zwischen 0 und 9 steht.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Lesezeichen</guimenu
+><guisubmenu
+>Gehe zu Lesezeichen</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Stellt einen Zustand wieder her, der zuvor als Lesezeichen gespeichert wurde.</action
+></para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+<sect1 id="help-menu">
+<title
+>Das Menü Hilfe</title
+>&help.menu.documentation; </sect1>
+</chapter>
+
+<chapter id="credits">
+<title
+>Danksagungen und Lizenz</title>
+
+<para
+>&ksokoban; Copyright &copy; 1998-2000 &Anders.Widell; &Anders.Widell.mail;. </para>
+
+<para
+>Das Hintergrundbild <quote
+>Sternenfeld</quote
+> wurde von <ulink url="https://www.gimp.org/"
+>Gimp</ulink
+> übernommen. Alle anderen Grafiken wurden von &Anders.Widell; &Anders.Widell.mail; mit dem Raytracer-Programm <ulink url="https://www.povray.org/"
+>Povray</ulink
+> erstellt. </para>
+
+<para
+>Alle zur Zeit enthaltenen Sokoban-Räume wurden von David W. Skinner erstellt <email
+>sasquatch@bentonrea.com</email
+>. Sie können sich seine Seite zu Sokoban auf <ulink url="https://www.sokobanonline.com/play/web-archive/david-w-skinner"
+>hier</ulink
+> ansehen. </para>
+
+<para
+>Deutsche Übersetzung von Maren Pakura <email
+>maren@kde.org</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index; 
+</book>
+

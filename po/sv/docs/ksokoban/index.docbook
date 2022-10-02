@@ -1,0 +1,706 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % Swedish "INCLUDE"
+> <!-- change language only here -->
+  <!ENTITY % addindex "IGNORE">
+]>
+	
+<book lang="&language;">
+<bookinfo>
+<title
+>Handbok &ksokoban;</title>
+
+<authorgroup>
+<author
+><firstname
+>Anders</firstname
+> <surname
+>Widell</surname
+> <affiliation
+> <address
+>&Anders.Widell.mail;</address>
+</affiliation>
+</author>
+<othercredit role="translator"
+> <firstname
+>Stefan</firstname
+> <surname
+>Asserhäll</surname
+> <affiliation
+><address
+><email
+>stefan.asserhall@bredband.net</email
+></address
+></affiliation
+> <contrib
+>Översättare</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2000</year>
+<holder
+>&Anders.Widell;</holder>
+</copyright>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2021-08-19</date>
+<releaseinfo
+>0.5.0</releaseinfo>
+
+<abstract>
+<para
+>&ksokoban; är en implementering av det japanska lagerarbetarspelet <quote
+>sokoban</quote
+>. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdegames</keyword>
+<keyword
+>spel</keyword>
+<keyword
+>sokoban</keyword>
+<keyword
+>Ksokoban</keyword>
+</keywordset>
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Inledning</title>
+
+<para
+>Det första sokobanspelet skapades 1982 av Hiroyuki Imabayashi på det japanska företaget Thinking Rabbit, Inc. <quote
+>Sokoban</quote
+> är japanska för <quote
+>lagerarbetare</quote
+>. Idén är att du är en lagerarbetare som försöker knuffa lådor till sina rätta platser i ett lager. </para>
+
+<para
+>Problemet är att du inte kan dra lådorna eller kliva över dem. Om du inte är försiktig kan några av lådorna fastna på fel platser och/eller blockera vägen för dig. </para>
+
+<para
+>Det kan vara ganska svårt att bara lösa en nivå. Men om du vill göra det ännu svårare kan du försöka minimera antal drag och/eller knuffar som används för att lösa nivån. </para>
+
+<para
+>För att göra spelet roligare för småbarn (under runt 10 år), är också några samlingar med enklare nivåer inkluderade i &ksokoban;. De är markerade med <emphasis
+>(enkel)</emphasis
+> i menyn med nivåsamlingar. Sådana nivåer kan naturligtvis också vara roliga för vuxna, exempelvis om man inte vill utsätta sig för alltför stor mental ansträngning. </para>
+</chapter>
+
+<chapter id="how-to-play">
+<title
+>Spelet</title>
+
+<para
+>Spelets mål är att knuffa alla röda juveler till målrutorna, som är markerade med gröna glasartade runda saker på golvet. </para>
+
+<para
+>Använd piltangenterna eller musen för att flytta omkring. Om man flyttar sig mot en juvel med användning av piltangenterna eller musens <mousebutton
+>mittenknapp</mousebutton
+>, och ingenting blockerar på andra sidan, knuffar man juvelen. Det är inte möjligt att dra juveler, så om man knuffar en juvel in i ett hörn fastnar den där. Man kan inte heller kliva över juveler, så man kan också bli fångad i en del av labyrinten genom att blockera vägen med juveler. Observera också att det inte är möjligt att knuffa mer än en juvel åt gången. </para>
+
+<para
+>Om man märker att man har flyttat juvelerna på ett sådant sätt att nivån blir omöjlig att lösa kan man alltid använda ångerfunktionen för att gå tillbaka till en position där misstaget ännu inte har gjorts. Man kan naturligtvis också starta om nivån från början. </para>
+
+<sect1 id="controls">
+<title
+>Styrning</title>
+
+<para>
+<informaltable>
+<tgroup cols="2">
+<thead>
+<row
+><entry
+>Tangent</entry
+><entry
+>Åtgärd</entry
+></row>
+</thead>
+
+<tbody>
+<row
+><entry
+>Piltangenter</entry
+><entry
+>Flytta en ruta i en riktning</entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Ctrl;<keycap
+>piltangent</keycap
+></keycombo
+></entry
+><entry
+>Flytta så långt som möjligt i en riktning utan att knuffa några juveler</entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Shift;<keycap
+>piltangent</keycap
+></keycombo
+> </entry
+><entry
+>Flytta så långt som möjligt i en riktning och knuffa alla juveler i vägen</entry
+></row>
+<row
+><entry
+><mousebutton
+>Vänster</mousebutton
+> musknapp</entry
+><entry
+>Flytta till något ställe i labyrinter som kan nås utan att knuffa några juveler&nbsp;</entry
+></row>
+<row
+><entry
+>Musens <mousebutton
+>mittenknapp</mousebutton
+> eller <keycombo action="simul"
+>&Ctrl;<keycap
+>Z</keycap
+></keycombo
+></entry
+><entry
+>Ångra det senaste draget</entry
+></row>
+<row
+><entry
+><mousebutton
+>Höger</mousebutton
+> musknapp</entry
+><entry
+>Flytta uppåt, neråt, vänster eller höger i en rak linje, och knuffa alla juveler i vägen</entry
+></row>
+<row
+><entry
+><mousebutton
+>Mushjul</mousebutton
+></entry
+><entry
+>Gå igenom historiken</entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>Z</keycap
+></keycombo
+>&nbsp;</entry
+><entry
+>Gör om det senast ångrade draget</entry
+></row>
+<row
+><entry
+><keycap
+>N</keycap
+></entry
+><entry
+>Gå till nästa nivå i den aktuella nivåsamlingen</entry
+></row>
+<row
+><entry
+><keycap
+>P</keycap
+></entry
+><entry
+>Gå till föregående nivå i den aktuella nivåsamlingen</entry
+></row>
+<row
+><entry
+>&Esc;</entry
+><entry
+>Starta om aktuell nivå</entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+></entry
+><entry
+>Avsluta spelet</entry
+></row>
+</tbody>
+</tgroup>
+</informaltable>
+</para>
+</sect1>
+
+<sect1 id="loading-external-levels">
+<title
+>Läsa in externa nivåer</title>
+
+<para
+>&ksokoban; har möjlighet att läsa in externa sokoban-nivåer från textfiler. Man kan läsa in nivåer med menyalternativet <menuchoice
+><guimenu
+>Spel</guimenu
+> <guimenuitem
+>Läs in nivåer...</guimenuitem
+></menuchoice
+>, eller genom att ange nivåfilens webbadress som ett kommandoradsargument när &ksokoban; startas från ett skal. </para>
+
+<para
+>De externa nivåerna måste definieras genom att använda standardtecknen visade i tabellen nedan. Om filen innehåller mer än en nivå, ska nivåerna skiljas åt av tomma rader. Filen kan också innehålla text mellan raderna. </para>
+
+<informaltable>
+<tgroup cols="2">
+<thead>
+<row
+><entry
+>Tecken</entry
+><entry
+>Betydelse</entry
+></row>
+</thead>
+
+<tbody>
+<row
+><entry
+><literal
+>#</literal
+></entry
+><entry
+>Vägg</entry
+></row>
+<row
+><entry
+><emphasis
+>(mellanslag)</emphasis
+></entry
+><entry
+>Tom ruta</entry
+></row>
+<row
+><entry
+><literal
+>.</literal
+></entry
+><entry
+>Målruta</entry
+></row>
+<row
+><entry
+><literal
+>$</literal
+></entry
+><entry
+>Objekt på tom ruta</entry
+></row>
+<row
+><entry
+><literal
+>*</literal
+></entry
+><entry
+>Objekt på målruta</entry
+></row>
+<row
+><entry
+><literal
+>@</literal
+></entry
+><entry
+>Startposition på en tom ruta&nbsp;</entry
+></row>
+<row
+><entry
+><literal
+>+</literal
+></entry
+><entry
+>Startposition på en målruta</entry
+></row>
+</tbody>
+</tgroup>
+</informaltable>
+
+<para
+>Som exempel, nedan visas en textrepresentation av den första nivån av nivåsamlingen <emphasis
+>Microban</emphasis
+>: </para>
+
+<para>
+<screen
+>####
+# .#
+#  ###
+#*@  #
+#  $ #
+#  ###
+####
+</screen>
+</para>
+</sect1>
+</chapter>
+
+<chapter id="menu-reference">
+<title
+>Menyreferens</title>
+
+<para
+>Här är en fullständig guide till menyerna i &ksokoban;</para>
+
+<sect1 id="game-menu">
+<title
+>Menyn Spel</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Spel</guimenu
+> <guimenuitem
+>Läs in nivåer...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Läs in en extern nivå.</action
+> Se avsnittet <link linkend="loading-external-levels"
+>Läsa in externa nivåer</link
+> för mer information.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>N</keycap
+></shortcut
+> <guimenu
+>Spel</guimenu
+> <guimenuitem
+>Nästa nivå</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Läs in nästa nivå.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>P</keycap
+></shortcut
+> <guimenu
+>Spel</guimenu
+> <guimenuitem
+>Föregående nivå</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Gå tillbaka till föregående nivå.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+>&Esc;</shortcut
+> <guimenu
+>Spel</guimenu
+> <guimenuitem
+>Starta om nivå</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Starta om aktuell nivå.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Spel</guimenu
+> <guisubmenu
+>Nivåsamling</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>En undermeny för att byta till en annan uppsättning nivåer.</action
+> &ksokoban; levereras med flera nivåuppsättningar, och du kan läsa in fler som du hittar på Internet.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Z</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Spel</guimenu
+> <guimenuitem
+>Ångra</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Ångra det senaste draget.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>Z</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Spel</guimenu
+> <guimenuitem
+>Gör om</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Gör om senaste draget som du ångrade med ovanstående menyalternativ.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Spel</guimenu
+> <guimenuitem
+>Avsluta</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Avsluta</action
+> &ksokoban;.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="animation-menu">
+<title
+>Meny Animering</title>
+
+<para
+>Menyn erbjuder menyalternativ med kryssrutor för att låta dig ange hastigheten som reprisanimeringarnas förflyttningar visas med. </para>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Animering</guimenu
+> <guisubmenu
+>Långsam</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Visa reprisanimeringar med långsam takt.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Animering</guimenu
+> <guisubmenu
+>Normal</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Det här är standardinställningen, och <action
+>visar reprisanimeringar med något snabbare takt</action
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Animering</guimenu
+> <guisubmenu
+>Snabb</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Visa reprisanimeringar med snabbaste takt.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Animering</guimenu
+> <guisubmenu
+>Av</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Animera inte några repriser.</action
+></para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+
+<sect1 id="bookmarks">
+<title
+>Menyn Bokmärken</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Bokmärken</guimenu
+> <guisubmenu
+>Nytt bokmärke</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>&ksokoban; låter dig <action
+>spara bokmärken för en nivå i ett visst tillstånd.</action
+> Det kan användas för att bespara dig från att upprepa samma inledande drag i en nivå.</para>
+<para
+>Det kan finnas upp till tio bokmärken åt gången, och komma åt dem via genvägen <keycombo action="simul"
+>&Ctrl;<keycap
+><replaceable
+>X</replaceable
+></keycap
+></keycombo
+>, där <replaceable
+>X</replaceable
+> är en siffra mellan 0 och 9.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Bokmärken</guimenu
+> <guisubmenu
+>Gå till bokmärke</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Gå till ett tillstånd som tidigare har sparats som ett bokmärke.</action
+></para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+<sect1 id="help-menu">
+<title
+>Menyn Hjälp</title>
+
+<para
+>&ksokoban; har &kde;:s vanliga menyalternativ i menyn <guimenu
+>Hjälp</guimenu
+>. För mer information läs avsnittet om <ulink url="help:/fundamentals/menus.html#menus-help"
+>hjälpmenyn</ulink
+> i &kde;:s grunder. </para>
+
+</sect1>
+</chapter>
+
+<chapter id="credits">
+<title
+>Tack till och licens</title>
+
+<para
+>&ksokoban; är copyright &copy; 1998-2000 av &Anders.Widell; &Anders.Widell.mail;. </para>
+
+<para
+>Bakgrundsgrafiken <quote
+>stjärnfält</quote
+> kommer från <ulink url="https://www.gimp.org/"
+>Gimp</ulink
+>. All annan grafik skapades av &Anders.Widell; &Anders.Widell.mail; med strålföljningsverktyget <ulink url="https://www.povray.org/"
+>Povray</ulink
+>. </para>
+
+<para
+>Alla nivåer som för närvarande ingår i sokoban skapades av David W Skinner <email
+>sasquatch@bentonreacom</email
+> Se hans <ulink url="https://www.sokobanonline.com/play/web-archive/david-w-skinner"
+>sida om sokoban</ulink
+>. </para>
+
+<para
+>Översättning Stefan Asserhäll <email
+>stefan.asserhall@bredband.net</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+

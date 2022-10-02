@@ -1,0 +1,706 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % Ukrainian "INCLUDE"
+> <!-- change language only here -->
+  <!ENTITY % addindex "IGNORE">
+]>
+	
+<book lang="&language;">
+<bookinfo>
+<title
+>Підручник з &ksokoban;</title>
+
+<authorgroup>
+<author
+><firstname
+>Anders</firstname
+> <surname
+>Widell</surname
+> <affiliation
+> <address
+>&Anders.Widell.mail;</address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Юрій</firstname
+><surname
+>Чорноіван</surname
+><affiliation
+><address
+><email
+>yurchor@ukr.net</email
+></address
+></affiliation
+><contrib
+>Переклад українською</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2000</year>
+<holder
+>&Anders.Widell;</holder>
+</copyright>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>19 серпня 2021 року</date>
+<releaseinfo
+>0.5.0</releaseinfo>
+
+<abstract>
+<para
+>&ksokoban; — реалізація японської гри у комірника, <quote
+>сокобан</quote
+>. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdegames</keyword>
+<keyword
+>гра</keyword>
+<keyword
+>сокобан</keyword>
+<keyword
+>ksokoban</keyword>
+</keywordset>
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Вступ</title>
+
+<para
+>Першу гру сокобан було створено у 1982 році Хіроюкі Імабаясі у японській компанії Thinking Rabbit, Inc. <quote
+>Сокобан</quote
+> японською означає <quote
+>комірник</quote
+>. Сюжет гри полягає у тому, що ви займаєте місце комірника, намагаючись розмістити скриньки на складі так, щоб вони розташовувалися у належних місцях. </para>
+
+<para
+>Проблема полягає у тому, що ви не можете тягнути скриньки або переступати через них. Якщо ви не будете обережними, деякі скриньки може бути заблоковано у невідповідних місцях і/або вони можуть заблокувати вам дорогу. </para>
+
+<para
+>Іноді пройти рівень вже доволі складно. Але гру можна ще більше ускладнити, якщо поставити за мету мінімізацію кількості ходів і/або штовхань скриньок, які слід виконати для проходження рівня. </para>
+
+<para
+>Щоб гра була цікавою навіть для дітей (до 10 років та менших), до &ksokoban; включено деякі збірки рівнів із дуже простими рівнями. Такі рівні позначаються підписом <emphasis
+>(простий)</emphasis
+> у меню збірок рівнів. Звичайно ж, такі рівні можуть проходити і дорослі, які не хочуть надто напружуватися під час проходження рівня. </para>
+</chapter>
+
+<chapter id="how-to-play">
+<title
+>Гра</title>
+
+<para
+>Метою гри є пересування червоних каменів на поля призначення, які позначено зеленими круглими позначками на підлозі. </para>
+
+<para
+>Для пересування використовуйте клавіші зі стрілками або мишу. Якщо за допомогою клавіш зі стрілками або клацання <mousebutton
+>середньою</mousebutton
+> кнопкою миші ви перейдете на поле із каменем, і його нічого не блокуватиме із протилежного боку, камінь буде посунуто. Тягнути камені не можна. Через це, якщо ви посунете камінь у куток, його вже не можна буде звідти виштовхнути. Також не можна переступати через камені. Тому ви можете потрапити у пастку, невдало штовхнувши не той камінь. Крім того, не можна одним поштовхом штовхнути два або більше каменів. </para>
+
+<para
+>Якщо ви виявите, що камені було пересунуто так, що рівень вже неможливо пройти, ви завжди можете скористатися можливістю скасовування ходів, щоб повернутися до позиції, де ви припустилися помилки. Звичайно ж, ви також можете розпочати проходження рівня із самого початку. </para>
+
+<sect1 id="controls">
+<title
+>Керування</title>
+
+<para>
+<informaltable>
+<tgroup cols="2">
+<thead>
+<row
+><entry
+>Клавіша</entry
+><entry
+>Дія</entry
+></row>
+</thead>
+
+<tbody>
+<row
+><entry
+>Клавіші зі стрілками</entry
+><entry
+>Перейти на одне поле у вказаному напрямку</entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Клавіші зі стрілками</keycap
+></keycombo
+></entry
+><entry
+>Перейти якомога далі у вказаному напрямку, не зачіпаючи каменів</entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Shift;<keycap
+>Клавіші зі стрілками</keycap
+></keycombo
+> </entry
+><entry
+>Перейти якомога далі у вказаному напрямку, штовхаючи усі камені на своєму шляху</entry
+></row>
+<row
+><entry
+><mousebutton
+>Ліва</mousebutton
+> кнопка миші</entry
+><entry
+>Перейти до будь-якого місця, якого можна досягти без штовхання каменів&nbsp;</entry
+></row>
+<row
+><entry
+><mousebutton
+>Середня</mousebutton
+> кнопка миші або <keycombo action="simul"
+>&Ctrl;<keycap
+>Z</keycap
+></keycombo
+></entry
+><entry
+>Скасувати останній хід</entry
+></row>
+<row
+><entry
+><mousebutton
+>Права</mousebutton
+> кнопка миші</entry
+><entry
+>Перейти вгору, вниз, ліворуч або праворуч уздовж прямої, штовхаючи усі камені на своєму шляху</entry
+></row>
+<row
+><entry
+><mousebutton
+>Коліщатко миші</mousebutton
+></entry
+><entry
+>Гортання записів журналу</entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>Z</keycap
+></keycombo
+>&nbsp;</entry
+><entry
+>Повернути результат останнього скасованого ходу</entry
+></row>
+<row
+><entry
+><keycap
+>N</keycap
+></entry
+><entry
+>Перейти на наступний рівень у поточній збірці рівнів</entry
+></row>
+<row
+><entry
+><keycap
+>P</keycap
+></entry
+><entry
+>Перейти на попередній рівень у поточній збірці рівнів</entry
+></row>
+<row
+><entry
+>&Esc;</entry
+><entry
+>Перезапустити гру на поточному рівні</entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+></entry
+><entry
+>Завершити гру.</entry
+></row>
+</tbody>
+</tgroup>
+</informaltable>
+</para>
+</sect1>
+
+<sect1 id="loading-external-levels">
+<title
+>Завантаження сторонніх рівнів</title>
+
+<para
+>У &ksokoban; передбачено можливість завантаження сторонніх рівнів сокобан з текстових файлів. Завантажити рівні можна за допомогою пункту меню <menuchoice
+><guimenu
+>Гра</guimenu
+> <guimenuitem
+>Завантажити рівні...</guimenuitem
+> </menuchoice
+> або вказавши адресу файла рівнів як аргумент командного рядка під час запуску &ksokoban; з командної оболонки. </para>
+
+<para
+>Сторонні рівні має бути записано за допомогою стандартних символів, які наведено у таблиці нижче. Якщо у файлі міститься декілька рівнів, рівні має бути відокремлено порожніми рядками. Крім того, у файлі можна розміщувати текст між рівнями. </para>
+
+<informaltable>
+<tgroup cols="2">
+<thead>
+<row
+><entry
+>Персонаж</entry
+><entry
+>Значення</entry
+></row>
+</thead>
+
+<tbody>
+<row
+><entry
+><literal
+>#</literal
+></entry
+><entry
+>Стіна</entry
+></row>
+<row
+><entry
+><emphasis
+>(пробіл)</emphasis
+></entry
+><entry
+>Порожня клітинка</entry
+></row>
+<row
+><entry
+><literal
+>.</literal
+></entry
+><entry
+>Поле призначення</entry
+></row>
+<row
+><entry
+><literal
+>$</literal
+></entry
+><entry
+>Об'єкт на порожньому полі</entry
+></row>
+<row
+><entry
+><literal
+>*</literal
+></entry
+><entry
+>Об'єкт на полі призначення</entry
+></row>
+<row
+><entry
+><literal
+>@</literal
+></entry
+><entry
+>Початкова позиція на порожньому полі&nbsp;</entry
+></row>
+<row
+><entry
+><literal
+>+</literal
+></entry
+><entry
+>Початкова позиція на полі призначення</entry
+></row>
+</tbody>
+</tgroup>
+</informaltable>
+
+<para
+>Як приклад, нижче наведено текстове представлення першого рівня у збірці рівнів <emphasis
+>Microban</emphasis
+>: </para>
+
+<para>
+<screen
+>####
+# .#
+#  ###
+#*@  #
+#  $ #
+#  ###
+####
+</screen>
+</para>
+</sect1>
+</chapter>
+
+<chapter id="menu-reference">
+<title
+>Довідник з меню</title>
+
+<para
+>Тут наведено повний опис меню &ksokoban;.</para>
+
+<sect1 id="game-menu">
+<title
+>Меню «Гра»</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Гра</guimenu
+> <guimenuitem
+>Завантажити рівні…</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Завантажити сторонній рівень.</action
+> Докладніший опис сторонніх рівнів наведено у розділі <link linkend="loading-external-levels"
+>Завантаження сторонніх рівнів</link
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>N</keycap
+></shortcut
+> <guimenu
+>Гра</guimenu
+> <guimenuitem
+>Наступний рівень</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Завантажити наступний рівень.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>P</keycap
+></shortcut
+> <guimenu
+>Гра</guimenu
+> <guimenuitem
+>Попередній рівень</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Повернутися на попередній рівень.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+>&Esc;</shortcut
+> <guimenu
+>Гра</guimenu
+> <guimenuitem
+>Почати рівень знову</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Перезапустити гру на поточному рівні.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Гра</guimenu
+> <guisubmenu
+>Збірка рівнів</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Підменю для перемикання на інший набір рівнів.</action
+> До складу типового пакунка &ksokoban; включено декілька наборів рівнів. Додаткові рівні ви можете встановити, знайшовши їх в інтернеті.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Z</keycap
+></keycombo
+> </shortcut
+><guimenu
+>Гра</guimenu
+><guimenuitem
+>Скасувати</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Скасувати останній хід.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>Z</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Гра</guimenu
+> <guimenuitem
+>Повторити</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Повторити останній хід, який було скасовано за допомогою попереднього пункту меню.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Гра</guimenu
+> <guimenuitem
+>Вийти</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Завершити роботу</action
+> &ksokoban;.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="animation-menu">
+<title
+>Меню «Анімація»</title>
+
+<para
+>У цьому меню зібрано пункти із полями для позначок, за допомогою яких ви можете вказати швидкість, з якою програма відтворюватиме анімації. </para>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Анімація</guimenu
+> <guisubmenu
+>Повільно</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Показувати анімацію повторів повільно.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Анімація</guimenu
+> <guisubmenu
+>Помірно</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Це типовий варіант, за якого <action
+>анімації відтворюватимуться трохи швидше</action
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Анімація</guimenu
+> <guisubmenu
+>Швидко</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Показувати анімацію повторів із найбільшою швидкістю.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Анімація</guimenu
+> <guisubmenu
+>Вимкнути</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Не показувати анімації повторів.</action
+></para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+
+<sect1 id="bookmarks">
+<title
+>Меню «Закладки»</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Закладки</guimenu
+> <guisubmenu
+>Встановити закладку</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>У &ksokoban; передбачено можливість <action
+>встановлення закладок на рівні у певній позиції</action
+>. Цим можна скористатися для збереження певного початкового набору ходів при оптимізації проходження рівня.</para>
+<para
+>Одночасно програма може зберігати до десяти закладок. Доступ до них можна здійснювати за допомогою комбінації клавіш <keycombo action="simul"
+>&Ctrl;<keycap
+><replaceable
+>X</replaceable
+></keycap
+></keycombo
+>, де <replaceable
+>X</replaceable
+> — будь-яка цифра від 0 до 9.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Закладки</guimenu
+> <guisubmenu
+>Перейти до закладки</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Перейти до стану, який раніше було збережено як закладку.</action
+></para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+<sect1 id="help-menu">
+<title
+>Меню «Довідка»</title>
+
+<para
+>У &ksokoban; передбачено типовий пункт меню <guimenu
+>Довідка</guimenu
+> &kde;. Щоб дізнатися більше, ознайомтеся з розділом, присвяченим <ulink url="help:/fundamentals/ui.html#menus-help"
+>меню «Довідка»</ulink
+> підручника з основ роботи у &kde;. </para>
+
+</sect1>
+</chapter>
+
+<chapter id="credits">
+<title
+>Авторські права та ліцензування</title>
+
+<para
+>Авторські права на &ksokoban; належать &Anders.Widell; &Anders.Widell.mail;, 1998–2000. </para>
+
+<para
+>Графічні елементи тла, <quote
+>зоряне поле</quote
+>, було запозичено з <ulink url="https://www.gimp.org/"
+>Gimp</ulink
+>. Усі інші графічні елементи було створено &Anders.Widell; &Anders.Widell.mail; за допомогою програми <ulink url="https://www.povray.org/"
+>Povray</ulink
+>. </para>
+
+<para
+>Усі поточні рівні з пакунка програми створено David W. Skinner <email
+>sasquatch@bentonrea.com</email
+>. Див. <ulink url="https://www.sokobanonline.com/play/web-archive/david-w-skinner"
+>Його сторінку сокобан</ulink
+> </para>
+
+<para
+>Переклад українською: Юрій Чорноіван <email
+>yurchor@ukr.net</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+

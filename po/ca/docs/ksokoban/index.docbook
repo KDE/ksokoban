@@ -1,0 +1,688 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % Catalan  "INCLUDE"
+> <!-- change language only here -->
+  <!ENTITY % addindex "IGNORE">
+]>
+	
+<book lang="&language;">
+<bookinfo>
+<title
+>El manual del &ksokoban;</title>
+
+<authorgroup>
+<author
+><firstname
+>Anders</firstname
+> <surname
+>Widell</surname
+> <affiliation
+> <address
+>&Anders.Widell.mail;</address>
+</affiliation>
+</author>
+&traductor.Antoni.Bella; 
+</authorgroup>
+
+<copyright>
+<year
+>2000</year>
+<holder
+>&Anders.Widell;</holder>
+</copyright>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>19 d'agost de 2021</date>
+<releaseinfo
+>0.5.0</releaseinfo>
+
+<abstract>
+<para
+>El &ksokoban; és una implementació del joc japonès <quote
+>sokoban</quote
+> de l'encarregat del magatzem. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdegames</keyword>
+<keyword
+>joc</keyword>
+<keyword
+>Sokoban</keyword>
+<keyword
+>KSokoban</keyword>
+</keywordset>
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Introducció</title>
+
+<para
+>El primer joc del sokoban es va crear el 1982 per en Hiroyuki Imabayashi a la companyia japonesa Thinking Rabbit, Inc. <quote
+>Sokoban</quote
+> està en japonès per a <quote
+>encarregat del magatzem</quote
+>. La idea és que sigueu un encarregat del magatzem que intenta empènyer les caixes cap a les seves ubicacions adequades en un magatzem. </para>
+
+<para
+>El problema és que no podeu estirar les caixes ni trepitjar-les. Si no teniu cura, algunes de les caixes podrien quedar atrapades en llocs equivocats i/o bloquejar el camí. </para>
+
+<para
+>Pot ser bastant difícil resoldre un nivell. Però si voleu fer-ho encara més difícil, podeu intentar minimitzar el nombre de moviments i/o les empentes que empreu per a resoldre'l. </para>
+
+<para
+>Per a fer que el joc sigui més divertit per a infants (per sota dels 10 anys), també s'inclouen en el &ksokoban; algunes col·leccions amb nivells més fàcils. Aquests estan marcats amb <emphasis
+>(fàcil)</emphasis
+> en el menú col·lecció de nivells. Per descomptat, aquests nivells també poden ser divertits per als adults, per exemple, si no voleu exposar-vos a massa tensió mental. </para>
+</chapter>
+
+<chapter id="how-to-play">
+<title
+>El joc</title>
+
+<para
+>L'objectiu del joc és empènyer totes les gemmes vermelles cap als quadres de meta, els quals estan marcats en el terra amb coses rodones de vidre verd. </para>
+
+<para
+>Per a moure, utilitzeu les tecles del cursor o el ratolí. Si moveu cap a una gemma amb les tecles del cursor o el &BMR;, i no hi ha res bloquejant al costat oposat, llavors l'empenyereu. No és possible estirar-les, així que si l'empenyeu cap a una cantonada, s'encallarà allà. Tampoc podreu trepitjar-les, de manera que també podria quedar atrapada en una part del laberint bloquejant el camí. També cal tenir en compte que no és possible empènyer més d'una gemma alhora. </para>
+
+<para
+>Si us adoneu que heu mogut les gemmes de tal manera que el nivell és impossible de resoldre, sempre podeu utilitzar la característica de desfer per a tornar a una posició on encara no s'ha comès l'error. Per descomptat, també podreu reiniciar el nivell des del començament. </para>
+
+<sect1 id="controls">
+<title
+>Controls</title>
+
+<para>
+<informaltable>
+<tgroup cols="2">
+<thead>
+<row
+><entry
+>Tecla</entry
+><entry
+>Acció</entry
+></row>
+</thead>
+
+<tbody>
+<row
+><entry
+>Tecles de cursor</entry
+><entry
+>Mou un quadre en una direcció</entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Fletxes del cursor</keycap
+></keycombo
+></entry
+><entry
+>Mou en la mesura del possible en una direcció sense empènyer cap gemma</entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Maj;<keycap
+>Fletxes del cursor</keycap
+></keycombo
+> </entry
+><entry
+>Mou en la mesura del possible en una direcció, empenyent qualsevol gemma que hi hagi en el camí</entry
+></row>
+<row
+><entry
+>Botó <mousebutton
+>esquerre</mousebutton
+> del ratolí</entry
+><entry
+>Mou a qualsevol lloc en el laberint on es pugui arribar sense empènyer cap gemma</entry
+></row>
+<row
+><entry
+>Botó del <mousebutton
+>mig</mousebutton
+> del ratolí o <keycombo action="simul"
+>&Ctrl;<keycap
+>Z</keycap
+></keycombo
+></entry
+><entry
+>Desfà l'últim moviment</entry
+></row>
+<row
+><entry
+>Botó <mousebutton
+>dret</mousebutton
+> del ratolí</entry
+><entry
+>Mou cap amunt/avall/esquerra/dreta en línia recta, empenyent qualsevol gemma que hi hagi en el camí</entry
+></row>
+<row
+><entry
+><mousebutton
+>Roda del ratolí</mousebutton
+></entry
+><entry
+>Travessa l'historial</entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Ctrl;&Maj;<keycap
+>Z</keycap
+></keycombo
+>&nbsp;</entry
+><entry
+>Refà l'últim moviment desfet</entry
+></row>
+<row
+><entry
+><keycap
+>N</keycap
+></entry
+><entry
+>Va cap al nivell següent en la col·lecció de nivells actual</entry
+></row>
+<row
+><entry
+><keycap
+>P</keycap
+></entry
+><entry
+>Va cap al nivell anterior en la col·lecció de nivells actual</entry
+></row>
+<row
+><entry
+>&Esc;</entry
+><entry
+>Reinicia el nivell actual</entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+></entry
+><entry
+>Surt de la partida</entry
+></row>
+</tbody>
+</tgroup>
+</informaltable>
+</para>
+</sect1>
+
+<sect1 id="loading-external-levels">
+<title
+>Carregar nivells externs</title>
+
+<para
+>El &ksokoban; té la capacitat de carregar nivells externs de sokoban des de fitxers de text. Podeu carregar-los utilitzant l'element de menú <menuchoice
+><guimenu
+>Joc</guimenu
+> <guimenuitem
+>Carrega nivells...</guimenuitem
+></menuchoice
+> o especificant l'&URL; del fitxer de nivells com un argument de la línia d'ordres en iniciar el &ksokoban; des d'un intèrpret d'ordres. </para>
+
+<para
+>Els nivells externs s'han de definir utilitzant els caràcters estàndard que es mostren a la taula a continuació. Si el fitxer conté més d'un nivell, els nivells hauran d'estar separats per línies en blanc. El fitxer també podrà contenir text entre els nivells. </para>
+
+<informaltable>
+<tgroup cols="2">
+<thead>
+<row
+><entry
+>Caràcter</entry
+><entry
+>Significat</entry
+></row>
+</thead>
+
+<tbody>
+<row
+><entry
+><literal
+>#</literal
+></entry
+><entry
+>Mur</entry
+></row>
+<row
+><entry
+><emphasis
+>(espai)</emphasis
+></entry
+><entry
+>Quadre buit</entry
+></row>
+<row
+><entry
+><literal
+>.</literal
+></entry
+><entry
+>Quadre de meta</entry
+></row>
+<row
+><entry
+><literal
+>$</literal
+></entry
+><entry
+>Objecte en un quadre buit</entry
+></row>
+<row
+><entry
+><literal
+>*</literal
+></entry
+><entry
+>Objecte en un quadre de meta</entry
+></row>
+<row
+><entry
+><literal
+>@</literal
+></entry
+><entry
+>Posició inicial en un quadre buit</entry
+></row>
+<row
+><entry
+><literal
+>+</literal
+></entry
+><entry
+>Posició inicial en un quadre de meta</entry
+></row>
+</tbody>
+</tgroup>
+</informaltable>
+
+<para
+>Com a exemple, a continuació hi ha una representació de text del primer nivell en la col·lecció de nivells <emphasis
+>Microban</emphasis
+>: </para>
+
+<para>
+<screen
+>####
+# .#
+#  ###
+#*@  #
+#  $ #
+#  ###
+####
+</screen>
+</para>
+</sect1>
+</chapter>
+
+<chapter id="menu-reference">
+<title
+>Referència del menú</title>
+
+<para
+>Aquesta és una guia completa dels menús del &ksokoban;.</para>
+
+<sect1 id="game-menu">
+<title
+>El menú Joc</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Joc</guimenu
+> <guimenuitem
+>Carrega els nivells...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Carrega un nivell extern.</action
+> Per a més informació, vegeu <link linkend="loading-external-levels"
+>Carregar nivells externs</link
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>N</keycap
+></shortcut
+> <guimenu
+>Joc</guimenu
+> <guimenuitem
+>Nivell següent</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Carrega el nivell següent.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>P</keycap
+></shortcut
+> <guimenu
+>Joc</guimenu
+> <guimenuitem
+>Nivell anterior</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Torna al nivell anterior.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+>&Esc;</shortcut
+> <guimenu
+>Joc</guimenu
+> <guimenuitem
+>Reinicia el nivell</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Reinicia el nivell actual.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Joc</guimenu
+> <guisubmenu
+>Col·lecció de nivells</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Un submenú per a canviar a un conjunt diferent de nivells.</action
+> El &ksokoban; ve amb diversos conjunts de nivells i en podeu carregar més que trobareu a Internet.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Z</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Joc</guimenu
+> <guimenuitem
+>Desfés</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Desfés l'últim moviment.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;&Maj;<keycap
+>Z</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Joc</guimenu
+> <guimenuitem
+>Refés</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Refà l'últim moviment que s'ha desfet amb l'element del menú anterior.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Joc</guimenu
+> <guimenuitem
+>Surt</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Surt</action
+> del &ksokoban;.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="animation-menu">
+<title
+>El menú Animació</title>
+
+<para
+>Aquest menú ofereix elements de menú amb caselles de selecció que permeten especificar la velocitat a la qual es mostraran les animacions de reproducció del moviment. </para>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Animació</guimenu
+> <guisubmenu
+>Lenta</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Mostra les animacions de reproducció a un ritme lent.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Animació</guimenu
+> <guisubmenu
+>Mitjana</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Aquesta és la configuració predeterminada i <action
+>mostra les animacions de reproducció a un ritme lleugerament més ràpid</action
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Animació</guimenu
+> <guisubmenu
+>Ràpida</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Mostra les animacions de reproducció a un ritme més ràpid.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Animació</guimenu
+> <guisubmenu
+>Desactivada</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>No anima les animacions de reproducció.</action
+></para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+
+<sect1 id="bookmarks">
+<title
+>El menú Adreces d'interès</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Adreces d'interès</guimenu
+> <guisubmenu
+>Estableix una adreça d'interès</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>El &ksokoban; permet <action
+>establir adreces d'interès amb un nivell en un estat en particular.</action
+> Podeu utilitzar això per a estalviar-vos repetir els mateixos passos inicials en un nivell.</para>
+<para
+>Podeu tenir fins a deu adreces d'interès alhora, i accedir-hi a través de la drecera <keycombo action="simul"
+>&Ctrl;<keycap
+><replaceable
+>X</replaceable
+></keycap
+></keycombo
+>, on <replaceable
+>X</replaceable
+> serà un dígit entre el 0 i el 9.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Adreces d'interès</guimenu
+> <guisubmenu
+>Ves a l'adreça d'interès</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Salta a un estat que heu desat prèviament com a una adreça d'interès.</action
+></para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+<sect1 id="help-menu">
+<title
+>El menú Ajuda</title>
+
+<para
+>El &ksokoban; té la configuració comuna al &kde; i els elements del menú <guimenu
+>Ajuda</guimenu
+>. Per a obtenir més informació, llegiu la secció sobre <ulink url="help:/fundamentals/menus.html#menus-help"
+>El menú Ajuda</ulink
+> en els Fonaments del &kde;. </para>
+
+</sect1>
+</chapter>
+
+<chapter id="credits">
+<title
+>Crèdits i llicència</title>
+
+<para
+>El &ksokoban; és copyright &copy; 1998-2000 per n'&Anders.Widell; &Anders.Widell.mail;. </para>
+
+<para
+>Els gràfics <quote
+>starfield</quote
+> de fons s'han pres del <ulink url="https://www.gimp.org/"
+>Gimp</ulink
+>. Tots els altres gràfics els va crear n'&Anders.Widell; &Anders.Widell.mail; utilitzant el traçador de raigs <ulink url="https://www.povray.org/"
+>Povray</ulink
+>. </para>
+
+<para
+>Tots els nivells de sokoban inclosos actualment els va crear en David W. Skinner <email
+>sasquatch@bentonrea.com</email
+>. Vegeu la <ulink url="https://www.sokobanonline.com/play/web-archive/david-w-skinner"
+>seva pàgina de sokoban</ulink
+>. </para>
+
+<para
+>Traductor de la documentació: &credits.Antoni.Bella;</para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+

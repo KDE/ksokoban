@@ -1,0 +1,704 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % Italian "INCLUDE"
+> <!-- change language only here -->
+  <!ENTITY % addindex "IGNORE">
+]>
+	
+<book lang="&language;">
+<bookinfo>
+<title
+>Manuale di &ksokoban;</title>
+
+<authorgroup>
+<author
+><firstname
+>Anders</firstname
+> <surname
+>Widell</surname
+> <affiliation
+> <address
+>&Anders.Widell.mail;</address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Vincenzo</firstname
+><surname
+>Reale</surname
+><affiliation
+><address
+><email
+>smart2128vr@gmail.com</email
+></address
+></affiliation
+><contrib
+>Traduzione del documento</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2000</year>
+<holder
+>&Anders.Widell;</holder>
+</copyright>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>19/8/2021</date>
+<releaseinfo
+>0.5.0 (KDE Gear 21.08)</releaseinfo>
+
+<abstract>
+<para
+>&ksokoban; è un'implementazione del gioco giapponese  del magazziniere <quote
+>sokoban</quote
+>. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdegames</keyword>
+<keyword
+>gioco</keyword>
+<keyword
+>sokoban</keyword>
+<keyword
+>ksokoban</keyword>
+</keywordset>
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Introduzione</title>
+
+<para
+>Il primo gioco sokoban fu creato nel 1982 da Hiroyuki Imabayashi presso la società giapponese Thinking Rabbit, Inc. <quote
+>Sokoban</quote
+> significa <quote
+>magazziniere</quote
+> in giapponese. L'idea è quella di un magazziniere che prova a spingere le casse nella posizione corretta in un magazzino. </para>
+
+<para
+>Il problema è che non è possibile tirare le casse o passarci sopra. Se non si pone attenzione, alcune casse possono rimanere bloccate in posti sbagliati e/o bloccare il percorso. </para>
+
+<para
+>Può essere piuttosto difficile solo risolvere un livello. Ma se si vuole renderlo ancora più difficile, è possibile provare a ridurre al minimo il numero di mosse e/o spinte che si utilizzano per risolvere il livello. </para>
+
+<para
+>Per rendere il gioco più divertente per i bambini piccoli (meno di 10 anni circa), in &ksokoban; sono incluse anche alcune raccolte con livelli più semplici. Questi sono contrassegnati come <emphasis
+>(facile)</emphasis
+> nel menu della raccolta dei livelli. Naturalmente, questi livelli possono essere divertenti anche per gli adulti, ad esempio se non si vuole sottoporsi a sforzi mentali. </para>
+</chapter>
+
+<chapter id="how-to-play">
+<title
+>La partita</title>
+
+<para
+>L'obiettivo del gioco è spingere tutte le gemme rosse nelle caselle di destinazione, che sono marcate con elementi rotondi verdi vetrosi sul pavimento. </para>
+
+<para
+>Utilizzare le frecce direzionali o il mouse per spostarsi. Se ci si sposta su una gemma utilizzando le frecce direzionali o il pulsante centrale del mouse, e non c'è nulla che la blocchi sul lato opposto, allora si spingerà la gemma. Non è possibile tirare le gemme, quindi se si spinge una gemma in un angolo rimarrà bloccata lì. Non è possibile nemmeno scavalcare le gemme, è quindi possibile anche rimanere intrappolati in una parte del labirinto bloccando la strada con le gemme. Si noti inoltre che non è possibile spingere più di una gemma alla volta. </para>
+
+<para
+>Se si nota di aver spostato le gemme in modo tale che il livello sia impossibile da risolvere, è possibile sempre utilizzare la funzione Annulla per tornare in una posizione in cui l'errore non sia stato ancora commesso. Ovviamente è possibile anche riavviare il livello fin dall'inizio. </para>
+
+<sect1 id="controls">
+<title
+>Controlli</title>
+
+<para>
+<informaltable>
+<tgroup cols="2">
+<thead>
+<row
+><entry
+>Tasto</entry
+><entry
+>Azione</entry
+></row>
+</thead>
+
+<tbody>
+<row
+><entry
+>Frecce direzionali</entry
+><entry
+>Spostare di una casella in una direzione</entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Frecce direzionali</keycap
+></keycombo
+></entry
+><entry
+>Spostarsi il più lontano possibile in una direzione senza spingere alcuna gemma</entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Shift;<keycap
+>Frecce direzionali</keycap
+></keycombo
+> </entry
+><entry
+>Spostarsi il più lontano possibile in una direzione, spingendo qualsiasi gemma sulla percorso</entry
+></row>
+<row
+><entry
+>Pulsante <mousebutton
+>sinistro</mousebutton
+> del mouse</entry
+><entry
+>Spostarsi in ogni posto del labirinto che può essere raggiunto senza spingere alcuna gemma&nbsp;</entry
+></row>
+<row
+><entry
+>Pulsante <mousebutton
+>centrale</mousebutton
+> del mouse o <keycombo action="simul"
+>&Ctrl;<keycap
+>Z</keycap
+></keycombo
+></entry
+><entry
+>Annulla l'ultima mossa</entry
+></row>
+<row
+><entry
+>Pulsante <mousebutton
+>destro</mousebutton
+> del mouse</entry
+><entry
+>Spostare su/giù/sinistra/destra in linea retta, spingendo le gemme nel percorso</entry
+></row>
+<row
+><entry
+><mousebutton
+>Rotella del mouse</mousebutton
+></entry
+><entry
+>Attraversa la cronologia</entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>Z</keycap
+></keycombo
+>&nbsp;</entry
+><entry
+>Ripetere l'ultima mossa annullata</entry
+></row>
+<row
+><entry
+><keycap
+>N</keycap
+></entry
+><entry
+>Andare al livello successivo nella raccolta dei livelli attuale</entry
+></row>
+<row
+><entry
+><keycap
+>P</keycap
+></entry
+><entry
+>Andare al livello precedente nella raccolta dei livelli attuale</entry
+></row>
+<row
+><entry
+>&Esc;</entry
+><entry
+>Riavviare il livello attuale</entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+></entry
+><entry
+>Uscire dal gioco</entry
+></row>
+</tbody>
+</tgroup>
+</informaltable>
+</para>
+</sect1>
+
+<sect1 id="loading-external-levels">
+<title
+>Caricamento dei livelli esterni</title>
+
+<para
+>&ksokoban; ha la capacità di caricare livelli di sokoban esterni da file di testo. È possibile caricare i livelli utilizzando la voce di menu <menuchoice
+> <guimenu
+>Carica livelli...</guimenu
+> <guimenuitem
+> Carica livelli...</guimenuitem
+> </menuchoice
+> o specificando l'&URL; del file di livello; come argomento da riga di comando all'avvio di &ksokoban; da una shell. </para>
+
+<para
+>I livelli esterni devono essere definiti utilizzando i caratteri standard mostrati nella tabella seguente. Se il file contiene più di un livello, i livelli devono essere separati da righe vuote. Il file può contenere anche testo tra i livelli. </para>
+
+<informaltable>
+<tgroup cols="2">
+<thead>
+<row
+><entry
+>Personaggio</entry
+><entry
+>Significato</entry
+></row>
+</thead>
+
+<tbody>
+<row
+><entry
+><literal
+>#</literal
+></entry
+><entry
+>Muro</entry
+></row>
+<row
+><entry
+><emphasis
+>(spazio)</emphasis
+></entry
+><entry
+>Casella vuota</entry
+></row>
+<row
+><entry
+><literal
+>.</literal
+></entry
+><entry
+>Casella di destinazione</entry
+></row>
+<row
+><entry
+><literal
+>$</literal
+></entry
+><entry
+>Oggetto su una casella vuota</entry
+></row>
+<row
+><entry
+><literal
+>*</literal
+></entry
+><entry
+>Oggetto su una casella di destinazione</entry
+></row>
+<row
+><entry
+><literal
+>@</literal
+></entry
+><entry
+>Posizione iniziale su una casella vuota&nbsp;</entry
+></row>
+<row
+><entry
+><literal
+>+</literal
+></entry
+><entry
+>Posizione iniziale su una casella di destinazione</entry
+></row>
+</tbody>
+</tgroup>
+</informaltable>
+
+<para
+>Come esempio, sotto riportiamo una rappresentazione testuale del primo livello della raccolta di livelli <emphasis
+>Microban</emphasis
+>: </para>
+
+<para>
+<screen
+>####
+# .#
+#  ###
+#*@  #
+#  $ #
+#  ###
+####
+</screen>
+</para>
+</sect1>
+</chapter>
+
+<chapter id="menu-reference">
+<title
+>Guida ai menu</title>
+
+<para
+>Questa è una guida completa ai menu di &ksokoban;.</para>
+
+<sect1 id="game-menu">
+<title
+>Il menu Partita</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Partita</guimenu
+> <guimenuitem
+>Carica livelli...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Caricare un livello esterno.</action
+> Vedere la sezione <link linkend="loading-external-levels"
+>Caricare livelli esterni</link
+> per ulteriori informazioni.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>N</keycap
+></shortcut
+> <guimenu
+>Partita</guimenu
+><guimenuitem
+>Livello successivo</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Caricare il livello successivo.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>P</keycap
+></shortcut
+> <guimenu
+>Partita</guimenu
+> <guimenuitem
+>Livello precedente</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Tornare al livello precedente.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+>&Esc;</shortcut
+> <guimenu
+>Partita</guimenu
+> <guimenuitem
+>Riavvia livello</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Riavviare il livello attuale.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Partita</guimenu
+> <guisubmenu
+>Raccolta livelli</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Un sottomenu per passare a un insieme diverso di livelli.</action
+> &ksokoban; nasce con numerosi insiemi di livelli, ed è possibile caricarne altri disponibili su Internet.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Z</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Partita</guimenu
+> <guimenuitem
+>Annulla</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Annulla l'ultima mossa.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>Z</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Partita</guimenu
+> <guimenuitem
+>Rifai</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Ripetere l'ultima mossa annullata con la suddetta voce di menu</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Partita</guimenu
+> <guimenuitem
+>Esci</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Esci</action
+> da &ksokoban;.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="animation-menu">
+<title
+>Il menu Animazione</title>
+
+<para
+>Questo menu offre voci di menu con caselle di selezione che consentono di specificare la velocità con cui vengono mostrate le animazioni di riproduzione del movimento. </para>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Animazione</guimenu
+><guisubmenu
+>Lenta</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Mostrare le animazioni di riproduzione a velocità bassa.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Animazione</guimenu
+><guisubmenu
+>Media</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Questa è l'impostazione predefinita, e <action
+>mostra le animazioni di riproduzione a una velocità leggermente più alta</action
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Animazione</guimenu
+> <guisubmenu
+>Veloce</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Mostrare le animazioni di riproduzione a velocità alta.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Animazione</guimenu
+><guisubmenu
+>Spenta</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Non animare le animazioni di riproduzione.</action
+></para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+
+<sect1 id="bookmarks">
+<title
+>Il menu Segnalibri</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Segnalibri</guimenu
+> <guisubmenu
+>Imposta segnalibro</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>&ksokoban; consente di <action
+>impostare segnalibri con un livello in uno stato particolare.</action
+>Potresti usare questo per evitare di ripetere gli stessi passaggi iniziali in un livello.</para>
+<para
+>È possibile avere fino a dieci segnalibri contemporaneamente, e accedervi tramite la scorciatoia <keycombo action="simul"
+>&Ctrl;<keycap
+><replaceable
+>X</replaceable
+></keycap
+></keycombo
+>, dove <replaceable
+>X</replaceable
+> è una cifra qualsiasi tra 0 e 9.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Segnalibri</guimenu
+> <guisubmenu
+>Vai a segnalibro</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Saltare in uno stato precedentemente salvato come un segnalibro.</action
+></para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+<sect1 id="help-menu">
+<title
+>Il menu Aiuto</title>
+
+<para
+>&ksokoban; ha il menu <guimenu
+>Aiuto</guimenu
+> comune di &kde;; per maggiori informazioni, consulta la sezione sul <ulink url="help:/fundamentals/menus.html#menus-help"
+>menu Aiuto</ulink
+> dei «Fondamentali di &kde;». </para>
+
+</sect1>
+</chapter>
+
+<chapter id="credits">
+<title
+>Riconoscimenti e licenza</title>
+
+<para
+>&ksokoban; è copyright &copy; 1998-2000 di &Anders.Widell; &Anders.Widell.mail;. </para>
+
+<para
+>La grafica di sfondo <quote
+>starfield</quote
+> è stata presa da <ulink url="https://www.gimp.org/"
+>Gimpo</ulink
+>. Tutti gli altri elementi grafici sono stati creati da &Anders.Widell; &Anders.Widell.mail; utilizzando il programma <ulink url="https://www.povray.org/"
+>Povray</ulink
+> </para>
+
+<para
+>Tutti i i livelli di sokoban attualmente inclusi sono stati creati da David W. Skinner <email
+>sasquatch@bentonrea.com</email
+>. Vedere la <ulink url="https://www.sokobanonline.com/play/web-archive/david-w-skinner"
+>sua pagina di sokoban</ulink
+>. </para>
+
+<para
+>Traduzione: Vincenzo Reale <email
+>smart2128vr@gmail.com</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+

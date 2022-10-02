@@ -1,0 +1,698 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % Spanish "INCLUDE"
+> <!-- change language only here -->
+  <!ENTITY % addindex "IGNORE">
+]>
+	
+<book lang="&language;">
+<bookinfo>
+<title
+>Manual de &ksokoban;</title>
+
+<authorgroup>
+<author
+><firstname
+>Anders</firstname
+> <surname
+>Widell</surname
+> <affiliation
+> <address
+>&Anders.Widell.mail;</address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Eloy</firstname
+><surname
+>Cuadra</surname
+><affiliation
+><address
+><email
+>ecuadra@eloihr.net</email
+></address
+></affiliation
+><contrib
+>Traducción del manual</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2000</year>
+<holder
+>&Anders.Widell;</holder>
+</copyright>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2021-08-19</date>
+<releaseinfo
+>0.5.0</releaseinfo>
+
+<abstract>
+<para
+>&ksokoban; es la implementación del juego japonés del encargado de almacén «sokoban». </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdegames</keyword>
+<keyword
+>juego</keyword>
+<keyword
+>sokoban</keyword>
+<keyword
+>ksokoban</keyword>
+</keywordset>
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Introducción</title>
+
+<para
+>El primer juego de sokoban fue creado en 1982 por Hiroyuki Imabayashi en la compañía japonesa Thinking Rabbit, Inc. «Sokoban» significa «encargado de almacén» en japonés. El jugador es el encargado de almacén que tiene que empujar las cajas a su lugar correcto en el almacén. </para>
+
+<para
+>El problema es que no se puede tirar de las cajas ni pasar sobre ellas. Si no tiene cuidado, algunas cajas quedarán inmovilizadas en lugares incorrectos y le bloquearán el paso. </para>
+
+<para
+>Puede ser bastante difícil resolver un nivel. Pero si quiere hacerlo aún más difícil, puede intentar reducir la cantidad de movimientos y/o empujones necesarios para resolver el nivel. </para>
+
+<para
+>Para que el juego sea más divertido para los niños más jóvenes (menores de 10 años), &ksokoban; también incluye algunas colecciones con niveles más fáciles. Estas colecciones están marcadas con la etiqueta <emphasis
+>(fácil)</emphasis
+> en el menú de la colección de niveles. Por supuesto, estos niveles también pueden ser divertidos para los mayores (por ejemplo, si no quiere exponerse a demasiada tensión mental). </para>
+</chapter>
+
+<chapter id="how-to-play">
+<title
+>El juego</title>
+
+<para
+>El objetivo del juego es empujar todas las gemas rojas a los cuadrados de meta, que están marcados con objetos redondos de aspecto verde vidrioso en el suelo. </para>
+
+<para
+>Use las teclas del cursor o el ratón para moverse. Si se mueve hasta una gema usando las teclas del cursor o el &MMB; y no hay nada que la pueda bloquear en el lado opuesto, se empujará la gema en dicha dirección. No se puede tirar de las gemas, por lo que si la empuja hasta una esquina quedará inmovilizada en dicho lugar. Tampoco se puede pasar por encima de las gemas, por lo que puede quedar atrapado en alguna parte del laberinto si bloquea el paso con gemas. También debe tener en cuenta que no se puede empujar más de una gema a la vez. </para>
+
+<para
+>Si cae en la cuenta de que ha movido las gemas de tal modo que ya no puede resolver el nivel, siempre podrá usar la funcionalidad de deshacer un movimiento para retroceder hasta una posición en la que todavía no haya cometido el error. Por supuesto, también puede reiniciar el nivel desde el principio. </para>
+
+<sect1 id="controls">
+<title
+>Controles</title>
+
+<para>
+<informaltable>
+<tgroup cols="2">
+<thead>
+<row
+><entry
+>Tecla</entry
+><entry
+>Acción</entry
+></row>
+</thead>
+
+<tbody>
+<row
+><entry
+>Teclas del cursor</entry
+><entry
+>Mover un cuadrado en una dirección</entry
+></row>
+<row
+><entry
+>Teclas <keycombo action="simul"
+>&Ctrl;<keycap
+>cursor</keycap
+></keycombo
+></entry
+><entry
+>Mover tan lejos como sea posible en una dirección sin empujar ninguna gema</entry
+></row>
+<row
+><entry
+>Teclas <keycombo action="simul"
+>&Shift;<keycap
+>cursor</keycap
+></keycombo
+> </entry
+><entry
+>Mover tan lejos como sea posible en una dirección empujando una gema en el camino</entry
+></row>
+<row
+><entry
+>Botón <mousebutton
+>izquierdo</mousebutton
+> del ratón</entry
+><entry
+>Mover a un lugar del laberinto al que se pueda llegar sin empujar ninguna gema&nbsp;</entry
+></row>
+<row
+><entry
+>Botón <mousebutton
+>central</mousebutton
+> del ratón o <keycombo action="simul"
+>&Ctrl;<keycap
+>Z</keycap
+></keycombo
+></entry
+><entry
+>Deshacer el último movimiento</entry
+></row>
+<row
+><entry
+>Botón <mousebutton
+>derecho</mousebutton
+> del ratón</entry
+><entry
+>Mover arriba/abajo/izquierda/derecha en línea recta, empujando cualquier gema que haya delante</entry
+></row>
+<row
+><entry
+><mousebutton
+>Rueda del ratón</mousebutton
+></entry
+><entry
+>Recorrer el historial</entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>Z</keycap
+></keycombo
+>&nbsp;</entry
+><entry
+>Volver a hacer el último movimiento deshecho</entry
+></row>
+<row
+><entry
+><keycap
+>N</keycap
+></entry
+><entry
+>Ir al siguiente nivel de la colección de niveles actual</entry
+></row>
+<row
+><entry
+><keycap
+>P</keycap
+></entry
+><entry
+>Ir al anterior nivel de la colección de niveles actual</entry
+></row>
+<row
+><entry
+>&Esc;</entry
+><entry
+>Reiniciar el nivel actual</entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+></entry
+><entry
+>Salir del juego</entry
+></row>
+</tbody>
+</tgroup>
+</informaltable>
+</para>
+</sect1>
+
+<sect1 id="loading-external-levels">
+<title
+>Carga de niveles externos</title>
+
+<para
+>&ksokoban; permite la posibilidad de cargar niveles externos de sokoban usando archivos de texto. Puede cargar estos niveles usando la opción del menú <menuchoice
+><guimenu
+>Juego</guimenu
+> <guimenuitem
+>Cargar niveles...</guimenuitem
+> </menuchoice
+>, o especificando la &URL; del archivo de nivel como argumento de la línea de órdenes si inicia &ksokoban; desde la consola. </para>
+
+<para
+>Los niveles externos se deben definir usando los caracteres estándares que se muestran en la siguiente tabla. Si el archivo contiene más de un nivel, debe separar los niveles mediante líneas en blanco. El archivo también puede contener texto entre los niveles. </para>
+
+<informaltable>
+<tgroup cols="2">
+<thead>
+<row
+><entry
+>Carácter</entry
+><entry
+>Significado</entry
+></row>
+</thead>
+
+<tbody>
+<row
+><entry
+><literal
+>#</literal
+></entry
+><entry
+>Pared</entry
+></row>
+<row
+><entry
+><emphasis
+>(espacio)</emphasis
+></entry
+><entry
+>Cuadrado vacío</entry
+></row>
+<row
+><entry
+><literal
+>.</literal
+></entry
+><entry
+>Cuadrado de meta</entry
+></row>
+<row
+><entry
+><literal
+>$</literal
+></entry
+><entry
+>Objeto sobre un cuadrado vacío</entry
+></row>
+<row
+><entry
+><literal
+>*</literal
+></entry
+><entry
+>Objeto sobre un cuadrado de meta</entry
+></row>
+<row
+><entry
+><literal
+>@</literal
+></entry
+><entry
+>Posición de inicio sobre un cuadrado vacío&nbsp;</entry
+></row>
+<row
+><entry
+><literal
+>+</literal
+></entry
+><entry
+>Posición de inicio sobre un cuadrado de meta</entry
+></row>
+</tbody>
+</tgroup>
+</informaltable>
+
+<para
+>Como ejemplo, a continuación se muestra una representación con texto del primer nivel de la colección de niveles <emphasis
+>Microban</emphasis
+>: </para>
+
+<para>
+<screen
+>####
+# .#
+#  ###
+#*@  #
+#  $ #
+#  ###
+####
+</screen>
+</para>
+</sect1>
+</chapter>
+
+<chapter id="menu-reference">
+<title
+>Referencia del menú</title>
+
+<para
+>Esta es una guía completa de los menús de &ksokoban;.</para>
+
+<sect1 id="game-menu">
+<title
+>El menú Juego</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Juego</guimenu
+> <guimenuitem
+>Cargar niveles...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Carga un nivel externo</action
+>. Consulte la sección <link linkend="loading-external-levels"
+>Carga de niveles externos</link
+> para obtener más información.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>N</keycap
+></shortcut
+> <guimenu
+>Juego</guimenu
+> <guimenuitem
+>Nivel siguiente</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Cargar el nivel siguiente.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>P</keycap
+></shortcut
+> <guimenu
+>Juego</guimenu
+> <guimenuitem
+>Nivel anterior</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Volver al nivel anterior.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+>&Esc;</shortcut
+> <guimenu
+>Juego</guimenu
+> <guimenuitem
+>Reiniciar nivel</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Reiniciar el nivel actual.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Juego</guimenu
+> <guisubmenu
+>Colección de niveles</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Un submenú para cambiar a un conjunto de niveles distinto.</action
+> &ksokoban; contiene varios conjuntos de niveles, aunque puede cargar más niveles que puede encontrar en Internet.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Z</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Juego</guimenu
+> <guimenuitem
+>Deshacer</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Deshacer el último movimiento.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>Z</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Juego</guimenu
+> <guimenuitem
+>Rehacer</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Volver a hacer el último movimiento deshecho con la opción de menú anterior.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Juego</guimenu
+><guimenuitem
+>Salir</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Salir</action
+> de &ksokoban;.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="animation-menu">
+<title
+>El menú Animación</title>
+
+<para
+>Este menú ofrece elementos con casillas que permiten indicar la velocidad a la que se muestran las animaciones de la reproducción de los movimientos. </para>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Animación</guimenu
+> <guisubmenu
+>Lenta</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Mostrar la animación de reproducción a ritmo lento.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Animación</guimenu
+> <guisubmenu
+>Media</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Esta es la preferencia predeterminada. <action
+>Muestra la animación de reproducción a un ritmo algo más rápido</action
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Animación</guimenu
+> <guisubmenu
+>Rápida</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Mostrar la animación de reproducción al ritmo más rápido.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Animación</guimenu
+> <guisubmenu
+>Desactivada</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>No animar la animación de reproducción.</action
+></para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+
+<sect1 id="bookmarks">
+<title
+>El menú Marcadores</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Marcadores</guimenu
+> <guisubmenu
+>Definir marcador</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>&ksokoban; le permite <action
+>definir marcadores con un nivel en un determinado estado</action
+>. Puede usar esta función para ahorrarse repetir los mismos pasos iniciales de un nivel.</para>
+<para
+>Puede tener un máximo de diez marcadores al mismo tiempo y acceder a ellos usando el acceso rápido de teclado <keycombo action="simul"
+>&Ctrl;<keycap
+><replaceable
+>X</replaceable
+></keycap
+></keycombo
+>, donde <replaceable
+>X</replaceable
+> es cualquier dígito del 0 al 9.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Marcadores</guimenu
+> <guisubmenu
+>Ir a marcador</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Salta al estado que haya guardado previamente como marcador.</action
+></para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+<sect1 id="help-menu">
+<title
+>El menú Ayuda</title>
+
+<para
+>&ksokoban; posee el elemento de menú común de &kde; <guimenu
+>Ayuda</guimenu
+>. Para más información, consulte la sección sobre el <ulink url="help:/fundamentals/menu.html#menus-help"
+>menú Ayuda</ulink
+> de los principios fundamentales de &kde;. </para>
+
+</sect1>
+</chapter>
+
+<chapter id="credits">
+<title
+>Créditos y licencia</title>
+
+<para
+>&ksokoban; copyright &copy; 1998-2000 por &Anders.Widell; &Anders.Widell.mail;. </para>
+
+<para
+>El gráfico del fondo <quote
+>campo de estrellas</quote
+> se ha tomado de <ulink url="https://www.gimp.org/"
+>Gimp</ulink
+>. El resto de gráficos han sido creados por &Anders.Widell; &Anders.Widell.mail; usando el trazador de rayos <ulink url="https://www.povray.org/"
+>Povray</ulink
+>. </para>
+
+<para
+>Todos los niveles de sokoban incluidos en la actualidad han sido creados por David W. Skinner <email
+>sasquatch@bentonrea.com</email
+>. Consulte <ulink url="https://www.sokobanonline.com/play/web-archive/david-w-skinner"
+>su página sobre sokoban</ulink
+>. </para>
+
+<para
+>Traducido por Eloy Cuadra <email
+>ecuadra@eloihr.net</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+

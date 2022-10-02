@@ -1,0 +1,686 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % Dutch "INCLUDE"
+> <!-- change language only here -->
+  <!ENTITY % addindex "IGNORE">
+]>
+	
+<book lang="&language;">
+<bookinfo>
+<title
+>Het handboek van &ksokoban;</title>
+
+<authorgroup>
+<author
+><firstname
+>Anders</firstname
+> <surname
+>Widell</surname
+> <affiliation
+> <address
+>&Anders.Widell.mail;</address>
+</affiliation>
+</author>
+&Freek.de.Kruijf;&Ronald.Stroethoff; 
+</authorgroup>
+
+<copyright>
+<year
+>2000</year>
+<holder
+>&Anders.Widell;</holder>
+</copyright>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2021-08-19</date>
+<releaseinfo
+>0.5.0</releaseinfo>
+
+<abstract>
+<para
+>&ksokoban; is een implementatie van het Japanse magazijn-beheerder-spel <quote
+>sokoban</quote
+>. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdegames</keyword>
+<keyword
+>spel</keyword>
+<keyword
+>sokoban</keyword>
+<keyword
+>ksokoban</keyword>
+</keywordset>
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Inleiding</title>
+
+<para
+>Het eerste sokoban spel is in 1982 door Hiroyuki Imabayashi voor de Japanse firma Thinking Rabbit, Inc gecreëerd. <quote
+>Sokoban</quote
+> is Japans voor <quote
+>magazijn-beheerder</quote
+>. Het idee is dat u een magazijn-beheerder bent die probeert om kratten naar hun juiste locatie in een magazijn te duwen. </para>
+
+<para
+>Het probleem is dat u niet aan de kratten kan trekken of erover kan stappen. Als u niet voorzichtig bent, dan kunnen kratten in de verkeerde plaats vast komen te zitten en/of uw weg blokkeren. </para>
+
+<para
+>Het kan moeilijk zijn om een level alleen maar uit te spelen. Maar u kunt het zichzelf nog moeilijker maken, u kunt proberen om zo weinig mogelijk zetten te gebruiken om het level uit te spelen. </para>
+
+<para
+>Om het spel ook leuk te laten voor kleine kinderen (onder de 10 jaar of zo), zijn er ook enkele verzamelingen met makkelijker levels meegeleverd in &ksokoban;. Deze zijn in het in het level verzamelingen menu gemarkeerd met <emphasis
+> (gemakkelijk)</emphasis
+> . Maar ook voor volwassenen kunnen deze levels leuk zijn, als u zich bijvoorbeeld niet aan teveel mentale stress wilt bloot stellen. </para>
+</chapter>
+
+<chapter id="how-to-play">
+<title
+>Het spel</title>
+
+<para
+>Het doel van het spel is om alle rode diamanten naar de doelvakken te duwen, welke zijn gemarkeerd met dingen van groen glas op de vloer. </para>
+
+<para
+>Gebruik de pijltoetsen of de muis om uzelf te verplaatsen. Als u terwijl u zichzelf met de pijltoetsen of de &MMB; muisknop verplaatst en u komt tegen een diamant aan, en niets blokkeert het aan de andere zijde, dan kunt u de diamant verder duwen. het is niet mogelijk om aan de diamant te trekken, als u dus de diamant in een hoek heeft geduwd dan zit het daar vast. U kunt ook niet over diamanten heen stappen, u kunt dus ook in een gedeelte van het doolhof opgesloten raken doordat u de weg blokkeert met diamanten. Vergeet ook niet dat u niet meer dan één diamant tegelijk kunt duwen. </para>
+
+<para
+>Als u merkt dat u de diamanten zo heeft verplaatst dat het level onmogelijk kan worden opgelost, dan kunt u altijd de functie ongedaan maken gebruiken om terug ite gaan naar de toestand waarop de vergissing nog niet is gemaakt. Maar u kunt natuurlijk ook de level vanaf het begin opnieuw starten. </para>
+
+<sect1 id="controls">
+<title
+>Besturing</title>
+
+<para>
+<informaltable>
+<tgroup cols="2">
+<thead>
+<row
+><entry
+>Toets</entry
+><entry
+>Actie</entry
+></row>
+</thead>
+
+<tbody>
+<row
+><entry
+>Muistoetsen</entry
+><entry
+>Verplaats een vakje in één richting</entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Muis</keycap
+></keycombo
+> knoppen</entry
+><entry
+>Verplaats in één richting zover als u kunt zonder dat u tegen een diamant duwt</entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Shift;<keycap
+>Muis</keycap
+></keycombo
+> knoppen </entry
+><entry
+>Verplaats in één richting zover als u kunt terwijl u tegen een diamant hoeft te duwen</entry
+></row>
+<row
+><entry
+><mousebutton
+>Linker</mousebutton
+> muisknop</entry
+><entry
+>Ga naar elke plaats in het doolhof dat u kunt bereiken zonder dat u tegen diamanten duwt&nbsp;</entry
+></row>
+<row
+><entry
+><mousebutton
+>Middel</mousebutton
+> muisknop of <keycombo action="simul"
+>&Ctrl;<keycap
+>Z</keycap
+></keycombo
+></entry
+><entry
+>Maak de laatste zet ongedaan</entry
+></row>
+<row
+><entry
+><mousebutton
+>Rechter</mousebutton
+> muisknop</entry
+><entry
+>Verplaats omhoog/omlaag/links/rechts in een rechte lijn terwijl u tegen alle diamanten duwt die u tegenkomt</entry
+></row>
+<row
+><entry
+><mousebutton
+>Muiswiel</mousebutton
+></entry
+><entry
+>Wandel door de geschiedenis</entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>Z</keycap
+></keycombo
+>&nbsp;</entry
+><entry
+>Voert de laatste verplaatsing opnieuw uit</entry
+></row>
+<row
+><entry
+><keycap
+>N</keycap
+></entry
+><entry
+>Ga naar de volgende level in de huidige verzameling</entry
+></row>
+<row
+><entry
+><keycap
+>P</keycap
+></entry
+><entry
+>Ga naar de vorige level in de huidige verzameling</entry
+></row>
+<row
+><entry
+>&Esc;</entry
+><entry
+>Het huidige level opnieuw starten</entry
+></row>
+<row
+><entry
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+></entry
+><entry
+>Spel afsluiten</entry
+></row>
+</tbody>
+</tgroup>
+</informaltable>
+</para>
+</sect1>
+
+<sect1 id="loading-external-levels">
+<title
+>Externe levels laden</title>
+
+<para
+>In &ksokoban; is de mogelijkheid aanwezig om externe sokoban levels vanuit tekstbestanden te laden. U kunt de levels laden via het menu-item <menuchoice
+><guimenu
+>Spel</guimenu
+> <guimenuitem
+>Levels laden...</guimenuitem
+> </menuchoice
+>, of door de&URL; van het level-bestand als parameter op de commandoregel op te geven bij het starten van &ksokoban; vanuit een shell. </para>
+
+<para
+>De externe levels moeten zijn gedefinieerd met de standaard karakters die u ziet in de tabel hieronder. Als in het bestand meer dan een level voorkomt, dan moeten de levels worden gescheiden door lege regels. In het bestand mag ook tussen de levels tekst voorkomen. </para>
+
+<informaltable>
+<tgroup cols="2">
+<thead>
+<row
+><entry
+>Teken</entry
+><entry
+>Betekenis</entry
+></row>
+</thead>
+
+<tbody>
+<row
+><entry
+><literal
+>#</literal
+></entry
+><entry
+>Muur</entry
+></row>
+<row
+><entry
+><emphasis
+>(spatie)</emphasis
+></entry
+><entry
+>Leeg vakje</entry
+></row>
+<row
+><entry
+><literal
+>.</literal
+></entry
+><entry
+>Doelvak</entry
+></row>
+<row
+><entry
+><literal
+>$</literal
+></entry
+><entry
+>Object op een leeg vak</entry
+></row>
+<row
+><entry
+><literal
+>*</literal
+></entry
+><entry
+>Object op een doelvak</entry
+></row>
+<row
+><entry
+><literal
+>@</literal
+></entry
+><entry
+>Startpositie op een leeg vak&nbsp;</entry
+></row>
+<row
+><entry
+><literal
+>+</literal
+></entry
+><entry
+>Startpositie op een doelvak</entry
+></row>
+</tbody>
+</tgroup>
+</informaltable>
+
+<para
+>Als voorbeeld is hieronder een tekstweergave van het eerste level van de <emphasis
+>Microban</emphasis
+> level verzameling: </para>
+
+<para>
+<screen
+>####
+# .#
+#  ###
+#*@  #
+#  $ #
+#  ###
+####
+</screen>
+</para>
+</sect1>
+</chapter>
+
+<chapter id="menu-reference">
+<title
+>Menureferentie</title>
+
+<para
+>Dit is een complete uitleg van de menu´s van &ksokoban;.</para>
+
+<sect1 id="game-menu">
+<title
+>Het Spel menu</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Spel</guimenu
+> <guimenuitem
+>Laad Levels...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Laad een externe level.</action
+> Zie de sectie <link linkend="loading-external-levels"
+>Externe levels laden</link
+> voor meer informatie.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>N</keycap
+></shortcut
+> <guimenu
+>Spel</guimenu
+> <guimenuitem
+>Volgend level</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Laad het volgende level.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>P</keycap
+></shortcut
+> <guimenu
+>Spel</guimenu
+> <guimenuitem
+>Vorig level</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Ga terug naar het vorige level.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+>&Esc;</shortcut
+> <guimenu
+>Spel</guimenu
+> <guimenuitem
+>Level herstarten</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Het huidige level opnieuw starten.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Spel</guimenu
+> <guisubmenu
+>Level-verzameling</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Een submenu om naar een andere verzameling levels om te schakelen.</action
+> &ksokoban; komt met enkele verzamelingen levels, en u kunt er nog meer laden die u op het internet heeft gevonden.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Z</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Spel</guimenu
+> <guimenuitem
+>Ongedaan</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Laatste zet ongedaan maken.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>Z</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Spel</guimenu
+> <guimenuitem
+>Opnieuw</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Voert de laatste ongedaan gemaakte handeling opnieuw uit.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Spel</guimenu
+> <guimenuitem
+>Afsluiten</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Sluit</action
+> &ksokoban; af.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="animation-menu">
+<title
+>Het Animatie menu</title>
+
+<para
+>Het menu biedt menu-items met keuzevakjes die u de snelheid laat instellen waarmee de getoonde animaties worden afgespeeld. </para>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Animatie</guimenu
+> <guisubmenu
+>Traag</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Animaties op langzame snelheid afspelen.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Animatie</guimenu
+> <guisubmenu
+>Middel</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Dit is de standaard instelling, en <action
+>speelt de animaties een iets grotere snelheid af</action
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Animatie</guimenu
+> <guisubmenu
+>Snel</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Animaties op de snelste snelheid afspelen.</action
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Animatie</guimenu
+> <guisubmenu
+>Uit</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Animaties niet afspelen.</action
+></para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+
+<sect1 id="bookmarks">
+<title
+>Het Bladwijzers menu</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Bladwijzers</guimenu
+> <guisubmenu
+>Bladwijzer toevoegen</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>In &ksokoban; kunt u <action
+> op een bepaald punt in een level  een bladwijzer zetten.</action
+> U kunt dit gebruiken om niet het  eerstestuk in een level opnieuw te hoeven doen.</para>
+<para
+>U kunt maximaal tien bladwijzers tegelijk hebben, en deze gebruiken met de sneltoets <keycombo action="simul"
+>&Ctrl;<keycap
+><replaceable
+>X</replaceable
+></keycap
+></keycombo
+>, waar <replaceable
+>X</replaceable
+> een cijfer is tussen 0 en 9.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Bladwijzers</guimenu
+> <guisubmenu
+>Naar Bladwijzer</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Ga naar het punt waarvoor u eerder een bladwijzer voor heeft gemaakt.</action
+></para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+<sect1 id="help-menu">
+<title
+>Het Help menu</title>
+
+<para
+>&ksokoban; heeft een aantal van de algemene &kde; items in het menu <guimenu
+>Help</guimenu
+>, voor meer informatie lees de sectie hierover in het <ulink url="help:/fundamentals/menus.html#menus-help"
+>Menu Help</ulink
+> van &kde; Fundamentals. </para>
+
+</sect1>
+</chapter>
+
+<chapter id="credits">
+<title
+>Dankbetuigingen en licentie</title>
+
+<para
+>Het auteursrecht van &ksokoban; rust bij &copy; 1998-2000 door &Anders.Widell; &Anders.Widell.mail;. </para>
+
+<para
+>De achtergrond <quote
+>starfield</quote
+> is afkomstig uit <ulink url="https://www.gimp.org/"
+>Gimp</ulink
+>. Alle andere afbeeldingen zijn gemaakt door &Anders.Widell; &Anders.Widell.mail; met behulp van de <ulink url="https://www.povray.org/"
+>Povray</ulink
+> ray tracer. </para>
+
+<para
+>Alle op dit moment meegeleverde sokoban levels zijn gecreëerd door David W. Skinner <email
+>sasquatch@bentonrea.com</email
+>. Voor meer informatie, zie <ulink url="https://www.sokobanonline.com/play/web-archive/david-w-skinner"
+>ijn sokoban pagina</ulink
+>. </para>
+
+&meld.fouten;&vertaling.freek;&vertaling.ronald; &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+

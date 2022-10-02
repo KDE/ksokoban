@@ -1,0 +1,308 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+# xavier <xavier.besnard@neuf.fr>, 2012, 2013, 2021, 2022.
+# Simon Depiets <sdepiets@gmail.com>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-02 00:43+0000\n"
+"PO-Revision-Date: 2022-08-22 19:01+0200\n"
+"Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
+"Language-Team: French <kde-francophone@kde.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 22.04.3\n"
+"X-Environment: kde\n"
+"X-Accelerator-Marker: &\n"
+"X-Text-Markup: kde4\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Xavier Besnard"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "xavier.besnard@neuf.fr"
+
+#: InternalCollections.cpp:42
+#, kde-format
+msgid "Sasquatch"
+msgstr "Sasquatch"
+
+#: InternalCollections.cpp:46
+#, kde-format
+msgid "Mas Sasquatch"
+msgstr "Mas Sasquatch"
+
+#: InternalCollections.cpp:50
+#, kde-format
+msgid "Sasquatch III"
+msgstr "Sasquatch III"
+
+#: InternalCollections.cpp:54
+#, kde-format
+msgid "Microban (easy)"
+msgstr "Microban (facile)"
+
+#: InternalCollections.cpp:58
+#, kde-format
+msgid "Sasquatch IV"
+msgstr "Sasquatch IV"
+
+#. i18n: ectx: Menu (game)
+#: ksokobanui.rc:6
+#, kde-format
+msgid "&Game"
+msgstr "&Jeu"
+
+#. i18n: ectx: Menu (animation_speed)
+#: ksokobanui.rc:20
+#, kde-format
+msgid "&Animation"
+msgstr "&Animation"
+
+#. i18n: ectx: Menu (bookmarks_menu)
+#: ksokobanui.rc:27
+#, kde-format
+msgid "&Bookmarks"
+msgstr "&Signets"
+
+#. i18n: ectx: Menu (set_bookmarks)
+#: ksokobanui.rc:29
+#, kde-format
+msgid "&Set Bookmark"
+msgstr "Définir un &signet"
+
+#. i18n: ectx: Menu (goto_bookmarks)
+#: ksokobanui.rc:42
+#, kde-format
+msgid "&Go to Bookmark"
+msgstr "Aller au si&gnet"
+
+#: main.cpp:27
+#, kde-format
+msgid "KSokoban"
+msgstr "KSokoban"
+
+#: main.cpp:29
+#, kde-format
+msgid "The japanese warehouse keeper game"
+msgstr "Le jeu japonais de magasinier"
+
+#: main.cpp:31
+#, kde-format
+msgid ""
+"(c) 1998 Anders Widell <awl@hem.passagen.se>\n"
+"(c) 2012 Lukasz Kalamlacki"
+msgstr ""
+"(c) 1998 Anders Widell <awl@hem.passagen.se>\n"
+"(c) 2012 Lukasz Kalamlacki"
+
+#: main.cpp:34
+#, kde-format
+msgid "Shlomi Fish"
+msgstr "Shlomi Fish"
+
+#: main.cpp:35
+#, kde-format
+msgid "For porting to Qt5/KF5 and doing other cleanups"
+msgstr "Portage vers Qt5/KF5 et nettoyage"
+
+#: main.cpp:38
+#, kde-format
+msgid "Lukasz Kalamlacki"
+msgstr "Lukasz Kalamlacki"
+
+#: main.cpp:39
+#, kde-format
+msgid "For rewriting the original ksokoban game from kde3 to kde4"
+msgstr "Réécriture du jeu ksokoban d'origine de kde3 vers kde4"
+
+#: main.cpp:42
+#, kde-format
+msgid "Anders Widell"
+msgstr "Anders Widell"
+
+#: main.cpp:43
+#, kde-format
+msgid "For writing the original ksokoban game"
+msgstr "Écriture du jeu ksokoban d'origine"
+
+#: main.cpp:46
+#, kde-format
+msgid "David W. Skinner"
+msgstr "David W. Skinner"
+
+#: main.cpp:47
+#, kde-format
+msgid "For contributing the Sokoban levels included in this game"
+msgstr "Pour la contribution aux niveaux de Sokoban inclus dans ce jeu"
+
+#: main.cpp:56
+#, kde-format
+msgid "Level collection file to load."
+msgstr "Fichier de collections de niveaux à charger."
+
+#: MainWindow.cpp:37
+#, kde-format
+msgid "&Level Collection"
+msgstr "Co&llection de niveaux"
+
+#: MainWindow.cpp:95
+#, kde-format
+msgid "&Load Levels..."
+msgstr "&Charger des niveaux..."
+
+#: MainWindow.cpp:99
+#, kde-format
+msgid "&Next Level"
+msgstr "&Niveau suivant"
+
+#: MainWindow.cpp:104
+#, kde-format
+msgid "&Previous Level"
+msgstr "Niveau &précédent"
+
+#: MainWindow.cpp:109
+#, kde-format
+msgid "Re&start Level"
+msgstr "&Re-démarrer un niveau"
+
+#: MainWindow.cpp:122
+#, kde-format
+msgid "&Slow"
+msgstr "Len&t"
+
+#: MainWindow.cpp:127
+#, kde-format
+msgid "&Medium"
+msgstr "&Moyen"
+
+#: MainWindow.cpp:132
+#, kde-format
+msgid "&Fast"
+msgstr "Rapi&de"
+
+#: MainWindow.cpp:137
+#, kde-format
+msgid "&Off"
+msgstr "&Désactivé"
+
+#: MainWindow.cpp:177 MainWindow.cpp:191
+#, kde-format
+msgid "(unused)"
+msgstr "(non utilisé)"
+
+#: MainWindow.cpp:227
+#, kde-format
+msgid "(invalid)"
+msgstr "(non valable)"
+
+#: MainWindow.cpp:286
+#, kde-format
+msgctxt "@title:window"
+msgid "Load Levels from a File"
+msgstr "Charger les niveaux à partir d'un fichier"
+
+#: MainWindow.cpp:321
+#, kde-format
+msgid "No levels found in file"
+msgstr "Aucun niveau trouvé dans le fichier"
+
+#: PlayField.cpp:40
+#, kde-format
+msgid "Level:"
+msgstr "Niveau :"
+
+#: PlayField.cpp:41
+#, kde-format
+msgid "Steps:"
+msgstr "Étapes :"
+
+#: PlayField.cpp:42
+#, kde-format
+msgid "Pushes:"
+msgstr "Poussées :"
+
+#: PlayField.cpp:383
+#, kde-format
+msgid "Level completed"
+msgstr "Niveau terminé"
+
+#: PlayField.cpp:761
+#, kde-format
+msgid ""
+"This is the last level in\n"
+"the current collection."
+msgstr ""
+"Ceci est le dernier niveau dans \n"
+"la collection actuelle."
+
+#: PlayField.cpp:768
+#, kde-format
+msgid ""
+"You have not completed\n"
+"this level yet."
+msgstr ""
+"Vous n'avez pas encore terminé\n"
+"ce niveau."
+
+#: PlayField.cpp:783
+#, kde-format
+msgid ""
+"This is the first level in\n"
+"the current collection."
+msgstr ""
+"Ceci est le premier niveau dans\n"
+"la collection actuelle."
+
+#: PlayField.cpp:943
+#, kde-format
+msgid ""
+"Sorry, bookmarks for external levels\n"
+"is not implemented yet."
+msgstr ""
+"Désolé, les signets pour les niveaux extérieurs\n"
+"ne sont encore disponibles."
+
+#: PlayField.cpp:968
+#, kde-format
+msgid "This level is broken"
+msgstr "Ce niveau est cassé"
+
+#~ msgid "[file]"
+#~ msgstr "[fichier]"
+
+#~ msgid "&Undo"
+#~ msgstr "Ann&uler"
+
+#~ msgid "&Redo"
+#~ msgstr "R&efaire"
+
+#~ msgid "&Quit"
+#~ msgstr "&Quitter"
+
+#~ msgid "Sasquatch V"
+#~ msgstr "Sasquatch V"
+
+#~ msgid "Mas Microban (easy)"
+#~ msgstr "Mas Microban (facile)"
+
+#~ msgid "Sasquatch VI"
+#~ msgstr "Sasquatch VI"
+
+#~ msgid "LOMA"
+#~ msgstr "LOMA"
+
+#~ msgid "Sasquatch VII"
+#~ msgstr "Sasquatch VII"
+
+#~ msgid "(c) 1998-2001  Anders Widell"
+#~ msgstr "(c) 1998-2001  Anders Widell"

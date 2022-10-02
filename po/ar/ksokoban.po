@@ -1,0 +1,287 @@
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the ksokoban package.
+#
+# Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2021, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: ksokoban\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-02 00:43+0000\n"
+"PO-Revision-Date: 2022-08-23 19:12+0400\n"
+"Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
+"Language-Team: Arabic <kde-l10n-ar@kde.org>\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Lokalize 21.07.70\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "زايد السعيدي"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "zayed.alsaidi@gmail.com"
+
+#: InternalCollections.cpp:42
+#, kde-format
+msgid "Sasquatch"
+msgstr "ذو القدم الكبيرة"
+
+#: InternalCollections.cpp:46
+#, kde-format
+msgid "Mas Sasquatch"
+msgstr "ذو القدم الكبيرة الثاني"
+
+#: InternalCollections.cpp:50
+#, kde-format
+msgid "Sasquatch III"
+msgstr "ذو القدم الكبيرة الثالث"
+
+#: InternalCollections.cpp:54
+#, kde-format
+msgid "Microban (easy)"
+msgstr "ميكروبان (سهل)"
+
+#: InternalCollections.cpp:58
+#, kde-format
+msgid "Sasquatch IV"
+msgstr "ذو القدم الكبيرة الرابع"
+
+#. i18n: ectx: Menu (game)
+#: ksokobanui.rc:6
+#, kde-format
+msgid "&Game"
+msgstr "&لعبة"
+
+#. i18n: ectx: Menu (animation_speed)
+#: ksokobanui.rc:20
+#, kde-format
+msgid "&Animation"
+msgstr "ال&تحريك"
+
+#. i18n: ectx: Menu (bookmarks_menu)
+#: ksokobanui.rc:27
+#, kde-format
+msgid "&Bookmarks"
+msgstr "ال&علامات"
+
+#. i18n: ectx: Menu (set_bookmarks)
+#: ksokobanui.rc:29
+#, kde-format
+msgid "&Set Bookmark"
+msgstr "ضع &علامة"
+
+#. i18n: ectx: Menu (goto_bookmarks)
+#: ksokobanui.rc:42
+#, kde-format
+msgid "&Go to Bookmark"
+msgstr "اذهب إلى &علامة"
+
+#: main.cpp:27
+#, kde-format
+msgid "KSokoban"
+msgstr "أمين المستودع"
+
+#: main.cpp:29
+#, kde-format
+msgid "The japanese warehouse keeper game"
+msgstr "لعبة أمين المستودع اليابانية"
+
+#: main.cpp:31
+#, kde-format
+msgid ""
+"(c) 1998 Anders Widell <awl@hem.passagen.se>\n"
+"(c) 2012 Lukasz Kalamlacki"
+msgstr ""
+"(c) 1998 Anders Widell <awl@hem.passagen.se>\n"
+"(c) 2012 Lukasz Kalamlacki"
+
+#: main.cpp:34
+#, kde-format
+msgid "Shlomi Fish"
+msgstr "Shlomi Fish"
+
+#: main.cpp:35
+#, kde-format
+msgid "For porting to Qt5/KF5 and doing other cleanups"
+msgstr "النقل إلى كيوت 5 وإطار كدي 5 وغيرها من التنظيفات"
+
+#: main.cpp:38
+#, kde-format
+msgid "Lukasz Kalamlacki"
+msgstr "Lukasz Kalamlacki"
+
+#: main.cpp:39
+#, kde-format
+msgid "For rewriting the original ksokoban game from kde3 to kde4"
+msgstr "إعادة كتابة اللعبة الأصلية من كدي 3 إلى كدي 4"
+
+#: main.cpp:42
+#, kde-format
+msgid "Anders Widell"
+msgstr "Anders Widell"
+
+#: main.cpp:43
+#, kde-format
+msgid "For writing the original ksokoban game"
+msgstr "كتابة اللعبة الأصلية"
+
+#: main.cpp:46
+#, kde-format
+msgid "David W. Skinner"
+msgstr "David W. Skinner"
+
+#: main.cpp:47
+#, kde-format
+msgid "For contributing the Sokoban levels included in this game"
+msgstr "لمساهمته بمستويات اللعبة المضمنة فيها"
+
+#: main.cpp:56
+#, kde-format
+msgid "Level collection file to load."
+msgstr "ملف مجموع المستويات لتحميله."
+
+#: MainWindow.cpp:37
+#, kde-format
+msgid "&Level Collection"
+msgstr "&مجموعة المستويات"
+
+#: MainWindow.cpp:95
+#, kde-format
+msgid "&Load Levels..."
+msgstr "&حمل المستويات..."
+
+#: MainWindow.cpp:99
+#, kde-format
+msgid "&Next Level"
+msgstr "المستوى ال&تالي"
+
+#: MainWindow.cpp:104
+#, kde-format
+msgid "&Previous Level"
+msgstr "المستوى ال&سابق"
+
+#: MainWindow.cpp:109
+#, kde-format
+msgid "Re&start Level"
+msgstr "أعد ال&مستوى"
+
+#: MainWindow.cpp:122
+#, kde-format
+msgid "&Slow"
+msgstr "ب&طيء"
+
+#: MainWindow.cpp:127
+#, kde-format
+msgid "&Medium"
+msgstr "&متوسط"
+
+#: MainWindow.cpp:132
+#, kde-format
+msgid "&Fast"
+msgstr "&سريع"
+
+#: MainWindow.cpp:137
+#, kde-format
+msgid "&Off"
+msgstr "مع&طّلة"
+
+#: MainWindow.cpp:177 MainWindow.cpp:191
+#, kde-format
+msgid "(unused)"
+msgstr "(غير مستخدمة)"
+
+#: MainWindow.cpp:227
+#, kde-format
+msgid "(invalid)"
+msgstr "(غير صالح)"
+
+#: MainWindow.cpp:286
+#, kde-format
+msgctxt "@title:window"
+msgid "Load Levels from a File"
+msgstr "تحميل مستويات من ملف"
+
+#: MainWindow.cpp:321
+#, kde-format
+msgid "No levels found in file"
+msgstr "لم يعثر على مستويات في الملف"
+
+#: PlayField.cpp:40
+#, kde-format
+msgid "Level:"
+msgstr "المستوى:"
+
+#: PlayField.cpp:41
+#, kde-format
+msgid "Steps:"
+msgstr "الخطوات:"
+
+#: PlayField.cpp:42
+#, kde-format
+msgid "Pushes:"
+msgstr "الدَفعات:"
+
+#: PlayField.cpp:383
+#, kde-format
+msgid "Level completed"
+msgstr "اكتمل المستوى"
+
+#: PlayField.cpp:761
+#, kde-format
+msgid ""
+"This is the last level in\n"
+"the current collection."
+msgstr ""
+"هذا أخر مستوى في \n"
+"المجموعة الحالية"
+
+#: PlayField.cpp:768
+#, kde-format
+msgid ""
+"You have not completed\n"
+"this level yet."
+msgstr ""
+"لم تكمل هذا  \n"
+"المستوى حتى الآن"
+
+#: PlayField.cpp:783
+#, kde-format
+msgid ""
+"This is the first level in\n"
+"the current collection."
+msgstr ""
+"هذا أول مستوى في \n"
+"المجموعة الحالية"
+
+#: PlayField.cpp:943
+#, kde-format
+msgid ""
+"Sorry, bookmarks for external levels\n"
+"is not implemented yet."
+msgstr ""
+"نأسف، علامات المستويات الخارجية\n"
+"لم تنفذ حتى الآن."
+
+#: PlayField.cpp:968
+#, kde-format
+msgid "This level is broken"
+msgstr "هذا المستوى معطوب"
+
+#~ msgid "[file]"
+#~ msgstr "[ملف]"
+
+#~ msgid "&Undo"
+#~ msgstr "&تراجع"
+
+#~ msgid "&Redo"
+#~ msgstr "أ&عِد"
+
+#~ msgid "&Quit"
+#~ msgstr "أ&نهِ"

@@ -1,0 +1,277 @@
+# Translation of ksokoban to Norwegian Nynorsk
+#
+# Gaute Hvoslef Kvalnes <gaute@verdsveven.com>, 1999, 2000, 2002.
+# Karl Ove Hufthammer <karl@huftis.org>, 2012, 2020, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: ksokoban\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-02 00:43+0000\n"
+"PO-Revision-Date: 2022-08-24 10:10+0200\n"
+"Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
+"Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
+"Language: nn\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 22.08.0\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Environment: kde\n"
+"X-Accelerator-Marker: &\n"
+"X-Text-Markup: kde4\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Gaute Hvoslef Kvalnes,Karl Ove Hufthammer"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "gaute@verdsveven.com,karl@huftis.org"
+
+#: InternalCollections.cpp:42
+#, kde-format
+msgid "Sasquatch"
+msgstr "Sasquatch"
+
+#: InternalCollections.cpp:46
+#, kde-format
+msgid "Mas Sasquatch"
+msgstr "Mas Sasquatch"
+
+#: InternalCollections.cpp:50
+#, kde-format
+msgid "Sasquatch III"
+msgstr "Sasquatch III"
+
+#: InternalCollections.cpp:54
+#, kde-format
+msgid "Microban (easy)"
+msgstr "Mikroban (lett)"
+
+#: InternalCollections.cpp:58
+#, kde-format
+msgid "Sasquatch IV"
+msgstr "Sasquatch IV"
+
+#. i18n: ectx: Menu (game)
+#: ksokobanui.rc:6
+#, kde-format
+msgid "&Game"
+msgstr "&Spel"
+
+#. i18n: ectx: Menu (animation_speed)
+#: ksokobanui.rc:20
+#, kde-format
+msgid "&Animation"
+msgstr "&Animasjon"
+
+#. i18n: ectx: Menu (bookmarks_menu)
+#: ksokobanui.rc:27
+#, kde-format
+msgid "&Bookmarks"
+msgstr "&Bokmerke"
+
+#. i18n: ectx: Menu (set_bookmarks)
+#: ksokobanui.rc:29
+#, kde-format
+msgid "&Set Bookmark"
+msgstr "&Definer bokmerke"
+
+#. i18n: ectx: Menu (goto_bookmarks)
+#: ksokobanui.rc:42
+#, kde-format
+msgid "&Go to Bookmark"
+msgstr "&Gå til bokmerke"
+
+#: main.cpp:27
+#, kde-format
+msgid "KSokoban"
+msgstr "KSokoban"
+
+#: main.cpp:29
+#, kde-format
+msgid "The japanese warehouse keeper game"
+msgstr "Det japanske lagersjefspelet"
+
+#: main.cpp:31
+#, kde-format
+msgid ""
+"(c) 1998 Anders Widell <awl@hem.passagen.se>\n"
+"(c) 2012 Lukasz Kalamlacki"
+msgstr ""
+"© 1998 Anders Widell <awl@hem.passagen.se>\n"
+"© 2012 Łukasz Kalamłacki"
+
+#: main.cpp:34
+#, kde-format
+msgid "Shlomi Fish"
+msgstr "Shlomi Fish"
+
+#: main.cpp:35
+#, kde-format
+msgid "For porting to Qt5/KF5 and doing other cleanups"
+msgstr "Porta spelet til Qt5/KF5 samt anna opprydding"
+
+#: main.cpp:38
+#, kde-format
+msgid "Lukasz Kalamlacki"
+msgstr "Łukasz Kalamłacki"
+
+#: main.cpp:39
+#, kde-format
+msgid "For rewriting the original ksokoban game from kde3 to kde4"
+msgstr "Porta det opphavlege KSokoban-spelet frå KDE 3 til KDE 4"
+
+#: main.cpp:42
+#, kde-format
+msgid "Anders Widell"
+msgstr "Anders Widell"
+
+#: main.cpp:43
+#, kde-format
+msgid "For writing the original ksokoban game"
+msgstr "Skreiv dei opphavlege KSokoban-spelet"
+
+#: main.cpp:46
+#, kde-format
+msgid "David W. Skinner"
+msgstr "David W. Skinner"
+
+#: main.cpp:47
+#, kde-format
+msgid "For contributing the Sokoban levels included in this game"
+msgstr "For å ha laga Sokoban-brett i dette spelet"
+
+#: main.cpp:56
+#, kde-format
+msgid "Level collection file to load."
+msgstr "Brettsamlingsfil som skal opnast."
+
+#: MainWindow.cpp:37
+#, kde-format
+msgid "&Level Collection"
+msgstr "&Brettsamling"
+
+#: MainWindow.cpp:95
+#, kde-format
+msgid "&Load Levels..."
+msgstr "&Opna brett …"
+
+#: MainWindow.cpp:99
+#, kde-format
+msgid "&Next Level"
+msgstr "&Neste brett"
+
+#: MainWindow.cpp:104
+#, kde-format
+msgid "&Previous Level"
+msgstr "&Førre brett"
+
+#: MainWindow.cpp:109
+#, kde-format
+msgid "Re&start Level"
+msgstr "&Start brettet på nytt"
+
+#: MainWindow.cpp:122
+#, kde-format
+msgid "&Slow"
+msgstr "&Sakte"
+
+#: MainWindow.cpp:127
+#, kde-format
+msgid "&Medium"
+msgstr "&Middels"
+
+#: MainWindow.cpp:132
+#, kde-format
+msgid "&Fast"
+msgstr "&Rask"
+
+#: MainWindow.cpp:137
+#, kde-format
+msgid "&Off"
+msgstr "&Av"
+
+#: MainWindow.cpp:177 MainWindow.cpp:191
+#, kde-format
+msgid "(unused)"
+msgstr "(ikkje brukt)"
+
+#: MainWindow.cpp:227
+#, kde-format
+msgid "(invalid)"
+msgstr "(ugyldig)"
+
+#: MainWindow.cpp:286
+#, kde-format
+msgctxt "@title:window"
+msgid "Load Levels from a File"
+msgstr "Last brett frå fil"
+
+#: MainWindow.cpp:321
+#, kde-format
+msgid "No levels found in file"
+msgstr "Fann ingen brett i fila"
+
+#: PlayField.cpp:40
+#, kde-format
+msgid "Level:"
+msgstr "Brett:"
+
+#: PlayField.cpp:41
+#, kde-format
+msgid "Steps:"
+msgstr "Steg:"
+
+#: PlayField.cpp:42
+#, kde-format
+msgid "Pushes:"
+msgstr "Skubb:"
+
+#: PlayField.cpp:383
+#, kde-format
+msgid "Level completed"
+msgstr "Brett fullført"
+
+#: PlayField.cpp:761
+#, kde-format
+msgid ""
+"This is the last level in\n"
+"the current collection."
+msgstr ""
+"Dette er det siste brettet\n"
+"i denne samlinga."
+
+#: PlayField.cpp:768
+#, kde-format
+msgid ""
+"You have not completed\n"
+"this level yet."
+msgstr ""
+"Du er ikkje ferdig med\n"
+"dette brettet enno."
+
+#: PlayField.cpp:783
+#, kde-format
+msgid ""
+"This is the first level in\n"
+"the current collection."
+msgstr ""
+"Dette er det første brettet\n"
+"i denne samlinga."
+
+#: PlayField.cpp:943
+#, kde-format
+msgid ""
+"Sorry, bookmarks for external levels\n"
+"is not implemented yet."
+msgstr ""
+"Bokmerke for eksterne nivå\n"
+"er ikkje implementert enno."
+
+#: PlayField.cpp:968
+#, kde-format
+msgid "This level is broken"
+msgstr "Dette brettet er øydelagt"

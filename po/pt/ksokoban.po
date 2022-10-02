@@ -1,0 +1,275 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ksokoban\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-02 00:43+0000\n"
+"PO-Revision-Date: 2022-08-25 17:31+0100\n"
+"Last-Translator: José Nuno Pires <jncp@netcabo.pt>\n"
+"Language-Team: pt <kde-i18n-pt@kde.org>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-POFile-IgnoreConsistency: &Medium\n"
+"X-POFile-IgnoreConsistency: &Fast\n"
+"X-POFile-IgnoreConsistency: &Fast\n"
+"X-POFile-SpellExtra: Sokoban Sasquatch Microban   Widell LOMA VII Skinner\n"
+"X-POFile-SpellExtra: Anders ksokoban Lukasz KF Fish KSokoban Kalamlacki\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-POFile-SpellExtra: Shlomi\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "José Nuno Pires"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "zepires@gmail.com"
+
+#: InternalCollections.cpp:42
+#, kde-format
+msgid "Sasquatch"
+msgstr "Sasquatch"
+
+#: InternalCollections.cpp:46
+#, kde-format
+msgid "Mas Sasquatch"
+msgstr "Mas Sasquatch"
+
+#: InternalCollections.cpp:50
+#, kde-format
+msgid "Sasquatch III"
+msgstr "Sasquatch III"
+
+#: InternalCollections.cpp:54
+#, kde-format
+msgid "Microban (easy)"
+msgstr "Microban (fácil)"
+
+#: InternalCollections.cpp:58
+#, kde-format
+msgid "Sasquatch IV"
+msgstr "Sasquatch IV"
+
+#. i18n: ectx: Menu (game)
+#: ksokobanui.rc:6
+#, kde-format
+msgid "&Game"
+msgstr "Jo&go"
+
+#. i18n: ectx: Menu (animation_speed)
+#: ksokobanui.rc:20
+#, kde-format
+msgid "&Animation"
+msgstr "&Animação"
+
+#. i18n: ectx: Menu (bookmarks_menu)
+#: ksokobanui.rc:27
+#, kde-format
+msgid "&Bookmarks"
+msgstr "Fa&voritos"
+
+#. i18n: ectx: Menu (set_bookmarks)
+#: ksokobanui.rc:29
+#, kde-format
+msgid "&Set Bookmark"
+msgstr "&Colocar um Favorito"
+
+#. i18n: ectx: Menu (goto_bookmarks)
+#: ksokobanui.rc:42
+#, kde-format
+msgid "&Go to Bookmark"
+msgstr "&Ir para o Favorito"
+
+#: main.cpp:27
+#, kde-format
+msgid "KSokoban"
+msgstr "KSokoban"
+
+#: main.cpp:29
+#, kde-format
+msgid "The japanese warehouse keeper game"
+msgstr "O jogo de empurrar caixotes"
+
+#: main.cpp:31
+#, kde-format
+msgid ""
+"(c) 1998 Anders Widell <awl@hem.passagen.se>\n"
+"(c) 2012 Lukasz Kalamlacki"
+msgstr ""
+"(c) 1998 Anders Widell <awl@hem.passagen.se>\n"
+"(c) 2012 Lukasz Kalamlacki"
+
+#: main.cpp:34
+#, kde-format
+msgid "Shlomi Fish"
+msgstr "Shlomi Fish"
+
+#: main.cpp:35
+#, kde-format
+msgid "For porting to Qt5/KF5 and doing other cleanups"
+msgstr "Pela migração para o Qt5/KF5 e por outras limpezas"
+
+#: main.cpp:38
+#, kde-format
+msgid "Lukasz Kalamlacki"
+msgstr "Lukasz Kalamlacki"
+
+#: main.cpp:39
+#, kde-format
+msgid "For rewriting the original ksokoban game from kde3 to kde4"
+msgstr "Pela remodelação do jogo original do KSokoban do KDE3 para o KDE4"
+
+#: main.cpp:42
+#, kde-format
+msgid "Anders Widell"
+msgstr "Anders Widell"
+
+#: main.cpp:43
+#, kde-format
+msgid "For writing the original ksokoban game"
+msgstr "Pela criação do jogo original do KSokoban"
+
+#: main.cpp:46
+#, kde-format
+msgid "David W. Skinner"
+msgstr "David W. Skinner"
+
+#: main.cpp:47
+#, kde-format
+msgid "For contributing the Sokoban levels included in this game"
+msgstr "Por contribuir nos níveis do Sokoban incluídos neste jogo"
+
+#: main.cpp:56
+#, kde-format
+msgid "Level collection file to load."
+msgstr "Ficheiro de colecção de níveis a carregar."
+
+#: MainWindow.cpp:37
+#, kde-format
+msgid "&Level Collection"
+msgstr "Colecção de &Níveis"
+
+#: MainWindow.cpp:95
+#, kde-format
+msgid "&Load Levels..."
+msgstr "&Carregar os Níveis..."
+
+#: MainWindow.cpp:99
+#, kde-format
+msgid "&Next Level"
+msgstr "&Nível Seguinte"
+
+#: MainWindow.cpp:104
+#, kde-format
+msgid "&Previous Level"
+msgstr "Nível &Anterior"
+
+#: MainWindow.cpp:109
+#, kde-format
+msgid "Re&start Level"
+msgstr "R&einiciar o Nível"
+
+#: MainWindow.cpp:122
+#, kde-format
+msgid "&Slow"
+msgstr "&Lentas"
+
+#: MainWindow.cpp:127
+#, kde-format
+msgid "&Medium"
+msgstr "&Médias"
+
+#: MainWindow.cpp:132
+#, kde-format
+msgid "&Fast"
+msgstr "&Rápidas"
+
+#: MainWindow.cpp:137
+#, kde-format
+msgid "&Off"
+msgstr "&Desligadas"
+
+#: MainWindow.cpp:177 MainWindow.cpp:191
+#, kde-format
+msgid "(unused)"
+msgstr "(vazio)"
+
+#: MainWindow.cpp:227
+#, kde-format
+msgid "(invalid)"
+msgstr "(inválido)"
+
+#: MainWindow.cpp:286
+#, kde-format
+msgctxt "@title:window"
+msgid "Load Levels from a File"
+msgstr "Carregar os Níveis de um Ficheiro"
+
+#: MainWindow.cpp:321
+#, kde-format
+msgid "No levels found in file"
+msgstr "Não foi encontrado nenhum nível no ficheiro"
+
+#: PlayField.cpp:40
+#, kde-format
+msgid "Level:"
+msgstr "Nível:"
+
+#: PlayField.cpp:41
+#, kde-format
+msgid "Steps:"
+msgstr "Passos:"
+
+#: PlayField.cpp:42
+#, kde-format
+msgid "Pushes:"
+msgstr "Empurrões:"
+
+#: PlayField.cpp:383
+#, kde-format
+msgid "Level completed"
+msgstr "Nível concluído"
+
+#: PlayField.cpp:761
+#, kde-format
+msgid ""
+"This is the last level in\n"
+"the current collection."
+msgstr ""
+"Este é o último nível\n"
+"da colecção actual."
+
+#: PlayField.cpp:768
+#, kde-format
+msgid ""
+"You have not completed\n"
+"this level yet."
+msgstr ""
+"Ainda não concluiu\n"
+"este nível."
+
+#: PlayField.cpp:783
+#, kde-format
+msgid ""
+"This is the first level in\n"
+"the current collection."
+msgstr ""
+"Este é o primeiro nível\n"
+"da colecção actual."
+
+#: PlayField.cpp:943
+#, kde-format
+msgid ""
+"Sorry, bookmarks for external levels\n"
+"is not implemented yet."
+msgstr ""
+"Ainda não é possível guardar a\n"
+"posição nos níveis externos."
+
+#: PlayField.cpp:968
+#, kde-format
+msgid "This level is broken"
+msgstr "Este nível está estragado"
