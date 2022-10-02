@@ -39,6 +39,9 @@ add_subdirectory(src)
 add_subdirectory(icons)
 if(KF5DocTools_FOUND)
     add_subdirectory(doc)
+    kdoctools_install(po)
 endif()
+
+ki18n_install(po)
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
