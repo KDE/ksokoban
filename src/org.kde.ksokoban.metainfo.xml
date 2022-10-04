@@ -12,6 +12,7 @@
   <name xml:lang="fr">KSokoban</name>
   <name xml:lang="it">KSokoban</name>
   <name xml:lang="ka">KSokoban</name>
+  <name xml:lang="ko">KSokoban</name>
   <name xml:lang="nl">KSokoban</name>
   <name xml:lang="nn">KSokoban</name>
   <name xml:lang="pt">KSokoban</name>
@@ -30,6 +31,7 @@
   <summary xml:lang="fr">Jeu Sokoban</summary>
   <summary xml:lang="it">Gioco Sokoban</summary>
   <summary xml:lang="ka">თამაში Sokoban</summary>
+  <summary xml:lang="ko">소코반 게임</summary>
   <summary xml:lang="nl">Sokoban-spel</summary>
   <summary xml:lang="nn">Sokoban-spel</summary>
   <summary xml:lang="pt">Jogo Sokoban</summary>
