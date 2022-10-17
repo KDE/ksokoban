@@ -147,7 +147,7 @@ msgstr "Per contribuir amb els nivells de Sokoban inclosos en este joc"
 #: main.cpp:56
 #, kde-format
 msgid "Level collection file to load."
-msgstr "El fitxer de col·lecció de nivells a carregar."
+msgstr "El fitxer de col·lecció de nivells que es carregarà."
 
 #: MainWindow.cpp:37
 #, kde-format
