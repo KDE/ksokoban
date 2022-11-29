@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ksokoban\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-02 00:43+0000\n"
-"PO-Revision-Date: 2022-09-30 16:36+0200\n"
+"PO-Revision-Date: 2022-11-28 09:32+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -209,7 +209,7 @@ msgstr "დონეების ფაილიდან ჩატვირთ�
 #: MainWindow.cpp:321
 #, kde-format
 msgid "No levels found in file"
-msgstr ""
+msgstr "ფაილში დონეები ვერ ვიპოვე"
 
 #: PlayField.cpp:40
 #, kde-format
@@ -224,7 +224,7 @@ msgstr "ნაბიჯები:"
 #: PlayField.cpp:42
 #, kde-format
 msgid "Pushes:"
-msgstr ""
+msgstr "მიწოლები:"
 
 #: PlayField.cpp:383
 #, kde-format
@@ -237,6 +237,8 @@ msgid ""
 "This is the last level in\n"
 "the current collection."
 msgstr ""
+"ეს მიმდინარე კოლექციის\n"
+"უკანასკნელი დონეა."
 
 #: PlayField.cpp:768
 #, kde-format
@@ -244,6 +246,8 @@ msgid ""
 "You have not completed\n"
 "this level yet."
 msgstr ""
+"ეს დონე ჯერ\n"
+"არ დაგისრულებიათ."
 
 #: PlayField.cpp:783
 #, kde-format
@@ -251,6 +255,8 @@ msgid ""
 "This is the first level in\n"
 "the current collection."
 msgstr ""
+"ეს მიმდინარე კოლექციის\n"
+"პირველი დონეა."
 
 #: PlayField.cpp:943
 #, kde-format
@@ -258,6 +264,8 @@ msgid ""
 "Sorry, bookmarks for external levels\n"
 "is not implemented yet."
 msgstr ""
+"უკაცრავად გარე დონეების სანიშნები\n"
+"ჯერ განხორციელებული არაა."
 
 #: PlayField.cpp:968
 #, kde-format
