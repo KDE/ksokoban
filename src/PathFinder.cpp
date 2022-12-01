@@ -51,7 +51,7 @@ void PathFinder::BFS(int _x, int _y)
     }
 }
 
-Move *PathFinder::search(Map *_map, int _x, int _y)
+Move *PathFinder::search(const Map *_map, int _x, int _y)
 {
     int xpos = _map->xpos();
     int ypos = _map->ypos();

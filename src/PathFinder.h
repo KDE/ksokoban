@@ -14,7 +14,7 @@ class Move;
 class PathFinder
 {
 public:
-    Move *search(Map *_map, int _x, int _y);
+    Move *search(const Map *_map, int _x, int _y);
     Move *drag(int x1, int y1, int x2, int y2);
     bool canDrag(int x, int y) const;
     bool canWalkTo(int x, int y) const;
