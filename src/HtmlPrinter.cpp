@@ -46,7 +46,7 @@ void HtmlPrinter::empty()
     printf("<td>\n");
 }
 
-void HtmlPrinter::printSquare(LevelMap *lm, int x, int y)
+void HtmlPrinter::printSquare(const Map *lm, int x, int y)
 {
     if (lm->xpos() == x && lm->ypos() == y) {
         image(lm->goal(x, y) ? "saveman" : "man");
@@ -70,7 +70,7 @@ void HtmlPrinter::printSquare(LevelMap *lm, int x, int y)
     }
 }
 
-void HtmlPrinter::printHtml(LevelMap *lm)
+void HtmlPrinter::printHtml(const Map *lm)
 {
     printf(
         "\
