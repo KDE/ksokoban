@@ -66,7 +66,7 @@ PlayField::PlayField(QObject *parent)
 
     levelMap_ = new LevelMap;
 
-    m_groundItem = new GroundItem(levelMap_, &m_renderer);
+    m_groundItem = new GroundItem(&levelMap_->map(), &m_renderer);
     addItem(m_groundItem);
 
     m_collectionName = new QGraphicsSimpleTextItem();
@@ -209,7 +209,7 @@ void PlayField::mouseMoveEvent(QGraphicsSceneMouseEvent *e)
         const QPoint square = m_groundItem->squareFromScene({dragX_ + suqareSize / 2, dragY_ + suqareSize / 2});
         int x = square.x();
         int y = square.y();
-        if (levelMap_->hasCoord(x, y) && pathFinder_.canDragTo(x, y)) {
+        if (levelMap_->map().hasCoord(x, y) && pathFinder_.canDragTo(x, y)) {
             const QPointF dragScenePos = m_groundItem->squareToScene({x, y});
             const qreal dragX =  dragScenePos.x();
             const qreal dragY =  dragScenePos.y();
@@ -238,7 +238,7 @@ void PlayField::highlight()
     const int x = square.x();
     const int y = square.y();
 
-    if (!levelMap_->hasCoord(x, y))
+    if (!levelMap_->map().hasCoord(x, y))
         return;
 
     if (x == highlightX_ && y == highlightY_)
@@ -513,7 +513,7 @@ void PlayField::keyPressEvent(QKeyEvent *e)
 #endif
 
     case Qt::Key_Print:
-        HtmlPrinter::printHtml(levelMap_);
+        HtmlPrinter::printHtml(&levelMap_->map());
         break;
 
     default:
@@ -565,7 +565,7 @@ void PlayField::mousePressEvent(QGraphicsSceneMouseEvent *e)
     const QPoint square = m_groundItem->squareFromScene(e->scenePos());
     const int x = square.x();
     const int y = square.y();
-    if (!levelMap_->hasCoord(x, y))
+    if (!levelMap_->map().hasCoord(x, y))
         return;
 
     if (e->button() == Qt::LeftButton && pathFinder_.canDrag(x, y)) {
@@ -585,7 +585,7 @@ void PlayField::mousePressEvent(QGraphicsSceneMouseEvent *e)
     Move *m;
     switch (e->button()) {
     case Qt::LeftButton:
-        m = pathFinder_.search(levelMap_, x, y);
+        m = pathFinder_.search(&levelMap_->map(), x, y);
         if (m != nullptr) {
             history_->add(m);
 
@@ -657,8 +657,8 @@ void PlayField::setSize(int w, int h)
 
     h -= sbarHeight;
 
-    int cols = levelMap_->width();
-    int rows = levelMap_->height();
+    int cols = levelMap_->map().width();
+    int rows = levelMap_->map().height();
 
     // FIXME: the line below should not be needed
     if (cols == 0 || rows == 0)

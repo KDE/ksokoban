@@ -15,7 +15,7 @@
 
 class LevelCollection;
 
-class LevelMap : public Map
+class LevelMap
 {
 public:
     LevelMap();
@@ -49,6 +49,23 @@ public:
     bool push(int _x, int _y);
     bool unstep(int _x, int _y);
     bool unpush(int _x, int _y);
+    int xpos() const
+    {
+        return map_.xpos();
+    }
+    int ypos() const
+    {
+        return map_.ypos();
+    }
+    bool completed() const
+    {
+        return map_.completed();
+    }
+
+    const Map& map() const
+    {
+        return map_;
+    }
 
 private:
     static int distance(int x1, int y1, int x2, int y2);
@@ -56,6 +73,7 @@ private:
 private:
     LevelCollection *collection_ = nullptr;
 
+    Map map_;
     int totalMoves_ = 0;
     int totalPushes_ = 0;
     bool goodLevel_ = false;

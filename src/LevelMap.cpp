@@ -29,7 +29,7 @@ LevelMap::~LevelMap() = default;
 void LevelMap::changeCollection(LevelCollection *_collection)
 {
     collection_ = _collection;
-    goodLevel_ = collection_->loadLevel(this);
+    goodLevel_ = collection_->loadLevel(&map_);
     totalMoves_ = totalPushes_ = 0;
 }
 
@@ -45,7 +45,7 @@ void LevelMap::level(int _level)
     assert(collection_ != nullptr);
 
     collection_->level(_level);
-    goodLevel_ = collection_->loadLevel(this);
+    goodLevel_ = collection_->loadLevel(&map_);
 
     totalMoves_ = totalPushes_ = 0;
 }
@@ -81,12 +81,12 @@ int LevelMap::distance(int x1, int y1, int x2, int y2)
 
 bool LevelMap::step(int _x, int _y)
 {
-    const int oldX = xpos();
-    const int oldY = ypos();
+    const int oldX = map_.xpos();
+    const int oldY = map_.ypos();
 
-    bool success = Map::step(_x, _y);
+    bool success = map_.step(_x, _y);
 
-    const int d = distance(oldX, oldY, xpos(), ypos());
+    const int d = distance(oldX, oldY, map_.xpos(), map_.ypos());
     totalMoves_ += d;
 
     return success;
@@ -94,16 +94,16 @@ bool LevelMap::step(int _x, int _y)
 
 bool LevelMap::push(int _x, int _y)
 {
-    const int oldX = xpos();
-    const int oldY = ypos();
+    const int oldX = map_.xpos();
+    const int oldY = map_.ypos();
 
-    bool success = Map::push(_x, _y);
+    bool success = map_.push(_x, _y);
 
-    const int d = distance(oldX, oldY, xpos(), ypos());
+    const int d = distance(oldX, oldY, map_.xpos(), map_.ypos());
     totalMoves_ += d;
     totalPushes_ += d;
 
-    if (completed())
+    if (map_.completed())
         collection_->levelCompleted();
 
     return success;
@@ -111,12 +111,12 @@ bool LevelMap::push(int _x, int _y)
 
 bool LevelMap::unstep(int _x, int _y)
 {
-    const int oldX = xpos();
-    const int oldY = ypos();
+    const int oldX = map_.xpos();
+    const int oldY = map_.ypos();
 
-    bool success = Map::unstep(_x, _y);
+    bool success = map_.unstep(_x, _y);
 
-    const int d = distance(oldX, oldY, xpos(), ypos());
+    const int d = distance(oldX, oldY, map_.xpos(), map_.ypos());
     totalMoves_ -= d;
 
     return success;
@@ -124,12 +124,12 @@ bool LevelMap::unstep(int _x, int _y)
 
 bool LevelMap::unpush(int _x, int _y)
 {
-    const int oldX = xpos();
-    const int oldY = ypos();
+    const int oldX = map_.xpos();
+    const int oldY = map_.ypos();
 
-    bool success = Map::unpush(_x, _y);
+    bool success = map_.unpush(_x, _y);
 
-    const int d = distance(oldX, oldY, xpos(), ypos());
+    const int d = distance(oldX, oldY, map_.xpos(), map_.ypos());
     totalMoves_ -= d;
     totalPushes_ -= d;
 
