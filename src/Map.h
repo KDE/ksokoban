@@ -56,6 +56,16 @@ public:
     {
         return ypos_;
     }
+    void resetPos()
+    {
+        xpos_ = -1;
+        ypos_ = -1;
+    }
+    void setPos(int x, int y)
+    {
+        xpos_ = x;
+        ypos_ = y;
+    }
 
     bool empty(int x, int y)
     {
@@ -132,11 +142,10 @@ protected:
         return objectsLeft_;
     }
 
-protected:
+private:
     int xpos_ = -1;
     int ypos_ = -1;
 
-private:
     char currentMap_[MAX_Y + 3][MAX_X + 3];
     int width_ = 0;
     int height_ = 0;

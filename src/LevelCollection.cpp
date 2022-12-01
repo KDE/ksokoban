@@ -372,8 +372,7 @@ bool LevelCollection::loadLevel(Map *_map)
         goodMap = false;
     }
 
-    _map->xpos_ = -1;
-    _map->ypos_ = -1;
+    _map->resetPos();
 
     for (int pos = 0; def[pos]; pos++) {
         switch (def[pos]) {
@@ -394,8 +393,7 @@ bool LevelCollection::loadLevel(Map *_map)
             if (x - min_x > Map::MAX_X || y > Map::MAX_Y)
                 goodMap = false;
             else {
-                _map->xpos_ = x - min_x;
-                _map->ypos_ = y;
+                _map->setPos(x - min_x, y);
             }
             x++;
             break;
@@ -430,8 +428,7 @@ bool LevelCollection::loadLevel(Map *_map)
             if (x - min_x > Map::MAX_X || y > Map::MAX_Y)
                 goodMap = false;
             else {
-                _map->xpos_ = x - min_x;
-                _map->ypos_ = y;
+                _map->setPos(x - min_x, y);
                 _map->map(x - min_x, y, Map::GOAL);
                 goalsLeft++;
             }
@@ -460,12 +457,12 @@ bool LevelCollection::loadLevel(Map *_map)
     if (_map->completed())
         goodMap = false;
 
-    if (_map->badCoords(_map->xpos_, _map->ypos_))
+    if (_map->badCoords(_map->xpos(), _map->ypos()))
         goodMap = false;
     else {
-        if (!_map->empty(_map->xpos_, _map->ypos_))
+        if (!_map->empty(_map->xpos(), _map->ypos()))
             goodMap = false;
-        else if (!_map->fillFloor(_map->xpos_, _map->ypos_))
+        else if (!_map->fillFloor(_map->xpos(), _map->ypos()))
             goodMap = false;
     }
 

@@ -81,22 +81,25 @@ int LevelMap::distance(int x1, int y1, int x2, int y2)
 
 bool LevelMap::step(int _x, int _y)
 {
-    int oldX = xpos_, oldY = ypos_;
+    const int oldX = xpos();
+    const int oldY = ypos();
 
     bool success = Map::step(_x, _y);
 
-    totalMoves_ += distance(oldX, oldY, xpos_, ypos_);
+    const int d = distance(oldX, oldY, xpos(), ypos());
+    totalMoves_ += d;
 
     return success;
 }
 
 bool LevelMap::push(int _x, int _y)
 {
-    int oldX = xpos_, oldY = ypos_;
+    const int oldX = xpos();
+    const int oldY = ypos();
 
     bool success = Map::push(_x, _y);
 
-    int d = distance(oldX, oldY, xpos_, ypos_);
+    const int d = distance(oldX, oldY, xpos(), ypos());
     totalMoves_ += d;
     totalPushes_ += d;
 
@@ -108,22 +111,25 @@ bool LevelMap::push(int _x, int _y)
 
 bool LevelMap::unstep(int _x, int _y)
 {
-    int oldX = xpos_, oldY = ypos_;
+    const int oldX = xpos();
+    const int oldY = ypos();
 
     bool success = Map::unstep(_x, _y);
 
-    totalMoves_ -= distance(oldX, oldY, xpos_, ypos_);
+    const int d = distance(oldX, oldY, xpos(), ypos());
+    totalMoves_ -= d;
 
     return success;
 }
 
 bool LevelMap::unpush(int _x, int _y)
 {
-    int oldX = xpos_, oldY = ypos_;
+    const int oldX = xpos();
+    const int oldY = ypos();
 
     bool success = Map::unpush(_x, _y);
 
-    int d = distance(oldX, oldY, xpos_, ypos_);
+    const int d = distance(oldX, oldY, xpos(), ypos());
     totalMoves_ -= d;
     totalPushes_ -= d;
 
