@@ -209,7 +209,7 @@ void PlayField::mouseMoveEvent(QGraphicsSceneMouseEvent *e)
         const QPoint square = m_groundItem->squareFromScene({dragX_ + suqareSize / 2, dragY_ + suqareSize / 2});
         int x = square.x();
         int y = square.y();
-        if (x >= 0 && x < levelMap_->width() && y >= 0 && y < levelMap_->height() && pathFinder_.canDragTo(x, y)) {
+        if (levelMap_->hasCoord(x, y) && pathFinder_.canDragTo(x, y)) {
             const QPointF dragScenePos = m_groundItem->squareToScene({x, y});
             const qreal dragX =  dragScenePos.x();
             const qreal dragY =  dragScenePos.y();
@@ -238,7 +238,7 @@ void PlayField::highlight()
     const int x = square.x();
     const int y = square.y();
 
-    if (x < 0 || y < 0 || x >= levelMap_->width() || y >= levelMap_->height())
+    if (!levelMap_->hasCoord(x, y))
         return;
 
     if (x == highlightX_ && y == highlightY_)
@@ -565,7 +565,7 @@ void PlayField::mousePressEvent(QGraphicsSceneMouseEvent *e)
     const QPoint square = m_groundItem->squareFromScene(e->scenePos());
     const int x = square.x();
     const int y = square.y();
-    if (x < 0 || y < 0 || x >= levelMap_->width() || y >= levelMap_->height())
+    if (!levelMap_->hasCoord(x, y))
         return;
 
     if (e->button() == Qt::LeftButton && pathFinder_.canDrag(x, y)) {

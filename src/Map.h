@@ -125,6 +125,11 @@ public:
         return height_;
     }
 
+    bool hasCoord(int _x, int _y) const
+    {
+        return _x >= 0 && _y >= 0 && _x < width_ && _y < height_;
+    }
+
 protected:
     int map(int x, int y) const
     {
