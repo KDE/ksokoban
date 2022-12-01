@@ -67,48 +67,48 @@ public:
         ypos_ = y;
     }
 
-    bool empty(int x, int y)
+    bool empty(int x, int y) const
     {
         assert(x >= 0 && x <= MAX_X && y >= 0 && y <= MAX_Y);
         return (currentMap_[y + 1][x + 1] & (WALL | OBJECT)) == 0;
     }
-    bool wall(int x, int y)
+    bool wall(int x, int y) const
     {
         assert(x >= 0 && x <= MAX_X && y >= 0 && y <= MAX_Y);
         return (currentMap_[y + 1][x + 1] & WALL) != 0;
     }
-    bool goal(int x, int y)
+    bool goal(int x, int y) const
     {
         assert(x >= 0 && x <= MAX_X && y >= 0 && y <= MAX_Y);
         return (currentMap_[y + 1][x + 1] & GOAL) != 0;
     }
-    bool object(int x, int y)
+    bool object(int x, int y) const
     {
         assert(x >= 0 && x <= MAX_X && y >= 0 && y <= MAX_Y);
         return (currentMap_[y + 1][x + 1] & OBJECT) != 0;
     }
-    bool floor(int x, int y)
+    bool floor(int x, int y) const
     {
         assert(x >= 0 && x <= MAX_X && y >= 0 && y <= MAX_Y);
         return (currentMap_[y + 1][x + 1] & FLOOR) != 0;
     }
 
-    bool wallUp(int x, int y)
+    bool wallUp(int x, int y) const
     {
         assert(x >= 0 && x <= MAX_X && y >= 0 && y <= MAX_Y);
         return (currentMap_[y][x + 1] & WALL) != 0;
     }
-    bool wallDown(int x, int y)
+    bool wallDown(int x, int y) const
     {
         assert(x >= 0 && x <= MAX_X && y >= 0 && y <= MAX_Y);
         return (currentMap_[y + 2][x + 1] & WALL) != 0;
     }
-    bool wallLeft(int x, int y)
+    bool wallLeft(int x, int y) const
     {
         assert(x >= 0 && x <= MAX_X && y >= 0 && y <= MAX_Y);
         return (currentMap_[y + 1][x] & WALL) != 0;
     }
-    bool wallRight(int x, int y)
+    bool wallRight(int x, int y) const
     {
         assert(x >= 0 && x <= MAX_X && y >= 0 && y <= MAX_Y);
         return (currentMap_[y + 1][x + 2] & WALL) != 0;
