@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ksokoban\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-02 00:43+0000\n"
-"PO-Revision-Date: 2022-11-28 09:32+0100\n"
+"PO-Revision-Date: 2022-12-01 23:01+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -31,27 +31,27 @@ msgstr "Temuri.doghonadze@gmail.com"
 #: InternalCollections.cpp:42
 #, kde-format
 msgid "Sasquatch"
-msgstr ""
+msgstr "თოვლის კაცი"
 
 #: InternalCollections.cpp:46
 #, kde-format
 msgid "Mas Sasquatch"
-msgstr ""
+msgstr "მას თოვლის კაცი"
 
 #: InternalCollections.cpp:50
 #, kde-format
 msgid "Sasquatch III"
-msgstr ""
+msgstr "თოვლის კაცი III"
 
 #: InternalCollections.cpp:54
 #, kde-format
 msgid "Microban (easy)"
-msgstr ""
+msgstr "მიკრობანი (ადვილი)"
 
 #: InternalCollections.cpp:58
 #, kde-format
 msgid "Sasquatch IV"
-msgstr ""
+msgstr "თოვლის კაცი IV"
 
 #. i18n: ectx: Menu (game)
 #: ksokobanui.rc:6
@@ -75,13 +75,13 @@ msgstr "&სანიშნეები"
 #: ksokobanui.rc:29
 #, kde-format
 msgid "&Set Bookmark"
-msgstr ""
+msgstr "&სანიშნის დასმა"
 
 #. i18n: ectx: Menu (goto_bookmarks)
 #: ksokobanui.rc:42
 #, kde-format
 msgid "&Go to Bookmark"
-msgstr ""
+msgstr "&სანიშნზე გადასვლა"
 
 #: main.cpp:27
 #, kde-format
@@ -91,7 +91,7 @@ msgstr "KSokoban"
 #: main.cpp:29
 #, kde-format
 msgid "The japanese warehouse keeper game"
-msgstr ""
+msgstr "იაპონური საწყობის თამაში"
 
 #: main.cpp:31
 #, kde-format
@@ -99,6 +99,8 @@ msgid ""
 "(c) 1998 Anders Widell <awl@hem.passagen.se>\n"
 "(c) 2012 Lukasz Kalamlacki"
 msgstr ""
+"(c) 1998 Anders Widell <awl@hem.passagen.se>\n"
+"(c) 2012 Lukasz Kalamlacki"
 
 #: main.cpp:34
 #, kde-format
@@ -108,7 +110,7 @@ msgstr "Shlomi Fish"
 #: main.cpp:35
 #, kde-format
 msgid "For porting to Qt5/KF5 and doing other cleanups"
-msgstr ""
+msgstr "Qt5/KF5-ზე გადატანა და კოდის გასუფთავება"
 
 #: main.cpp:38
 #, kde-format
@@ -118,7 +120,7 @@ msgstr "Lukasz Kalamlacki"
 #: main.cpp:39
 #, kde-format
 msgid "For rewriting the original ksokoban game from kde3 to kde4"
-msgstr ""
+msgstr "პირველი KSokoban თამაშის kde3-დან KDE4-ზე გადატანა"
 
 #: main.cpp:42
 #, kde-format
@@ -128,7 +130,7 @@ msgstr "Anders Widell"
 #: main.cpp:43
 #, kde-format
 msgid "For writing the original ksokoban game"
-msgstr ""
+msgstr "ორიგინალი ksokoban -ის დაწერისთვის"
 
 #: main.cpp:46
 #, kde-format
@@ -138,7 +140,7 @@ msgstr "David W. Skinner"
 #: main.cpp:47
 #, kde-format
 msgid "For contributing the Sokoban levels included in this game"
-msgstr ""
+msgstr "ამ თამაშის Sokoban-ის დონეებისთვის"
 
 #: main.cpp:56
 #, kde-format
