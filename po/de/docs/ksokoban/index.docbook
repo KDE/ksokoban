@@ -1,230 +1,129 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
-  <!ENTITY % German "INCLUDE"
-> <!-- change language only here -->
+  <!ENTITY % English "INCLUDE" > <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
 ]>
 	
 <book lang="&language;">
 <bookinfo>
-<title
->Das Handbuch zu &ksokoban;</title>
+<title>The &ksokoban; Handbook</title>
 
 <authorgroup>
-<author
-><firstname
->Anders</firstname
-> <surname
->Widell</surname
-> <affiliation
-> <address
->&Anders.Widell.mail;</address>
+<author>
+<firstname>Anders</firstname>
+<surname>Widell</surname>
+<affiliation>
+<address>&Anders.Widell.mail;</address>
 </affiliation>
 </author>
-<othercredit role="translator"
-><firstname
->Maren</firstname
-><surname
->Pakura</surname
-><affiliation
-><address
-><email
->maren@kde.org</email
-></address
-></affiliation
-><contrib
->Deutsche Übersetzung</contrib
-></othercredit
-> 
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
 </authorgroup>
 
 <copyright>
-<year
->2000</year>
-<holder
->&Anders.Widell;</holder>
+<year>2000</year>
+<holder>&Anders.Widell;</holder>
 </copyright>
 
-<legalnotice
->&FDLNotice;</legalnotice>
+<legalnotice>&FDLNotice;</legalnotice>
 
-<date
->2006-06-19</date>
-<releaseinfo
->0.4.2</releaseinfo>
+<date>2021-08-19</date>
+<releaseinfo>0.5.0</releaseinfo>
 
 <abstract>
-<para
->&ksokoban; ist Umsetzung des japanischen Warenhausarbeiter-Spiels <quote
->Sokoban</quote
-> für &kde;. </para>
+<para>
+&ksokoban; is a implementation of the Japanese warehouse keeper game <quote>sokoban</quote>.
+</para>
 </abstract>
 
 <keywordset>
-<keyword
->KDE</keyword>
-<keyword
->kdegames</keyword>
-<keyword
->Spiel</keyword>
-<keyword
->Sokoban</keyword>
-<keyword
->KSokoban</keyword>
+<keyword>KDE</keyword>
+<keyword>kdegames</keyword>
+<keyword>game</keyword>
+<keyword>sokoban</keyword>
+<keyword>ksokoban</keyword>
 </keywordset>
 </bookinfo>
 
 <chapter id="introduction">
-<title
->Einleitung</title>
+<title>Introduction</title>
 
-<para
->Dieses Spiel wurde ursprünglich 1982 von Hiroyuki Imabayashi in der japanischen Firma Thinking Rabbit, Inc. erfunden. <quote
->Sokoban</quote
-> ist Japanisch und bedeutet <quote
->Lagerverwalter</quote
->. Die Idee ist, dass Sie Verwalter des Warenlagers sind, der versucht Kisten an die richtigen Stellen im Warenlager zu schieben. </para>
+<para>
+The first sokoban game was created in 1982 by Hiroyuki Imabayashi at
+the Japanese company Thinking Rabbit, Inc.  <quote>Sokoban</quote> is
+Japanese for <quote>warehouse keeper</quote>.  The idea is that you
+are a warehouse keeper trying to push crates to their proper locations
+in a warehouse.
+</para>
 
-<para
->Das Problem dabei ist; Sie können die Kisten nicht ziehen oder darüber gehen. Wenn Sie nicht vorsichtig genug sind, können einige der Kisten an den falschen Stellen stecken bleiben oder Ihren Weg versperren. </para>
+<para>
+The problem is that you cannot pull the crates or step over them. If
+you are not careful, some of the crates can get stuck in wrong places
+and/or block your way.
+</para>
 
-<para
->Es kann ganz schön schwierig werden, einen Raum zu lösen. Aber wenn man den Schwierigkeitsgrad steigern will, kann man dies mit einer Minimierung der Anzahl der benötigten Bewegungen und/oder Verschiebungen versuchen, die man zur Beendigung braucht. </para>
+<para>
+It can be rather difficult just to solve a level. But if you want to
+make it even harder, you can try to minimize the number of moves
+and/or pushes you use to solve the level.
+</para>
 
-<para
->Damit das Spiel kleinen Kindern (jünger als 10) mehr Spaß macht, sind einige Sammlungen mit einfacheren Räumen bei &ksokoban; enthalten. Diese sind im Menü Raum-Sammlung mit <emphasis
->(leicht)</emphasis
-> markiert. Natürlich können diese Räume auch Erwachsenen Spaß machen, &eg; wenn Sie sich nicht zuviel geistiger Anstrengung aussetzen wollen. </para>
+<para>
+To make the game more fun for small kids (below 10 years or so), some
+collections with easier levels are also included in &ksokoban;. These
+are marked <emphasis>(easy)</emphasis> in the level collection menu.
+Of course, these levels can be fun for adults too, for example if you
+don't want to expose yourself to too much mental strain.
+</para>
 </chapter>
 
 <chapter id="how-to-play">
-<title
->Spielanleitung</title>
+<title>The Game</title>
 
-<para
->Ziel des Spieles ist, alle roten Edelsteine in die Zielfelder zu schieben. Diese enthalten grüne, runde Flächen. </para>
+<para>
+The objective of the game is to push all the red gems to the goal
+squares, which are marked with green glassy round things on the floor.
+</para>
 
-<para
->Benutzen Sie die Pfeiltasten oder die Maus um sich zu bewegen. Wenn Sie mit den Pfeiltasten oder der &MMBn; gegen einen Edelstein kommen und nichts auf der Gegenseite blockiert, verschieben Sie den Edelstein. Es ist nicht möglich, die Edelsteine zu ziehen. Daraus folgt, wenn Sie einen Edelstein in eine Ecke schieben, bleibt er dort stecken. Sie können die Edelsteine nicht überspringen. Somit können Sie sich auch in einen Teil des Labyrinths einsperren, wenn Sie Ihren Weg mit Edelsteinen blockieren. Bitte beachten Sie auch, dass es nicht möglich ist, mehr als einen Edelstein zur gleichen Zeit zu verschieben. </para>
+<para>
+Use the cursor keys or the mouse to move about. If you move onto a gem
+using the cursor keys or the &MMB;, and there is nothing blocking it on the opposite side, then you
+will push the gem.  It isn't possible to pull the gems, so if you push
+a gem into a corner it will be stuck there. You cannot step over the
+gems either, so you can also get trapped in a part of the maze by
+blocking the way with gems.  Also note that it isn't possible to push
+more than one gem at a time.
+</para>
 
-<para
->Wenn Sie bemerken, dass Sie die Edelsteine so verschoben haben, dass der Raum nicht mehr zu lösen ist, können Sie immer noch die Rückgängig-Funktion verwenden, um zu einem Zug zurückzukehren, in dem Sie den Fehler noch nicht gemacht hatten. Sie können auch den Raum neu starten. </para>
+<para>
+If you notice that you have moved the gems in such a way that the
+level is impossible to solve, then you can always use the undo feature
+to go back to a position where the mistake has not yet been made. You
+can of course also restart the level from the very beginning.
+</para>
 
 <sect1 id="controls">
-<title
->Steuerung</title>
+<title>Controls</title>
 
 <para>
 <informaltable>
 <tgroup cols="2">
 <thead>
-<row
-><entry
->Taste</entry
-><entry
->Aktion</entry
-></row>
+<row><entry>Key</entry><entry>Action</entry></row>
 </thead>
 
 <tbody>
-<row
-><entry
->Pfeiltasten </entry
-><entry
->Geht einen Schritt in eine Richtung. </entry
-></row>
-<row
-><entry
-><keycombo action="simul"
->&Ctrl;<keycap
->Pfeiltasten</keycap
-></keycombo
-> </entry
-><entry
->Gehe so weit wie möglich in eine Richtung, ohne einen Stein zu bewegen. </entry
-></row>
-<row
-><entry
-><keycombo action="simul"
->&Shift;<keycap
->Pfeiltasten</keycap
-></keycombo
-> </entry
-><entry
->Gehe so weit wie möglich in eine Richtung, bewege jeden Stein, der im Weg ist. </entry
-></row>
-<row
-><entry
->&LMB; </entry
-><entry
->Gehe zu einem Ort im Labyrinth, der ohne Bewegen von Steinen erreicht werden kann. </entry
-></row>
-<row
-><entry
->&MMB; oder <keycombo action="simul"
->&Ctrl;<keycap
->Z</keycap
-></keycombo
-></entry
-><entry
->Macht die letzte Aktion rückgängig. </entry
-></row>
-<row
-><entry
->&RMB; </entry
-><entry
->Hoch/Runter/Links/Rechts in einer geraden Linie, bewege jeden Stein, der im Weg ist. </entry
-></row>
-<row
-><entry
-><mousebutton
->Mausrad</mousebutton
-></entry
-><entry
->Den Verlauf durchsuchen. </entry
-></row>
-<row
-><entry
-><keycombo action="simul"
->&Ctrl;&Shift;<keycap
->Z</keycap
-></keycombo
-></entry
-><entry
->Stellt die zuletzt rückgängig gemachte Aktion wieder her. </entry
-></row>
-<row
-><entry
-><keycap
->N</keycap
-> </entry
-><entry
->Gehe in den nächsten Raum der aktuellen Raum-Sammlung. </entry
-></row>
-<row
-><entry
-><keycap
->P</keycap
-> </entry
-><entry
->Gehe in den vorherigen Raum der aktuellen Raum-Sammlung. </entry
-></row>
-<row
-><entry
->&Esc; </entry
-><entry
->Startet den Raum neu. </entry
-></row>
-<row
-><entry
-><keycombo action="simul"
->&Ctrl;<keycap
->Q</keycap
-></keycombo
-></entry
-><entry
->Beendet das Spiel. </entry
-></row>
+<row><entry>Cursor keys</entry><entry>Move one square in a direction</entry></row>
+<row><entry><keycombo action="simul">&Ctrl;<keycap>Cursor</keycap></keycombo> keys</entry><entry>Move as far as possible in a direction without pushing any gems</entry></row>
+<row><entry><keycombo action="simul">&Shift;<keycap>Cursor</keycap></keycombo> keys </entry><entry>Move as far as possible in a direction, pushing any gem in the way</entry></row>
+<row><entry><mousebutton>Left</mousebutton> mouse button</entry><entry>Move to any place in the maze that can be reached without pushing any gems&nbsp;</entry></row>
+<row><entry><mousebutton>Middle</mousebutton> mouse button or <keycombo action="simul">&Ctrl;<keycap>Z</keycap></keycombo></entry><entry>Undo the last move</entry></row>
+<row><entry><mousebutton>Right</mousebutton> mouse button</entry><entry>Move up/down/left/right in a straight line, pushing any gem in the way</entry></row>
+<row><entry><mousebutton>Mouse wheel</mousebutton></entry><entry>Traverse the history</entry></row>
+<row><entry><keycombo action="simul">&Ctrl;&Shift;<keycap>Z</keycap></keycombo>&nbsp;</entry><entry>Redo the last undone move</entry></row>
+<row><entry><keycap>N</keycap></entry><entry>Go to the next level in the current level collection</entry></row>
+<row><entry><keycap>P</keycap></entry><entry>Go to the previous level in the current level collection</entry></row>
+<row><entry>&Esc;</entry><entry>Restart the current level</entry></row>
+<row><entry><keycombo action="simul">&Ctrl;<keycap>Q</keycap></keycombo></entry><entry>Quit the game</entry></row>
 </tbody>
 </tgroup>
 </informaltable>
@@ -232,101 +131,49 @@
 </sect1>
 
 <sect1 id="loading-external-levels">
-<title
->Laden von externen Räumen</title>
+<title>Loading external levels</title>
 
-<para
->&ksokoban; hat die Fähigkeit, externe Räume aus Text-Dateien zu lesen. Diese Räume können mit <menuchoice
-> <guimenu
->Spiel</guimenu
-> <guimenuitem
->Räume laden ...</guimenuitem
-> </menuchoice
-> geladen werden oder durch Angabe der &URL; des Raumes als Befehlszeilenargument, wenn &ksokoban; aus der Shell gestartet wird. </para>
+<para>
+&ksokoban; has the ability to load external sokoban levels from text
+files.  You can load levels using the <menuchoice><guimenu>Game</guimenu>
+<guimenuitem>Load Levels...</guimenuitem></menuchoice> menu item, or by
+specifying the level file &URL; as a command line argument when starting
+&ksokoban; from a shell.
+</para>
 
-<para
->Die externen Räume müssen mit den Standardzeichen geschrieben sein, die in der nachfolgenden Tabelle dargestellt sind. Wenn eine Datei mehr als einen Raum enthält, sollten sie durch leere Zeilen getrennt sein. Die Datei kann auch Text zwischen den Räumen enthalten. </para>
+<para>
+The external levels must be defined using the standard characters
+shown in the table below. If the file contains more than one level,
+the levels should be separated by blank lines. The file may also
+contain text between the levels.
+</para>
 
 <informaltable>
 <tgroup cols="2">
 <thead>
-<row
-><entry
->Zeichen</entry
-><entry
->Bedeutung</entry
-></row>
+<row><entry>Character</entry><entry>Meaning</entry></row>
 </thead>
 
 <tbody>
-<row
-><entry
-><literal
->#</literal
-></entry
-><entry
->Mauer</entry
-></row>
-<row
-><entry
-><emphasis
->(Leerzeichen)</emphasis
-></entry
-><entry
->Leeres Feld</entry
-></row>
-<row
-><entry
-><literal
->.</literal
-></entry
-><entry
->Zielfeld</entry
-></row>
-<row
-><entry
-><literal
->$</literal
-></entry
-><entry
->Edelstein auf leerem Feld</entry
-></row>
-<row
-><entry
-><literal
->*</literal
-></entry
-><entry
->Edelstein auf Zielfeld</entry
-></row>
-<row
-><entry
-><literal
->@</literal
-></entry
-><entry
->Startposition auf leerem Feld</entry
-></row>
-<row
-><entry
-><literal
->+</literal
-></entry
-><entry
->Startposition auf Zielfeld</entry
-></row>
+<row><entry><literal>#</literal></entry><entry>Wall</entry></row>
+<row><entry><emphasis>(space)</emphasis></entry><entry>Empty square</entry></row>
+<row><entry><literal>.</literal></entry><entry>Goal square</entry></row>
+<row><entry><literal>$</literal></entry><entry>Object on an empty square</entry></row>
+<row><entry><literal>*</literal></entry><entry>Object on a goal square</entry></row>
+<row><entry><literal>@</literal></entry><entry>Start position on an empty square&nbsp;</entry></row>
+<row><entry><literal>+</literal></entry><entry>Start position on a goal square</entry></row>
 </tbody>
 </tgroup>
 </informaltable>
 
-<para
->Unten ist der erste Raum in der <emphasis
->Microban</emphasis
->Raum-Sammlung als Text dargestellt: </para>
+<para>
+As an example, below is a text representation of the first level in the
+<emphasis>Microban</emphasis> level collection:
+</para>
 
 <para>
-<screen
->####
+<screen>
+####
 # .#
 #  ###
 #*@  #
@@ -339,260 +186,151 @@
 </chapter>
 
 <chapter id="menu-reference">
-<title
->Menü-Referenz</title>
+<title>Menu Reference</title>
 
-<para
->Es folgt eine vollständige Beschreibung der Menüs von &ksokoban;.</para>
+<para>This is a complete guide to the menus of &ksokoban;.</para>
 
 <sect1 id="game-menu">
-<title
->Das Menü Spiel</title>
+<title>The Game Menu</title>
 
 <variablelist>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Spiel</guimenu
-> <guimenuitem
->Räume laden ...</guimenuitem
-> </menuchoice
-></term>
+<term><menuchoice>
+<guimenu>Game</guimenu>
+<guimenuitem>Load Levels...</guimenuitem>
+</menuchoice></term>
 <listitem>
-<para
-><action
->Lädt eine externe Spielstufe.</action
-> Siehe den Abschnitt <link linkend="loading-external-levels"
->Externe Spielstufen laden</link
-> für genauere Informationen.</para>
+<para><action>Load an external level.</action> See the section <link
+linkend="loading-external-levels">Loading External Levels</link> for
+more information.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><menuchoice
-><shortcut
-><keycap
->N</keycap
-></shortcut
-> <guimenu
->Spiel</guimenu
-> <guimenuitem
->Nächster Raum</guimenuitem
-> </menuchoice
-></term>
+<term><menuchoice>
+<shortcut><keycap>N</keycap></shortcut>
+<guimenu>Game</guimenu>
+<guimenuitem>Next Level</guimenuitem>
+</menuchoice></term>
 <listitem>
-<para
-><action
->Lädt den nächsten Raum.</action
-></para>
+<para><action>Load the next level.</action></para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><menuchoice
-><shortcut
-><keycap
->P</keycap
-></shortcut
-> <guimenu
->Spiel</guimenu
-> <guimenuitem
->Vorheriger Raum</guimenuitem
-> </menuchoice
-></term>
+<term><menuchoice>
+<shortcut><keycap>P</keycap></shortcut>
+<guimenu>Game</guimenu>
+<guimenuitem>Previous Level</guimenuitem>
+</menuchoice></term>
 <listitem>
-<para
-><action
->Geht zurück zum vorherigen Raum.</action
-></para>
+<para><action>Go back to the previous level.</action></para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><menuchoice
-><shortcut
->&Esc;</shortcut
-> <guimenu
->Spiel</guimenu
-> <guimenuitem
->Raum neu starten</guimenuitem
-> </menuchoice
-></term>
+<term><menuchoice>
+<shortcut>&Esc;</shortcut>
+<guimenu>Game</guimenu>
+<guimenuitem>Restart Level</guimenuitem>
+</menuchoice></term>
 <listitem>
-<para
-><action
->Startet den Raum neu.</action
-></para>
+<para><action>Restart the current level.</action></para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Spiel</guimenu
-> <guisubmenu
->Raum-Sammlung</guisubmenu
-> </menuchoice
-></term>
+<term><menuchoice>
+<guimenu>Game</guimenu>
+<guisubmenu>Level Collection</guisubmenu>
+</menuchoice></term>
 <listitem>
-<para
-><action
->Wechselt zu einer anderen Zusammenstellung von Räumen.</action
-> &ksokoban; bringt verschiedene Raumsammlungen mit. Weitere Sammlungen finden Sie im Internet.</para>
+<para><action>A submenu to switch to a different set of levels.</action> &ksokoban;
+comes with several level sets, and you can load more that you can find
+on the internet.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><menuchoice
-><shortcut
-><keycombo action="simul"
->&Ctrl;<keycap
->Z</keycap
-></keycombo
-></shortcut
-> <guimenu
->Spiel</guimenu
-> <guimenuitem
->Rückgängig</guimenuitem
-> </menuchoice
-></term>
+<term><menuchoice>
+<shortcut><keycombo action="simul">&Ctrl;<keycap>Z</keycap></keycombo></shortcut>
+<guimenu>Game</guimenu>
+<guimenuitem>Undo</guimenuitem>
+</menuchoice></term>
 <listitem>
-<para
-><action
->Macht die letzte Aktion rückgängig.</action
-></para>
+<para><action>Undo the last move.</action></para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><menuchoice
-><shortcut
-><keycombo action="simul"
->&Ctrl;&Shift;<keycap
->Z</keycap
-></keycombo
-></shortcut
-> <guimenu
->Spiel</guimenu
-> <guimenuitem
->Wiederherstellen</guimenuitem
-> </menuchoice
-></term>
+<term><menuchoice>
+<shortcut><keycombo action="simul">&Ctrl;&Shift;<keycap>Z</keycap></keycombo></shortcut>
+<guimenu>Game</guimenu>
+<guimenuitem>Redo</guimenuitem>
+</menuchoice></term>
 <listitem>
-<para
-><action
->Stellt den letzten Spielzug wieder her, der mit dem vorigen Menüpunkt rückgängig gemacht wurde.</action
-></para>
+<para><action>Redo the last move you undid with the menu item above.</action></para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><menuchoice
-><shortcut
-><keycombo action="simul"
->&Ctrl;<keycap
->Q</keycap
-></keycombo
-></shortcut
-> <guimenu
->Spiel</guimenu
-> <guimenuitem
->Beenden</guimenuitem
-> </menuchoice
-></term>
+<term><menuchoice>
+<shortcut><keycombo action="simul">&Ctrl;<keycap>Q</keycap></keycombo></shortcut>
+<guimenu>Game</guimenu>
+<guimenuitem>Quit</guimenuitem>
+</menuchoice></term>
 <listitem>
-<para
-><action
->Beendet</action
-> &ksokoban;.</para>
+<para><action>Exit</action> &ksokoban;.</para>
 </listitem>
 </varlistentry>
 </variablelist>
 </sect1>
 
 <sect1 id="animation-menu">
-<title
->Das Menü Animation</title>
+<title>The Animation Menu</title>
 
-<para
->Im Menü <guimenu
->Animation</guimenu
-> können Sie die Geschwindigkeit der angezeigten Animation einstellen.  </para>
+<para>
+This menu offers menu items with check boxes that allow you to specify the speed to which the movement replay animations are shown at.
+</para>
 
 <variablelist>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Animation</guimenu
-> <guisubmenu
->Langsam</guisubmenu
-> </menuchoice
-></term>
+<term><menuchoice>
+<guimenu>Animation</guimenu>
+<guisubmenu>Slow</guisubmenu>
+</menuchoice></term>
 <listitem>
-<para
-><action
->Spielt die Animation langsam ab</action
->.</para>
+<para><action>Show replay animations at a slow pace.</action></para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Animation</guimenu
-> <guisubmenu
->Mittel</guisubmenu
-> </menuchoice
-></term>
+<term><menuchoice>
+<guimenu>Animation</guimenu>
+<guisubmenu>Medium</guisubmenu>
+</menuchoice></term>
 <listitem>
-<para
->Dies ist die Standardeinstellung und <action
->spielt die Animation mit etwas höherer Geschwindigkeit ab</action
->.</para>
+<para>This is the default setting, and <action>shows replay animations at a slightly faster pace</action>.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Animation</guimenu
-> <guisubmenu
->Schnell</guisubmenu
-> </menuchoice
-></term>
+<term><menuchoice>
+<guimenu>Animation</guimenu>
+<guisubmenu>Fast</guisubmenu>
+</menuchoice></term>
 <listitem>
-<para
-><action
->Spielt die Animation schnell ab</action
->.</para>
+<para><action>Show replay animations at the fastest pace.</action></para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Animation</guimenu
-> <guisubmenu
->Aus</guisubmenu
-> </menuchoice
-></term>
+<term><menuchoice>
+<guimenu>Animation</guimenu>
+<guisubmenu>Off</guisubmenu>
+</menuchoice></term>
 <listitem>
-<para
-><action
->Zeigt keine Animation an</action
->.</para>
+<para><action>Do not animate replay animations.</action></para>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -601,51 +339,31 @@
 
 
 <sect1 id="bookmarks">
-<title
->Das Menü Lesezeichen</title>
+<title>The Bookmarks Menu</title>
 
 <variablelist>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Lesezeichen</guimenu
-><guisubmenu
->Lesezeichen setzen</guisubmenu
-> </menuchoice
-></term>
+<term><menuchoice>
+<guimenu>Bookmarks</guimenu>
+<guisubmenu>Set Bookmark</guisubmenu>
+</menuchoice></term>
 <listitem>
-<para
->&ksokoban; kann <action
->Lesezeichen in einem bestimmten Raum in einem bestimmten Zustand setzen.</action
-> Damit können Sie vermeiden, dieselben Anfangsschritte häufig wiederholen zu müssen.</para>
-<para
->Sie können bis zu zehn Lesezeichen gleichzeitig verwenden. Diese werden über <keycombo action="simul"
->&Ctrl;<keycap
-><replaceable
->X</replaceable
-></keycap
-></keycombo
-> aufgerufen, wobei das <replaceable
->X</replaceable
-> für eine Ziffer zwischen 0 und 9 steht.</para>
+<para>&ksokoban; allows you to <action>set bookmarks with a level at a
+particular state.</action> You might use this to save yourself
+repeating the same initial steps in a level.</para>
+<para>You can have up to ten bookmarks at a time, and access them via the
+<keycombo action="simul">&Ctrl;<keycap><replaceable>X</replaceable></keycap></keycombo>
+shortcut, where <replaceable>X</replaceable> is any digit between 0 and 9.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Lesezeichen</guimenu
-><guisubmenu
->Gehe zu Lesezeichen</guisubmenu
-> </menuchoice
-></term>
+<term><menuchoice>
+<guimenu>Bookmarks</guimenu>
+<guisubmenu>Go to Bookmark</guisubmenu>
+</menuchoice></term>
 <listitem>
-<para
-><action
->Stellt einen Zustand wieder her, der zuvor als Lesezeichen gespeichert wurde.</action
-></para>
+<para><action>Jump to a state you have previously saved as a bookmark.</action></para>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -653,40 +371,44 @@
 </sect1>
 
 <sect1 id="help-menu">
-<title
->Das Menü Hilfe</title
->&help.menu.documentation; </sect1>
+<title>The Help Menu</title>
+
+<para>
+&ksokoban; has the common &kde; <guimenu>Help</guimenu> menu item, for more information read the section about the <ulink url="help:/fundamentals/menus.html#menus-help">Help Menu</ulink> of the &kde; Fundamentals.
+</para>
+
+</sect1>
 </chapter>
 
 <chapter id="credits">
-<title
->Danksagungen und Lizenz</title>
+<title>Credits and License</title>
 
-<para
->&ksokoban; Copyright &copy; 1998-2000 &Anders.Widell; &Anders.Widell.mail;. </para>
+<para>
+&ksokoban; is copyright &copy; 1998-2000 by &Anders.Widell;
+&Anders.Widell.mail;.<!-- TODO: For
+the latest info on &ksokoban;, see the &ksokoban; home page at
+<ulink url="http://hem.passagen.se/awl/ksokoban/">
+http://hem.passagen.se/awl/ksokoban/</ulink>-->
+</para>
 
-<para
->Das Hintergrundbild <quote
->Sternenfeld</quote
-> wurde von <ulink url="https://www.gimp.org/"
->Gimp</ulink
-> übernommen. Alle anderen Grafiken wurden von &Anders.Widell; &Anders.Widell.mail; mit dem Raytracer-Programm <ulink url="https://www.povray.org/"
->Povray</ulink
-> erstellt. </para>
+<para>
+The background graphics <quote>starfield</quote> was taken from the
+<ulink url="https://www.gimp.org/">Gimp</ulink>. All other graphics
+were created by &Anders.Widell; &Anders.Widell.mail; using
+the <ulink url="https://www.povray.org/">Povray</ulink> ray tracer.
+</para>
 
-<para
->Alle zur Zeit enthaltenen Sokoban-Räume wurden von David W. Skinner erstellt <email
->sasquatch@bentonrea.com</email
->. Sie können sich seine Seite zu Sokoban auf <ulink url="https://www.sokobanonline.com/play/web-archive/david-w-skinner"
->hier</ulink
-> ansehen. </para>
+<para>
+All the currently included sokoban levels were created by David W.
+Skinner <email>sasquatch@bentonrea.com</email>. See
+<ulink url="https://www.sokobanonline.com/play/web-archive/david-w-skinner">his sokoban page</ulink>.
+</para>
 
-<para
->Deutsche Übersetzung von Maren Pakura <email
->maren@kde.org</email
-></para
-> &underFDL; &underGPL; </chapter>
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+&underFDL;
+&underGPL;
+</chapter>
 
-&documentation.index; 
+&documentation.index;
 </book>
 
