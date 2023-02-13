@@ -18,6 +18,7 @@
   <name xml:lang="ko">KSokoban</name>
   <name xml:lang="nl">KSokoban</name>
   <name xml:lang="nn">KSokoban</name>
+  <name xml:lang="pl">KSokoban</name>
   <name xml:lang="pt">KSokoban</name>
   <name xml:lang="pt-BR">KSokoban</name>
   <name xml:lang="sk">KSokoban</name>
@@ -41,6 +42,7 @@
   <summary xml:lang="ko">소코반 게임</summary>
   <summary xml:lang="nl">Sokoban-spel</summary>
   <summary xml:lang="nn">Sokoban-spel</summary>
+  <summary xml:lang="pl">Gra Sokoban</summary>
   <summary xml:lang="pt">Jogo Sokoban</summary>
   <summary xml:lang="pt-BR">Jogo Sokoban</summary>
   <summary xml:lang="sk">Hra Sokoban</summary>
@@ -64,6 +66,7 @@
     <p xml:lang="ka">KSokoban - იაპონური საწყობის უფროსის თამაშიზე, სოკობანზეა დაფუძნებული.</p>
     <p xml:lang="nl">KSokoban is een implementatie van het Japanse magazijn-beheerder-spel “sokoban”.</p>
     <p xml:lang="nn">KSokoban er ei utgåve av det japanske lagersjef­spelet «sokoban».</p>
+    <p xml:lang="pl">KSokoban jest implementacją japońskiej gry “sokoban”, w którą grali magazynierzy.</p>
     <p xml:lang="pt">O KSokoban é uma implementação do jogo japonês de arrumação de armazéns “sokoban”.</p>
     <p xml:lang="sl">KSokoban je izvedba japonske igre skrbnika skladišča "sokoban".</p>
     <p xml:lang="sv">Ksokoban är en implementering av det japanska lagerarbetarspelet "sokoban”.</p>
@@ -84,6 +87,7 @@
     <p xml:lang="ka">თამაშის აზრია: თქვენ საწყობის მმართველი ბრძანდებით, რომლებიც ყუთებს თავის ადგილას ალაგებს. პრობლემა ისაა, რომ თქვენ ყუთს ვერ გამოქაჩავთ და ვერ გადააბიჯებთ. თუ ფრთხილად არ იქნებით, ზოგიერთი ყუთი შეიძლება არასწორ ადგილას დაგივარდეთ და გზა ჩაგიხერგოთ.</p>
     <p xml:lang="nl">Het idee is dat u een magazijnbeheerder bent die kratten op hun juiste locaties in een magazijn plaatst. Het probleem is dat u niet aan de kratten kan trekken of erover kan stappen. Als u niet voorzichtig bent, dan kunnen kratten in de verkeerde plaats vast komen te zitten en/of uw weg blokkeren.</p>
     <p xml:lang="nn">Du spelar ein lagersjef som må flytta kassar til rett plass ved å skubba dei. Men du kan ikkje hala dei eller klatra over dei, så viss du ikkje passar på, kan dei verta setjande fast på feil stad, eller dei kan verta ståande og sperra vegen for deg.</p>
+    <p xml:lang="pl">Chodzi w tym o to, że jesteś magazynierem próbującym przesunąć skrzynie na ich właściwe miejsce w magazynie. Kłopotliwym jest to, że nie możesz ciągnąć skrzyń, czy na nie wchodzić. Jeśli nie będziesz ostrożny, to niektóre ze skrzyń mogą utknąć w złych miejscach i/lub zablokować ci drogę.</p>
     <p xml:lang="pt">A ideia é que você é um arrumador de armazéns que tenta empurrar os caixotes para o seu local correcto num armazém. O problema é que não pode puxar os caixotes ou passar por cima deles. Se não tiver cuidado, alguns dos caixotes podem ficar presos em lugares errados e/ou bloquear a sua passagem.</p>
     <p xml:lang="sl">Ideja je, da ste skrbnik skladišča, ki poskuša potiskati zaboje na ustrezne lokacije v skladišču. Težava je v tem, da ne morete zabojev vleči ali stopati čez njih. Če niste previdni, lahko nekateri zaboji obtičijo na napačnih mestih in/ali blokirajo vašo pot.</p>
     <p xml:lang="sv">Idén är att du är en lagerarbetare som försöker knuffa lådor till sina riktiga platser i en lagerbyggnad. Problemet är att du inte kan dra lådorna eller kliva över dem. Om du inte är försiktig kan några av lådorna fastna på fel platser och/eller blockera vägen för dig.</p>
