@@ -110,7 +110,7 @@ msgstr "Shlomi Fish"
 #: main.cpp:35
 #, kde-format
 msgid "For porting to Qt5/KF5 and doing other cleanups"
-msgstr "النقل إلى كيوت 5 وإطار كدي 5 وغيرها من التنظيفات"
+msgstr "النقل إلى كيوت 5 وإطار كِيدِي 5 وغيرها من التنظيفات"
 
 #: main.cpp:38
 #, kde-format
@@ -120,7 +120,7 @@ msgstr "Lukasz Kalamlacki"
 #: main.cpp:39
 #, kde-format
 msgid "For rewriting the original ksokoban game from kde3 to kde4"
-msgstr "إعادة كتابة اللعبة الأصلية من كدي 3 إلى كدي 4"
+msgstr "إعادة كتابة اللعبة الأصلية من كِيدِي 3 إلى كِيدِي 4"
 
 #: main.cpp:42
 #, kde-format
