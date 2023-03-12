@@ -32,10 +32,10 @@ add_executable(ksokoban
 )
 
 target_link_libraries(ksokoban
-    KF5::I18n
-    KF5::WidgetsAddons
-    KF5::XmlGui
-    KF5::KIOCore
+    KF${KF_MAJOR_VERSION}::I18n
+    KF${KF_MAJOR_VERSION}::WidgetsAddons
+    KF${KF_MAJOR_VERSION}::XmlGui
+    KF${KF_MAJOR_VERSION}::KIOCore
 )
 
 install(TARGETS ksokoban ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})

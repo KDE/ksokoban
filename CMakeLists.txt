@@ -17,9 +17,17 @@ include(ECMInstallIcons)
 include(ECMSetupVersion)
 include(FeatureSummary)
 
+if (QT_MAJOR_VERSION STREQUAL "6")
+    set(QT_MIN_VERSION "6.4.0")
+    set(KF_MIN_VERSION "5.240.0")
+    set(KF_MAJOR_VERSION "6")
+else()
+    set(KF_MAJOR_VERSION "5")
+endif()
+
 find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} REQUIRED Core Gui Widgets)
 
-find_package(KF5 ${KF_MIN_VERSION} REQUIRED COMPONENTS
+find_package(KF${KF_MAJOR_VERSION} ${KF_MIN_VERSION} REQUIRED COMPONENTS
     Config
     CoreAddons
     I18n
@@ -28,7 +36,7 @@ find_package(KF5 ${KF_MIN_VERSION} REQUIRED COMPONENTS
     XmlGui
 )
 
-find_package(KF5DocTools ${KF_MIN_VERSION})
+find_package(KF${KF_MAJOR_VERSION}DocTools ${KF_MIN_VERSION})
 
 ecm_set_disabled_deprecation_versions(
     QT 5.15.2
@@ -37,7 +45,7 @@ ecm_set_disabled_deprecation_versions(
 
 add_subdirectory(src)
 add_subdirectory(icons)
-if(KF5DocTools_FOUND)
+if(KF${KF_MAJOR_VERSION}DocTools_FOUND)
     add_subdirectory(doc)
     kdoctools_install(po)
 endif()
