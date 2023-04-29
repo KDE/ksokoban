@@ -1,22 +1,23 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-#
 # Marce Villarino <mvillarino@kde-espana.es>, 2013.
 # Adrián Chaves Fernández <adriyetichaves@gmail.com>, 2015.
-# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2019.
+# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2019, 2023.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-02 00:43+0000\n"
-"PO-Revision-Date: 2019-02-15 20:04+0100\n"
+"PO-Revision-Date: 2023-04-28 19:58+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
-"Language-Team: Galician <kde-i18n-doc@kde.org>\n"
+"Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 23.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -84,10 +85,9 @@ msgid "&Go to Bookmark"
 msgstr "&Ir a un marcador"
 
 #: main.cpp:27
-#, fuzzy, kde-format
-#| msgid "ksokoban"
+#, kde-format
 msgid "KSokoban"
-msgstr "ksokoban"
+msgstr "KSokoban"
 
 #: main.cpp:29
 #, kde-format
@@ -144,10 +144,9 @@ msgid "For contributing the Sokoban levels included in this game"
 msgstr "Por contribuír cos niveis de Sokoban que se inclúen co xogo."
 
 #: main.cpp:56
-#, fuzzy, kde-format
-#| msgid "Level collection file to load"
+#, kde-format
 msgid "Level collection file to load."
-msgstr "Ficheiro de colección de niveis para cargar"
+msgstr "Ficheiro de colección de niveis para cargar."
 
 #: MainWindow.cpp:37
 #, kde-format
@@ -205,8 +204,7 @@ msgid "(invalid)"
 msgstr "(incorrecto)"
 
 #: MainWindow.cpp:286
-#, fuzzy, kde-format
-#| msgid "Load Levels From File"
+#, kde-format
 msgctxt "@title:window"
 msgid "Load Levels from a File"
 msgstr "Cargar niveis dun ficheiro"
