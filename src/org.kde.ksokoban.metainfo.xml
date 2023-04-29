@@ -13,6 +13,7 @@
   <name xml:lang="es">KSokoban</name>
   <name xml:lang="fi">KSokoban</name>
   <name xml:lang="fr">KSokoban</name>
+  <name xml:lang="gl">KSokoban</name>
   <name xml:lang="it">KSokoban</name>
   <name xml:lang="ka">KSokoban</name>
   <name xml:lang="ko">KSokoban</name>
@@ -37,6 +38,7 @@
   <summary xml:lang="es">Juego Sokoban</summary>
   <summary xml:lang="fi">Sokoban-peli</summary>
   <summary xml:lang="fr">Jeu Sokoban</summary>
+  <summary xml:lang="gl">Xogo do Sokoban</summary>
   <summary xml:lang="it">Gioco Sokoban</summary>
   <summary xml:lang="ka">თამაში Sokoban</summary>
   <summary xml:lang="ko">소코반 게임</summary>
@@ -62,6 +64,7 @@
     <p xml:lang="es">KSokoban es una implementación del juego japonés del encargado de almacén «sokoban».</p>
     <p xml:lang="fi">KSokoban on toteutus japanilaisesta varastotyöntekijäpelistä ”sokoban”.</p>
     <p xml:lang="fr">KSokoban est une implémentation du jeu japonais « sokoban » de gardien d'entrepôt .</p>
+    <p xml:lang="gl">KSokoban é unha implementación do xogo xaponés de garda de almacén «sokoban».</p>
     <p xml:lang="it">KSokoban è un'implementazione del gioco giapponese  del magazziniere «sokoban».</p>
     <p xml:lang="ka">KSokoban - იაპონური საწყობის უფროსის თამაშიზე, სოკობანზეა დაფუძნებული.</p>
     <p xml:lang="nl">KSokoban is een implementatie van het Japanse magazijn-beheerder-spel “sokoban”.</p>
@@ -84,6 +87,7 @@
     <p xml:lang="es">La idea es que usted es el encargado de un almacén que trata de empujar las cajas al lugar adecuado dentro del almacén. El problema es que no puede tirar de las cajas ni pasar por encima de ellas. Si no tiene cuidado, algunas de las cajas pueden atascarse en lugares equivocados bloqueando su camino.</p>
     <p xml:lang="fi">Ideana on, että olet varastotyöntekijä, joka yrittää työntää laatikot oikeille paikoilleen varastossa. Ongelmana on, ettei laatikoita voi vetää tai niiden yli astua. Ellet ole huolellinen, jotkin laatikoista jäävät jumiin vääriin paikkoihin ja mahdollisesti estävät kulkusi.</p>
     <p xml:lang="fr">L'idée est que vous êtes un magasinier d'entrepôt, essayant de pousser des caisses à leurs emplacements corrects dans un entrepôt. Le problème est que vous ne pouvez pas tirer les caisses ni les enjamber. Si vous ne faites pas attention, certaines caisses peuvent se coincer au mauvais endroit et / ou vous bloquer le passage.</p>
+    <p xml:lang="gl">A idea é que estás a gardar un almacén, intentando empurrar as caixas ao seu lugar correcto no almacén. O problema é que non podes tirar das caixas ou pasar por riba delas. Se non tes coidado, algunhas caixas poderían quedar atrapadas en lugares incorrectos ou bloquearte o camiño.</p>
     <p xml:lang="it">L'idea è che sei un magazziniere che cerca di spingere le casse nelle loro posizioni corrette in un magazzino. Il problema è che non puoi tirare le casse o scavalcarle. Se non stai attento, alcune casse possono rimanere bloccate in posti sbagliati e/o bloccarti la strada.</p>
     <p xml:lang="ka">თამაშის აზრია: თქვენ საწყობის მმართველი ბრძანდებით, რომლებიც ყუთებს თავის ადგილას ალაგებს. პრობლემა ისაა, რომ თქვენ ყუთს ვერ გამოქაჩავთ და ვერ გადააბიჯებთ. თუ ფრთხილად არ იქნებით, ზოგიერთი ყუთი შეიძლება არასწორ ადგილას დაგივარდეთ და გზა ჩაგიხერგოთ.</p>
     <p xml:lang="nl">Het idee is dat u een magazijnbeheerder bent die kratten op hun juiste locaties in een magazijn plaatst. Het probleem is dat u niet aan de kratten kan trekken of erover kan stappen. Als u niet voorzichtig bent, dan kunnen kratten in de verkeerde plaats vast komen te zitten en/of uw weg blokkeren.</p>
