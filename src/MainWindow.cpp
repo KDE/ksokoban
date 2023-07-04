@@ -358,3 +358,5 @@ void MainWindow::dropEvent(QDropEvent *event)
         }
     }
 }
+
+#include "moc_MainWindow.cpp"

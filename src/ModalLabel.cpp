@@ -98,3 +98,5 @@ void ModalLabel::message(const QString &text, QWidget *parent)
     while (!cl.completed_)
         app->processEvents();
 }
+
+#include "moc_ModalLabel.cpp"

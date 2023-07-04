@@ -978,3 +978,5 @@ void PlayField::killTimers()
     }
     timers.clear();
 }
+
+#include "moc_PlayField.cpp"
