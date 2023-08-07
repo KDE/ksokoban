@@ -70,6 +70,7 @@
     <p xml:lang="gl">KSokoban é unha implementación do xogo xaponés de garda de almacén «sokoban».</p>
     <p xml:lang="it">KSokoban è un'implementazione del gioco giapponese  del magazziniere «sokoban».</p>
     <p xml:lang="ka">KSokoban - იაპონური საწყობის უფროსის თამაშიზე, სოკობანზეა დაფუძნებული.</p>
+    <p xml:lang="ko">KSokoban은 창고지기 게임 소코반 구현입니다.</p>
     <p xml:lang="nl">KSokoban is een implementatie van het Japanse magazijn-beheerder-spel “sokoban”.</p>
     <p xml:lang="nn">KSokoban er ei utgåve av det japanske lagersjef­spelet «sokoban».</p>
     <p xml:lang="pl">KSokoban jest implementacją japońskiej gry “sokoban”, w którą grali magazynierzy.</p>
@@ -94,6 +95,7 @@
     <p xml:lang="gl">A idea é que estás a gardar un almacén, intentando empurrar as caixas ao seu lugar correcto no almacén. O problema é que non podes tirar das caixas ou pasar por riba delas. Se non tes coidado, algunhas caixas poderían quedar atrapadas en lugares incorrectos ou bloquearte o camiño.</p>
     <p xml:lang="it">L'idea è che sei un magazziniere che cerca di spingere le casse nelle loro posizioni corrette in un magazzino. Il problema è che non puoi tirare le casse o scavalcarle. Se non stai attento, alcune casse possono rimanere bloccate in posti sbagliati e/o bloccarti la strada.</p>
     <p xml:lang="ka">თამაშის აზრია: თქვენ საწყობის მმართველი ბრძანდებით, რომლებიც ყუთებს თავის ადგილას ალაგებს. პრობლემა ისაა, რომ თქვენ ყუთს ვერ გამოქაჩავთ და ვერ გადააბიჯებთ. თუ ფრთხილად არ იქნებით, ზოგიერთი ყუთი შეიძლება არასწორ ადგილას დაგივარდეთ და გზა ჩაგიხერგოთ.</p>
+    <p xml:lang="ko">게임 플레이어는 창고지기 역할을 하며 각각 상자를 창고의 올바른 위치로 옮겨야 합니다. 상자는 밀어서만 옮길 수 있으며 상자를 당기거나 건너뛸 수는 없습니다. 주의하지 않으면 일부 상자가 잘못된 곳에 갇히거나 길을 막을 수도 있습니다.</p>
     <p xml:lang="nl">Het idee is dat u een magazijnbeheerder bent die kratten op hun juiste locaties in een magazijn plaatst. Het probleem is dat u niet aan de kratten kan trekken of erover kan stappen. Als u niet voorzichtig bent, dan kunnen kratten in de verkeerde plaats vast komen te zitten en/of uw weg blokkeren.</p>
     <p xml:lang="nn">Du spelar ein lagersjef som må flytta kassar til rett plass ved å skubba dei. Men du kan ikkje hala dei eller klatra over dei, så viss du ikkje passar på, kan dei verta setjande fast på feil stad, eller dei kan verta ståande og sperra vegen for deg.</p>
     <p xml:lang="pl">Chodzi w tym o to, że jesteś magazynierem próbującym przesunąć skrzynie na ich właściwe miejsce w magazynie. Kłopotliwym jest to, że nie możesz ciągnąć skrzyń, czy na nie wchodzić. Jeśli nie będziesz ostrożny, to niektóre ze skrzyń mogą utknąć w złych miejscach i/lub zablokować ci drogę.</p>
