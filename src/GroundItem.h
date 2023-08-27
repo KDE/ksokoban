@@ -11,28 +11,31 @@
 #include "StoneIndex.h"
 
 #include <QGraphicsItem>
+#include <QGraphicsLayoutItem>
 
 class KGameRenderer;
 class QPixmap;
 
-class GroundItem : public QGraphicsItem
+class GroundItem : public QGraphicsLayoutItem, public QGraphicsItem
 {
 public:
     GroundItem(const Map *map, KGameRenderer *renderer, QGraphicsItem *parent = nullptr);
 
 public:
-    void setSquareSize(int size);
-
     int squareSize() const;
 
-    int squareX(qreal x) const;
-    int squareY(qreal y) const;
     QPoint squareFromScene(QPointF scenePos) const;
     QPointF squareToScene(QPoint square) const;
 
-public:
+    void updateSquares();
+
+public: // QGraphicsItem API
     QRectF boundingRect() const override;
     void paint(QPainter *p, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
+public: // QGraphicsLayoutItem API
+    void setGeometry(const QRectF &geom) override;
+    QSizeF sizeHint(Qt::SizeHint which, const QSizeF &constraint = QSizeF()) const override;
 
 private:
     QPixmap stonePixmap(int stoneIndex) const;
@@ -41,11 +44,15 @@ private:
     void paintWall(int x, int y, QPainter *painter);
     void paintSquare(int x, int y, QPainter *painter);
 
+    int squareX(qreal x) const;
+    int squareY(qreal y) const;
+
     int squareToX(int x) const;
     int squareToY(int y) const;
 
 private:
-    QRect m_boundRect;
+    // TODO: look into making the item a floor 0,0-based again, with positioning externally managed
+    QPoint m_contentOffset;
 
     int m_squareSize = 0;
     int m_halfSquareSize = 0;
@@ -55,11 +62,6 @@ private:
     const Map * const m_map;
 };
 
-inline void GroundItem::setSquareSize(int size)
-{
-    m_squareSize = size;
-    m_halfSquareSize = m_squareSize / 2;
-}
 
 inline int GroundItem::squareSize() const
 {
@@ -73,18 +75,6 @@ inline int GroundItem::squareX(qreal x) const
 inline int GroundItem::squareY(qreal y) const
 {
     return y / m_squareSize;
-}
-
-inline QPoint GroundItem::squareFromScene(QPointF scenePos) const
-{
-    const QPointF pos = mapFromScene(scenePos);
-    return QPoint(pos.x() / m_squareSize, pos.y() / m_squareSize);
-}
-
-inline QPointF GroundItem::squareToScene(QPoint square) const
-{
-    return mapToScene(QPointF{static_cast<qreal>(m_squareSize * square.x()),
-                              static_cast<qreal>(m_squareSize * square.y())});
 }
 
 inline int GroundItem::squareToX(int x) const

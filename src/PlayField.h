@@ -25,10 +25,11 @@ class History;
 class Bookmark;
 class LevelCollection;
 class GroundItem;
+class SimpleTextItem;
 
 class KGamePopupItem;
 
-class QGraphicsSimpleTextItem;
+class QGraphicsWidget;
 
 class PlayField : public QGraphicsScene
 {
@@ -130,14 +131,15 @@ private:
 
     KGamePopupItem *m_messageItem;
     KGameRenderer m_renderer;
+    QGraphicsWidget *m_mainWidget;
     GroundItem *m_groundItem;
-    QGraphicsSimpleTextItem *m_collectionName;
-    QGraphicsSimpleTextItem *m_levelLabel;
-    QGraphicsSimpleTextItem *m_levelNumber;
-    QGraphicsSimpleTextItem *m_stepsLabel;
-    QGraphicsSimpleTextItem *m_stepsNumber;
-    QGraphicsSimpleTextItem *m_pushesLabel;
-    QGraphicsSimpleTextItem *m_pushesNumber;
+    SimpleTextItem *m_collectionName;
+    SimpleTextItem *m_levelLabel;
+    SimpleTextItem *m_levelNumber;
+    SimpleTextItem *m_stepsLabel;
+    SimpleTextItem *m_stepsNumber;
+    SimpleTextItem *m_pushesLabel;
+    SimpleTextItem *m_pushesNumber;
 
     QFont statusFont_;
     QFontMetrics statusMetrics_;

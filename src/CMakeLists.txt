@@ -27,6 +27,7 @@ add_executable(ksokoban
     PathFinder.cpp
     StoneIndex.cpp
     GroundItem.cpp
+    SimpleTextItem.cpp
 
     ksokoban.qrc
 )

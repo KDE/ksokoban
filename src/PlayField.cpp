@@ -16,6 +16,7 @@
 #include "MoveSequence.h"
 #include "PathFinder.h"
 #include "PlayField.h"
+#include "SimpleTextItem.h"
 
 #include <KGamePopupItem>
 #include <KgTheme>
@@ -26,8 +27,9 @@
 #include <KSharedConfig>
 
 #include <QApplication>
+#include <QGraphicsWidget>
 #include <QGraphicsView>
-#include <QGraphicsSimpleTextItem>
+#include <QGraphicsLinearLayout>
 #include <QFontDatabase>
 #include <QKeyEvent>
 #include <QGraphicsSceneMouseEvent>
@@ -66,40 +68,52 @@ PlayField::PlayField(QObject *parent)
 
     levelMap_ = new LevelMap;
 
-    m_groundItem = new GroundItem(&levelMap_->map(), &m_renderer);
-    addItem(m_groundItem);
+    m_mainWidget = new QGraphicsWidget();
+    addItem(m_mainWidget);
+    auto *mainLayout = new QGraphicsLinearLayout(Qt::Vertical);
+    mainLayout->setSpacing(0);
+    m_mainWidget->setLayout(mainLayout);
 
-    m_collectionName = new QGraphicsSimpleTextItem();
+    m_groundItem = new GroundItem(&levelMap_->map(), &m_renderer);
+    mainLayout->addItem(m_groundItem);
+    mainLayout->setStretchFactor(m_groundItem, 1);
+
+    auto *bottomBarLayout = new QGraphicsLinearLayout(Qt::Horizontal);
+    mainLayout->addItem(bottomBarLayout);
+
+    m_collectionName = new SimpleTextItem();
     m_collectionName->setBrush(QColor(0, 255, 0));
     m_collectionName->setFont(statusFont_);
-    addItem(m_collectionName);
+    bottomBarLayout->addItem(m_collectionName);
 
-    m_levelLabel = new QGraphicsSimpleTextItem(i18n("Level:"));
+    bottomBarLayout->addStretch();
+
+    m_levelLabel = new SimpleTextItem(i18n("Level:"));
     m_levelLabel->setFont(statusFont_);
     m_levelLabel->setBrush(QColor(128, 128, 128));
-    m_levelNumber = new QGraphicsSimpleTextItem();
+    m_levelNumber = new SimpleTextItem();
     m_levelNumber->setFont(statusFont_);
     m_levelNumber->setBrush(QColor(255, 0, 0));
-    addItem(m_levelLabel);
-    addItem(m_levelNumber);
+    bottomBarLayout->addItem(m_levelLabel);
+    bottomBarLayout->addItem(m_levelNumber);
 
-    m_stepsLabel = new QGraphicsSimpleTextItem(i18n("Steps:"));
+    m_stepsLabel = new SimpleTextItem(i18n("Steps:"));
     m_stepsLabel->setFont(statusFont_);
     m_stepsLabel->setBrush(QColor(128, 128, 128));
-    m_stepsNumber = new QGraphicsSimpleTextItem();
+    m_stepsNumber = new SimpleTextItem();
     m_stepsNumber->setFont(statusFont_);
     m_stepsNumber->setBrush(QColor(255, 0, 0));
-    addItem(m_stepsLabel);
-    addItem(m_stepsNumber);
+    bottomBarLayout->addItem(m_stepsLabel);
+    bottomBarLayout->addItem(m_stepsNumber);
 
-    m_pushesLabel = new QGraphicsSimpleTextItem(i18n("Pushes:"));
+    m_pushesLabel = new SimpleTextItem(i18n("Pushes:"));
     m_pushesLabel->setFont(statusFont_);
     m_pushesLabel->setBrush(QColor(128, 128, 128));
-    m_pushesNumber = new QGraphicsSimpleTextItem();
+    m_pushesNumber = new SimpleTextItem();
     m_pushesNumber->setFont(statusFont_);
     m_pushesNumber->setBrush(QColor(255, 0, 0));
-    addItem(m_pushesLabel);
-    addItem(m_pushesNumber);
+    bottomBarLayout->addItem(m_pushesLabel);
+    bottomBarLayout->addItem(m_pushesNumber);
 
     levelChange();
 
@@ -186,7 +200,7 @@ void PlayField::levelChange()
     updateStepsDisplay();
     updatePushesDisplay();
 
-    setSize(width(), height());
+    m_groundItem->updateSquares();
     highlight();
 }
 
@@ -636,51 +650,7 @@ void PlayField::leaveEvent(QEvent *)
 void PlayField::setSize(int w, int h)
 {
     setSceneRect(0, 0, w, h);
-
-    int sbarHeight = statusMetrics_.height();
-
-    // TODO: ellide if overlapping with the other items
-    m_collectionName->setPos(0, h - sbarHeight);
-
-    int sbarNumWidth = statusMetrics_.boundingRect(QStringLiteral("88888")).width() + 8;
-    int sbarLevelWidth = m_levelLabel->boundingRect().width() + 8;
-    int sbarStepsWidth = m_stepsLabel->boundingRect().width() + 8;
-    int sbarPushesWidth = m_pushesLabel->boundingRect().width() + 8;
-
-    // from right to left
-    m_pushesNumber->setPos(w - sbarNumWidth, h - sbarHeight);
-    m_pushesLabel->setPos(m_pushesNumber->x() - sbarPushesWidth, h - sbarHeight);
-    m_stepsNumber->setPos(m_pushesLabel->x() - sbarNumWidth, h - sbarHeight);
-    m_stepsLabel->setPos(m_stepsNumber->x() - sbarStepsWidth, h - sbarHeight);
-    m_levelNumber->setPos(m_stepsLabel->x() - sbarNumWidth, h - sbarHeight);
-    m_levelLabel->setPos(m_levelNumber->x() - sbarLevelWidth, h - sbarHeight);
-
-    h -= sbarHeight;
-
-    int cols = levelMap_->map().width();
-    int rows = levelMap_->map().height();
-
-    // FIXME: the line below should not be needed
-    if (cols == 0 || rows == 0)
-        return;
-
-    int xsize = w / cols;
-    int ysize = h / rows;
-
-    if (xsize < 8)
-        xsize = 8;
-    if (ysize < 8)
-        ysize = 8;
-
-    const int suqareSize = (xsize > ysize ? ysize : xsize);
-
-    const qreal groundX = (w - cols * suqareSize) / 2;
-    const qreal groundY = (h - rows * suqareSize) / 2;
-    m_groundItem->setPos(groundX, groundY);
-    m_groundItem->setSquareSize(suqareSize);
-
-    updateStepsDisplay();
-    updatePushesDisplay();
+    m_mainWidget->setGeometry(0, 0, w, h);
 
     updateBackground();
 }

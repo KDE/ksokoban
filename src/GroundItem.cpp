@@ -12,27 +12,52 @@
 #include <QStyleOptionGraphicsItem>
 #include <QPainter>
 
+#include <cmath>
+
 // hardcoded for now, featch from theme
 static constexpr int SMALL_STONES = 4;
 static constexpr int LARGE_STONES = 6;
+
+static constexpr int MIN_SQUARE_SIZE = 8;
 
 GroundItem::GroundItem(const Map *map, KGameRenderer *renderer, QGraphicsItem *parent)
     : QGraphicsItem(parent)
     , m_renderer(renderer)
     , m_map(map)
 {
+    setGraphicsItem(this);
     m_stoneIndex.setStoneCount(LARGE_STONES, SMALL_STONES);
+}
+
+QPoint GroundItem::squareFromScene(QPointF scenePos) const
+{
+    const QPointF cnntentPos = mapFromScene(scenePos) - m_contentOffset;
+
+    // using QPointF to also cover ]-1,0[
+    const QPointF squarePos = cnntentPos / m_squareSize;
+
+    if ((squarePos.x() < 0 ) || (squarePos.x() >= m_map->width()) ||
+        (squarePos.y() < 0 ) || (squarePos.y() >= m_map->height())) {
+        return {-1, -1};
+    }
+
+    return {static_cast<int>(squarePos.x()), static_cast<int>(squarePos.y())};
+}
+
+QPointF GroundItem::squareToScene(QPoint square) const
+{
+    return mapToScene(QPointF{static_cast<qreal>(m_squareSize * square.x() + m_contentOffset.x()),
+                              static_cast<qreal>(m_squareSize * square.y() + m_contentOffset.y())});
 }
 
 QRectF GroundItem::boundingRect() const
 {
-    int cols = m_map->width();
-    int rows = m_map->height();
+    const int cols = m_map->width();
+    const int rows = m_map->height();
+    const int width = cols * m_squareSize;
+    const int height = rows * m_squareSize;
 
-    const int width = m_squareSize * cols;
-    const int height = m_squareSize * rows;
-
-    return QRectF(0, 0, width, height);
+    return QRectF(m_contentOffset, QSizeF(width, height));
 }
 
 void GroundItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -42,12 +67,15 @@ void GroundItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     if (m_squareSize <= 0)
         return;
 
-    const QRectF &rect = option->exposedRect;
+    painter->save();;
+    painter->translate(m_contentOffset);
 
-    int minx = squareX(rect.x());
-    int miny = squareY(rect.y());
-    int maxx = squareX(rect.x() + rect.width() - 1);
-    int maxy = squareY(rect.y() + rect.height() - 1);
+    const QRectF exposedContentRect = option->exposedRect.translated(-m_contentOffset.x(), -m_contentOffset.y());
+
+    int minx = squareX(exposedContentRect.x());
+    int miny = squareY(exposedContentRect.y());
+    int maxx = squareX(exposedContentRect.x() + exposedContentRect.width() - 1);
+    int maxy = squareY(exposedContentRect.y() + exposedContentRect.height() - 1);
 
     if (minx < 0)
         minx = 0;
@@ -63,6 +91,71 @@ void GroundItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
             paintSquare(x, y, painter);
         }
     }
+    painter->restore();;
+}
+
+void GroundItem::setGeometry(const QRectF &geom)
+{
+    prepareGeometryChange();
+    QGraphicsLayoutItem::setGeometry(geom);
+    // use updated data
+    const QRectF geometry = this->geometry();
+    setPos(geometry.topLeft());
+
+    updateSquares();
+}
+
+void GroundItem::updateSquares()
+{
+    // use updated data
+    const QRectF geometry = this->geometry();
+
+    const int cols = m_map->width();
+    const int rows = m_map->height();
+
+    // FIXME: the line below should not be needed
+    if (cols == 0 || rows == 0)
+        return;
+
+    // for now render aligned to pixels
+    int xsize = std::floor(geometry.width() / cols);
+    int ysize = std::floor(geometry.height() / rows);
+
+    if (xsize < MIN_SQUARE_SIZE)
+        xsize = MIN_SQUARE_SIZE;
+    if (ysize < MIN_SQUARE_SIZE)
+        ysize = MIN_SQUARE_SIZE;
+
+    m_squareSize = (xsize > ysize ? ysize : xsize);
+    // ensure even number, for half squares to be aligned to pixels
+    m_squareSize &= ~1;
+    m_halfSquareSize = m_squareSize / 2;
+
+    const int groundX = (geometry.width() - cols * m_squareSize) / 2;
+    const int groundY = (geometry.height()- rows * m_squareSize) / 2;
+
+    m_contentOffset.setX(groundX);
+    m_contentOffset.setY(groundY);
+
+    // qDebug() << "GROUNDITEM::SETGEOMETRY" << geom << "squaresize" << m_squareSize;
+    update();
+}
+
+QSizeF GroundItem::sizeHint(Qt::SizeHint which, const QSizeF &constraint) const
+{
+    Q_UNUSED(constraint);
+    switch (which) {
+    case Qt::MinimumSize: {
+        const int cols = m_map->width();
+        const int rows = m_map->height();
+        const int width = MIN_SQUARE_SIZE * cols;
+        const int height = MIN_SQUARE_SIZE * rows;
+
+        return QSizeF(width, height);
+    }
+    default:
+        return QSizeF();
+    };
 }
 
 QPixmap GroundItem::stonePixmap(int stoneIndex) const
