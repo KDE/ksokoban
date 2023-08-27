@@ -18,7 +18,6 @@
 #include "PlayField.h"
 #include "SimpleTextItem.h"
 
-#include <KGamePopupItem>
 #include <KgTheme>
 
 #include <KConfigGroup>
@@ -40,6 +39,8 @@
 
 #include <cassert>
 #include <cstdio>
+
+static constexpr int MESSAGE_TIMEOUT_MS = 4000;
 
 static KgTheme* createClassicTheme()
 {
@@ -118,6 +119,8 @@ PlayField::PlayField(QObject *parent)
     levelChange();
 
     m_messageItem = new KGamePopupItem();
+    m_messageItem->setMessageTimeout(MESSAGE_TIMEOUT_MS);
+
     addItem(m_messageItem);
 
     updateBackground();
@@ -143,8 +146,15 @@ void PlayField::updateBackground()
 
 void PlayField::showMessage(const QString &message)
 {
-    m_messageItem->setMessageTimeout(4000);
-    m_messageItem->showMessage(message, KGamePopupItem::Center);
+    // enforce emission of any hidden signal
+    m_messageItem->forceHide(KGamePopupItem::InstantHide);
+
+    if (m_messageHiddenConnecttion) {
+        QObject::disconnect(m_messageHiddenConnecttion);
+    }
+    m_messageHiddenConnecttion = QMetaObject::Connection();
+
+    m_messageItem->showMessage(message, KGamePopupItem::Center, KGamePopupItem::ReplacePrevious);
 }
 
 void PlayField::changeCursor(const QCursor *c)
@@ -328,8 +338,7 @@ void PlayField::timerEvent(QTimerEvent *)
         update();
         if (levelMap_->completed()) {
             stopMoving();
-            showMessage(i18n("Level completed"));
-            nextLevel();
+            showMessage(i18n("Level completed"), this, &PlayField::nextLevel);
             return;
         }
     } else

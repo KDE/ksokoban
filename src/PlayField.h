@@ -11,6 +11,7 @@
 #include "PathFinder.h"
 
 #include <KGameRenderer>
+#include <KGamePopupItem>
 
 #include <QCursor>
 #include <QFont>
@@ -54,6 +55,22 @@ public:
     void setSize(int w, int h);
 
     void showMessage(const QString &message);
+
+    template<class Receiver, class Func>
+    inline typename std::enable_if<!std::is_convertible<Func, const char *>::value, void>::type
+        showMessage(const QString &message, const Receiver *recvr, Func slot)
+    {
+        // enforce emission of any hidden signal
+        m_messageItem->forceHide(KGamePopupItem::InstantHide);
+
+        if (m_messageHiddenConnecttion) {
+            QObject::disconnect(m_messageHiddenConnecttion);
+        }
+        m_messageHiddenConnecttion = connect(m_messageItem, &KGamePopupItem::hidden, recvr, slot);
+
+        m_messageItem->showMessage(message, KGamePopupItem::Center, KGamePopupItem::ReplacePrevious);
+
+    }
 
 public Q_SLOTS:
     void nextLevel();
@@ -143,6 +160,8 @@ private:
 
     QFont statusFont_;
     QFontMetrics statusMetrics_;
+
+    QMetaObject::Connection m_messageHiddenConnecttion;
 };
 
 #endif /* PLAYFIELD_H */
