@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ksokoban\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-02 00:43+0000\n"
+"POT-Creation-Date: 2023-08-28 00:43+0000\n"
 "PO-Revision-Date: 2022-04-09 19:27+0200\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -147,93 +147,93 @@ msgstr "Za prispievanie úrovní Sokobanu zahrnutých v tejto hre"
 msgid "Level collection file to load."
 msgstr "Načítanie súboru kolekcie úrovní"
 
-#: MainWindow.cpp:37
+#: MainWindow.cpp:38
 #, kde-format
 msgid "&Level Collection"
 msgstr "Kolekcia úrovní"
 
-#: MainWindow.cpp:95
+#: MainWindow.cpp:97
 #, kde-format
 msgid "&Load Levels..."
 msgstr "Načítať úrovne..."
 
-#: MainWindow.cpp:99
+#: MainWindow.cpp:101
 #, kde-format
 msgid "&Next Level"
 msgstr "Nasledujúca úroveň"
 
-#: MainWindow.cpp:104
+#: MainWindow.cpp:106
 #, kde-format
 msgid "&Previous Level"
 msgstr "Predchádzajúca úroveň"
 
-#: MainWindow.cpp:109
+#: MainWindow.cpp:111
 #, kde-format
 msgid "Re&start Level"
 msgstr "Reštartovať úroveň"
 
-#: MainWindow.cpp:122
+#: MainWindow.cpp:124
 #, kde-format
 msgid "&Slow"
 msgstr "Pomalé"
 
-#: MainWindow.cpp:127
+#: MainWindow.cpp:129
 #, kde-format
 msgid "&Medium"
 msgstr "&Stredné"
 
-#: MainWindow.cpp:132
+#: MainWindow.cpp:134
 #, kde-format
 msgid "&Fast"
 msgstr "Rýchle"
 
-#: MainWindow.cpp:137
+#: MainWindow.cpp:139
 #, kde-format
 msgid "&Off"
 msgstr "&Vypnúť"
 
-#: MainWindow.cpp:177 MainWindow.cpp:191
+#: MainWindow.cpp:179 MainWindow.cpp:193
 #, kde-format
 msgid "(unused)"
 msgstr "(nepoužité)"
 
-#: MainWindow.cpp:227
+#: MainWindow.cpp:229
 #, kde-format
 msgid "(invalid)"
 msgstr "(neplatné)"
 
-#: MainWindow.cpp:286
+#: MainWindow.cpp:288
 #, kde-format
 msgctxt "@title:window"
 msgid "Load Levels from a File"
 msgstr "Načítať úrovne zo súboru"
 
-#: MainWindow.cpp:321
+#: MainWindow.cpp:323
 #, kde-format
 msgid "No levels found in file"
 msgstr "V súbore sa nenašli žiadne úrovne"
 
-#: PlayField.cpp:40
+#: PlayField.cpp:92
 #, kde-format
 msgid "Level:"
 msgstr "Úroveň:"
 
-#: PlayField.cpp:41
+#: PlayField.cpp:101
 #, kde-format
 msgid "Steps:"
 msgstr "Kroky:"
 
-#: PlayField.cpp:42
+#: PlayField.cpp:110
 #, kde-format
 msgid "Pushes:"
 msgstr "Ťahy:"
 
-#: PlayField.cpp:383
+#: PlayField.cpp:341
 #, kde-format
 msgid "Level completed"
 msgstr "Úroveň dokončená"
 
-#: PlayField.cpp:761
+#: PlayField.cpp:670
 #, kde-format
 msgid ""
 "This is the last level in\n"
@@ -242,7 +242,7 @@ msgstr ""
 "Toto je posledná úroveň v\n"
 " aktuálnej kolekcii."
 
-#: PlayField.cpp:768
+#: PlayField.cpp:676
 #, kde-format
 msgid ""
 "You have not completed\n"
@@ -251,7 +251,7 @@ msgstr ""
 "Túto úroveň\n"
 "ste ešte nedokončili."
 
-#: PlayField.cpp:783
+#: PlayField.cpp:690
 #, kde-format
 msgid ""
 "This is the first level in\n"
@@ -260,7 +260,7 @@ msgstr ""
 "Toto je prvá úroveň v\n"
 " aktuálnej kolekcii."
 
-#: PlayField.cpp:943
+#: PlayField.cpp:768
 #, kde-format
 msgid ""
 "Sorry, bookmarks for external levels\n"
@@ -269,7 +269,7 @@ msgstr ""
 "Ľutujeme, záložky pre externé úrovne\n"
 " zatiaľ nie sú implementované."
 
-#: PlayField.cpp:968
+#: PlayField.cpp:793
 #, kde-format
 msgid "This level is broken"
 msgstr "Táto úroveň je poškodená"

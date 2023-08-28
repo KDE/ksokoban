@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ksokoban\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-02 00:43+0000\n"
+"POT-Creation-Date: 2023-08-28 00:43+0000\n"
 "PO-Revision-Date: 2022-08-22 08:51+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -149,93 +149,93 @@ msgstr "Створення рівнів Сокобану, включених д�
 msgid "Level collection file to load."
 msgstr "Файл збірки рівнів, який слід завантажити."
 
-#: MainWindow.cpp:37
+#: MainWindow.cpp:38
 #, kde-format
 msgid "&Level Collection"
 msgstr "З&бірка рівнів"
 
-#: MainWindow.cpp:95
+#: MainWindow.cpp:97
 #, kde-format
 msgid "&Load Levels..."
 msgstr "З&авантажити рівні…"
 
-#: MainWindow.cpp:99
+#: MainWindow.cpp:101
 #, kde-format
 msgid "&Next Level"
 msgstr "Н&аступний рівень"
 
-#: MainWindow.cpp:104
+#: MainWindow.cpp:106
 #, kde-format
 msgid "&Previous Level"
 msgstr "Поп&ередній рівень"
 
-#: MainWindow.cpp:109
+#: MainWindow.cpp:111
 #, kde-format
 msgid "Re&start Level"
 msgstr "П&очати рівень знову"
 
-#: MainWindow.cpp:122
+#: MainWindow.cpp:124
 #, kde-format
 msgid "&Slow"
 msgstr "&Повільно"
 
-#: MainWindow.cpp:127
+#: MainWindow.cpp:129
 #, kde-format
 msgid "&Medium"
 msgstr "По&мірно"
 
-#: MainWindow.cpp:132
+#: MainWindow.cpp:134
 #, kde-format
 msgid "&Fast"
 msgstr "&Швидко"
 
-#: MainWindow.cpp:137
+#: MainWindow.cpp:139
 #, kde-format
 msgid "&Off"
 msgstr "&Вимкнути"
 
-#: MainWindow.cpp:177 MainWindow.cpp:191
+#: MainWindow.cpp:179 MainWindow.cpp:193
 #, kde-format
 msgid "(unused)"
 msgstr "(не використовується)"
 
-#: MainWindow.cpp:227
+#: MainWindow.cpp:229
 #, kde-format
 msgid "(invalid)"
 msgstr "(некоректний)"
 
-#: MainWindow.cpp:286
+#: MainWindow.cpp:288
 #, kde-format
 msgctxt "@title:window"
 msgid "Load Levels from a File"
 msgstr "Завантаження рівнів з файла"
 
-#: MainWindow.cpp:321
+#: MainWindow.cpp:323
 #, kde-format
 msgid "No levels found in file"
 msgstr "У файлі не знайдено жодного рівня"
 
-#: PlayField.cpp:40
+#: PlayField.cpp:92
 #, kde-format
 msgid "Level:"
 msgstr "Рівень:"
 
-#: PlayField.cpp:41
+#: PlayField.cpp:101
 #, kde-format
 msgid "Steps:"
 msgstr "Кроків:"
 
-#: PlayField.cpp:42
+#: PlayField.cpp:110
 #, kde-format
 msgid "Pushes:"
 msgstr "Штовхань:"
 
-#: PlayField.cpp:383
+#: PlayField.cpp:341
 #, kde-format
 msgid "Level completed"
 msgstr "Рівень пройдено"
 
-#: PlayField.cpp:761
+#: PlayField.cpp:670
 #, kde-format
 msgid ""
 "This is the last level in\n"
@@ -244,14 +244,14 @@ msgstr ""
 "Це останній рівень у поточній\n"
 "збірці."
 
-#: PlayField.cpp:768
+#: PlayField.cpp:676
 #, kde-format
 msgid ""
 "You have not completed\n"
 "this level yet."
 msgstr "Цей рівень ще не пройдено."
 
-#: PlayField.cpp:783
+#: PlayField.cpp:690
 #, kde-format
 msgid ""
 "This is the first level in\n"
@@ -260,7 +260,7 @@ msgstr ""
 "Це перший рівень у поточній\n"
 "збірці."
 
-#: PlayField.cpp:943
+#: PlayField.cpp:768
 #, kde-format
 msgid ""
 "Sorry, bookmarks for external levels\n"
@@ -269,7 +269,7 @@ msgstr ""
 "Вибачте, закладки для зовнішніх рівнів\n"
 "ще не реалізовано."
 
-#: PlayField.cpp:968
+#: PlayField.cpp:793
 #, kde-format
 msgid "This level is broken"
 msgstr "Дані цього рівня пошкоджено"

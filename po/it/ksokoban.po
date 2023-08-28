@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-02 00:43+0000\n"
+"POT-Creation-Date: 2023-08-28 00:43+0000\n"
 "PO-Revision-Date: 2022-08-24 20:40+0200\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -147,93 +147,93 @@ msgstr "Per il contributo dei livelli di Sokoban inclusi in questo gioco"
 msgid "Level collection file to load."
 msgstr "File di collezione di livelli da caricare."
 
-#: MainWindow.cpp:37
+#: MainWindow.cpp:38
 #, kde-format
 msgid "&Level Collection"
 msgstr "Collezione di &livelli"
 
-#: MainWindow.cpp:95
+#: MainWindow.cpp:97
 #, kde-format
 msgid "&Load Levels..."
 msgstr "Carica i &livelli..."
 
-#: MainWindow.cpp:99
+#: MainWindow.cpp:101
 #, kde-format
 msgid "&Next Level"
 msgstr "&Livello successivo"
 
-#: MainWindow.cpp:104
+#: MainWindow.cpp:106
 #, kde-format
 msgid "&Previous Level"
 msgstr "Livello &precedente"
 
-#: MainWindow.cpp:109
+#: MainWindow.cpp:111
 #, kde-format
 msgid "Re&start Level"
 msgstr "Ri&comincia il livello"
 
-#: MainWindow.cpp:122
+#: MainWindow.cpp:124
 #, kde-format
 msgid "&Slow"
 msgstr "Len&to"
 
-#: MainWindow.cpp:127
+#: MainWindow.cpp:129
 #, kde-format
 msgid "&Medium"
 msgstr "&Medio"
 
-#: MainWindow.cpp:132
+#: MainWindow.cpp:134
 #, kde-format
 msgid "&Fast"
 msgstr "&Veloce"
 
-#: MainWindow.cpp:137
+#: MainWindow.cpp:139
 #, kde-format
 msgid "&Off"
 msgstr "&Spento"
 
-#: MainWindow.cpp:177 MainWindow.cpp:191
+#: MainWindow.cpp:179 MainWindow.cpp:193
 #, kde-format
 msgid "(unused)"
 msgstr "(non usato)"
 
-#: MainWindow.cpp:227
+#: MainWindow.cpp:229
 #, kde-format
 msgid "(invalid)"
 msgstr "(non valido)"
 
-#: MainWindow.cpp:286
+#: MainWindow.cpp:288
 #, kde-format
 msgctxt "@title:window"
 msgid "Load Levels from a File"
 msgstr "Carica livelli da un file"
 
-#: MainWindow.cpp:321
+#: MainWindow.cpp:323
 #, kde-format
 msgid "No levels found in file"
 msgstr "Nessun livello trovato"
 
-#: PlayField.cpp:40
+#: PlayField.cpp:92
 #, kde-format
 msgid "Level:"
 msgstr "Livello:"
 
-#: PlayField.cpp:41
+#: PlayField.cpp:101
 #, kde-format
 msgid "Steps:"
 msgstr "Passi:"
 
-#: PlayField.cpp:42
+#: PlayField.cpp:110
 #, kde-format
 msgid "Pushes:"
 msgstr "Spinte:"
 
-#: PlayField.cpp:383
+#: PlayField.cpp:341
 #, kde-format
 msgid "Level completed"
 msgstr "Livello completato"
 
-#: PlayField.cpp:761
+#: PlayField.cpp:670
 #, kde-format
 msgid ""
 "This is the last level in\n"
@@ -242,7 +242,7 @@ msgstr ""
 "Questo è l'ultimo livello\n"
 "nella collezione attuale."
 
-#: PlayField.cpp:768
+#: PlayField.cpp:676
 #, kde-format
 msgid ""
 "You have not completed\n"
@@ -251,7 +251,7 @@ msgstr ""
 "Non hai ancora completato\n"
 "questo livello."
 
-#: PlayField.cpp:783
+#: PlayField.cpp:690
 #, kde-format
 msgid ""
 "This is the first level in\n"
@@ -260,7 +260,7 @@ msgstr ""
 "Questo è il primo livello\n"
 "della collezione attuale."
 
-#: PlayField.cpp:943
+#: PlayField.cpp:768
 #, kde-format
 msgid ""
 "Sorry, bookmarks for external levels\n"
@@ -269,7 +269,7 @@ msgstr ""
 "Spiacente, i segnalibri per i livelli esterni\n"
 "non sono ancora implementati."
 
-#: PlayField.cpp:968
+#: PlayField.cpp:793
 #, kde-format
 msgid "This level is broken"
 msgstr "Questo livello è rotto"

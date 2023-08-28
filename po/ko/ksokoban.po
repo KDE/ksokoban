@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ksokoban\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-02 00:43+0000\n"
+"POT-Creation-Date: 2023-08-28 00:43+0000\n"
 "PO-Revision-Date: 2022-10-03 16:02+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-i18n-doc@kde.org>\n"
@@ -146,93 +146,93 @@ msgstr "이 게임에 포함된 소코반 단계 기여"
 msgid "Level collection file to load."
 msgstr "불러올 단계 모음집 파일입니다."
 
-#: MainWindow.cpp:37
+#: MainWindow.cpp:38
 #, kde-format
 msgid "&Level Collection"
 msgstr "단계 모음집(&L)"
 
-#: MainWindow.cpp:95
+#: MainWindow.cpp:97
 #, kde-format
 msgid "&Load Levels..."
 msgstr "단계 불러오기(&L)..."
 
-#: MainWindow.cpp:99
+#: MainWindow.cpp:101
 #, kde-format
 msgid "&Next Level"
 msgstr "다음 단계(&N)"
 
-#: MainWindow.cpp:104
+#: MainWindow.cpp:106
 #, kde-format
 msgid "&Previous Level"
 msgstr "이전 단계(&P)"
 
-#: MainWindow.cpp:109
+#: MainWindow.cpp:111
 #, kde-format
 msgid "Re&start Level"
 msgstr "단계 다시 시작(&S)"
 
-#: MainWindow.cpp:122
+#: MainWindow.cpp:124
 #, kde-format
 msgid "&Slow"
 msgstr "느림(&S)"
 
-#: MainWindow.cpp:127
+#: MainWindow.cpp:129
 #, kde-format
 msgid "&Medium"
 msgstr "중간(&M)"
 
-#: MainWindow.cpp:132
+#: MainWindow.cpp:134
 #, kde-format
 msgid "&Fast"
 msgstr "빠름(&F)"
 
-#: MainWindow.cpp:137
+#: MainWindow.cpp:139
 #, kde-format
 msgid "&Off"
 msgstr "끔(&O)"
 
-#: MainWindow.cpp:177 MainWindow.cpp:191
+#: MainWindow.cpp:179 MainWindow.cpp:193
 #, kde-format
 msgid "(unused)"
 msgstr "(사용하지 않음)"
 
-#: MainWindow.cpp:227
+#: MainWindow.cpp:229
 #, kde-format
 msgid "(invalid)"
 msgstr "(잘못됨)"
 
-#: MainWindow.cpp:286
+#: MainWindow.cpp:288
 #, kde-format
 msgctxt "@title:window"
 msgid "Load Levels from a File"
 msgstr "파일에서 단계 불러오기"
 
-#: MainWindow.cpp:321
+#: MainWindow.cpp:323
 #, kde-format
 msgid "No levels found in file"
 msgstr "파일에서 단계를 찾을 수 없음"
 
-#: PlayField.cpp:40
+#: PlayField.cpp:92
 #, kde-format
 msgid "Level:"
 msgstr "단계:"
 
-#: PlayField.cpp:41
+#: PlayField.cpp:101
 #, kde-format
 msgid "Steps:"
 msgstr "이동:"
 
-#: PlayField.cpp:42
+#: PlayField.cpp:110
 #, kde-format
 msgid "Pushes:"
 msgstr "밀기:"
 
-#: PlayField.cpp:383
+#: PlayField.cpp:341
 #, kde-format
 msgid "Level completed"
 msgstr "단계 완료됨"
 
-#: PlayField.cpp:761
+#: PlayField.cpp:670
 #, kde-format
 msgid ""
 "This is the last level in\n"
@@ -241,7 +241,7 @@ msgstr ""
 "이 단계는 현재 모음집의\n"
 "마지막 단계입니다."
 
-#: PlayField.cpp:768
+#: PlayField.cpp:676
 #, kde-format
 msgid ""
 "You have not completed\n"
@@ -250,7 +250,7 @@ msgstr ""
 "아직 이 단계를\n"
 "완료하지 않았습니다."
 
-#: PlayField.cpp:783
+#: PlayField.cpp:690
 #, kde-format
 msgid ""
 "This is the first level in\n"
@@ -259,7 +259,7 @@ msgstr ""
 "이 단계는 현재 모음집의\n"
 "첫 단계입니다."
 
-#: PlayField.cpp:943
+#: PlayField.cpp:768
 #, kde-format
 msgid ""
 "Sorry, bookmarks for external levels\n"
@@ -268,7 +268,7 @@ msgstr ""
 "죄송합니다, 외부 단계 책갈피는\n"
 "아직 구현되지 않았습니다."
 
-#: PlayField.cpp:968
+#: PlayField.cpp:793
 #, kde-format
 msgid "This level is broken"
 msgstr "이 단계가 깨짐"

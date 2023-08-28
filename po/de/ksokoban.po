@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-02 00:43+0000\n"
+"POT-Creation-Date: 2023-08-28 00:43+0000\n"
 "PO-Revision-Date: 2022-12-19 10:43+0100\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -147,93 +147,93 @@ msgstr "Für Beiträge zu den Sokoban-Räumen, die diesem Spiel beiliegen"
 msgid "Level collection file to load."
 msgstr "Datei mit Raumsammlung, die geladen werden soll."
 
-#: MainWindow.cpp:37
+#: MainWindow.cpp:38
 #, kde-format
 msgid "&Level Collection"
 msgstr "Ra&um-Sammlung"
 
-#: MainWindow.cpp:95
+#: MainWindow.cpp:97
 #, kde-format
 msgid "&Load Levels..."
 msgstr "Räume &laden ..."
 
-#: MainWindow.cpp:99
+#: MainWindow.cpp:101
 #, kde-format
 msgid "&Next Level"
 msgstr "&Nächste Ebene"
 
-#: MainWindow.cpp:104
+#: MainWindow.cpp:106
 #, kde-format
 msgid "&Previous Level"
 msgstr "&Vorherige Ebene"
 
-#: MainWindow.cpp:109
+#: MainWindow.cpp:111
 #, kde-format
 msgid "Re&start Level"
 msgstr "Raum neu &starten"
 
-#: MainWindow.cpp:122
+#: MainWindow.cpp:124
 #, kde-format
 msgid "&Slow"
 msgstr "L&angsam"
 
-#: MainWindow.cpp:127
+#: MainWindow.cpp:129
 #, kde-format
 msgid "&Medium"
 msgstr "&Mittel"
 
-#: MainWindow.cpp:132
+#: MainWindow.cpp:134
 #, kde-format
 msgid "&Fast"
 msgstr "&Schnell"
 
-#: MainWindow.cpp:137
+#: MainWindow.cpp:139
 #, kde-format
 msgid "&Off"
 msgstr "&Aus"
 
-#: MainWindow.cpp:177 MainWindow.cpp:191
+#: MainWindow.cpp:179 MainWindow.cpp:193
 #, kde-format
 msgid "(unused)"
 msgstr "(Unbenutzt)"
 
-#: MainWindow.cpp:227
+#: MainWindow.cpp:229
 #, kde-format
 msgid "(invalid)"
 msgstr "(ungültig)"
 
-#: MainWindow.cpp:286
+#: MainWindow.cpp:288
 #, kde-format
 msgctxt "@title:window"
 msgid "Load Levels from a File"
 msgstr "Räume aus einer Datei laden"
 
-#: MainWindow.cpp:321
+#: MainWindow.cpp:323
 #, kde-format
 msgid "No levels found in file"
 msgstr "In der Datei sind keine Räume einhalten"
 
-#: PlayField.cpp:40
+#: PlayField.cpp:92
 #, kde-format
 msgid "Level:"
 msgstr "Ebene:"
 
-#: PlayField.cpp:41
+#: PlayField.cpp:101
 #, kde-format
 msgid "Steps:"
 msgstr "Schritte:"
 
-#: PlayField.cpp:42
+#: PlayField.cpp:110
 #, kde-format
 msgid "Pushes:"
 msgstr "Verschiebungen:"
 
-#: PlayField.cpp:383
+#: PlayField.cpp:341
 #, kde-format
 msgid "Level completed"
 msgstr "Raum abgeschlossen"
 
-#: PlayField.cpp:761
+#: PlayField.cpp:670
 #, kde-format
 msgid ""
 "This is the last level in\n"
@@ -242,7 +242,7 @@ msgstr ""
 "Dies ist der letzte Raum\n"
 "in der aktuellen Sammlung."
 
-#: PlayField.cpp:768
+#: PlayField.cpp:676
 #, kde-format
 msgid ""
 "You have not completed\n"
@@ -251,7 +251,7 @@ msgstr ""
 "Sie haben diesen Raum\n"
 "noch nicht abgeschlossen."
 
-#: PlayField.cpp:783
+#: PlayField.cpp:690
 #, kde-format
 msgid ""
 "This is the first level in\n"
@@ -260,7 +260,7 @@ msgstr ""
 "Dies ist der erste Raum\n"
 "in der aktuellen Sammlung."
 
-#: PlayField.cpp:943
+#: PlayField.cpp:768
 #, kde-format
 msgid ""
 "Sorry, bookmarks for external levels\n"
@@ -269,7 +269,7 @@ msgstr ""
 "Lesezeichen für externe Räume sind\n"
 "leider noch nicht implementiert."
 
-#: PlayField.cpp:968
+#: PlayField.cpp:793
 #, kde-format
 msgid "This level is broken"
 msgstr "Dieser Raum ist defekt"

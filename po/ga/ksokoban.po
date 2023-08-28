@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ksokoban\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-02 00:43+0000\n"
+"POT-Creation-Date: 2023-08-28 00:43+0000\n"
 "PO-Revision-Date: 2012-09-21 16:01-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -146,95 +146,95 @@ msgstr "Na leibhéil Sokoban atá isteach leis an gcluiche seo"
 msgid "Level collection file to load."
 msgstr "Comhad bailiúcháin leibhéal lu luchtú"
 
-#: MainWindow.cpp:37
+#: MainWindow.cpp:38
 #, kde-format
 msgid "&Level Collection"
 msgstr "Bailiúchán &Leibhéal"
 
-#: MainWindow.cpp:95
+#: MainWindow.cpp:97
 #, fuzzy, kde-format
 #| msgid "Load Levels From File"
 msgid "&Load Levels..."
 msgstr "Luchtaigh Leibhéil Ó Chomhad"
 
-#: MainWindow.cpp:99
+#: MainWindow.cpp:101
 #, kde-format
 msgid "&Next Level"
 msgstr "An Chéad Leibhéal &Eile"
 
-#: MainWindow.cpp:104
+#: MainWindow.cpp:106
 #, kde-format
 msgid "&Previous Level"
 msgstr "An Leibhéal &Roimhe Seo"
 
-#: MainWindow.cpp:109
+#: MainWindow.cpp:111
 #, kde-format
 msgid "Re&start Level"
 msgstr "Ato&saigh an Leibhéal"
 
-#: MainWindow.cpp:122
+#: MainWindow.cpp:124
 #, kde-format
 msgid "&Slow"
 msgstr "&Mall"
 
-#: MainWindow.cpp:127
+#: MainWindow.cpp:129
 #, kde-format
 msgid "&Medium"
 msgstr "&Measartha"
 
-#: MainWindow.cpp:132
+#: MainWindow.cpp:134
 #, kde-format
 msgid "&Fast"
 msgstr "&Tapa"
 
-#: MainWindow.cpp:137
+#: MainWindow.cpp:139
 #, kde-format
 msgid "&Off"
 msgstr "&Múchta"
 
-#: MainWindow.cpp:177 MainWindow.cpp:191
+#: MainWindow.cpp:179 MainWindow.cpp:193
 #, kde-format
 msgid "(unused)"
 msgstr "(gan úsáid)"
 
-#: MainWindow.cpp:227
+#: MainWindow.cpp:229
 #, kde-format
 msgid "(invalid)"
 msgstr "(neamhbhailí)"
 
-#: MainWindow.cpp:286
+#: MainWindow.cpp:288
 #, fuzzy, kde-format
 #| msgid "Load Levels From File"
 msgctxt "@title:window"
 msgid "Load Levels from a File"
 msgstr "Luchtaigh Leibhéil Ó Chomhad"
 
-#: MainWindow.cpp:321
+#: MainWindow.cpp:323
 #, kde-format
 msgid "No levels found in file"
 msgstr "Níor aimsíodh aon leibhéil sa chomhad"
 
-#: PlayField.cpp:40
+#: PlayField.cpp:92
 #, kde-format
 msgid "Level:"
 msgstr "Leibhéal:"
 
-#: PlayField.cpp:41
+#: PlayField.cpp:101
 #, kde-format
 msgid "Steps:"
 msgstr "Céimeanna:"
 
-#: PlayField.cpp:42
+#: PlayField.cpp:110
 #, kde-format
 msgid "Pushes:"
 msgstr "Brúnna:"
 
-#: PlayField.cpp:383
+#: PlayField.cpp:341
 #, kde-format
 msgid "Level completed"
 msgstr "Leibhéal críochnaithe"
 
-#: PlayField.cpp:761
+#: PlayField.cpp:670
 #, kde-format
 msgid ""
 "This is the last level in\n"
@@ -243,7 +243,7 @@ msgstr ""
 "Seo é an leibhéal deiridh sa\n"
 "bhailiúchán reatha."
 
-#: PlayField.cpp:768
+#: PlayField.cpp:676
 #, kde-format
 msgid ""
 "You have not completed\n"
@@ -252,7 +252,7 @@ msgstr ""
 "Níl an leibhéal seo\n"
 "déanta agat fós."
 
-#: PlayField.cpp:783
+#: PlayField.cpp:690
 #, kde-format
 msgid ""
 "This is the first level in\n"
@@ -261,7 +261,7 @@ msgstr ""
 "Seo é an chéad leibhéal sa\n"
 "bhailiúchán reatha."
 
-#: PlayField.cpp:943
+#: PlayField.cpp:768
 #, kde-format
 msgid ""
 "Sorry, bookmarks for external levels\n"
@@ -270,7 +270,7 @@ msgstr ""
 "Tá brón orm, níl leabharmharcanna do\n"
 "leibhéil sheachtracha ar fáil fós."
 
-#: PlayField.cpp:968
+#: PlayField.cpp:793
 #, kde-format
 msgid "This level is broken"
 msgstr "Tá an leibhéal seo briste"
