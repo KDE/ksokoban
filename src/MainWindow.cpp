@@ -177,7 +177,7 @@ void MainWindow::setupActions()
         QAction *action = ac->addAction(actionData.addActionId);
         action->setIcon(QIcon::fromTheme(QStringLiteral("bookmark-new")));
         action->setText(i18n("(unused)"));
-        ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL + actionData.key));
+        ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL | actionData.key));
         action->setData(i + 1);
         action->setActionGroup(setBmGrp);
         setBM_act[i] = action;
