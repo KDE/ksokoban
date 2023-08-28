@@ -3,4 +3,7 @@
     <qresource prefix="/kxmlgui5/ksokoban">
         <file>ksokobanui.rc</file>
     </qresource>
+    <qresource prefix="/ksokoban">
+        <file alias="level.data">levels/level.data</file>
+    </qresource>
 </RCC>

@@ -10,6 +10,7 @@
 #include "LevelCollection.h"
 
 #include <QString>
+#include <QByteArray>
 #include <QVector>
 
 #include <cassert>
@@ -40,7 +41,7 @@ private:
 
 private:
     QVector<LevelCollection *> collections_;
-    char *data_;
+    QByteArray m_data;
 };
 
 #endif /* INTERNALCOLLECTIONS_H */

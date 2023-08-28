@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 add_subdirectory(images)
-add_subdirectory(levels)
 
 ecm_setup_version(${ksokoban_VERSION}
     VARIABLE_PREFIX KSOKOBAN

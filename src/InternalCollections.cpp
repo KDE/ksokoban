@@ -1,18 +1,8 @@
 #include "InternalCollections.h"
 
-#include "levels/data.c"
-
 #include <KLocalizedString>
 
-#ifdef USE_LIBZ
-#include <zlib.h>
-#endif
-
-#include <cctype>
-#include <cstdio>
-#include <cstdlib>
-
-static constexpr int BUFSIZE = (128 * 1024);
+#include <QFile>
 
 // static const int collection_save_id[] = {
 //   0, 1, 3, 5, 9, 6, 7, 8, 2, 4
@@ -67,23 +57,13 @@ InternalCollections::InternalCollections()
 {
     int datasize, levelnum = 0;
 
-#ifdef USE_LIBZ
-    data_ = (char *)malloc(BUFSIZE);
-    if (data_ == nullptr)
+    QFile resourceData(QStringLiteral(":/ksokoban/level.data"));
+    if (!resourceData.open(QIODevice::ReadOnly)) {
         abort();
-
-    datasize = BUFSIZE;
-    uncompress((unsigned char *)data_, (long unsigned int *)&datasize, level_data_, sizeof(level_data_));
-    data_ = (char *)realloc(data_, datasize);
-    if (data_ == nullptr)
-        abort();
-#else
-    datasize = sizeof(level_data_);
-    data_ = (char *)malloc(datasize);
-    if (data_ == nullptr)
-        abort();
-    memcpy(data_, level_data_, datasize);
-#endif
+    }
+    m_data = resourceData.readAll();
+    datasize = m_data.size();
+    char *data_ = m_data.data();
 
     int start = 0, end = 0;
 #if 0
@@ -130,8 +110,6 @@ InternalCollections::InternalCollections()
 InternalCollections::~InternalCollections()
 {
     qDeleteAll(collections_);
-
-    free(data_);
 }
 
 int InternalCollections::collections() const
