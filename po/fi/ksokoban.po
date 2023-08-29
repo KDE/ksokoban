@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ksokoban\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-28 00:43+0000\n"
+"POT-Creation-Date: 2023-08-29 00:43+0000\n"
 "PO-Revision-Date: 2023-02-23 19:58+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -26,27 +26,27 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "translator@legisign.org"
 
-#: InternalCollections.cpp:42
+#: InternalCollections.cpp:32
 #, kde-format
 msgid "Sasquatch"
 msgstr "Sasquatch"
 
-#: InternalCollections.cpp:46
+#: InternalCollections.cpp:36
 #, kde-format
 msgid "Mas Sasquatch"
 msgstr "Mas Sasquatch"
 
-#: InternalCollections.cpp:50
+#: InternalCollections.cpp:40
 #, kde-format
 msgid "Sasquatch III"
 msgstr "Sasquatch III"
 
-#: InternalCollections.cpp:54
+#: InternalCollections.cpp:44
 #, kde-format
 msgid "Microban (easy)"
 msgstr "Microban (helppo)"
 
-#: InternalCollections.cpp:58
+#: InternalCollections.cpp:48
 #, kde-format
 msgid "Sasquatch IV"
 msgstr "Sasquatch IV"

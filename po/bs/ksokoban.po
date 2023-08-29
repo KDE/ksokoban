@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kde 49i410\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-28 00:43+0000\n"
+"POT-Creation-Date: 2023-08-29 00:43+0000\n"
 "PO-Revision-Date: 2014-10-20 19:43+0000\n"
 "Last-Translator: Samir Ribić <Unknown>\n"
 "Language-Team: Bosnian\n"
@@ -30,27 +30,27 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "Samir.ribic@etf.unsa.ba,acolpa1@etf.unsa.ba"
 
-#: InternalCollections.cpp:42
+#: InternalCollections.cpp:32
 #, kde-format
 msgid "Sasquatch"
 msgstr "Sasquatch"
 
-#: InternalCollections.cpp:46
+#: InternalCollections.cpp:36
 #, kde-format
 msgid "Mas Sasquatch"
 msgstr "Mas Sasquatch"
 
-#: InternalCollections.cpp:50
+#: InternalCollections.cpp:40
 #, kde-format
 msgid "Sasquatch III"
 msgstr "Sasquatch III"
 
-#: InternalCollections.cpp:54
+#: InternalCollections.cpp:44
 #, kde-format
 msgid "Microban (easy)"
 msgstr "Microban (lako)"
 
-#: InternalCollections.cpp:58
+#: InternalCollections.cpp:48
 #, kde-format
 msgid "Sasquatch IV"
 msgstr "Sasquatch IV"

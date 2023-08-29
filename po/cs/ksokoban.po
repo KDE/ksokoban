@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-28 00:43+0000\n"
+"POT-Creation-Date: 2023-08-29 00:43+0000\n"
 "PO-Revision-Date: 2021-08-19 10:55+0200\n"
 "Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -27,27 +27,27 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "vit@pelcak.org"
 
-#: InternalCollections.cpp:42
+#: InternalCollections.cpp:32
 #, kde-format
 msgid "Sasquatch"
 msgstr ""
 
-#: InternalCollections.cpp:46
+#: InternalCollections.cpp:36
 #, kde-format
 msgid "Mas Sasquatch"
 msgstr ""
 
-#: InternalCollections.cpp:50
+#: InternalCollections.cpp:40
 #, kde-format
 msgid "Sasquatch III"
 msgstr ""
 
-#: InternalCollections.cpp:54
+#: InternalCollections.cpp:44
 #, kde-format
 msgid "Microban (easy)"
 msgstr ""
 
-#: InternalCollections.cpp:58
+#: InternalCollections.cpp:48
 #, kde-format
 msgid "Sasquatch IV"
 msgstr ""
