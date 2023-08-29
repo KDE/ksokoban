@@ -1,6 +1,24 @@
 [KGameTheme]
 Name=Classic
+Name[ca]=Clàssic
+Name[eo]=Klasika
+Name[es]=Clásico
+Name[nl]=Klassiek
+Name[sl]=Klasična
+Name[sv]=Klassiskt
+Name[tr]=Klasik
+Name[uk]=Класична
+Name[x-test]=xxClassicxx
 Description=Classic theme
+Description[ca]=Tema clàssic
+Description[eo]=Klasika etoso
+Description[es]=Tema clásico
+Description[nl]=Klassiek thema
+Description[sl]=Klasična tema
+Description[sv]=Klassiskt tema
+Description[tr]=Klasik tema
+Description[uk]=Класична тема
+Description[x-test]=xxClassic themexx
 VersionFormat=1
 Author=Anders Widell
 AuthorEmail=awl@hem.passagen.se
