@@ -1,8 +1,10 @@
 [KGameTheme]
 Name=Classic
 Name[ca]=Clàssic
+Name[ca@valencia]=Clàssic
 Name[eo]=Klasika
 Name[es]=Clásico
+Name[ka]=კლასიკური
 Name[nl]=Klassiek
 Name[sl]=Klasična
 Name[sv]=Klassiskt
@@ -11,8 +13,10 @@ Name[uk]=Класична
 Name[x-test]=xxClassicxx
 Description=Classic theme
 Description[ca]=Tema clàssic
+Description[ca@valencia]=Tema clàssic
 Description[eo]=Klasika etoso
 Description[es]=Tema clásico
+Description[ka]=კლასიკური თემა
 Description[nl]=Klassiek thema
 Description[sl]=Klasična tema
 Description[sv]=Klassiskt tema
