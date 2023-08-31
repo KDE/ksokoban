@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ksokoban\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-02 00:43+0000\n"
+"POT-Creation-Date: 2023-08-29 00:43+0000\n"
 "PO-Revision-Date: 2022-08-24 10:10+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -30,27 +30,27 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "gaute@verdsveven.com,karl@huftis.org"
 
-#: InternalCollections.cpp:42
+#: InternalCollections.cpp:32
 #, kde-format
 msgid "Sasquatch"
 msgstr "Sasquatch"
 
-#: InternalCollections.cpp:46
+#: InternalCollections.cpp:36
 #, kde-format
 msgid "Mas Sasquatch"
 msgstr "Mas Sasquatch"
 
-#: InternalCollections.cpp:50
+#: InternalCollections.cpp:40
 #, kde-format
 msgid "Sasquatch III"
 msgstr "Sasquatch III"
 
-#: InternalCollections.cpp:54
+#: InternalCollections.cpp:44
 #, kde-format
 msgid "Microban (easy)"
 msgstr "Mikroban (lett)"
 
-#: InternalCollections.cpp:58
+#: InternalCollections.cpp:48
 #, kde-format
 msgid "Sasquatch IV"
 msgstr "Sasquatch IV"
@@ -149,93 +149,93 @@ msgstr "For å ha laga Sokoban-brett i dette spelet"
 msgid "Level collection file to load."
 msgstr "Brettsamlingsfil som skal opnast."
 
-#: MainWindow.cpp:37
+#: MainWindow.cpp:38
 #, kde-format
 msgid "&Level Collection"
 msgstr "&Brettsamling"
 
-#: MainWindow.cpp:95
+#: MainWindow.cpp:97
 #, kde-format
 msgid "&Load Levels..."
 msgstr "&Opna brett …"
 
-#: MainWindow.cpp:99
+#: MainWindow.cpp:101
 #, kde-format
 msgid "&Next Level"
 msgstr "&Neste brett"
 
-#: MainWindow.cpp:104
+#: MainWindow.cpp:106
 #, kde-format
 msgid "&Previous Level"
 msgstr "&Førre brett"
 
-#: MainWindow.cpp:109
+#: MainWindow.cpp:111
 #, kde-format
 msgid "Re&start Level"
 msgstr "&Start brettet på nytt"
 
-#: MainWindow.cpp:122
+#: MainWindow.cpp:124
 #, kde-format
 msgid "&Slow"
 msgstr "&Sakte"
 
-#: MainWindow.cpp:127
+#: MainWindow.cpp:129
 #, kde-format
 msgid "&Medium"
 msgstr "&Middels"
 
-#: MainWindow.cpp:132
+#: MainWindow.cpp:134
 #, kde-format
 msgid "&Fast"
 msgstr "&Rask"
 
-#: MainWindow.cpp:137
+#: MainWindow.cpp:139
 #, kde-format
 msgid "&Off"
 msgstr "&Av"
 
-#: MainWindow.cpp:177 MainWindow.cpp:191
+#: MainWindow.cpp:179 MainWindow.cpp:193
 #, kde-format
 msgid "(unused)"
 msgstr "(ikkje brukt)"
 
-#: MainWindow.cpp:227
+#: MainWindow.cpp:229
 #, kde-format
 msgid "(invalid)"
 msgstr "(ugyldig)"
 
-#: MainWindow.cpp:286
+#: MainWindow.cpp:288
 #, kde-format
 msgctxt "@title:window"
 msgid "Load Levels from a File"
 msgstr "Last brett frå fil"
 
-#: MainWindow.cpp:321
+#: MainWindow.cpp:323
 #, kde-format
 msgid "No levels found in file"
 msgstr "Fann ingen brett i fila"
 
-#: PlayField.cpp:40
+#: PlayField.cpp:92
 #, kde-format
 msgid "Level:"
 msgstr "Brett:"
 
-#: PlayField.cpp:41
+#: PlayField.cpp:101
 #, kde-format
 msgid "Steps:"
 msgstr "Steg:"
 
-#: PlayField.cpp:42
+#: PlayField.cpp:110
 #, kde-format
 msgid "Pushes:"
 msgstr "Skubb:"
 
-#: PlayField.cpp:383
+#: PlayField.cpp:341
 #, kde-format
 msgid "Level completed"
 msgstr "Brett fullført"
 
-#: PlayField.cpp:761
+#: PlayField.cpp:670
 #, kde-format
 msgid ""
 "This is the last level in\n"
@@ -244,7 +244,7 @@ msgstr ""
 "Dette er det siste brettet\n"
 "i denne samlinga."
 
-#: PlayField.cpp:768
+#: PlayField.cpp:676
 #, kde-format
 msgid ""
 "You have not completed\n"
@@ -253,7 +253,7 @@ msgstr ""
 "Du er ikkje ferdig med\n"
 "dette brettet enno."
 
-#: PlayField.cpp:783
+#: PlayField.cpp:690
 #, kde-format
 msgid ""
 "This is the first level in\n"
@@ -262,7 +262,7 @@ msgstr ""
 "Dette er det første brettet\n"
 "i denne samlinga."
 
-#: PlayField.cpp:943
+#: PlayField.cpp:768
 #, kde-format
 msgid ""
 "Sorry, bookmarks for external levels\n"
@@ -271,7 +271,7 @@ msgstr ""
 "Bokmerke for eksterne nivå\n"
 "er ikkje implementert enno."
 
-#: PlayField.cpp:968
+#: PlayField.cpp:793
 #, kde-format
 msgid "This level is broken"
 msgstr "Dette brettet er øydelagt"
