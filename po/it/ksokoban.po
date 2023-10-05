@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-29 00:43+0000\n"
+"POT-Creation-Date: 2023-10-05 00:40+0000\n"
 "PO-Revision-Date: 2022-08-24 20:40+0200\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -213,27 +213,27 @@ msgstr "Carica livelli da un file"
 msgid "No levels found in file"
 msgstr "Nessun livello trovato"
 
-#: PlayField.cpp:92
+#: PlayField.cpp:102
 #, kde-format
 msgid "Level:"
 msgstr "Livello:"
 
-#: PlayField.cpp:101
+#: PlayField.cpp:111
 #, kde-format
 msgid "Steps:"
 msgstr "Passi:"
 
-#: PlayField.cpp:110
+#: PlayField.cpp:120
 #, kde-format
 msgid "Pushes:"
 msgstr "Spinte:"
 
-#: PlayField.cpp:341
+#: PlayField.cpp:351
 #, kde-format
 msgid "Level completed"
 msgstr "Livello completato"
 
-#: PlayField.cpp:670
+#: PlayField.cpp:680
 #, kde-format
 msgid ""
 "This is the last level in\n"
@@ -242,7 +242,7 @@ msgstr ""
 "Questo è l'ultimo livello\n"
 "nella collezione attuale."
 
-#: PlayField.cpp:676
+#: PlayField.cpp:686
 #, kde-format
 msgid ""
 "You have not completed\n"
@@ -251,7 +251,7 @@ msgstr ""
 "Non hai ancora completato\n"
 "questo livello."
 
-#: PlayField.cpp:690
+#: PlayField.cpp:700
 #, kde-format
 msgid ""
 "This is the first level in\n"
@@ -260,7 +260,7 @@ msgstr ""
 "Questo è il primo livello\n"
 "della collezione attuale."
 
-#: PlayField.cpp:768
+#: PlayField.cpp:778
 #, kde-format
 msgid ""
 "Sorry, bookmarks for external levels\n"
@@ -269,7 +269,7 @@ msgstr ""
 "Spiacente, i segnalibri per i livelli esterni\n"
 "non sono ancora implementati."
 
-#: PlayField.cpp:793
+#: PlayField.cpp:803
 #, kde-format
 msgid "This level is broken"
 msgstr "Questo livello è rotto"

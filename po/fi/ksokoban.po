@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ksokoban\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-29 00:43+0000\n"
+"POT-Creation-Date: 2023-10-05 00:40+0000\n"
 "PO-Revision-Date: 2023-02-23 19:58+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -211,27 +211,27 @@ msgstr "Lataa tasot tiedostosta"
 msgid "No levels found in file"
 msgstr "Tiedostosta ei löydy tasoja"
 
-#: PlayField.cpp:92
+#: PlayField.cpp:102
 #, kde-format
 msgid "Level:"
 msgstr "Taso:"
 
-#: PlayField.cpp:101
+#: PlayField.cpp:111
 #, kde-format
 msgid "Steps:"
 msgstr "Askelia:"
 
-#: PlayField.cpp:110
+#: PlayField.cpp:120
 #, kde-format
 msgid "Pushes:"
 msgstr "Työntöjä:"
 
-#: PlayField.cpp:341
+#: PlayField.cpp:351
 #, kde-format
 msgid "Level completed"
 msgstr "Taso päästy loppuun"
 
-#: PlayField.cpp:670
+#: PlayField.cpp:680
 #, kde-format
 msgid ""
 "This is the last level in\n"
@@ -240,7 +240,7 @@ msgstr ""
 "Tämä on nykyisen kokoelman\n"
 "viimeinen taso."
 
-#: PlayField.cpp:676
+#: PlayField.cpp:686
 #, kde-format
 msgid ""
 "You have not completed\n"
@@ -249,7 +249,7 @@ msgstr ""
 "Et ole päässyt vielä\n"
 "tason loppuun."
 
-#: PlayField.cpp:690
+#: PlayField.cpp:700
 #, kde-format
 msgid ""
 "This is the first level in\n"
@@ -258,7 +258,7 @@ msgstr ""
 "Tämä on nykyisen kokoelman\n"
 "ensimmäinen taso."
 
-#: PlayField.cpp:768
+#: PlayField.cpp:778
 #, kde-format
 msgid ""
 "Sorry, bookmarks for external levels\n"
@@ -267,7 +267,7 @@ msgstr ""
 "Kirjanmerkkejä ulkoisiin tasoihin\n"
 "ei ole vielä toteutettu."
 
-#: PlayField.cpp:793
+#: PlayField.cpp:803
 #, kde-format
 msgid "This level is broken"
 msgstr "Tämä taso on rikki"

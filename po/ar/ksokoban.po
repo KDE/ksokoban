@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ksokoban\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-29 00:43+0000\n"
+"POT-Creation-Date: 2023-10-05 00:40+0000\n"
 "PO-Revision-Date: 2022-08-23 19:12+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: Arabic <kde-l10n-ar@kde.org>\n"
@@ -213,27 +213,27 @@ msgstr "تحميل مستويات من ملف"
 msgid "No levels found in file"
 msgstr "لم يعثر على مستويات في الملف"
 
-#: PlayField.cpp:92
+#: PlayField.cpp:102
 #, kde-format
 msgid "Level:"
 msgstr "المستوى:"
 
-#: PlayField.cpp:101
+#: PlayField.cpp:111
 #, kde-format
 msgid "Steps:"
 msgstr "الخطوات:"
 
-#: PlayField.cpp:110
+#: PlayField.cpp:120
 #, kde-format
 msgid "Pushes:"
 msgstr "الدَفعات:"
 
-#: PlayField.cpp:341
+#: PlayField.cpp:351
 #, kde-format
 msgid "Level completed"
 msgstr "اكتمل المستوى"
 
-#: PlayField.cpp:670
+#: PlayField.cpp:680
 #, kde-format
 msgid ""
 "This is the last level in\n"
@@ -242,7 +242,7 @@ msgstr ""
 "هذا أخر مستوى في \n"
 "المجموعة الحالية"
 
-#: PlayField.cpp:676
+#: PlayField.cpp:686
 #, kde-format
 msgid ""
 "You have not completed\n"
@@ -251,7 +251,7 @@ msgstr ""
 "لم تكمل هذا  \n"
 "المستوى حتى الآن"
 
-#: PlayField.cpp:690
+#: PlayField.cpp:700
 #, kde-format
 msgid ""
 "This is the first level in\n"
@@ -260,7 +260,7 @@ msgstr ""
 "هذا أول مستوى في \n"
 "المجموعة الحالية"
 
-#: PlayField.cpp:768
+#: PlayField.cpp:778
 #, kde-format
 msgid ""
 "Sorry, bookmarks for external levels\n"
@@ -269,7 +269,7 @@ msgstr ""
 "نأسف، علامات المستويات الخارجية\n"
 "لم تنفذ حتى الآن."
 
-#: PlayField.cpp:793
+#: PlayField.cpp:803
 #, kde-format
 msgid "This level is broken"
 msgstr "هذا المستوى معطوب"

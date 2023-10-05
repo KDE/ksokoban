@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ksokoban\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-29 00:43+0000\n"
+"POT-Creation-Date: 2023-10-05 00:40+0000\n"
 "PO-Revision-Date: 2022-10-03 16:02+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-i18n-doc@kde.org>\n"
@@ -212,27 +212,27 @@ msgstr "파일에서 단계 불러오기"
 msgid "No levels found in file"
 msgstr "파일에서 단계를 찾을 수 없음"
 
-#: PlayField.cpp:92
+#: PlayField.cpp:102
 #, kde-format
 msgid "Level:"
 msgstr "단계:"
 
-#: PlayField.cpp:101
+#: PlayField.cpp:111
 #, kde-format
 msgid "Steps:"
 msgstr "이동:"
 
-#: PlayField.cpp:110
+#: PlayField.cpp:120
 #, kde-format
 msgid "Pushes:"
 msgstr "밀기:"
 
-#: PlayField.cpp:341
+#: PlayField.cpp:351
 #, kde-format
 msgid "Level completed"
 msgstr "단계 완료됨"
 
-#: PlayField.cpp:670
+#: PlayField.cpp:680
 #, kde-format
 msgid ""
 "This is the last level in\n"
@@ -241,7 +241,7 @@ msgstr ""
 "이 단계는 현재 모음집의\n"
 "마지막 단계입니다."
 
-#: PlayField.cpp:676
+#: PlayField.cpp:686
 #, kde-format
 msgid ""
 "You have not completed\n"
@@ -250,7 +250,7 @@ msgstr ""
 "아직 이 단계를\n"
 "완료하지 않았습니다."
 
-#: PlayField.cpp:690
+#: PlayField.cpp:700
 #, kde-format
 msgid ""
 "This is the first level in\n"
@@ -259,7 +259,7 @@ msgstr ""
 "이 단계는 현재 모음집의\n"
 "첫 단계입니다."
 
-#: PlayField.cpp:768
+#: PlayField.cpp:778
 #, kde-format
 msgid ""
 "Sorry, bookmarks for external levels\n"
@@ -268,7 +268,7 @@ msgstr ""
 "죄송합니다, 외부 단계 책갈피는\n"
 "아직 구현되지 않았습니다."
 
-#: PlayField.cpp:793
+#: PlayField.cpp:803
 #, kde-format
 msgid "This level is broken"
 msgstr "이 단계가 깨짐"
