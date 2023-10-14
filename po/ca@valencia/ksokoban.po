@@ -83,7 +83,7 @@ msgstr "E&stablix una adreça d'interés"
 #: ksokobanui.rc:42
 #, kde-format
 msgid "&Go to Bookmark"
-msgstr "&Ves a l'adreça d'interés"
+msgstr "&Ves fins a l'adreça d'interés"
 
 #: main.cpp:27
 #, kde-format
