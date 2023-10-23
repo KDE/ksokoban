@@ -12,6 +12,7 @@
   <name xml:lang="en-GB">KSokoban</name>
   <name xml:lang="eo">KSokoban</name>
   <name xml:lang="es">KSokoban</name>
+  <name xml:lang="eu">KSokoban</name>
   <name xml:lang="fi">KSokoban</name>
   <name xml:lang="fr">KSokoban</name>
   <name xml:lang="gl">KSokoban</name>
@@ -38,6 +39,7 @@
   <summary xml:lang="en-GB">Sokoban Game</summary>
   <summary xml:lang="eo">Sokoban-ludo</summary>
   <summary xml:lang="es">Juego Sokoban</summary>
+  <summary xml:lang="eu">«Sokoban» jokoa</summary>
   <summary xml:lang="fi">Sokoban-peli</summary>
   <summary xml:lang="fr">Jeu Sokoban</summary>
   <summary xml:lang="gl">Xogo do Sokoban</summary>
@@ -65,6 +67,7 @@
     <p xml:lang="en-GB">KSokoban is a implementation of the Japanese warehouse keeper game “sokoban”.</p>
     <p xml:lang="eo">KSokoban estas realigo de la japana magazenistoludo “sokoban”.</p>
     <p xml:lang="es">KSokoban es una implementación del juego japonés del encargado de almacén «sokoban».</p>
+    <p xml:lang="eu">KSokoban, "Sokoban" biltegizainaren joko japoniarraren inplementazio bat da.</p>
     <p xml:lang="fi">KSokoban on toteutus japanilaisesta varastotyöntekijäpelistä ”sokoban”.</p>
     <p xml:lang="fr">KSokoban est une implémentation du jeu japonais « sokoban » de gardien d'entrepôt.</p>
     <p xml:lang="gl">KSokoban é unha implementación do xogo xaponés de garda de almacén «sokoban».</p>
@@ -90,6 +93,7 @@
     <p xml:lang="en-GB">The idea is that you are a warehouse keeper trying to push crates to their proper locations in a warehouse. The problem is that you cannot pull the crates or step over them. If you are not careful, some of the crates can get stuck in wrong places and/or block your way.</p>
     <p xml:lang="eo">La ideo estas, ke vi estas magazenisto provanta puŝi kestojn al siaj taŭgaj lokoj en magazeno. La problemo estas, ke vi ne povas tiri la kestojn aŭ paŝi super ili. Se vi ne zorgas, iuj el la kestoj povas blokiĝi en malĝustaj lokoj kaj/aŭ bloki vian vojon.</p>
     <p xml:lang="es">La idea es que usted es el encargado de un almacén que trata de empujar las cajas al lugar adecuado dentro del almacén. El problema es que no puede tirar de las cajas ni pasar por encima de ellas. Si no tiene cuidado, algunas de las cajas pueden atascarse en lugares equivocados bloqueando su camino.</p>
+    <p xml:lang="eu">Biltegian kaxak haien kokaleku egokietara bultzatzen saiatu behar duen biltegizaina zara. Arazoa da, kaxak ezin dituzula bultzatu ez eta haien gainean ipini ere. Kontuz ibiltzen ez bazara, kaxa batzuk ez dagozkien lekuetan atera ezinik gera daitezke eta/edo zure ibilbidea oztopa dezakete.</p>
     <p xml:lang="fi">Ideana on, että olet varastotyöntekijä, joka yrittää työntää laatikot oikeille paikoilleen varastossa. Ongelmana on, ettei laatikoita voi vetää tai niiden yli astua. Ellet ole huolellinen, jotkin laatikoista jäävät jumiin vääriin paikkoihin ja mahdollisesti estävät kulkusi.</p>
     <p xml:lang="fr">L'idée est que vous êtes un magasinier d'entrepôt, essayant de pousser des caisses à leurs emplacements corrects dans un entrepôt. Le problème est que vous ne pouvez pas tirer les caisses ni les enjamber. Si vous ne faites pas attention, certaines caisses peuvent se coincer au mauvais endroit et / ou vous bloquer le passage.</p>
     <p xml:lang="gl">A idea é que estás a gardar un almacén, intentando empurrar as caixas ao seu lugar correcto no almacén. O problema é que non podes tirar das caixas ou pasar por riba delas. Se non tes coidado, algunhas caixas poderían quedar atrapadas en lugares incorrectos ou bloquearte o camiño.</p>
