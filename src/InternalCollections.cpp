@@ -57,7 +57,7 @@ InternalCollections::InternalCollections()
 {
     int datasize, levelnum = 0;
 
-    QFile resourceData(QStringLiteral(":/ksokoban/level.data"));
+    QFile resourceData(QStringLiteral(":/skladnik/level.data"));
     if (!resourceData.open(QIODevice::ReadOnly)) {
         abort();
     }

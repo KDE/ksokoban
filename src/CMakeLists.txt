@@ -4,12 +4,12 @@
 
 add_subdirectory(images)
 
-ecm_setup_version(${ksokoban_VERSION}
-    VARIABLE_PREFIX KSOKOBAN
+ecm_setup_version(${skladnik_VERSION}
+    VARIABLE_PREFIX SKLADNIK
     VERSION_HEADER version.h
 )
 
-add_executable(ksokoban
+add_executable(skladnik
     Bookmark.cpp
     LevelMap.cpp
     Map.cpp
@@ -28,23 +28,23 @@ add_executable(ksokoban
     GroundItem.cpp
     SimpleTextItem.cpp
 
-    ksokoban.qrc
+    skladnik.qrc
 )
 
 if (QT_MAJOR_VERSION STREQUAL "6")
-    target_link_libraries(ksokoban KDEGames6)
+    target_link_libraries(skladnik KDEGames6)
 else()
-    target_link_libraries(ksokoban KF5KDEGames)
+    target_link_libraries(skladnik KF5KDEGames)
 endif()
 
-target_link_libraries(ksokoban
+target_link_libraries(skladnik
     KF${KF_MAJOR_VERSION}::I18n
     KF${KF_MAJOR_VERSION}::WidgetsAddons
     KF${KF_MAJOR_VERSION}::XmlGui
     KF${KF_MAJOR_VERSION}::KIOCore
 )
 
-install(TARGETS ksokoban ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS skladnik ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
-install(FILES org.kde.ksokoban.desktop DESTINATION ${KDE_INSTALL_APPDIR})
-install(FILES org.kde.ksokoban.metainfo.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
+install(FILES org.kde.skladnik.desktop DESTINATION ${KDE_INSTALL_APPDIR})
+install(FILES org.kde.skladnik.metainfo.xml DESTINATION ${KDE_INSTALL_METAINFODIR})

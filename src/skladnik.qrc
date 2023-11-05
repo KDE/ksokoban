@@ -1,9 +1,9 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
-    <qresource prefix="/kxmlgui5/ksokoban">
-        <file>ksokobanui.rc</file>
+    <qresource prefix="/kxmlgui5/skladnik">
+        <file>skladnikui.rc</file>
     </qresource>
-    <qresource prefix="/ksokoban">
+    <qresource prefix="/skladnik">
         <file alias="level.data">levels/level.data</file>
     </qresource>
 </RCC>

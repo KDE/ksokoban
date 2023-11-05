@@ -2,11 +2,12 @@
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
   <!ENTITY % English "INCLUDE" > <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
+  <!ENTITY skladnik "<application>Skladnik</application>">
 ]>
 	
 <book lang="&language;">
 <bookinfo>
-<title>The &ksokoban; Handbook</title>
+<title>The &skladnik; Handbook</title>
 
 <authorgroup>
 <author>
@@ -31,7 +32,7 @@
 
 <abstract>
 <para>
-&ksokoban; is a implementation of the Japanese warehouse keeper game <quote>sokoban</quote>.
+&skladnik; is an implementation of the Japanese warehouse keeper game <quote>sokoban</quote>.
 </para>
 </abstract>
 
@@ -40,7 +41,7 @@
 <keyword>kdegames</keyword>
 <keyword>game</keyword>
 <keyword>sokoban</keyword>
-<keyword>ksokoban</keyword>
+<keyword>skladnik</keyword>
 </keywordset>
 </bookinfo>
 
@@ -69,7 +70,7 @@ and/or pushes you use to solve the level.
 
 <para>
 To make the game more fun for small kids (below 10 years or so), some
-collections with easier levels are also included in &ksokoban;. These
+collections with easier levels are also included in &skladnik;. These
 are marked <emphasis>(easy)</emphasis> in the level collection menu.
 Of course, these levels can be fun for adults too, for example if you
 don't want to expose yourself to too much mental strain.
@@ -134,11 +135,11 @@ can of course also restart the level from the very beginning.
 <title>Loading external levels</title>
 
 <para>
-&ksokoban; has the ability to load external sokoban levels from text
+&skladnik; has the ability to load external sokoban levels from text
 files.  You can load levels using the <menuchoice><guimenu>Game</guimenu>
 <guimenuitem>Load Levels...</guimenuitem></menuchoice> menu item, or by
 specifying the level file &URL; as a command line argument when starting
-&ksokoban; from a shell.
+&skladnik; from a shell.
 </para>
 
 <para>
@@ -188,7 +189,7 @@ As an example, below is a text representation of the first level in the
 <chapter id="menu-reference">
 <title>Menu Reference</title>
 
-<para>This is a complete guide to the menus of &ksokoban;.</para>
+<para>This is a complete guide to the menus of &skladnik;.</para>
 
 <sect1 id="game-menu">
 <title>The Game Menu</title>
@@ -245,7 +246,7 @@ more information.</para>
 <guisubmenu>Level Collection</guisubmenu>
 </menuchoice></term>
 <listitem>
-<para><action>A submenu to switch to a different set of levels.</action> &ksokoban;
+<para><action>A submenu to switch to a different set of levels.</action> &skladnik;
 comes with several level sets, and you can load more that you can find
 on the internet.</para>
 </listitem>
@@ -280,7 +281,7 @@ on the internet.</para>
 <guimenuitem>Quit</guimenuitem>
 </menuchoice></term>
 <listitem>
-<para><action>Exit</action> &ksokoban;.</para>
+<para><action>Exit</action> &skladnik;.</para>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -348,7 +349,7 @@ This menu offers menu items with check boxes that allow you to specify the speed
 <guisubmenu>Set Bookmark</guisubmenu>
 </menuchoice></term>
 <listitem>
-<para>&ksokoban; allows you to <action>set bookmarks with a level at a
+<para>&skladnik; allows you to <action>set bookmarks with a level at a
 particular state.</action> You might use this to save yourself
 repeating the same initial steps in a level.</para>
 <para>You can have up to ten bookmarks at a time, and access them via the
@@ -374,7 +375,7 @@ shortcut, where <replaceable>X</replaceable> is any digit between 0 and 9.</para
 <title>The Help Menu</title>
 
 <para>
-&ksokoban; has the common &kde; <guimenu>Help</guimenu> menu item, for more information read the section about the <ulink url="help:/fundamentals/menus.html#menus-help">Help Menu</ulink> of the &kde; Fundamentals.
+&skladnik; has the common &kde; <guimenu>Help</guimenu> menu item, for more information read the section about the <ulink url="help:/fundamentals/menus.html#menus-help">Help Menu</ulink> of the &kde; Fundamentals.
 </para>
 
 </sect1>
@@ -384,9 +385,9 @@ shortcut, where <replaceable>X</replaceable> is any digit between 0 and 9.</para
 <title>Credits and License</title>
 
 <para>
-&ksokoban; is copyright &copy; 1998-2000 by &Anders.Widell;
+&skladnik; is copyright &copy; 1998-2000 by &Anders.Widell;
 &Anders.Widell.mail;.<!-- TODO: For
-the latest info on &ksokoban;, see the &ksokoban; home page at
+the latest info on &skladnik;, see the &skladnik; home page at
 <ulink url="http://hem.passagen.se/awl/ksokoban/">
 http://hem.passagen.se/awl/ksokoban/</ulink>-->
 </para>

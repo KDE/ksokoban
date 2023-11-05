@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui version="4" name="ksokoban" translationDomain="ksokoban">
+<gui version="0" name="skladnik" translationDomain="skladnik">
 <MenuBar>
     <Menu name="game" >
         <text>&amp;Game</text>

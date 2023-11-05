@@ -14,112 +14,112 @@
       y="0"
       width="192"
       height="192"
-      xlink:href="ksokoban_classic_goal.png"
+      xlink:href="skladnik_classic_goal.png"
       id="goal"/>
     <image
       x="0"
       y="192"
       width="192"
       height="192"
-      xlink:href="ksokoban_classic_man.png"
+      xlink:href="skladnik_classic_man.png"
       id="man"/>
     <image
       x="0"
       y="384"
       width="192"
       height="192"
-      xlink:href="ksokoban_classic_saveman.png"
+      xlink:href="skladnik_classic_saveman.png"
       id="saveman"/>
     <image
       x="0"
       y="576"
       width="192"
       height="192"
-      xlink:href="ksokoban_classic_object.png"
+      xlink:href="skladnik_classic_object.png"
       id="object"/>
     <image
       x="0"
       y="768"
       width="192"
       height="192"
-      xlink:href="ksokoban_classic_treasure.png"
+      xlink:href="skladnik_classic_treasure.png"
       id="treasure"/>
     <image
       x="200"
       y="0"
       width="192"
       height="96"
-      xlink:href="ksokoban_classic_stone_1.png"
+      xlink:href="skladnik_classic_stone_1.png"
       id="stone_0"/>
     <image
       x="200"
       y="96"
       width="192"
       height="96"
-      xlink:href="ksokoban_classic_stone_2.png"
+      xlink:href="skladnik_classic_stone_2.png"
       id="stone_1"/>
     <image
       x="200"
       y="192"
       width="192"
       height="96"
-      xlink:href="ksokoban_classic_stone_3.png"
+      xlink:href="skladnik_classic_stone_3.png"
       id="stone_2"/>
     <image
       x="200"
       y="288"
       width="192"
       height="96"
-      xlink:href="ksokoban_classic_stone_4.png"
+      xlink:href="skladnik_classic_stone_4.png"
       id="stone_3"/>
     <image
       x="200"
       y="384"
       width="192"
       height="96"
-      xlink:href="ksokoban_classic_stone_5.png"
+      xlink:href="skladnik_classic_stone_5.png"
       id="stone_4"/>
     <image
       x="200"
       y="480"
       width="192"
       height="96"
-      xlink:href="ksokoban_classic_stone_6.png"
+      xlink:href="skladnik_classic_stone_6.png"
       id="stone_5"/>
     <image
       x="200"
       y="576"
       width="96"
       height="96"
-      xlink:href="ksokoban_classic_halfstone_1.png"
+      xlink:href="skladnik_classic_halfstone_1.png"
       id="halfstone_0"/>
     <image
       x="200"
       y="672"
       width="96"
       height="96"
-      xlink:href="ksokoban_classic_halfstone_2.png"
+      xlink:href="skladnik_classic_halfstone_2.png"
       id="halfstone_1"/>
     <image
       x="200"
       y="768"
       width="96"
       height="96"
-      xlink:href="ksokoban_classic_halfstone_3.png"
+      xlink:href="skladnik_classic_halfstone_3.png"
       id="halfstone_2"/>
     <image
       x="200"
       y="864"
       width="96"
       height="96"
-      xlink:href="ksokoban_classic_halfstone_4.png"
+      xlink:href="skladnik_classic_halfstone_4.png"
       id="halfstone_3"/>
     <image
       x="400"
       y="0"
       width="128"
       height="128"
-      xlink:href="ksokoban_classic_starfield.png"
+      xlink:href="skladnik_classic_starfield.png"
       id="background"/>
   </g>
 </svg>

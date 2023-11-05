@@ -1,35 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component type="desktop-application">
-  <id>org.kde.ksokoban</id>
+  <id>org.kde.skladnik</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
-  <name>KSokoban</name>
-  <name xml:lang="ar">أمين المستودع</name>
-  <name xml:lang="ca">KSokoban</name>
-  <name xml:lang="ca-valencia">KSokoban</name>
-  <name xml:lang="cs">KSokoban</name>
-  <name xml:lang="de">KSokoban</name>
-  <name xml:lang="en-GB">KSokoban</name>
-  <name xml:lang="eo">KSokoban</name>
-  <name xml:lang="es">KSokoban</name>
-  <name xml:lang="eu">KSokoban</name>
-  <name xml:lang="fi">KSokoban</name>
-  <name xml:lang="fr">KSokoban</name>
-  <name xml:lang="gl">KSokoban</name>
-  <name xml:lang="it">KSokoban</name>
-  <name xml:lang="ka">KSokoban</name>
-  <name xml:lang="ko">KSokoban</name>
-  <name xml:lang="nl">KSokoban</name>
-  <name xml:lang="nn">KSokoban</name>
-  <name xml:lang="pl">KSokoban</name>
-  <name xml:lang="pt">KSokoban</name>
-  <name xml:lang="pt-BR">KSokoban</name>
-  <name xml:lang="sk">KSokoban</name>
-  <name xml:lang="sl">KSokoban</name>
-  <name xml:lang="sv">Ksokoban</name>
-  <name xml:lang="tr">K Sokoban</name>
-  <name xml:lang="uk">KSokoban</name>
-  <name xml:lang="x-test">xxKSokobanxx</name>
+  <name>Skladnik</name>
   <summary>Sokoban Game</summary>
   <summary xml:lang="ar">لعبة أمين المستودع</summary>
   <summary xml:lang="ca">Joc del Sokoban</summary>
@@ -56,34 +30,10 @@
   <summary xml:lang="sv">Sokoban-spel</summary>
   <summary xml:lang="tr">Sokoban Oyunu</summary>
   <summary xml:lang="uk">Гра «Сокобан»</summary>
-  <summary xml:lang="x-test">xxSokoban Gamexx</summary>
   <description>
     <p>
-      KSokoban is a implementation of the Japanese warehouse keeper game “sokoban”.
+      Skladnik is an implementation of the Japanese warehouse keeper game “sokoban”.
     </p>
-    <p xml:lang="ar">لعبة أمين المستودع هي تنفيذ للعبة اليابانية أمين المستودع المسماة "سوكوبان"</p>
-    <p xml:lang="ca">El KSokoban és una implementació del joc japonès «Sokoban» de l'encarregat de magatzem.</p>
-    <p xml:lang="ca-valencia">KSokoban és una implementació del joc japonés «Sokoban» de l'encarregat de magatzem.</p>
-    <p xml:lang="en-GB">KSokoban is a implementation of the Japanese warehouse keeper game “sokoban”.</p>
-    <p xml:lang="eo">KSokoban estas realigo de la japana magazenistoludo “sokoban”.</p>
-    <p xml:lang="es">KSokoban es una implementación del juego japonés del encargado de almacén «sokoban».</p>
-    <p xml:lang="eu">KSokoban, "Sokoban" biltegizainaren joko japoniarraren inplementazio bat da.</p>
-    <p xml:lang="fi">KSokoban on toteutus japanilaisesta varastotyöntekijäpelistä ”sokoban”.</p>
-    <p xml:lang="fr">KSokoban est une implémentation du jeu japonais « sokoban » de gardien d'entrepôt.</p>
-    <p xml:lang="gl">KSokoban é unha implementación do xogo xaponés de garda de almacén «sokoban».</p>
-    <p xml:lang="it">KSokoban è un'implementazione del gioco giapponese  del magazziniere «sokoban».</p>
-    <p xml:lang="ka">KSokoban - იაპონური საწყობის უფროსის თამაშიზე, სოკობანზეა დაფუძნებული.</p>
-    <p xml:lang="ko">KSokoban은 창고지기 게임 소코반 구현입니다.</p>
-    <p xml:lang="nl">KSokoban is een implementatie van het Japanse magazijn-beheerder-spel “sokoban”.</p>
-    <p xml:lang="nn">KSokoban er ei utgåve av det japanske lagersjef­spelet «sokoban».</p>
-    <p xml:lang="pl">KSokoban jest implementacją japońskiej gry “sokoban”, w którą grali magazynierzy.</p>
-    <p xml:lang="pt">O KSokoban é uma implementação do jogo japonês de arrumação de armazéns “sokoban”.</p>
-    <p xml:lang="pt-BR">KSokoban é uma implementação do jogo de almoxarife japonês “sokoban”.</p>
-    <p xml:lang="sl">KSokoban je izvedba japonske igre skrbnika skladišča "sokoban".</p>
-    <p xml:lang="sv">Ksokoban är en implementering av det japanska lagerarbetarspelet "sokoban”.</p>
-    <p xml:lang="tr">K Sokoban, Japon depo bekçisi oyunu "Sokoban"ın bir uyarlamasıdır.</p>
-    <p xml:lang="uk">KSokoban — реалізація японської гри у комірника, «сокобан».</p>
-    <p xml:lang="x-test">xxKSokoban is a implementation of the Japanese warehouse keeper game “sokoban”.xx</p>
     <p>
       The idea is that you are a warehouse keeper trying to push crates to their proper locations in a warehouse. The problem is that you cannot pull the crates or step over them. If you are not careful, some of the crates can get stuck in wrong places and/or block your way. 
     </p>
@@ -109,25 +59,24 @@
     <p xml:lang="sv">Idén är att du är en lagerarbetare som försöker knuffa lådor till sina riktiga platser i en lagerbyggnad. Problemet är att du inte kan dra lådorna eller kliva över dem. Om du inte är försiktig kan några av lådorna fastna på fel platser och/eller blockera vägen för dig.</p>
     <p xml:lang="tr">Buradaki fikir, kasaları bir depodaki uygun yerlerine itmeye çalışan bir depo bekçisi olmanızdır. Sorun şu ki, kasaları çekemiyor veya üzerinden geçemezsiniz. Dikkatli olmazsanız bazı sandıklar yanlış yerlere takılabilir ve/veya yolunuzu kapatabilir.</p>
     <p xml:lang="uk">Ви граєте за комірника, якому треба перетягти скриньки на складі у відповідні їм місця. Проблема полягає у тому, що ви не можете тягнути скриньки або переступати через них. Якщо ви не будете обережними, деякі скриньки може бути заблоковано у невідповідних місцях і/або вони можуть заблокувати вам дорогу.</p>
-    <p xml:lang="x-test">xxThe idea is that you are a warehouse keeper trying to push crates to their proper locations in a warehouse. The problem is that you cannot pull the crates or step over them. If you are not careful, some of the crates can get stuck in wrong places and/or block your way.xx</p>
   </description>
   <content_rating type="oars-1.1"/>
-  <url type="homepage">https://apps.kde.org/ksokoban</url>
-  <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=ksokoban</url>
-  <url type="help">https://docs.kde.org/?application=ksokoban</url>
-  <url type="donation">https://www.kde.org/community/donations/?app=ksokoban&amp;source=appdata</url>
-  <screenshots>
+  <!-- TODO: uncomment once up url type="homepage">https://apps.kde.org/skladnik</url -->
+  <!-- TODO: uncomment once moved url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=skladnik</url-->
+  <!-- TODO: uncomment once moved url type="help">https://docs.kde.org/?application=skladnik</url-->
+  <url type="donation">https://www.kde.org/community/donations/?app=skladnik&amp;source=appdata</url>
+  <!-- TODO: uncomment once moved screenshots>
     <screenshot type="default">
-      <image>https://cdn.kde.org/screenshots/ksokoban/ksokoban.png</image>
+      <image>https://cdn.kde.org/screenshots/skladnik/skladnik.png</image>
     </screenshot>
-  </screenshots>
+  </screenshots -->
   <categories>
     <category>Game</category>
     <category>StrategyGame</category>
   </categories>
   <project_group>KDE</project_group>
   <provides>
-    <binary>ksokoban</binary>
+    <binary>skladnik</binary>
   </provides>
-  <launchable type="desktop-id">org.kde.ksokoban.desktop</launchable>
+  <launchable type="desktop-id">org.kde.skladnik.desktop</launchable>
 </component>

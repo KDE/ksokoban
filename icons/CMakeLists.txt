@@ -1,11 +1,11 @@
 ecm_install_icons(
     ICONS
-        16-apps-ksokoban.png
-        22-apps-ksokoban.png
-        32-apps-ksokoban.png
-        48-apps-ksokoban.png
-        64-apps-ksokoban.png
-        128-apps-ksokoban.png
+        16-apps-skladnik.png
+        22-apps-skladnik.png
+        32-apps-skladnik.png
+        48-apps-skladnik.png
+        64-apps-skladnik.png
+        128-apps-skladnik.png
     DESTINATION
         ${KDE_INSTALL_ICONDIR}
     THEME

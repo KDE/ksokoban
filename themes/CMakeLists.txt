@@ -1,8 +1,8 @@
 install( FILES
-    ksokoban_classic.svg
-    ksokoban_classic.desktop
-    #ksokoban_classic_preview.png
-    DESTINATION  ${KDE_INSTALL_DATADIR}/ksokoban/themes
+    skladnik_classic.svg
+    skladnik_classic.desktop
+    #skladnik_classic_preview.png
+    DESTINATION  ${KDE_INSTALL_DATADIR}/skladnik/themes
 )
 
 function(install_classic_sprite_image)
@@ -11,13 +11,13 @@ function(install_classic_sprite_image)
     foreach(image ${ARGS_IMAGES})
         install(FILES "${ARGS_SOURCE_DIR}/${image}"
             RENAME "${ARGS_NAMESPACE}${image}"
-            DESTINATION  ${KDE_INSTALL_DATADIR}/ksokoban/themes
+            DESTINATION  ${KDE_INSTALL_DATADIR}/skladnik/themes
         )
     endforeach()
 endfunction()
 
 install_classic_sprite_image(
-    NAMESPACE "ksokoban_classic_"
+    NAMESPACE "skladnik_classic_"
     SOURCE_DIR "${CMAKE_SOURCE_DIR}/src/images"
     IMAGES
         goal.png

@@ -49,13 +49,13 @@ static constexpr int MESSAGE_TIMEOUT_MS = 4000;
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 static KGameTheme* createClassicTheme()
 {
-    auto *theme = new KGameTheme("themes/ksokoban_classic.desktop");
+    auto *theme = new KGameTheme("themes/skladnik_classic.desktop");
 #else
 static KgTheme* createClassicTheme()
 {
-    auto *theme = new KgTheme("themes/ksokoban_classic.desktop");
+    auto *theme = new KgTheme("themes/skladnik_classic.desktop");
 #endif
-    theme->setGraphicsPath(QStandardPaths::locate(QStandardPaths::AppDataLocation, QStringLiteral("themes/ksokoban_classic.svg")));
+    theme->setGraphicsPath(QStandardPaths::locate(QStandardPaths::AppDataLocation, QStringLiteral("themes/skladnik_classic.svg")));
     return theme;
 }
 

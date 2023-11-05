@@ -1,4 +1,4 @@
-// Pov-ray image source for ksokoban
+// Pov-ray image source for Skladnik
 // SPDX-FileCopyrightText: 1998-1999  Anders Widell <awl@hem.passagen.se>
 
 #declare FloorColour = <114/255, 114/255, 114/255>;

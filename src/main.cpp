@@ -21,16 +21,16 @@ int main(int argc, char **argv)
     QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 #endif
     QApplication app(argc, argv);
-    KLocalizedString::setApplicationDomain("ksokoban");
+    KLocalizedString::setApplicationDomain("skladnik");
 
-    KAboutData aboutData(QStringLiteral("ksokoban"),
-                         i18n("KSokoban"),
-                         QStringLiteral(KSOKOBAN_VERSION_STRING),
+    KAboutData aboutData(QStringLiteral("skladnik"),
+                         i18n("Skladnik"),
+                         QStringLiteral(SKLADNIK_VERSION_STRING),
                          i18n("The japanese warehouse keeper game"),
                          KAboutLicense::GPL,
                          i18n("(c) 1998 Anders Widell <awl@hem.passagen.se>\n(c) 2012 Lukasz Kalamlacki"),
                          QString(),
-                         QStringLiteral("https://apps.kde.org/ksokoban"));
+                         QStringLiteral("https://apps.kde.org/skladnik"));
     aboutData.addAuthor(i18n("Shlomi Fish"),
                         i18n("For porting to Qt5/KF5 and doing other cleanups"),
                         QStringLiteral("shlomif@cpan.org"),
@@ -50,7 +50,7 @@ int main(int argc, char **argv)
 
     KAboutData::setApplicationData(aboutData);
 
-    app.setWindowIcon(QIcon::fromTheme(QStringLiteral("ksokoban")));
+    app.setWindowIcon(QIcon::fromTheme(QStringLiteral("skladnik")));
 
     QCommandLineParser parser;
     parser.addPositionalArgument(QStringLiteral("URL"), i18n("Level collection file to load."), QStringLiteral("[URL}"));

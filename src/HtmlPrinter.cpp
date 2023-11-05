@@ -76,7 +76,7 @@ void HtmlPrinter::printHtml(const Map *lm)
         "\
 <html>\n\
 <head>\n\
-<title>ksokoban level</title>\n\
+<title>Skladnik level</title>\n\
 </head>\n\
 <body background=background.gif>\n\
 ");

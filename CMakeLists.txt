@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.16 FATAL_ERROR)
 
-project(ksokoban VERSION "0.5.0")
+project(skladnik VERSION "0.5.0")
 
 set(QT_MIN_VERSION "5.15.2")
 set(KF_MIN_VERSION "5.91.0")
