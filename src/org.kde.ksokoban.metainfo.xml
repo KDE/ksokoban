@@ -29,7 +29,6 @@
   <name xml:lang="sv">Ksokoban</name>
   <name xml:lang="tr">K Sokoban</name>
   <name xml:lang="uk">KSokoban</name>
-  <name xml:lang="x-test">xxKSokobanxx</name>
   <summary>Sokoban Game</summary>
   <summary xml:lang="ar">لعبة أمين المستودع</summary>
   <summary xml:lang="ca">Joc del Sokoban</summary>
@@ -56,7 +55,6 @@
   <summary xml:lang="sv">Sokoban-spel</summary>
   <summary xml:lang="tr">Sokoban Oyunu</summary>
   <summary xml:lang="uk">Гра «Сокобан»</summary>
-  <summary xml:lang="x-test">xxSokoban Gamexx</summary>
   <description>
     <p>
       KSokoban is a implementation of the Japanese warehouse keeper game “sokoban”.
@@ -83,7 +81,6 @@
     <p xml:lang="sv">Ksokoban är en implementering av det japanska lagerarbetarspelet "sokoban”.</p>
     <p xml:lang="tr">K Sokoban, Japon depo bekçisi oyunu "Sokoban"ın bir uyarlamasıdır.</p>
     <p xml:lang="uk">KSokoban — реалізація японської гри у комірника, «сокобан».</p>
-    <p xml:lang="x-test">xxKSokoban is a implementation of the Japanese warehouse keeper game “sokoban”.xx</p>
     <p>
       The idea is that you are a warehouse keeper trying to push crates to their proper locations in a warehouse. The problem is that you cannot pull the crates or step over them. If you are not careful, some of the crates can get stuck in wrong places and/or block your way. 
     </p>
@@ -109,7 +106,6 @@
     <p xml:lang="sv">Idén är att du är en lagerarbetare som försöker knuffa lådor till sina riktiga platser i en lagerbyggnad. Problemet är att du inte kan dra lådorna eller kliva över dem. Om du inte är försiktig kan några av lådorna fastna på fel platser och/eller blockera vägen för dig.</p>
     <p xml:lang="tr">Buradaki fikir, kasaları bir depodaki uygun yerlerine itmeye çalışan bir depo bekçisi olmanızdır. Sorun şu ki, kasaları çekemiyor veya üzerinden geçemezsiniz. Dikkatli olmazsanız bazı sandıklar yanlış yerlere takılabilir ve/veya yolunuzu kapatabilir.</p>
     <p xml:lang="uk">Ви граєте за комірника, якому треба перетягти скриньки на складі у відповідні їм місця. Проблема полягає у тому, що ви не можете тягнути скриньки або переступати через них. Якщо ви не будете обережними, деякі скриньки може бути заблоковано у невідповідних місцях і/або вони можуть заблокувати вам дорогу.</p>
-    <p xml:lang="x-test">xxThe idea is that you are a warehouse keeper trying to push crates to their proper locations in a warehouse. The problem is that you cannot pull the crates or step over them. If you are not careful, some of the crates can get stuck in wrong places and/or block your way.xx</p>
   </description>
   <content_rating type="oars-1.1"/>
   <url type="homepage">https://apps.kde.org/ksokoban</url>
