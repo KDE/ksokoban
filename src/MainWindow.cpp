@@ -44,7 +44,7 @@ void MainWindow::createCollectionMenu()
     }
 
     KSharedConfigPtr cfg = KSharedConfig::openConfig();
-    KConfigGroup settingsGroup(cfg, "settings");
+    KConfigGroup settingsGroup(cfg, QStringLiteral("settings"));
     int id = settingsGroup.readEntry("collection", "10").toInt();
 
     int currentCollection = 0;
@@ -75,7 +75,7 @@ MainWindow::~MainWindow()
 {
     KSharedConfigPtr cfg = KSharedConfig::openConfig();
 
-    KConfigGroup settingsGroup(cfg, "settings");
+    KConfigGroup settingsGroup(cfg, QStringLiteral("settings"));
     settingsGroup.writeEntry("collection", QStringLiteral("%1").arg(internalCollections_[collectionsAct_->currentItem()]->id()));
 
     for (int i = 1; i <= 10; i++) {
@@ -282,7 +282,7 @@ void MainWindow::changeCollection(int id)
 void MainWindow::loadLevels()
 {
     KSharedConfigPtr cfg = KSharedConfig::openConfig();
-    KConfigGroup settingsGroup(cfg, "settings");
+    KConfigGroup settingsGroup(cfg, QStringLiteral("settings"));
     const QUrl lastFile = QUrl::fromLocalFile(settingsGroup.readPathEntry("lastLevelFile", QString()));
 
     QUrl result = QFileDialog::getOpenFileUrl(this, i18nc("@title:window", "Load Levels from a File"), lastFile, QStringLiteral("*"));
@@ -325,7 +325,7 @@ void MainWindow::openURL(const QUrl &_url)
         return;
     }
     if (_url.isLocalFile()) {
-        KConfigGroup settingsGroup(cfg, "settings");
+        KConfigGroup settingsGroup(cfg, QStringLiteral("settings"));
         settingsGroup.writePathEntry("lastLevelFile", _url.toLocalFile());
     }
 

@@ -69,7 +69,7 @@ PlayField::PlayField(QObject *parent)
     highlightX_ = highlightY_ = 0;
 
     KSharedConfigPtr cfg = KSharedConfig::openConfig();
-    KConfigGroup settingsGroup(cfg, "settings");
+    KConfigGroup settingsGroup(cfg, QStringLiteral("settings"));
 
     animDelay_ = settingsGroup.readEntry("animDelay", QStringLiteral("2")).toInt();
     if (animDelay_ < 0 || animDelay_ > 3)
@@ -139,7 +139,7 @@ PlayField::PlayField(QObject *parent)
 PlayField::~PlayField()
 {
     KSharedConfigPtr cfg = KSharedConfig::openConfig();
-    KConfigGroup settingsGroup(cfg, "settings");
+    KConfigGroup settingsGroup(cfg, QStringLiteral("settings"));
     settingsGroup.writeEntry("animDelay", QStringLiteral("%1").arg(animDelay_));
 
     delete history_;

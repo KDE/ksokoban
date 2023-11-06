@@ -178,7 +178,7 @@ void LevelCollection::loadPrefs()
 {
     if (id_ >= 0) {
         KSharedConfigPtr cfg = KSharedConfig::openConfig();
-        KConfigGroup settingsGroup(cfg, "settings");
+        KConfigGroup settingsGroup(cfg, QStringLiteral("settings"));
 
         QString key = QString::asprintf("level%d", id_);
         level_ = settingsGroup.readEntry(key, QStringLiteral("0")).toInt();
@@ -278,7 +278,7 @@ LevelCollection::~LevelCollection()
 {
     if (id_ >= 0) {
         KSharedConfigPtr cfg = KSharedConfig::openConfig();
-        KConfigGroup settingsGroup(cfg, "settings");
+        KConfigGroup settingsGroup(cfg, QStringLiteral("settings"));
 
         const QString key = QString::asprintf("level%d", id_);
         settingsGroup.writeEntry(key, QStringLiteral("%1").arg(level_));
@@ -307,7 +307,7 @@ void LevelCollection::levelCompleted()
         const QString key = QString::asprintf("status%d", id_);
 
         KSharedConfigPtr cfg = KSharedConfig::openConfig();
-        KConfigGroup settingsGroup(cfg, "settings");
+        KConfigGroup settingsGroup(cfg, QStringLiteral("settings"));
         settingsGroup.writeEntry(key, QStringLiteral("%1").arg(x));
         cfg->sync();
     }
